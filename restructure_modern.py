@@ -134,8 +134,8 @@ modern_head_template = '''<!DOCTYPE html>
 
     /* Modern Sidebar */
     nav#TOC {
-      width: 280px;
-      min-width: 280px;
+      width: 320px;
+      min-width: 320px;
       background: var(--bg-sidebar);
       border: 1px solid var(--border-light);
       border-radius: var(--radius-lg);
@@ -146,6 +146,7 @@ modern_head_template = '''<!DOCTYPE html>
       max-height: calc(100vh - 120px);
       overflow-y: auto;
       box-shadow: var(--shadow-sm);
+      scroll-behavior: smooth;
     }
 
     nav#TOC::-webkit-scrollbar {
@@ -185,7 +186,7 @@ modern_head_template = '''<!DOCTYPE html>
       text-decoration: none;
       padding: 0.5rem 0.75rem;
       border-radius: var(--radius-sm);
-      font-size: 0.875rem;
+      font-size: 0.8125rem;
       font-weight: 500;
       transition: all 0.2s ease;
       line-height: 1.4;
@@ -194,7 +195,7 @@ modern_head_template = '''<!DOCTYPE html>
     nav#TOC > ul > li > a {
       font-weight: 600;
       color: var(--text-primary);
-      font-size: 0.9375rem;
+      font-size: 0.875rem;
       margin-bottom: 0.5rem;
     }
 
@@ -202,6 +203,18 @@ modern_head_template = '''<!DOCTYPE html>
       background: var(--bg-secondary);
       color: var(--accent-orange);
       transform: translateX(2px);
+    }
+
+    /* Active page highlighting */
+    nav#TOC a.active {
+      background: var(--accent-orange);
+      color: white;
+      font-weight: 600;
+    }
+
+    nav#TOC a.active:hover {
+      background: var(--accent-brown);
+      color: white;
     }
 
     nav#TOC ul ul {
@@ -309,6 +322,53 @@ modern_head_template = '''<!DOCTYPE html>
       color: var(--text-primary);
       font-size: 0.9rem;
       line-height: 1.6;
+    }
+
+    /* Copy button for code blocks */
+    .copy-btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 0.375rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.2s ease;
+    }
+
+    pre:hover .copy-btn {
+      opacity: 1;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-orange);
+      color: white;
+      border-color: var(--accent-orange);
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-brown);
+      color: white;
+    }
+
+    /* AI Prompts Note */
+    .ai-prompts-note {
+      background: #FFF9F0;
+      border-left: 4px solid var(--accent-orange);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0 1.5rem 0;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      color: var(--text-primary);
+    }
+
+    .ai-prompts-note strong {
+      color: var(--accent-orange);
     }
 
     /* Tables */
@@ -428,12 +488,75 @@ modern_head_template = '''<!DOCTYPE html>
 </head>
 '''
 
-# Simple scripts without complex features
-simple_scripts = '''
+# Enhanced scripts with requested features
+enhanced_scripts = '''
 <script>
-// Simple navigation - no complex features needed for modern design
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('30-Day Training Plan loaded');
+  // 1. Add copy buttons to all code blocks
+  document.querySelectorAll('pre').forEach(pre => {
+    const button = document.createElement('button');
+    button.className = 'copy-btn';
+    button.textContent = 'Copy';
+    button.setAttribute('aria-label', 'Copy code');
+
+    button.addEventListener('click', async () => {
+      const code = pre.querySelector('code') || pre;
+      const text = code.textContent;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        button.textContent = 'Copied!';
+        button.classList.add('copied');
+        setTimeout(() => {
+          button.textContent = 'Copy';
+          button.classList.remove('copied');
+        }, 2000);
+      } catch (err) {
+        button.textContent = 'Error';
+        setTimeout(() => button.textContent = 'Copy', 2000);
+      }
+    });
+
+    pre.appendChild(button);
+  });
+
+  // 2. Highlight active page in TOC and scroll to it
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  const tocLinks = document.querySelectorAll('nav#TOC a');
+
+  tocLinks.forEach(link => {
+    const linkHref = link.getAttribute('href');
+    if (linkHref === currentPage || linkHref === `../${currentPage}`) {
+      link.classList.add('active');
+
+      // Auto-scroll TOC to show active item
+      setTimeout(() => {
+        const nav = document.querySelector('nav#TOC');
+        const linkTop = link.offsetTop;
+        const navHeight = nav.clientHeight;
+        const linkHeight = link.clientHeight;
+
+        // Scroll so the active link is roughly in the middle
+        nav.scrollTop = linkTop - (navHeight / 2) + (linkHeight / 2);
+      }, 100);
+    }
+  });
+
+  // 3. Add AI prompts usage note
+  const aiPromptsHeadings = document.querySelectorAll('h3[id*="ai-learning-prompts"]');
+  aiPromptsHeadings.forEach(heading => {
+    // Check if note already exists
+    const nextElement = heading.nextElementSibling;
+    if (nextElement && nextElement.classList.contains('ai-prompts-note')) {
+      return;
+    }
+
+    const note = document.createElement('div');
+    note.className = 'ai-prompts-note';
+    note.innerHTML = '<strong>💡 How to use these prompts:</strong> Copy any prompt below and paste it into <strong>Claude</strong>, <strong>ChatGPT</strong>, <strong>Gemini</strong>, or any other AI assistant to learn the concepts. These are for understanding only—solve practice problems yourself!';
+
+    heading.parentNode.insertBefore(note, heading.nextSibling);
+  });
 });
 </script>
 '''
@@ -504,7 +627,7 @@ def create_html_page(title, toc_html, content_html, current_page=''):
     <a href="#" class="back-to-top">↑ Back to Top</a>
   </div>
 </div>
-{simple_scripts}
+{enhanced_scripts}
 </body>
 </html>'''
 

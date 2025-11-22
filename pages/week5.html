@@ -112,8 +112,8 @@
 
     /* Modern Sidebar */
     nav#TOC {
-      width: 280px;
-      min-width: 280px;
+      width: 320px;
+      min-width: 320px;
       background: var(--bg-sidebar);
       border: 1px solid var(--border-light);
       border-radius: var(--radius-lg);
@@ -124,6 +124,7 @@
       max-height: calc(100vh - 120px);
       overflow-y: auto;
       box-shadow: var(--shadow-sm);
+      scroll-behavior: smooth;
     }
 
     nav#TOC::-webkit-scrollbar {
@@ -163,7 +164,7 @@
       text-decoration: none;
       padding: 0.5rem 0.75rem;
       border-radius: var(--radius-sm);
-      font-size: 0.875rem;
+      font-size: 0.8125rem;
       font-weight: 500;
       transition: all 0.2s ease;
       line-height: 1.4;
@@ -172,7 +173,7 @@
     nav#TOC > ul > li > a {
       font-weight: 600;
       color: var(--text-primary);
-      font-size: 0.9375rem;
+      font-size: 0.875rem;
       margin-bottom: 0.5rem;
     }
 
@@ -180,6 +181,18 @@
       background: var(--bg-secondary);
       color: var(--accent-orange);
       transform: translateX(2px);
+    }
+
+    /* Active page highlighting */
+    nav#TOC a.active {
+      background: var(--accent-orange);
+      color: white;
+      font-weight: 600;
+    }
+
+    nav#TOC a.active:hover {
+      background: var(--accent-brown);
+      color: white;
     }
 
     nav#TOC ul ul {
@@ -287,6 +300,53 @@
       color: var(--text-primary);
       font-size: 0.9rem;
       line-height: 1.6;
+    }
+
+    /* Copy button for code blocks */
+    .copy-btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 0.375rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.2s ease;
+    }
+
+    pre:hover .copy-btn {
+      opacity: 1;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-orange);
+      color: white;
+      border-color: var(--accent-orange);
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-brown);
+      color: white;
+    }
+
+    /* AI Prompts Note */
+    .ai-prompts-note {
+      background: #FFF9F0;
+      border-left: 4px solid var(--accent-orange);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0 1.5rem 0;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      color: var(--text-primary);
+    }
+
+    .ai-prompts-note strong {
+      color: var(--accent-orange);
     }
 
     /* Tables */
@@ -479,15 +539,491 @@ HAVING</a></li>
 </ul>
   </nav>
   <div class="content">
-<h1>Week 5</h1><p>Content coming soon...</p>
+<h1 id="week-5-analytics-optimization">WEEK 5: ANALYTICS &amp; OPTIMIZATION</h1>
+<hr/>
+<p><strong>Focus:</strong> Statistical analysis, advanced aggregations, performance tuning, and integration.</p>
+<p><strong>Days 21-25:</strong> Professional-level analytics and optimization techniques.</p>
+<hr/>
+<h2><a href="day21.html">DAY 21: Excel - Statistical Analysis & Forecasting</a></h2>
+<p><strong>Learning Objectives:</strong>
+- Perform statistical analysis in Excel
+- Use regression analysis tools
+- Create forecasts with FORECAST functions
+- Understand correlation and trends
+- Apply data analysis tools</p>
+<h3 id="topics-covered-hour-1---60-min-21">Topics Covered (60 min):</h3>
+<p><strong>1. Descriptive Statistics</strong>
+- Data Analysis Toolpak (Add-in)
+- Descriptive Statistics tool
+- Mean, median, mode, standard deviation
+- Quartiles, range, variance
+- Skewness and kurtosis</p>
+<p><strong>2. Correlation and Regression</strong>
+- <code>CORREL()</code> function - relationship strength
+- Regression tool (Y vs X analysis)
+- Interpret R-squared value
+- Trend lines in charts
+- Example: Sales vs Marketing Spend</p>
+<p><strong>3. Forecasting Functions</strong>
+- <code>FORECAST.LINEAR()</code> - linear trend projection
+- <code>FORECAST.ETS()</code> - exponential smoothing (seasonality)
+- Moving averages for smoothing
+- Seasonal decomposition</p>
+<p><strong>4. What-If Scenarios</strong>
+- Probability distributions
+- Monte Carlo simulation basics
+- Confidence intervals
+- Sensitivity analysis with Data Tables</p>
+<h3 id="video-resources-21">📺 Video Resources:</h3>
+<ol type="1">
+<li><strong>Excel Statistical Analysis</strong> (18 min)<br/>
+https://www.youtube.com/watch?v=9WyFUO_llBc - Leila Gharani</li>
+<li><strong>Excel Forecasting</strong> (15 min)<br/>
+https://www.youtube.com/watch?v=lCN5GyURbZ4 - MyOnlineTrainingHub</li>
+<li><strong>Regression Analysis</strong> (20 min)<br/>
+https://www.youtube.com/watch?v=JLH5e-SZToQ - Excel Campus</li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-21">🤖 AI Learning Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding Statistical Analysis:</strong></p>
+<pre><code>I'm learning statistical analysis in Excel. Please explain:
+
+1. What statistics should I calculate for sales data (mean, median, std dev)?
+2. How do I interpret correlation between two variables?
+3. Show me how to perform regression analysis
+4. What is R-squared and what does it mean?
+5. Provide examples using sales and marketing data
+
+Use beginner-friendly explanations.</code></pre>
+<p><strong>Understanding Forecasting:</strong></p>
+<pre><code>Help me understand Excel forecasting:
+
+1. What is the difference between FORECAST.LINEAR and FORECAST.ETS?
+2. When should I use each forecasting method?
+3. How do I account for seasonality in forecasts?
+4. Show me how to create a 12-month sales forecast
+5. How do I measure forecast accuracy?
+
+Provide practical examples with sales data.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-21">Guided Practice (60 min):</h3>
+<p><em>Calculate descriptive statistics, perform regression analysis, create sales forecast</em></p>
+<h3 id="independent-practice-hour-3---60-min-21">Independent Practice (60 min):</h3>
+<p>Apply the concepts learned to different datasets and scenarios.</p>
+<h3 id="daily-assignment-hour-4---60-min-21">Daily Assignment (60 min):</h3>
+<p><strong>Assignment:</strong></p>
+<ul>
+<li><strong>Descriptive Stats:</strong>Use Data Analysis Toolpak on sales data (mean, median, std dev, quartiles)</li>
+<li><strong>Correlation Analysis:</strong>Calculate correlation between Price and Sales Volume</li>
+<li><strong>Regression:</strong>Analyze relationship between Marketing Spend and Revenue</li>
+<li><strong>Dashboard:</strong>Create summary showing key statistics, trend chart, forecast chart</li>
+</ul>
+<h3 id="expected-outcomes-21">Expected Outcomes:</h3>
+<ul>
+<li>Perform statistical analysis in Excel</li>
+<li>Use regression analysis tools</li>
+<li>Create forecasts with FORECAST functions</li>
+<li>Understand correlation and trends</li>
+<li>Apply data analysis tools</li>
+</ul>
+<hr/>
+<h2><a href="day22.html">DAY 22: SQL - Advanced Aggregations (GROUPING SETS, CUBE, ROLLUP)</a></h2>
+<p><strong>Learning Objectives:</strong>
+- Use GROUPING SETS for multiple aggregations
+- Create summary reports with ROLLUP
+- Generate cross-tabulations with CUBE
+- Understand subtotals and grand totals
+- Master multi-dimensional analysis</p>
+<h3 id="topics-covered-hour-1---60-min-22">Topics Covered (60 min):</h3>
+<p><strong>1. GROUPING SETS</strong>
+- Multiple GROUP BY in single query
+- Syntax: <code>GROUP BY GROUPING SETS ((col1), (col2), (col1, col2))</code>
+- Replaces multiple UNION ALL queries
+- Example: Sales by Region, by Product, by Both</p>
+<p><strong>2. ROLLUP</strong>
+- Hierarchical subtotals
+- Syntax: <code>GROUP BY ROLLUP (col1, col2)</code>
+- Creates hierarchy: (col1, col2), (col1), ()
+- Grand total row
+- Example: Sales by Region → City with subtotals</p>
+<p><strong>3. CUBE</strong>
+- All possible grouping combinations
+- Syntax: <code>GROUP BY CUBE (col1, col2)</code>
+- Creates: (col1, col2), (col1), (col2), ()
+- Cross-dimensional analysis
+- Example: Sales by Region AND Product (all combinations)</p>
+<p><strong>4. GROUPING and GROUPING_ID</strong>
+- Identify NULL vs subtotal rows
+- <code>GROUPING(column)</code> returns 1 for subtotal
+- <code>GROUPING_ID(col1, col2)</code> binary identifier
+- Use with CASE to label subtotals</p>
+<h3 id="video-resources-22">📺 Video Resources:</h3>
+<ol type="1">
+<li><strong>GROUPING SETS Explained</strong> (15 min)<br/>
+https://www.youtube.com/watch?v=5K9FNtGQQEE - WiseOwlTutorials</li>
+<li><strong>ROLLUP and CUBE</strong> (18 min)<br/>
+https://www.youtube.com/watch?v=rGfGmwWRqPE - Programming with Mosh</li>
+<li><strong>Advanced GROUP BY</strong> (12 min)<br/>
+https://www.youtube.com/watch?v=KI2fLk8Q1ak - Data with Baraa</li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-22">🤖 AI Learning Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding GROUPING SETS:</strong></p>
+<pre><code>I'm learning SQL advanced aggregations. Please explain:
+
+1. What is GROUPING SETS and why use it instead of UNION ALL?
+2. Show me how to get sales by Category, by Region, and Total in one query
+3. What is the difference between GROUPING SETS, ROLLUP, and CUBE?
+4. Provide examples using sales data with multiple dimensions
+5. When should I use each method?
+
+Use SQL Server syntax with clear examples.</code></pre>
+<p><strong>Understanding ROLLUP and CUBE:</strong></p>
+<pre><code>Help me understand ROLLUP and CUBE:
+
+1. What does ROLLUP do and how does it create hierarchies?
+2. Show me ROLLUP with Region → State → City
+3. What is CUBE and when should I use it?
+4. How do I identify subtotal rows with GROUPING()?
+5. Provide practical examples for multi-dimensional sales reports
+
+Explain with step-by-step examples.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-22">Guided Practice (60 min):</h3>
+<p><em>Create GROUPING SETS for multi-level summary, use ROLLUP for hierarchical totals, build CUBE for cross-tabs</em></p>
+<h3 id="independent-practice-hour-3---60-min-22">Independent Practice (60 min):</h3>
+<p>Apply the concepts learned to different datasets and scenarios.</p>
+<h3 id="daily-assignment-hour-4---60-min-22">Daily Assignment (60 min):</h3>
+<p><strong>Assignment:</strong></p>
+<ul>
+<li><strong>GROUPING SETS:</strong>Create report showing sales by (Category), (Region), (Category + Region), (Total)</li>
+<li><strong>ROLLUP:</strong>Hierarchical summary by Year → Quarter → Month with subtotals</li>
+<li><strong>CUBE:</strong>Cross-tabulation of sales by Region and Product Category (all combinations)</li>
+<li><strong>Labeled Subtotals:</strong>Use GROUPING() with CASE to label rows as 'Category Total', 'Region Total', 'Grand Total'</li>
+<li><strong>Performance Analysis:</strong>Compare performance of GROUPING SETS vs multiple queries</li>
+</ul>
+<h3 id="expected-outcomes-22">Expected Outcomes:</h3>
+<ul>
+<li>Use GROUPING SETS for multiple aggregations</li>
+<li>Create summary reports with ROLLUP</li>
+<li>Generate cross-tabulations with CUBE</li>
+<li>Understand subtotals and grand totals</li>
+<li>Master multi-dimensional analysis</li>
+</ul>
+<hr/>
+<h2><a href="day23.html">DAY 23: Excel - Advanced Conditional Formatting & Data Validation</a></h2>
+<p><strong>Learning Objectives:</strong>
+- Master advanced conditional formatting
+- Create custom formatting rules
+- Use formulas in conditional formatting
+- Build data validation with custom rules
+- Design user-friendly data entry forms</p>
+<h3 id="topics-covered-hour-1---60-min-23">Topics Covered (60 min):</h3>
+<p><strong>1. Advanced Conditional Formatting</strong>
+- Formula-based rules
+- Highlight duplicates across columns
+- Color scales and data bars
+- Icon sets with custom thresholds
+- Stop If True option</p>
+<p><strong>2. Formula-Based Rules</strong>
+- Use formulas to determine formatting
+- Example: <code>=AND($B2&gt;1000, $C2&lt;0.5)</code>
+- Reference entire row with $
+- Highlight based on other columns
+- Multiple conditions with AND/OR</p>
+<p><strong>3. Data Validation Rules</strong>
+- List (dropdown)
+- Whole number, Decimal, Date
+- Text length restrictions
+- Custom formula validation
+- Input message and error alert</p>
+<p><strong>4. Advanced Validation</strong>
+- Dependent dropdowns (INDIRECT)
+- Prevent duplicates
+- Validation based on other cells
+- Custom error messages
+- Circle Invalid Data tool</p>
+<h3 id="video-resources-23">📺 Video Resources:</h3>
+<ol type="1">
+<li><strong>Advanced Conditional Formatting</strong> (18 min)<br/>
+https://www.youtube.com/watch?v=YvV7Jinnv-w - Leila Gharani</li>
+<li><strong>Data Validation Tricks</strong> (15 min)<br/>
+https://www.youtube.com/watch?v=ZYJHgGp-RL0 - MyOnlineTrainingHub</li>
+<li><strong>Dependent Dropdowns</strong> (12 min)<br/>
+https://www.youtube.com/watch?v=mGTcBfmL4Ss - Excel Campus</li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-23">🤖 AI Learning Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding Conditional Formatting:</strong></p>
+<pre><code>I'm learning advanced conditional formatting. Please explain:
+
+1. How do I use formulas in conditional formatting rules?
+2. Show me how to highlight an entire row based on one cell's value
+3. How do I create alternating row colors that don't break when filtering?
+4. Explain color scales vs icon sets vs data bars
+5. Provide examples for sales performance dashboards
+
+Use step-by-step instructions.</code></pre>
+<p><strong>Understanding Data Validation:</strong></p>
+<pre><code>Help me understand data validation:
+
+1. What is data validation and why use it?
+2. How do I create dependent dropdowns (second dropdown based on first)?
+3. Show me how to prevent duplicate entries
+4. How do I validate based on another cell's value?
+5. Provide examples for order entry forms
+
+Explain with practical scenarios.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-23">Guided Practice (60 min):</h3>
+<p><em>Create formula-based formatting rules, build dependent dropdowns, add custom validation</em></p>
+<h3 id="independent-practice-hour-3---60-min-23">Independent Practice (60 min):</h3>
+<p>Apply the concepts learned to different datasets and scenarios.</p>
+<h3 id="daily-assignment-hour-4---60-min-23">Daily Assignment (60 min):</h3>
+<p><strong>Assignment:</strong></p>
+<ul>
+<li><strong>Data Validation:</strong>Create dropdowns for Category, Region, Product; add date validation, number ranges</li>
+<li><strong>Dependent Dropdowns:</strong>Category dropdown → Product dropdown (products filtered by category)</li>
+<li><strong>Duplicate Prevention:</strong>Validate Order ID is unique, prevent duplicate customer entries</li>
+<li><strong>Professional Form:</strong>Add input messages, error alerts, formatted for user-friendly data entry</li>
+</ul>
+<h3 id="expected-outcomes-23">Expected Outcomes:</h3>
+<ul>
+<li>Master advanced conditional formatting</li>
+<li>Create custom formatting rules</li>
+<li>Use formulas in conditional formatting</li>
+<li>Build data validation with custom rules</li>
+<li>Design user-friendly data entry forms</li>
+</ul>
+<hr/>
+<h2><a href="day24.html">DAY 24: SQL - Query Optimization & Performance Tuning</a></h2>
+<p><strong>Learning Objectives:</strong>
+- Analyze query execution plans
+- Identify performance bottlenecks
+- Optimize JOIN operations
+- Use appropriate indexing strategies
+- Write efficient WHERE clauses</p>
+<h3 id="topics-covered-hour-1---60-min-24">Topics Covered (60 min):</h3>
+<p><strong>1. Execution Plan Analysis</strong>
+- View Actual Execution Plan (Ctrl+M)
+- Read plan from right to left
+- Identify expensive operations (Table Scan, Sort)
+- Look for warnings (missing index, type conversion)
+- % of total cost</p>
+<p><strong>2. Indexing Strategy</strong>
+- Clustered index (1 per table, sorts data)
+- Non-clustered index (pointers to data)
+- Composite indexes (multiple columns)
+- Include columns for covering index
+- When to rebuild/reorganize indexes</p>
+<p><strong>3. Query Optimization Techniques</strong>
+- Use WHERE before JOIN
+- Avoid SELECT *, specify needed columns
+- Use EXISTS instead of IN for large datasets
+- Avoid functions on indexed columns in WHERE
+- Use UNION ALL instead of UNION when possible</p>
+<p><strong>4. JOIN Optimization</strong>
+- Join order matters (smaller table first)
+- Use appropriate join types
+- Index foreign key columns
+- Avoid Cartesian products
+- Consider temp tables for complex joins</p>
+<h3 id="video-resources-24">📺 Video Resources:</h3>
+<ol type="1">
+<li><strong>Query Optimization Tutorial</strong> (25 min)<br/>
+https://www.youtube.com/watch?v=BHwzDmr6d7s - Data with Baraa</li>
+<li><strong>SQL Indexing Explained</strong> (20 min)<br/>
+https://www.youtube.com/watch?v=fsG1XaZEa78 - Programming with Mosh</li>
+<li><strong>Execution Plans</strong> (18 min)<br/>
+https://www.youtube.com/watch?v=J4TE3jYIo20 - Brent Ozar</li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-24">🤖 AI Learning Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding Query Optimization:</strong></p>
+<pre><code>I'm learning SQL query optimization. Please explain:
+
+1. How do I read an execution plan?
+2. What is a table scan vs index seek and which is better?
+3. Show me how to identify slow queries
+4. What are the most common performance mistakes?
+5. Provide examples of before/after query optimization
+
+Use SQL Server with practical examples.</code></pre>
+<p><strong>Understanding Indexing:</strong></p>
+<pre><code>Help me understand SQL indexing:
+
+1. What is the difference between clustered and non-clustered indexes?
+2. When should I create an index?
+3. Can too many indexes be bad?
+4. Show me how to find missing indexes
+5. Explain covering indexes and when to use them
+
+Provide beginner-friendly explanations.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-24">Guided Practice (60 min):</h3>
+<p><em>Analyze execution plans, add appropriate indexes, optimize slow queries</em></p>
+<h3 id="independent-practice-hour-3---60-min-24">Independent Practice (60 min):</h3>
+<p>Apply the concepts learned to different datasets and scenarios.</p>
+<h3 id="daily-assignment-hour-4---60-min-24">Daily Assignment (60 min):</h3>
+<p><strong>Assignment:</strong></p>
+<ul>
+<li><strong>Analysis:</strong>Identify bottlenecks (table scans, missing indexes, inefficient joins)</li>
+<li><strong>Optimization:</strong>Add indexes, rewrite queries, apply best practices</li>
+<li><strong>Comparison:</strong>Measure performance improvement (before/after execution time)</li>
+<li><strong>Documentation:</strong>Document each optimization with explanation</li>
+</ul>
+<h3 id="expected-outcomes-24">Expected Outcomes:</h3>
+<ul>
+<li>Analyze query execution plans</li>
+<li>Identify performance bottlenecks</li>
+<li>Optimize JOIN operations</li>
+<li>Use appropriate indexing strategies</li>
+<li>Write efficient WHERE clauses</li>
+</ul>
+<hr/>
+<h2><a href="day25.html">DAY 25: Integration Project: Excel + SQL + WEEK 5 TEST</a></h2>
+<p><strong>Learning Objectives:</strong>
+- Integrate Excel and SQL workflows
+- Import SQL data into Excel
+- Create automated reports
+- Build end-to-end analysis
+- Review Week 5 concepts</p>
+<h3 id="topics-covered-hour-1---60-min-25">Topics Covered (60 min):</h3>
+<p><strong>1. Excel-SQL Connection</strong>
+- Data → Get Data → From Database → SQL Server
+- Write SQL query in Power Query
+- Import to Excel table or Power Pivot
+- Refresh connection for updated data</p>
+<p><strong>2. Integrated Workflow</strong>
+- SQL: Extract and aggregate data
+- Excel: Analysis, visualization, reporting
+- Combine SQL power with Excel flexibility
+- Automated refresh schedules</p>
+<p><strong>3. Best Practices</strong>
+- Do heavy lifting in SQL (filtering, aggregating)
+- Use Excel for final formatting and visualization
+- Parameter-based queries for flexibility
+- Document data sources and refresh frequency</p>
+<p><strong>4. End-to-End Project</strong>
+- SQL queries for data extraction
+- Power Query for transformations
+- Power Pivot for data modeling
+- Excel dashboard for presentation
+- Complete analysis pipeline</p>
+<h3 id="video-resources-25">📺 Video Resources:</h3>
+<ol type="1">
+<li><strong>Excel SQL Integration</strong> (20 min)<br/>
+https://www.youtube.com/watch?v=d8WCcEMQ8Pc - Leila Gharani</li>
+<li><strong>Power Query SQL</strong> (15 min)<br/>
+https://www.youtube.com/watch?v=1XQJy_9MqK8 - MyOnlineTrainingHub</li>
+<li><strong>Automated Reports</strong> (18 min)<br/>
+https://www.youtube.com/watch?v=0aeZX1l4JT4 - Excel Campus</li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-25">🤖 AI Learning Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding Excel-SQL Integration:</strong></p>
+<pre><code>I'm learning to integrate Excel and SQL. Please explain:
+
+1. How do I connect Excel to a SQL database?
+2. What should I do in SQL vs what should I do in Excel?
+3. Show me how to import SQL query results into Power Pivot
+4. How do I create a refreshable connection?
+5. Provide a workflow example for monthly sales reports
+
+Use practical examples.</code></pre>
+<p><strong>Understanding Automated Reporting:</strong></p>
+<pre><code>Help me understand automated reporting:
+
+1. How do I create reports that update with one click?
+2. What are parameters in SQL queries for Excel?
+3. Show me how to schedule automatic data refresh
+4. How do I combine multiple SQL queries in Excel?
+5. Provide examples for executive dashboard automation
+
+Explain the complete workflow.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-25">Guided Practice (60 min):</h3>
+<p><em>Connect Excel to SQL database, import data with Power Query, create automated dashboard</em></p>
+<h3 id="independent-practice-hour-3---60-min-25">Independent Practice (60 min):</h3>
+<p>Apply the concepts learned to different datasets and scenarios.</p>
+<h3 id="daily-assignment-hour-4---60-min-25">Daily Assignment (60 min):</h3>
+<p><strong>Assignment:</strong></p>
+<ul>
+<li><strong>Excel Connection:</strong>Import SQL data using Power Query with parameters</li>
+<li><strong>Data Model:</strong>Build Power Pivot model with relationships</li>
+<li><strong>Dashboard:</strong>Create interactive dashboard with slicers (KPIs, charts, tables)</li>
+<li><strong>Automation:</strong>Set up refresh schedule and test</li>
+</ul>
+<h3 id="expected-outcomes-25">Expected Outcomes:</h3>
+<ul>
+<li>Integrate Excel and SQL workflows</li>
+<li>Import SQL data into Excel</li>
+<li>Create automated reports</li>
+<li>Build end-to-end analysis</li>
+<li>Review Week 5 concepts</li>
+</ul>
+<hr/>
     <a href="#" class="back-to-top">↑ Back to Top</a>
   </div>
 </div>
 
 <script>
-// Simple navigation - no complex features needed for modern design
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('30-Day Training Plan loaded');
+  // 1. Add copy buttons to all code blocks
+  document.querySelectorAll('pre').forEach(pre => {
+    const button = document.createElement('button');
+    button.className = 'copy-btn';
+    button.textContent = 'Copy';
+    button.setAttribute('aria-label', 'Copy code');
+
+    button.addEventListener('click', async () => {
+      const code = pre.querySelector('code') || pre;
+      const text = code.textContent;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        button.textContent = 'Copied!';
+        button.classList.add('copied');
+        setTimeout(() => {
+          button.textContent = 'Copy';
+          button.classList.remove('copied');
+        }, 2000);
+      } catch (err) {
+        button.textContent = 'Error';
+        setTimeout(() => button.textContent = 'Copy', 2000);
+      }
+    });
+
+    pre.appendChild(button);
+  });
+
+  // 2. Highlight active page in TOC and scroll to it
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  const tocLinks = document.querySelectorAll('nav#TOC a');
+
+  tocLinks.forEach(link => {
+    const linkHref = link.getAttribute('href');
+    if (linkHref === currentPage || linkHref === `../${currentPage}`) {
+      link.classList.add('active');
+
+      // Auto-scroll TOC to show active item
+      setTimeout(() => {
+        const nav = document.querySelector('nav#TOC');
+        const linkTop = link.offsetTop;
+        const navHeight = nav.clientHeight;
+        const linkHeight = link.clientHeight;
+
+        // Scroll so the active link is roughly in the middle
+        nav.scrollTop = linkTop - (navHeight / 2) + (linkHeight / 2);
+      }, 100);
+    }
+  });
+
+  // 3. Add AI prompts usage note
+  const aiPromptsHeadings = document.querySelectorAll('h3[id*="ai-learning-prompts"]');
+  aiPromptsHeadings.forEach(heading => {
+    // Check if note already exists
+    const nextElement = heading.nextElementSibling;
+    if (nextElement && nextElement.classList.contains('ai-prompts-note')) {
+      return;
+    }
+
+    const note = document.createElement('div');
+    note.className = 'ai-prompts-note';
+    note.innerHTML = '<strong>💡 How to use these prompts:</strong> Copy any prompt below and paste it into <strong>Claude</strong>, <strong>ChatGPT</strong>, <strong>Gemini</strong>, or any other AI assistant to learn the concepts. These are for understanding only—solve practice problems yourself!';
+
+    heading.parentNode.insertBefore(note, heading.nextSibling);
+  });
 });
 </script>
 
