@@ -622,14 +622,30 @@ XLOOKUP</title>
       text-decoration: none;
     }
 
-    .claude-btn {
+    /* Claude button - Theme-aware like Claude's actual theme */
+    [data-theme="light"] .claude-btn {
+      background: #E5E5E5;
+      color: #CC785C;
+      border-color: #CC785C;
+      border-width: 2px;
+    }
+
+    [data-theme="dark"] .claude-btn {
       background: white;
       color: #CC785C;
       border-color: #CC785C;
       border-width: 2px;
     }
 
-    .claude-btn:hover {
+    [data-theme="light"] .claude-btn:hover {
+      background: #D0D0D0;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(204, 120, 92, 0.3);
+      text-decoration: none;
+      border-color: #B86A50;
+    }
+
+    [data-theme="dark"] .claude-btn:hover {
       background: #FFF5F2;
       transform: translateY(-1px);
       box-shadow: 0 4px 8px rgba(204, 120, 92, 0.3);
