@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/opendyslexic" rel="stylesheet">
 
   <style>
     * {
@@ -53,11 +54,35 @@
       --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
     }
 
+    /* Font families */
+    html {
+      font-family: Candara, 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+    }
+
+    [data-font="candara"] {
+      font-family: Candara, 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+    }
+
+    [data-font="arial"] {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    [data-font="courier"] {
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    [data-font="georgia"] {
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    [data-font="dyslexic"] {
+      font-family: 'OpenDyslexic', sans-serif;
+    }
+
     html, body {
       height: 100%;
       background: var(--bg-primary);
       color: var(--text-primary);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 16px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
@@ -67,16 +92,16 @@
     /* Header */
     #title-block-header {
       background: var(--bg-secondary);
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 2px solid var(--border-subtle);
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
       backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.95);
+      box-shadow: var(--shadow-md);
     }
 
     .header-row {
-      max-width: 1400px;
+      max-width: 1600px;
       margin: 0 auto;
       padding: 1rem 2rem;
       display: flex;
@@ -98,6 +123,29 @@
       align-items: center;
     }
 
+    .font-selector {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .font-selector:hover {
+      background: var(--bg-secondary);
+      border-color: var(--accent-brown);
+      color: var(--text-primary);
+    }
+
+    .font-selector:focus {
+      border-color: var(--accent-orange);
+      box-shadow: 0 0 0 3px rgba(217, 119, 87, 0.1);
+    }
 
     .theme-toggle {
       background: var(--bg-primary);
@@ -142,7 +190,7 @@
 
     /* Layout */
     .page {
-      max-width: 1400px;
+      max-width: 1600px;
       margin: 0 auto;
       display: flex;
       gap: 2rem;
@@ -264,19 +312,25 @@
     }
 
     h2 {
-      font-size: 1.75rem;
-      font-weight: 600;
+      font-size: 1.875rem;
+      font-weight: 700;
       color: var(--text-primary);
-      letter-spacing: -0.01em;
-      margin: 2.5rem 0 1rem 0;
-      padding-top: 1rem;
+      letter-spacing: -0.015em;
+      margin: 2.5rem 0 1.5rem 0;
+      padding: 1.25rem 1.5rem;
+      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      border-left: 4px solid var(--accent-orange);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
     }
 
     h3 {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       font-weight: 600;
       color: var(--text-primary);
       margin: 2rem 0 1rem 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-light);
     }
 
     p {
@@ -431,26 +485,60 @@
       margin: 2.5rem 0;
     }
 
-    /* Back to top */
+    /* Back to top - Fixed button */
     .back-to-top {
-      display: inline-block;
-      margin-top: 3rem;
-      padding: 0.75rem 1.5rem;
-      background: var(--bg-primary);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      color: var(--text-secondary);
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 3rem;
+      height: 3rem;
+      background: var(--accent-orange);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      transition: all 0.3s ease;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
+
+    .back-to-top::before {
+      content: '↑';
+      display: block;
+    }
+
+    .back-to-top::after {
+      content: 'Back to Top';
+      position: absolute;
+      right: 100%;
+      margin-right: 0.75rem;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
       font-weight: 500;
-      transition: all 0.2s ease;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-subtle);
     }
 
     .back-to-top:hover {
-      background: var(--accent-orange);
-      color: white;
-      border-color: var(--accent-orange);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-      text-decoration: none;
+      background: var(--accent-brown);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .back-to-top:hover::after {
+      opacity: 1;
     }
 
     /* Section Cards */
@@ -510,6 +598,13 @@
   <div class="header-row">
     <h1 class="title">Week 4: Advanced Concepts</h1>
     <div class="header-controls">
+      <select class="font-selector" id="font-selector" aria-label="Select font">
+        <option value="candara">Candara</option>
+        <option value="arial">Arial</option>
+        <option value="courier">Courier New</option>
+        <option value="georgia">Georgia</option>
+        <option value="dyslexic">OpenDyslexic</option>
+      </select>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
         <span class="theme-icon">🌙</span>
         <span class="theme-text">Dark</span>
@@ -595,439 +690,29 @@ HAVING</a></li>
 <p>Click any day below to view detailed lessons, practice exercises, and assignments:</p>
 
 <div class="section-card"><div style="margin-bottom: 1.5rem;">
-<h3 style="margin-bottom: 0.5rem;"><a href="day16.html" style="color: var(--accent-orange); text-decoration: none;">📚 SQL - CTEs & Recursive Queries</a></h3>
+<h3 style="margin-bottom: 0.5rem;"><a href="day16.html" style="color: var(--accent-orange); text-decoration: none;">📚 Day 16: SQL - CTEs & Recursive Queries</a></h3>
 <p style="margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem;">Comprehensive 4-hour lesson with tutorials, practice exercises, and assignments</p>
 </div>
 <div style="margin-bottom: 1.5rem;">
-<h3 style="margin-bottom: 0.5rem;"><a href="day17.html" style="color: var(--accent-orange); text-decoration: none;">📚 Excel - Power Pivot & Data Modeling (DAX basics)</a></h3>
+<h3 style="margin-bottom: 0.5rem;"><a href="day17.html" style="color: var(--accent-orange); text-decoration: none;">📚 Day 17: Excel - Power Pivot & Data Modeling (DAX basics)</a></h3>
 <p style="margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem;">Comprehensive 4-hour lesson with tutorials, practice exercises, and assignments</p>
 </div>
 <div style="margin-bottom: 1.5rem;">
-<h3 style="margin-bottom: 0.5rem;"><a href="day18.html" style="color: var(--accent-orange); text-decoration: none;">📚 SQL - CASE Statements & PIVOT/UNPIVOT</a></h3>
+<h3 style="margin-bottom: 0.5rem;"><a href="day18.html" style="color: var(--accent-orange); text-decoration: none;">📚 Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></h3>
 <p style="margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem;">Comprehensive 4-hour lesson with tutorials, practice exercises, and assignments</p>
 </div>
 <div style="margin-bottom: 1.5rem;">
-<h3 style="margin-bottom: 0.5rem;"><a href="day19.html" style="color: var(--accent-orange); text-decoration: none;">📚 Excel - Advanced Charts & Dashboards</a></h3>
+<h3 style="margin-bottom: 0.5rem;"><a href="day19.html" style="color: var(--accent-orange); text-decoration: none;">📚 Day 19: Excel - Advanced Charts & Dashboards</a></h3>
 <p style="margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem;">Comprehensive 4-hour lesson with tutorials, practice exercises, and assignments</p>
 </div>
 <div style="margin-bottom: 1.5rem;">
-<h3 style="margin-bottom: 0.5rem;"><a href="day20.html" style="color: var(--accent-orange); text-decoration: none;">📚 SQL - Views, Stored Procedures, Optimization + WEEK 4 TEST</a></h3>
+<h3 style="margin-bottom: 0.5rem;"><a href="day20.html" style="color: var(--accent-orange); text-decoration: none;">📚 Day 20: SQL - Views, Stored Procedures, Optimization + WEEK 4 TEST</a></h3>
 <p style="margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem;">Comprehensive 4-hour lesson with tutorials, practice exercises, and assignments</p>
 </div>
 </div>
-<h1 id="week-4-advanced-concepts">WEEK 4: ADVANCED CONCEPTS</h1>
-<hr/>
-<p><strong>Focus:</strong> CTEs, Power Pivot, CASE statements, dashboards, and database optimization.</p>
-<p><strong>Days 16-20:</strong> Advanced techniques for professional data analysis.</p>
-<hr/>
-<h2><a href="day16.html">DAY 16: SQL - CTEs & Recursive Queries</a></h2>
-<p><strong>Learning Objectives:</strong>
-- Master Common Table Expressions (CTEs)
-- Write recursive CTEs
-- Understand hierarchical data queries
-- Improve query readability with CTEs
-- Solve complex problems with temporary result sets</p>
-<h3 id="topics-covered-hour-1---60-min-16">Topics Covered (60 min):</h3>
-<p><strong>1. Common Table Expressions (CTEs)</strong>
-- WITH clause syntax
-- Temporary named result set
-- Improves readability over subqueries
-- Example: <code>WITH SalesCTE AS (SELECT ...) SELECT * FROM SalesCTE</code></p>
-<p><strong>2. Multiple CTEs</strong>
-- Chain multiple WITH clauses
-- Reference earlier CTEs in later ones
-- Break complex queries into logical steps
-- Example: Calculate sales, then costs, then profit</p>
-<p><strong>3. Recursive CTEs</strong>
-- CTE that references itself
-- Anchor member (base case)
-- Recursive member (iterative case)
-- UNION ALL between members
-- Use for: org charts, bill of materials, hierarchies</p>
-<p><strong>4. Practical Applications</strong>
-- Employee hierarchies (manager chains)
-- Date series generation
-- Graph traversal
-- Parts explosion (manufacturing)
-- MAXRECURSION option to prevent infinite loops</p>
-<h3 id="video-resources-16">📺 Video Resources:</h3>
-<ol type="1">
-<li><strong>SQL CTEs Explained</strong> (18 min)<br/>
-https://www.youtube.com/watch?v=QVRfyGPm_kc - Alex The Analyst</li>
-<li><strong>Recursive CTE Tutorial</strong> (15 min)<br/>
-https://www.youtube.com/watch?v=vzS7RSjdJiI - Programming with Mosh</li>
-<li><strong>Hierarchical Queries</strong> (12 min)<br/>
-https://www.youtube.com/watch?v=EToKsS8WnCg - Data with Baraa</li>
-</ol>
-<h3 id="ai-learning-prompts-concept-understanding-only-16">🤖 AI Learning Prompts (Concept Understanding Only):</h3>
-<p><strong>Understanding CTEs:</strong></p>
-<pre><code>I'm learning Common Table Expressions (CTEs) in SQL. Please explain:
-
-1. What is a CTE and how is it different from a subquery or temp table?
-2. When should I use CTEs vs subqueries?
-3. Show me how to chain multiple CTEs together
-4. How do I use CTEs to simplify complex queries?
-5. Provide examples using sales and customer data
-
-Use SQL Server syntax with practical examples.</code></pre>
-<p><strong>Understanding Recursive CTEs:</strong></p>
-<pre><code>Help me understand recursive CTEs:
-
-1. What is recursion in SQL and when do I need it?
-2. Explain anchor member vs recursive member
-3. Show me how to query an employee hierarchy (find all reports under a manager)
-4. How do I generate a date series (all dates in a month)?
-5. What is MAXRECURSION and why is it important?
-
-Provide step-by-step examples for beginners.</code></pre>
-<h3 id="guided-practice-hour-2---60-min-16">Guided Practice (60 min):</h3>
-<p><em>Write CTEs to simplify queries, create recursive CTE for employee hierarchy, generate date series</em></p>
-<h3 id="independent-practice-hour-3---60-min-16">Independent Practice (60 min):</h3>
-<p>Apply the concepts learned to different datasets and scenarios.</p>
-<h3 id="daily-assignment-hour-4---60-min-16">Daily Assignment (60 min):</h3>
-<p><strong>Assignment:</strong></p>
-<ul>
-<li><strong>Employee Hierarchy:</strong>Write recursive CTE to show all employees under a specific manager with levels</li>
-<li><strong>Date Series:</strong>Generate all dates for current year using recursive CTE</li>
-<li><strong>Complex Reporting:</strong>Replace a complex nested subquery with clean, readable CTEs</li>
-</ul>
-<h3 id="expected-outcomes-16">Expected Outcomes:</h3>
-<ul>
-<li>Master Common Table Expressions (CTEs)</li>
-<li>Write recursive CTEs</li>
-<li>Understand hierarchical data queries</li>
-<li>Improve query readability with CTEs</li>
-<li>Solve complex problems with temporary result sets</li>
-</ul>
-<hr/>
-<h2><a href="day17.html">DAY 17: Excel - Power Pivot & Data Modeling (DAX basics)</a></h2>
-<p><strong>Learning Objectives:</strong>
-- Introduction to Power Pivot and data modeling
-- Create relationships between tables
-- Understand star schema design
-- Write basic DAX formulas
-- Build calculated columns and measures</p>
-<h3 id="topics-covered-hour-1---60-min-17">Topics Covered (60 min):</h3>
-<p><strong>1. Power Pivot Introduction</strong>
-- Enable Power Pivot add-in
-- Import multiple tables
-- Data Model vs regular worksheets
-- Benefits: handle millions of rows, relate tables</p>
-<p><strong>2. Table Relationships</strong>
-- One-to-many relationships
-- Primary key and foreign key
-- Create relationships in diagram view
-- Star schema: Fact table + Dimension tables
-- Example: Orders (Fact) → Customers, Products, Dates (Dimensions)</p>
-<p><strong>3. DAX Basics - Calculated Columns</strong>
-- DAX = Data Analysis Expressions
-- Similar to Excel formulas but for tables
-- Example: <code>Profit = [Revenue] - [Cost]</code>
-- Calculated once when data refreshes
-- Table[Column] reference syntax</p>
-<p><strong>4. DAX Measures</strong>
-- Dynamic calculations (recalculate based on filters)
-- Aggregation functions: SUM, AVERAGE, COUNT, etc.
-- Example: <code>Total Sales = SUM(Orders[Sales])</code>
-- Use in PivotTables with slicers
-- Measures vs Calculated Columns</p>
-<h3 id="video-resources-17">📺 Video Resources:</h3>
-<ol type="1">
-<li><strong>Power Pivot Introduction</strong> (20 min)<br/>
-https://www.youtube.com/watch?v=UN0RHmOaJPM - Leila Gharani</li>
-<li><strong>DAX Basics for Beginners</strong> (25 min)<br/>
-https://www.youtube.com/watch?v=klQAZLr5vxA - SQLBI</li>
-<li><strong>Creating Relationships</strong> (15 min)<br/>
-https://www.youtube.com/watch?v=fJM_jCdT0rE - MyOnlineTrainingHub</li>
-</ol>
-<h3 id="ai-learning-prompts-concept-understanding-only-17">🤖 AI Learning Prompts (Concept Understanding Only):</h3>
-<p><strong>Understanding Power Pivot:</strong></p>
-<pre><code>I'm learning Power Pivot and data modeling. Please explain:
-
-1. What is Power Pivot and how is it different from regular Excel?
-2. What is a data model and why create relationships between tables?
-3. Explain star schema design (fact and dimension tables)
-4. How do I create a relationship between Orders and Customers tables?
-5. Provide a beginner-friendly example using sales data
-
-Use simple examples to explain the concepts.</code></pre>
-<p><strong>Understanding DAX:</strong></p>
-<pre><code>Help me understand DAX formulas:
-
-1. What is DAX and how is it different from Excel formulas?
-2. What is the difference between calculated columns and measures?
-3. Show me basic DAX formulas: SUM, AVERAGE, COUNT
-4. How do I reference columns from different tables?
-5. Provide examples creating Total Sales, Average Price, Profit measures
-
-Explain with practical scenarios.</code></pre>
-<h3 id="guided-practice-hour-2---60-min-17">Guided Practice (60 min):</h3>
-<p><em>Build data model with relationships, create calculated columns for profit, write DAX measures</em></p>
-<h3 id="independent-practice-hour-3---60-min-17">Independent Practice (60 min):</h3>
-<p>Apply the concepts learned to different datasets and scenarios.</p>
-<h3 id="daily-assignment-hour-4---60-min-17">Daily Assignment (60 min):</h3>
-<p><strong>Assignment:</strong></p>
-<ul>
-<li><strong>Import Tables:</strong>Load Orders, Customers, Products, Dates tables</li>
-<li><strong>Create Relationships:</strong>Build star schema (Orders as fact table)</li>
-<li><strong>Calculated Columns:</strong>Add Profit, Margin%, Days to Ship columns using DAX</li>
-<li><strong>DAX Measures:</strong>Create Total Sales, Total Profit, Avg Order Value, Customer Count measures</li>
-<li><strong>PivotTable:</strong>Build dashboard using measures with slicers for Category, Region, Year</li>
-</ul>
-<h3 id="expected-outcomes-17">Expected Outcomes:</h3>
-<ul>
-<li>Introduction to Power Pivot and data modeling</li>
-<li>Create relationships between tables</li>
-<li>Understand star schema design</li>
-<li>Write basic DAX formulas</li>
-<li>Build calculated columns and measures</li>
-</ul>
-<hr/>
-<h2><a href="day18.html">DAY 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></h2>
-<p><strong>Learning Objectives:</strong>
-- Master CASE expressions for conditional logic
-- Create calculated columns with CASE
-- Use PIVOT to transform rows to columns
-- Use UNPIVOT to transform columns to rows
-- Apply conditional aggregations</p>
-<h3 id="topics-covered-hour-1---60-min-18">Topics Covered (60 min):</h3>
-<p><strong>1. CASE Expressions - Simple CASE</strong>
-- Conditional logic in SQL
-- Syntax: <code>CASE column WHEN value THEN result END</code>
-- Example: <code>CASE Category WHEN 'Tech' THEN 'Technology' END</code>
-- Use in SELECT, WHERE, ORDER BY</p>
-<p><strong>2. CASE Expressions - Searched CASE</strong>
-- Multiple conditions
-- Syntax: <code>CASE WHEN condition THEN result ELSE default END</code>
-- Example: Categorize sales as High/Medium/Low
-- Can use AND, OR, comparison operators</p>
-<p><strong>3. PIVOT Operator</strong>
-- Transform rows into columns
-- Syntax: <code>PIVOT (AGG(column) FOR pivot_column IN ([value1], [value2]))</code>
-- Example: Sales by year as columns instead of rows
-- Creates crosstab/matrix format</p>
-<p><strong>4. UNPIVOT Operator</strong>
-- Transform columns into rows
-- Normalize wide tables
-- Example: Convert Q1, Q2, Q3, Q4 columns to Quarter and Sales rows
-- Inverse of PIVOT operation</p>
-<h3 id="video-resources-18">📺 Video Resources:</h3>
-<ol type="1">
-<li><strong>SQL CASE Statement</strong> (15 min)<br/>
-https://www.youtube.com/watch?v=V9WUoRmsies - Programming with Mosh</li>
-<li><strong>PIVOT and UNPIVOT</strong> (18 min)<br/>
-https://www.youtube.com/watch?v=iFqB8YL2Jd4 - WiseOwlTutorials</li>
-<li><strong>Advanced CASE Examples</strong> (12 min)<br/>
-https://www.youtube.com/watch?v=KBBEOxQjXxI - Data with Baraa</li>
-</ol>
-<h3 id="ai-learning-prompts-concept-understanding-only-18">🤖 AI Learning Prompts (Concept Understanding Only):</h3>
-<p><strong>Understanding CASE:</strong></p>
-<pre><code>I'm learning SQL CASE statements. Please explain:
-
-1. What is the difference between simple CASE and searched CASE?
-2. Show me how to categorize sales amounts (&lt; 100 = Low, 100-500 = Medium, &gt; 500 = High)
-3. How do I use CASE in WHERE clause and ORDER BY?
-4. Provide examples for customer segmentation (Active, Inactive, New)
-5. Show conditional aggregation examples
-
-Use SQL Server syntax with clear examples.</code></pre>
-<p><strong>Understanding PIVOT/UNPIVOT:</strong></p>
-<pre><code>Help me understand PIVOT and UNPIVOT:
-
-1. What does PIVOT do and when should I use it?
-2. Show me how to convert sales data from rows to columns (months as columns)
-3. What is UNPIVOT and when do I need it?
-4. How do I pivot by multiple columns?
-5. Provide examples using sales data by region and time period
-
-Explain with step-by-step examples.</code></pre>
-<h3 id="guided-practice-hour-2---60-min-18">Guided Practice (60 min):</h3>
-<p><em>Create customer segments with CASE, build sales matrix with PIVOT, normalize data with UNPIVOT</em></p>
-<h3 id="independent-practice-hour-3---60-min-18">Independent Practice (60 min):</h3>
-<p>Apply the concepts learned to different datasets and scenarios.</p>
-<h3 id="daily-assignment-hour-4---60-min-18">Daily Assignment (60 min):</h3>
-<p><strong>Assignment:</strong></p>
-<ul>
-<li><strong>Sales Categorization:</strong>CASE to categorize products by price range, sales performance</li>
-<li><strong>PIVOT Report:</strong>Create sales report with months as columns, regions as rows</li>
-<li><strong>Conditional Aggregation:</strong>Count customers by segment, sum sales by category using CASE</li>
-</ul>
-<h3 id="expected-outcomes-18">Expected Outcomes:</h3>
-<ul>
-<li>Master CASE expressions for conditional logic</li>
-<li>Create calculated columns with CASE</li>
-<li>Use PIVOT to transform rows to columns</li>
-<li>Use UNPIVOT to transform columns to rows</li>
-<li>Apply conditional aggregations</li>
-</ul>
-<hr/>
-<h2><a href="day19.html">DAY 19: Excel - Advanced Charts & Dashboards</a></h2>
-<p><strong>Learning Objectives:</strong>
-- Create advanced chart types
-- Build combination charts
-- Design interactive dashboards
-- Use slicers and timelines
-- Apply professional formatting and design</p>
-<h3 id="topics-covered-hour-1---60-min-19">Topics Covered (60 min):</h3>
-<p><strong>1. Advanced Chart Types</strong>
-- Waterfall charts (show incremental changes)
-- Funnel charts (conversion analysis)
-- Combo charts (column + line)
-- Sparklines (mini charts in cells)
-- Histogram and Pareto charts</p>
-<p><strong>2. Dynamic Charts</strong>
-- Charts with named ranges
-- OFFSET function for dynamic ranges
-- Charts that update automatically with new data
-- Dropdown lists to switch chart data</p>
-<p><strong>3. Dashboard Design Principles</strong>
-- Layout and white space
-- Color scheme and consistency
-- Key metrics at top (KPIs)
-- Supporting details below
-- Minimize clutter, maximize insights</p>
-<p><strong>4. Interactive Elements</strong>
-- Slicers for filtering data
-- Timelines for date filtering
-- Form controls (dropdowns, checkboxes)
-- Link slicers to multiple PivotTables
-- Report Connections for coordinated filtering</p>
-<h3 id="video-resources-19">📺 Video Resources:</h3>
-<ol type="1">
-<li><strong>Advanced Excel Charts</strong> (20 min)<br/>
-https://www.youtube.com/watch?v=7cX5vYxCa-A - MyOnlineTrainingHub</li>
-<li><strong>Excel Dashboard Tutorial</strong> (30 min)<br/>
-https://www.youtube.com/watch?v=K74_FNnlIF8 - Leila Gharani</li>
-<li><strong>Slicers and Timelines</strong> (12 min)<br/>
-https://www.youtube.com/watch?v=RlZBgSwn4cc - Excel Campus</li>
-</ol>
-<h3 id="ai-learning-prompts-concept-understanding-only-19">🤖 AI Learning Prompts (Concept Understanding Only):</h3>
-<p><strong>Understanding Advanced Charts:</strong></p>
-<pre><code>I'm learning advanced Excel charts. Please explain:
-
-1. When should I use waterfall charts vs combo charts?
-2. How do I create a combination chart (column and line together)?
-3. What are sparklines and when should I use them?
-4. Show me how to create dynamic charts that update automatically
-5. Provide examples for sales trend analysis
-
-Use step-by-step explanations.</code></pre>
-<p><strong>Understanding Dashboards:</strong></p>
-<pre><code>Help me understand Excel dashboard design:
-
-1. What makes a good dashboard?
-2. How do I use slicers to filter multiple PivotTables?
-3. What is the difference between slicers and timelines?
-4. Show me dashboard layout best practices
-5. Provide examples for sales performance dashboards
-
-Explain design principles and practical implementation.</code></pre>
-<h3 id="guided-practice-hour-2---60-min-19">Guided Practice (60 min):</h3>
-<p><em>Create waterfall chart for profit breakdown, build combo chart for trends, design interactive dashboard</em></p>
-<h3 id="independent-practice-hour-3---60-min-19">Independent Practice (60 min):</h3>
-<p>Apply the concepts learned to different datasets and scenarios.</p>
-<h3 id="daily-assignment-hour-4---60-min-19">Daily Assignment (60 min):</h3>
-<p><strong>Assignment:</strong></p>
-<ul>
-<li><strong>KPI Cards:</strong>Display Total Sales, Total Profit, Avg Order Value, Customer Count</li>
-<li><strong>Trend Charts:</strong>Combo chart showing sales (columns) and profit margin (line) by month</li>
-<li><strong>Category Analysis:</strong>Waterfall chart showing contribution of each category to total sales</li>
-<li><strong>Regional Breakdown:</strong>Map or column chart by region</li>
-<li><strong>Interactive Filters:</strong>Add slicers for Year, Category, Region - connect to all charts/tables</li>
-</ul>
-<h3 id="expected-outcomes-19">Expected Outcomes:</h3>
-<ul>
-<li>Create advanced chart types</li>
-<li>Build combination charts</li>
-<li>Design interactive dashboards</li>
-<li>Use slicers and timelines</li>
-<li>Apply professional formatting and design</li>
-</ul>
-<hr/>
-<h2><a href="day20.html">DAY 20: SQL - Views, Stored Procedures, Optimization + WEEK 4 TEST</a></h2>
-<p><strong>Learning Objectives:</strong>
-- Create and manage Views
-- Write basic Stored Procedures
-- Understand query execution plans
-- Apply indexing strategies
-- Review Week 4 concepts</p>
-<h3 id="topics-covered-hour-1---60-min-20">Topics Covered (60 min):</h3>
-<p><strong>1. Views</strong>
-- Virtual tables based on query
-- <code>CREATE VIEW view_name AS SELECT ...</code>
-- Simplify complex queries
-- Security: hide underlying table structure
-- Can SELECT from views like tables</p>
-<p><strong>2. Stored Procedures</strong>
-- Saved SQL code with parameters
-- <code>CREATE PROCEDURE proc_name @param datatype AS BEGIN ... END</code>
-- Execute: <code>EXEC proc_name @param = value</code>
-- Benefits: reusability, security, performance
-- Can include logic, variables, loops</p>
-<p><strong>3. Query Optimization Basics</strong>
-- Execution plans (Ctrl+L in SSMS)
-- Identify costly operations
-- Use indexes on WHERE, JOIN columns
-- Avoid SELECT *, use specific columns
-- WHERE before JOIN when possible</p>
-<p><strong>4. Indexing</strong>
-- <code>CREATE INDEX idx_name ON table(column)</code>
-- Clustered vs Non-clustered indexes
-- Speed up searches, slow down inserts
-- Index columns used in WHERE, JOIN, ORDER BY
-- Don't over-index</p>
-<h3 id="video-resources-20">📺 Video Resources:</h3>
-<ol type="1">
-<li><strong>SQL Views Tutorial</strong> (10 min)<br/>
-https://www.youtube.com/watch?v=mPT9ta3inJw - Programming with Mosh</li>
-<li><strong>Stored Procedures Basics</strong> (15 min)<br/>
-https://www.youtube.com/watch?v=Sk-_I5bWsHA - Alex The Analyst</li>
-<li><strong>Query Optimization</strong> (20 min)<br/>
-https://www.youtube.com/watch?v=BHwzDmr6d7s - Data with Baraa</li>
-</ol>
-<h3 id="ai-learning-prompts-concept-understanding-only-20">🤖 AI Learning Prompts (Concept Understanding Only):</h3>
-<p><strong>Understanding Views and Procedures:</strong></p>
-<pre><code>I'm learning SQL Views and Stored Procedures. Please explain:
-
-1. What is a View and when should I use it?
-2. How are Views different from tables?
-3. What is a Stored Procedure and what are its benefits?
-4. Show me how to create a simple procedure with parameters
-5. Provide examples using customer and sales data
-
-Use SQL Server syntax with practical examples.</code></pre>
-<p><strong>Understanding Query Optimization:</strong></p>
-<pre><code>Help me understand SQL query optimization:
-
-1. What is an execution plan and how do I read it?
-2. When should I create an index?
-3. What is the difference between clustered and non-clustered indexes?
-4. Show me common query performance problems and solutions
-5. Provide best practices for writing efficient queries
-
-Explain with beginner-friendly examples.</code></pre>
-<h3 id="guided-practice-hour-2---60-min-20">Guided Practice (60 min):</h3>
-<p><em>Create views for common reports, write stored procedure with parameters, analyze execution plans</em></p>
-<h3 id="independent-practice-hour-3---60-min-20">Independent Practice (60 min):</h3>
-<p>Apply the concepts learned to different datasets and scenarios.</p>
-<h3 id="daily-assignment-hour-4---60-min-20">Daily Assignment (60 min):</h3>
-<p><strong>Assignment:</strong></p>
-<ul>
-<li><strong>Stored Procedure:</strong>Create procedure to get sales by date range with parameters</li>
-<li><strong>Optimization:</strong>Analyze slow query, add appropriate indexes, compare before/after performance</li>
-</ul>
-<h3 id="expected-outcomes-20">Expected Outcomes:</h3>
-<ul>
-<li>Create and manage Views</li>
-<li>Write basic Stored Procedures</li>
-<li>Understand query execution plans</li>
-<li>Apply indexing strategies</li>
-<li>Review Week 4 concepts</li>
-</ul>
-<hr/>
-    <a href="#" class="back-to-top">↑ Back to Top</a>
   </div>
 </div>
+<button class="back-to-top" id="back-to-top" aria-label="Back to top"></button>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -1054,8 +739,12 @@ document.addEventListener('DOMContentLoaded', function() {
         button.textContent = 'Error';
         setTimeout(() => button.textContent = 'Copy', 2000);
       }
-    
-  // 4. Theme toggle functionality (Claude-style)
+    });
+
+    pre.appendChild(button);
+  });
+
+  // 2. Theme toggle functionality (Claude-style)
   const themeToggle = document.getElementById('theme-toggle');
   const themeIcon = document.querySelector('.theme-icon');
   const themeText = document.querySelector('.theme-text');
@@ -1084,12 +773,22 @@ document.addEventListener('DOMContentLoaded', function() {
       updateThemeButton(newTheme);
     });
   }
-});
 
-    pre.appendChild(button);
+  // 2b. Font selector functionality
+  const fontSelector = document.getElementById('font-selector');
+
+  // Load saved font preference (default to Candara)
+  const savedFont = localStorage.getItem('training-font') || 'candara';
+  document.documentElement.setAttribute('data-font', savedFont);
+  fontSelector.value = savedFont;
+
+  fontSelector.addEventListener('change', (e) => {
+    const selectedFont = e.target.value;
+    document.documentElement.setAttribute('data-font', selectedFont);
+    localStorage.setItem('training-font', selectedFont);
   });
 
-  // 2. Highlight active page in TOC and scroll to it
+  // 3. Highlight active page in TOC and scroll to it
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const tocLinks = document.querySelectorAll('nav#TOC a');
 
@@ -1111,7 +810,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // 3. Add AI prompts usage note
+  // 4. Add AI prompts usage note
   const aiPromptsHeadings = document.querySelectorAll('h3[id*="ai-learning-prompts"]');
   aiPromptsHeadings.forEach(heading => {
     // Check if note already exists
@@ -1126,6 +825,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     heading.parentNode.insertBefore(note, heading.nextSibling);
   });
+
+  // 5. Back to top button functionality
+  const backToTopBtn = document.getElementById('back-to-top');
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
 });
 </script>
 

@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/opendyslexic" rel="stylesheet">
 
   <style>
     * {
@@ -53,11 +54,35 @@
       --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
     }
 
+    /* Font families */
+    html {
+      font-family: Candara, 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+    }
+
+    [data-font="candara"] {
+      font-family: Candara, 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+    }
+
+    [data-font="arial"] {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    [data-font="courier"] {
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    [data-font="georgia"] {
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    [data-font="dyslexic"] {
+      font-family: 'OpenDyslexic', sans-serif;
+    }
+
     html, body {
       height: 100%;
       background: var(--bg-primary);
       color: var(--text-primary);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 16px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
@@ -67,16 +92,16 @@
     /* Header */
     #title-block-header {
       background: var(--bg-secondary);
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 2px solid var(--border-subtle);
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
       backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.95);
+      box-shadow: var(--shadow-md);
     }
 
     .header-row {
-      max-width: 1400px;
+      max-width: 1600px;
       margin: 0 auto;
       padding: 1rem 2rem;
       display: flex;
@@ -98,6 +123,29 @@
       align-items: center;
     }
 
+    .font-selector {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .font-selector:hover {
+      background: var(--bg-secondary);
+      border-color: var(--accent-brown);
+      color: var(--text-primary);
+    }
+
+    .font-selector:focus {
+      border-color: var(--accent-orange);
+      box-shadow: 0 0 0 3px rgba(217, 119, 87, 0.1);
+    }
 
     .theme-toggle {
       background: var(--bg-primary);
@@ -142,7 +190,7 @@
 
     /* Layout */
     .page {
-      max-width: 1400px;
+      max-width: 1600px;
       margin: 0 auto;
       display: flex;
       gap: 2rem;
@@ -264,19 +312,25 @@
     }
 
     h2 {
-      font-size: 1.75rem;
-      font-weight: 600;
+      font-size: 1.875rem;
+      font-weight: 700;
       color: var(--text-primary);
-      letter-spacing: -0.01em;
-      margin: 2.5rem 0 1rem 0;
-      padding-top: 1rem;
+      letter-spacing: -0.015em;
+      margin: 2.5rem 0 1.5rem 0;
+      padding: 1.25rem 1.5rem;
+      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      border-left: 4px solid var(--accent-orange);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
     }
 
     h3 {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       font-weight: 600;
       color: var(--text-primary);
       margin: 2rem 0 1rem 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-light);
     }
 
     p {
@@ -431,26 +485,60 @@
       margin: 2.5rem 0;
     }
 
-    /* Back to top */
+    /* Back to top - Fixed button */
     .back-to-top {
-      display: inline-block;
-      margin-top: 3rem;
-      padding: 0.75rem 1.5rem;
-      background: var(--bg-primary);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      color: var(--text-secondary);
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 3rem;
+      height: 3rem;
+      background: var(--accent-orange);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      transition: all 0.3s ease;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
+
+    .back-to-top::before {
+      content: '↑';
+      display: block;
+    }
+
+    .back-to-top::after {
+      content: 'Back to Top';
+      position: absolute;
+      right: 100%;
+      margin-right: 0.75rem;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
       font-weight: 500;
-      transition: all 0.2s ease;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-subtle);
     }
 
     .back-to-top:hover {
-      background: var(--accent-orange);
-      color: white;
-      border-color: var(--accent-orange);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-      text-decoration: none;
+      background: var(--accent-brown);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .back-to-top:hover::after {
+      opacity: 1;
     }
 
     /* Section Cards */
@@ -510,6 +598,13 @@
   <div class="header-row">
     <h1 class="title">Week 2: Data Analysis Fundamentals</h1>
     <div class="header-controls">
+      <select class="font-selector" id="font-selector" aria-label="Select font">
+        <option value="candara">Candara</option>
+        <option value="arial">Arial</option>
+        <option value="courier">Courier New</option>
+        <option value="georgia">Georgia</option>
+        <option value="dyslexic">OpenDyslexic</option>
+      </select>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
         <span class="theme-icon">🌙</span>
         <span class="theme-text">Dark</span>
@@ -595,783 +690,31 @@ HAVING</a></li>
 <p>Click any day below to view detailed lessons, practice exercises, and assignments:</p>
 
 <div class="section-card"><div style="margin-bottom: 1.5rem;">
-<h3 style="margin-bottom: 0.5rem;"><a href="day6.html" style="color: var(--accent-orange); text-decoration: none;">📚 SQL - JOIN Operations</a></h3>
+<h3 style="margin-bottom: 0.5rem;"><a href="day6.html" style="color: var(--accent-orange); text-decoration: none;">📚 Day 6: SQL - JOIN Operations</a></h3>
 <p style="margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem;">Comprehensive 4-hour lesson with tutorials, practice exercises, and assignments</p>
 </div>
 <div style="margin-bottom: 1.5rem;">
-<h3 style="margin-bottom: 0.5rem;"><a href="day7.html" style="color: var(--accent-orange); text-decoration: none;">📚 Excel - Pivot Tables
+<h3 style="margin-bottom: 0.5rem;"><a href="day7.html" style="color: var(--accent-orange); text-decoration: none;">📚 Day 7: Excel - Pivot Tables
 & Charts</a></h3>
 <p style="margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem;">Comprehensive 4-hour lesson with tutorials, practice exercises, and assignments</p>
 </div>
 <div style="margin-bottom: 1.5rem;">
-<h3 style="margin-bottom: 0.5rem;"><a href="day8.html" style="color: var(--accent-orange); text-decoration: none;">📚 SQL - GROUP BY &
+<h3 style="margin-bottom: 0.5rem;"><a href="day8.html" style="color: var(--accent-orange); text-decoration: none;">📚 Day 8: SQL - GROUP BY &
 HAVING</a></h3>
 <p style="margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem;">Comprehensive 4-hour lesson with tutorials, practice exercises, and assignments</p>
 </div>
 <div style="margin-bottom: 1.5rem;">
-<h3 style="margin-bottom: 0.5rem;"><a href="day9.html" style="color: var(--accent-orange); text-decoration: none;">📚 Excel - Advanced Functions (SUMIFS, COUNTIFS, Text Functions)</a></h3>
+<h3 style="margin-bottom: 0.5rem;"><a href="day9.html" style="color: var(--accent-orange); text-decoration: none;">📚 Day 9: Excel - Advanced Functions (SUMIFS, COUNTIFS, Text Functions)</a></h3>
 <p style="margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem;">Comprehensive 4-hour lesson with tutorials, practice exercises, and assignments</p>
 </div>
 <div style="margin-bottom: 1.5rem;">
-<h3 style="margin-bottom: 0.5rem;"><a href="day10.html" style="color: var(--accent-orange); text-decoration: none;">📚 SQL - Subqueries</a></h3>
+<h3 style="margin-bottom: 0.5rem;"><a href="day10.html" style="color: var(--accent-orange); text-decoration: none;">📚 Day 10: SQL - Subqueries</a></h3>
 <p style="margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem;">Comprehensive 4-hour lesson with tutorials, practice exercises, and assignments</p>
 </div>
 </div>
-<h1 id="week-2-data-analysis-fundamentals">WEEK 2: DATA ANALYSIS
-FUNDAMENTALS</h1>
-<hr/>
-<h2><a href="day6.html">DAY 6: SQL - JOIN Operations</a></h2>
-<p><strong>Learning Objectives:</strong> - Master INNER JOIN - Learn
-LEFT JOIN and RIGHT JOIN - Understand JOIN relationships - Combine data
-from multiple tables (Mirror Excel VLOOKUP)</p>
-<h3 id="topics-covered-hour-1---60-min-5">Topics Covered (60
-min):</h3>
-<p><strong>1. INNER JOIN (Mirror Excel VLOOKUP)</strong> - Returns only
-matching records from both tables - Syntax:
-<code>SELECT * FROM Orders INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID</code>
-- Example: Orders with matching customers only - Most common JOIN
-type</p>
-<p><strong>2. LEFT JOIN</strong> - Returns ALL from left table +
-matching from right - NULL for non-matching right table rows - Syntax:
-<code>SELECT * FROM Customers LEFT JOIN Orders ON Customers.ID = Orders.CustomerID</code>
-- Use case: Find customers with NO orders (WHERE Orders.ID IS NULL)</p>
-<p><strong>3. RIGHT JOIN</strong> - Returns ALL from right table +
-matching from left - Less common (can be rewritten as LEFT JOIN) -
-Usually avoid for consistency</p>
-<p><strong>4. Multi-Table JOINs</strong> - Chain JOINs:
-<code>Orders JOIN Customers ON ... JOIN Products ON ...</code> - Use
-aliases for readability:
-<code>FROM Orders O JOIN Customers C ON O.CustomerID = C.ID</code> - Get
-comprehensive data from 3+ tables</p>
-<h3 id="video-resources-6">📺 Video Resources:</h3>
-<ol type="1">
-<li><p><strong>SQL JOINs Explained</strong> (15 min)<br/>
-https://www.youtube.com/watch?v=9yeOJ0ZMUYw - Programming with
-Mosh</p></li>
-<li><p><strong>INNER vs LEFT JOIN</strong> (12 min)<br/>
-https://www.youtube.com/watch?v=2HVMiPPuPIM - Socratica</p></li>
-<li><p><strong>Visual Guide to SQL JOINs</strong> (10 min)<br/>
-https://www.youtube.com/watch?v=0OQJDd3QqQM - FreeCodeCamp</p></li>
-<li><p><strong>W3Schools SQL JOINs</strong><br/>
-https://www.w3schools.com/sql/sql_join.asp</p></li>
-</ol>
-<h3 id="ai-learning-prompts-concept-understanding-only-5">🤖 AI Learning
-Prompts (Concept Understanding Only):</h3>
-<p><strong>Understanding JOINs (Mirror VLOOKUP):</strong></p>
-<pre><code>Yesterday I learned VLOOKUP in Excel. Help me understand SQL JOINs:
-
-1. How are SQL JOINs similar to Excel VLOOKUP?
-2. What's the fundamental concept of joining tables?
-3. Explain INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL OUTER JOIN
-4. When should I use each type of JOIN?
-5. Show me Venn diagrams or visual representations for each JOIN
-6. Give examples using Authors and Books tables (not sales data)
-
-Explain the parallel between VLOOKUP and JOINs clearly.</code></pre>
-<p><strong>Understanding INNER JOIN:</strong></p>
-<pre><code>Explain SQL INNER JOIN in detail:
-
-1. What does INNER JOIN return?
-2. What's the syntax: SELECT ... FROM Table1 INNER JOIN Table2 ON condition?
-3. What is the ON clause and how does it work?
-4. Show me examples using Students and Enrollments tables
-5. What happens to rows that don't have matches?
-6. Can I join on multiple columns?
-
-Use school or library data for examples (not orders).</code></pre>
-<p><strong>Understanding LEFT JOIN:</strong></p>
-<pre><code>Explain LEFT JOIN and its use cases:
-
-1. How does LEFT JOIN differ from INNER JOIN?
-2. What does "all records from left table" mean?
-3. What are NULL values in the result?
-4. When would I use LEFT JOIN vs INNER JOIN?
-5. Show me examples: find customers who haven't made purchases using Customers LEFT JOIN Orders
-6. How do I find records that DON'T have matches (WHERE column IS NULL)?
-
-Use customer or membership data for examples.</code></pre>
-<p><strong>Understanding Multi-Table JOINs:</strong></p>
-<pre><code>Explain joining more than 2 tables:
-
-1. How do I chain multiple JOINs?
-2. Does the order of JOINs matter?
-3. What are table aliases and why use them (AS)?
-4. Show me how to JOIN 3 tables: Authors, Books, Publishers
-5. How do I keep track of which columns come from which table?
-
-Use publishing or university data for examples (not sales).</code></pre>
-<h3 id="guided-practice-hour-2---60-min-5">Guided Practice (60
-min):</h3>
-<ol type="1">
-<li>JOIN Orders and Customers to show customer names with each
-order</li>
-<li>JOIN Orders and Products to show product names</li>
-<li>LEFT JOIN to find customers without any orders</li>
-<li>3-table JOIN: Orders + Customers + Products (comprehensive
-view)</li>
-<li>Calculate total sales per customer using JOIN + GROUP BY</li>
-</ol>
-<h3 id="independent-practice-hour-3---60-min-5">Independent Practice
-(60 min):</h3>
-<ol type="1">
-<li>List all orders with customer and product details (3-table
-JOIN)</li>
-<li>Find products that were never ordered (LEFT JOIN Products and
-Orders)</li>
-<li>Show orders with customer region information</li>
-<li>Calculate total revenue per product category (JOIN + SUM + GROUP
-BY)</li>
-<li>List customers with their order count (JOIN + COUNT + GROUP BY)</li>
-<li>Find high-value customers (total orders &gt; $10,000)</li>
-<li>Show which products were sold in each region</li>
-<li>Display orders with customer state and product category</li>
-<li>Calculate average sales per customer</li>
-<li>Find top 5 products by total revenue</li>
-</ol>
-<h3 id="daily-assignment-hour-4---60-min-5">Daily Assignment (60 min):</h3>
-<ul>
-<li>Create comprehensive sales report: Orders + Customers +
-Products</li>
-<li>This mirrors your Excel Day 5 VLOOKUP assignment!</li>
-<li>Include: Customer names, regions, product details, totals</li>
-<li><strong>Save as:</strong> Day06_SQL_Practice.sql</li>
-</ul>
-<h3 id="expected-outcomes-5">Expected Outcomes:</h3>
-<p>✓ JOIN tables to combine related data<br/>
-✓ Understand different JOIN types and when to use each<br/>
-✓ Combine data from 3+ tables<br/>
-✓ Submit: Day06_SQL_Practice.sql</p>
-<hr/>
-<h2><a href="day7.html">DAY 7: Excel - Pivot Tables
-& Charts</a></h2>
-<p><strong>Learning Objectives:</strong> - Create and configure Pivot
-Tables - Use grouping and calculated fields - Create Pivot Charts - Add
-slicers for interactivity</p>
-<h3 id="topics-covered-hour-1---60-min-6">Topics Covered (60
-min):</h3>
-<p><strong>1. Pivot Table Basics</strong> - Insert → PivotTable - Four
-areas: Rows, Columns, Values, Filters - Drag fields to appropriate areas
-- Values: Sum, Count, Average, Max, Min</p>
-<p><strong>2. Grouping</strong> - <strong>Date grouping:</strong> By
-day, month, quarter, year - <strong>Numeric grouping:</strong> Create
-ranges - Right-click → Group - Custom groups</p>
-<p><strong>3. Calculated Fields</strong> - Analyze → Fields, Items &amp;
-Sets → Calculated Field - Create formulas: Profit Margin = Profit /
-Sales - Use existing field names in formulas</p>
-<p><strong>4. Slicers</strong> - Visual filters for easy interaction -
-Insert → Slicer - Connect to multiple Pivot Tables - Timelines for date
-filtering</p>
-<p><strong>5. Pivot Charts</strong> - Visualize Pivot Table data -
-Dynamic charts that update with Pivot Table - Insert → Pivot Chart</p>
-<h3 id="video-resources-7">📺 Video Resources:</h3>
-<ol type="1">
-<li><p><strong>Pivot Tables for Beginners</strong> (25 min)<br/>
-https://www.youtube.com/watch?v=UsdedFoTA68 -
-MyOnlineTrainingHub</p></li>
-<li><p><strong>Pivot Charts Tutorial</strong> (12 min)<br/>
-https://www.youtube.com/watch?v=LJhwY6T9LIU - Excel Campus</p></li>
-<li><p><strong>Slicers and Timelines</strong> (10 min)<br/>
-https://www.youtube.com/watch?v=VQRmx0bfO_E - Leila Gharani</p></li>
-<li><p><strong>Microsoft Pivot Table Guide</strong><br/>
-https://support.microsoft.com/en-us/office/create-a-pivottable-to-analyze-worksheet-data-a9a84538-bfe9-40a9-a8e9-f99134456576</p></li>
-</ol>
-<h3 id="ai-learning-prompts-concept-understanding-only-6">🤖 AI Learning
-Prompts (Concept Understanding Only):</h3>
-<p><strong>Understanding Pivot Tables:</strong></p>
-<pre><code>Explain Excel Pivot Tables:
-
-1. What is a Pivot Table and why is it useful?
-2. What are Rows, Columns, Values, and Filters areas?
-3. How do I decide what goes in each area?
-4. What's the difference between Count, Sum, Average in the Values area?
-5. Show me examples using survey data (responses by age group, region, etc.)
-6. How are Pivot Tables different from regular formulas?
-
-Use survey or census data for examples (not sales).</code></pre>
-<p><strong>Understanding Grouping:</strong></p>
-<pre><code>Explain Pivot Table grouping:
-
-1. What does grouping mean in Pivot Tables?
-2. How do I group dates by month, quarter, or year?
-3. How do I group numbers into ranges (0-10, 11-20, etc.)?
-4. Show me examples using age groups or salary ranges
-5. Can I create custom groups?
-
-Use demographic or financial data for examples.</code></pre>
-<p><strong>Understanding Calculated Fields:</strong></p>
-<pre><code>Explain Pivot Table calculated fields:
-
-1. What is a calculated field in a Pivot Table?
-2. How is it different from calculated columns in my data?
-3. How do I create formulas within Pivot Tables?
-4. Show me examples: Profit Margin = Profit / Revenue
-5. Can I use IF statements in calculated fields?
-
-Use financial or performance data for examples.</code></pre>
-<p><strong>Understanding Slicers:</strong></p>
-<pre><code>Explain Pivot Table slicers:
-
-1. What are slicers and why use them?
-2. How do slicers differ from filters?
-3. Can one slicer control multiple Pivot Tables?
-4. Show me how to create an interactive dashboard with slicers
-5. What are timelines and when to use them?
-
-Use dashboard and reporting examples.</code></pre>
-<h3 id="guided-practice-hour-2---60-min-6">Guided Practice (60
-min):</h3>
-<ol type="1">
-<li>Create Pivot Table: Sales by Region</li>
-<li>Add second dimension: Sales by Category and Region</li>
-<li>Group dates to show monthly sales trend</li>
-<li>Add calculated field for Profit Margin %</li>
-<li>Create Pivot Chart from your Pivot Table</li>
-</ol>
-<h3 id="independent-practice-hour-3---60-min-6">Independent Practice
-(60 min):</h3>
-<ol type="1">
-<li>Sales by Product Category (Pivot Table)</li>
-<li>Quarterly sales comparison</li>
-<li>Top 10 customers by total revenue</li>
-<li>Sales by Region with % of Grand Total</li>
-<li>Product performance by Category</li>
-<li>Monthly sales trend with slicers for Region</li>
-<li>Multi-level grouping: Region → State → City</li>
-<li>Profit analysis by Category with Profit Margin %</li>
-<li>Year-over-year comparison (2022 vs 2023)</li>
-<li>Interactive dashboard: 3 Pivot Tables + Slicers</li>
-</ol>
-<h3 id="daily-assignment-hour-4---60-min-6">Daily Assignment (60 min):</h3>
-<ul>
-<li>Create executive sales dashboard with:
-<ul>
-<li>3 different Pivot Tables (Sales by Region, Category Performance,
-Monthly Trends)</li>
-<li>Slicers for Region and Category</li>
-<li>2-3 Pivot Charts</li>
-</ul></li>
-<li><strong>Save as:</strong> Day07_Excel_Practice.xlsx</li>
-</ul>
-<h3 id="expected-outcomes-6">Expected Outcomes:</h3>
-<p>✓ Create and configure Pivot Tables<br/>
-✓ Use grouping and calculated fields<br/>
-✓ Build interactive dashboards with slicers<br/>
-✓ Submit: Day07_Excel_Practice.xlsx</p>
-<hr/>
-<h2><a href="day8.html">DAY 8: SQL - GROUP BY &
-HAVING</a></h2>
-<p><strong>Learning Objectives:</strong> - Master GROUP BY for data
-aggregation - Use HAVING for group filtering - Group by multiple columns
-- Combine GROUP BY with JOINs (Mirror Excel Pivot Tables)</p>
-<h3 id="topics-covered-hour-1---60-min-7">Topics Covered (60
-min):</h3>
-<p><strong>1. GROUP BY (Mirror Excel Pivot Tables)</strong> - Syntax:
-<code>SELECT Region, SUM(Sales) FROM Orders GROUP BY Region</code> -
-Groups rows with same values - Must use with aggregate functions - Like
-Pivot Table’s Row area + Values area</p>
-<p><strong>2. Multiple Column Grouping</strong> -
-<code>GROUP BY Region, Category</code> - Creates groups for each unique
-combination - Like Pivot Table with multiple row fields</p>
-<p><strong>3. HAVING (Filter Groups)</strong> -
-<code>HAVING SUM(Sales) &gt; 10000</code> - Filters groups (after
-aggregation) - WHERE filters rows (before aggregation) - HAVING uses
-aggregate functions</p>
-<p><strong>4. WITH JOINs</strong> - Combine tables then group - Example:
-<code>SELECT C.Region, SUM(O.Sales) FROM Orders O JOIN Customers C ON ... GROUP BY C.Region</code></p>
-<p><strong>Query Order:</strong></p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb31-1"><a aria-hidden="true" href="#cb31-1" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">columns</span></span>
-<span id="cb31-2"><a aria-hidden="true" href="#cb31-2" tabindex="-1"></a><span class="kw">FROM</span> table1</span>
-<span id="cb31-3"><a aria-hidden="true" href="#cb31-3" tabindex="-1"></a><span class="kw">JOIN</span> table2 <span class="kw">ON</span> condition</span>
-<span id="cb31-4"><a aria-hidden="true" href="#cb31-4" tabindex="-1"></a><span class="kw">WHERE</span> row_filter</span>
-<span id="cb31-5"><a aria-hidden="true" href="#cb31-5" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="kw">columns</span></span>
-<span id="cb31-6"><a aria-hidden="true" href="#cb31-6" tabindex="-1"></a><span class="kw">HAVING</span> group_filter</span>
-<span id="cb31-7"><a aria-hidden="true" href="#cb31-7" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="kw">columns</span></span></code></pre></div>
-<h3 id="video-resources-8">📺 Video Resources:</h3>
-<ol type="1">
-<li><p><strong>SQL GROUP BY Tutorial</strong> (18 min)<br/>
-https://www.youtube.com/watch?v=lkJWEkbPtzc - Programming with
-Mosh</p></li>
-<li><p><strong>GROUP BY vs HAVING</strong> (12 min)<br/>
-https://www.youtube.com/watch?v=KqOEj6rnEWM - Simplilearn</p></li>
-<li><p><strong>GROUP BY with JOINs</strong> (15 min)<br/>
-https://www.youtube.com/watch?v=XqIk2PwP0To - Alex The Analyst</p></li>
-<li><p><strong>W3Schools GROUP BY</strong><br/>
-https://www.w3schools.com/sql/sql_groupby.asp</p></li>
-</ol>
-<h3 id="ai-learning-prompts-concept-understanding-only-7">🤖 AI Learning
-Prompts (Concept Understanding Only):</h3>
-<p><strong>Understanding GROUP BY (Mirror Pivot Tables):</strong></p>
-<pre><code>Yesterday I learned Excel Pivot Tables. Help me understand SQL GROUP BY:
-
-1. How is GROUP BY similar to Excel Pivot Table's Row area?
-2. What does GROUP BY do to the data?
-3. What's the syntax: SELECT column, SUM(value) FROM table GROUP BY column?
-4. Why do I need aggregate functions (SUM, COUNT, AVG) with GROUP BY?
-5. Show me examples using Employee data (count employees by department, average salary by role)
-6. What columns can I put in SELECT when using GROUP BY?
-
-Explain the parallel between Pivot Tables and GROUP BY clearly.</code></pre>
-<p><strong>Understanding HAVING Clause:</strong></p>
-<pre><code>Explain SQL HAVING clause:
-
-1. What is HAVING and why do I need it?
-2. How is HAVING different from WHERE?
-3. When do I use WHERE vs HAVING?
-4. Show me the order: SELECT → FROM → WHERE → GROUP BY → HAVING → ORDER BY
-5. Give examples using Store data (find stores with sales &gt; $10,000)
-6. Can I use both WHERE and HAVING in the same query?
-
-Use retail or school data for examples.</code></pre>
-<p><strong>Understanding Multiple Grouping:</strong></p>
-<pre><code>Explain grouping by multiple columns:
-
-1. How do I GROUP BY more than one column?
-2. What does GROUP BY col1, col2 create?
-3. How is this like Excel Pivot Table with multiple row fields?
-4. Show me examples: GROUP BY department, job_title (using HR data)
-5. Does the order of columns in GROUP BY matter?
-
-Use organizational or survey data for examples.</code></pre>
-<p><strong>Understanding GROUP BY with JOINs:</strong></p>
-<pre><code>Explain combining JOINs and GROUP BY:
-
-1. How do I use GROUP BY after joining tables?
-2. What's the typical pattern: FROM table1 JOIN table2 ... GROUP BY?
-3. Can I GROUP BY columns from different tables?
-4. Show me examples: Join Authors and Books, count books per author
-5. Which comes first: JOIN or GROUP BY?
-
-Use library or publishing data for examples.</code></pre>
-<h3 id="guided-practice-hour-2---60-min-7">Guided Practice (60
-min):</h3>
-<ol type="1">
-<li>Total sales by region (GROUP BY)</li>
-<li>Average order value by category</li>
-<li>Count of orders per customer</li>
-<li>Sales by region AND category (multiple GROUP BY)</li>
-<li>Regions with total sales &gt; $50,000 (HAVING)</li>
-</ol>
-<h3 id="independent-practice-hour-3---60-min-7">Independent Practice
-(60 min):</h3>
-<ol type="1">
-<li>Total revenue by product category</li>
-<li>Monthly sales totals (GROUP BY month)</li>
-<li>Customers with more than 5 orders (HAVING)</li>
-<li>Average discount by category</li>
-<li>Top 5 regions by total profit</li>
-<li>Quarterly sales (GROUP BY quarter)</li>
-<li>Categories with average sale &gt; $500</li>
-<li>Customer lifetime value (SUM sales per customer)</li>
-<li>Products sold per region (JOIN + GROUP BY)</li>
-<li>Year-over-year growth by category</li>
-</ol>
-<h3 id="daily-assignment-hour-4---60-min-7">Daily Assignment (60 min):</h3>
-<ul>
-<li>Replicate ALL Excel Day 7 Pivot Tables using SQL GROUP BY</li>
-<li>Create same analyses: Sales by Region, Category, Time periods</li>
-<li>Compare your SQL results with Excel Pivot Tables - they should
-match!</li>
-<li><strong>Save as:</strong> Day08_SQL_Practice.sql</li>
-</ul>
-<h3 id="expected-outcomes-7">Expected Outcomes:</h3>
-<p>✓ Use GROUP BY for data aggregation<br/>
-✓ Understand parallel between Pivot Tables and GROUP BY<br/>
-✓ Filter groups with HAVING<br/>
-✓ Submit: Day08_SQL_Practice.sql</p>
-<hr/>
-<h2 id="day-9-excel---advanced-functions-sumifs-countifs-text-functions">DAY
-9: Excel - Advanced Functions (SUMIFS, COUNTIFS, Text Functions)</h2>
-<p><strong>Learning Objectives:</strong> - Master SUMIFS, COUNTIFS,
-AVERAGEIFS (multiple criteria) - Learn text functions (CONCATENATE,
-LEFT, RIGHT, MID, LEN) - Use text cleaning functions (TRIM, UPPER,
-LOWER, PROPER) - Combine multiple functions</p>
-<h3 id="topics-covered-hour-1---60-min-8">Topics Covered (60
-min):</h3>
-<p><strong>1. Multiple Criteria Aggregates</strong> -
-<code>=SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2, ...)</code>
-- <code>=COUNTIFS(range1, criteria1, range2, criteria2, ...)</code> -
-<code>=AVERAGEIFS(avg_range, criteria_range1, criteria1, ...)</code> -
-Different syntax from single-criteria versions!</p>
-<p><strong>2. Text Functions</strong> -
-<code>=CONCATENATE(text1, text2)</code> or
-<code>=A1&amp;" "&amp;B1</code> - Join text -
-<code>=LEFT(text, num_chars)</code> - Extract from left -
-<code>=RIGHT(text, num_chars)</code> - Extract from right -
-<code>=MID(text, start, num_chars)</code> - Extract from middle -
-<code>=LEN(text)</code> - Count characters</p>
-<p><strong>3. Text Cleaning</strong> - <code>=TRIM(text)</code> - Remove
-extra spaces - <code>=UPPER(text)</code>, <code>=LOWER(text)</code>,
-<code>=PROPER(text)</code> - Change case -
-<code>=SUBSTITUTE(text, old_text, new_text)</code> - Replace text</p>
-<p><strong>4. Advanced Text</strong> -
-<code>=TEXTJOIN(delimiter, ignore_empty, text1, text2, ...)</code> -
-Join with delimiter - <code>=TEXT(value, format)</code> - Format
-numbers/dates as text</p>
-<h3 id="video-resources-9">📺 Video Resources:</h3>
-<ol type="1">
-<li><p><strong>SUMIFS and COUNTIFS Tutorial</strong> (18 min)<br/>
-https://www.youtube.com/watch?v=SibkxkFM-wU -
-MyOnlineTrainingHub</p></li>
-<li><p><strong>Text Functions Complete Guide</strong> (20 min)<br/>
-https://www.youtube.com/watch?v=5FQYhylF7v0 - Leila Gharani</p></li>
-<li><p><strong>Data Cleaning with Text Functions</strong> (15 min)<br/>
-https://www.youtube.com/watch?v=W8hTgjVVxNQ - Excel Campus</p></li>
-<li><p><strong>Excel Text Functions Reference</strong><br/>
-https://support.microsoft.com/en-us/office/text-functions-reference-cccd86ad-547d-4ea9-a065-7bb697c2a56e</p></li>
-</ol>
-<h3 id="ai-learning-prompts-concept-understanding-only-8">🤖 AI Learning
-Prompts (Concept Understanding Only):</h3>
-<p><strong>Understanding Multiple Criteria Functions:</strong></p>
-<pre><code>Explain Excel's multiple criteria functions:
-
-1. How do SUMIFS, COUNTIFS, AVERAGEIFS differ from SUMIF, COUNTIF, AVERAGEIF?
-2. What's the syntax: SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2, ...)?
-3. Why is the syntax order different from SUMIF?
-4. How many criteria can I use?
-5. Show me examples using class grades (sum scores where subject="Math" AND grade&gt;80)
-6. Can I mix AND/OR logic?
-
-Use academic or employee data for examples (not sales).</code></pre>
-<p><strong>Understanding Text Functions:</strong></p>
-<pre><code>Explain Excel text manipulation functions:
-
-1. What do these functions do: CONCATENATE (or &amp;), LEFT, RIGHT, MID, LEN?
-2. Give me the syntax for each
-3. Show me examples using names (extract first name, last name from full name)
-4. How do I combine multiple text values?
-5. What's the difference between CONCATENATE and TEXTJOIN?
-6. How do I extract parts of text (like area code from phone number)?
-
-Use name, address, or ID code examples.</code></pre>
-<p><strong>Understanding Text Cleaning:</strong></p>
-<pre><code>Explain text cleaning functions:
-
-1. What do TRIM, UPPER, LOWER, PROPER do?
-2. Why would I need to clean text data?
-3. How does TRIM remove extra spaces?
-4. Show me examples cleaning messy address data or names
-5. What's SUBSTITUTE and when do I use it?
-6. How do I remove specific characters from text?
-
-Use examples with messy data entry (names with extra spaces, inconsistent case).</code></pre>
-<p><strong>Understanding TEXTJOIN and Advanced Text:</strong></p>
-<pre><code>Explain advanced text functions:
-
-1. How does TEXTJOIN work and why is it better than CONCATENATE?
-2. What are the parameters: delimiter, ignore_empty, text values?
-3. Show me how to combine multiple cells with commas
-4. How do I split text into parts (opposite of joining)?
-5. Give examples creating full addresses from street, city, state, zip
-
-Use address or labeling examples.</code></pre>
-<h3 id="guided-practice-hour-2---60-min-8">Guided Practice (60
-min):</h3>
-<ol type="1">
-<li>Sum sales where Region=‘East’ AND Category=‘Furniture’</li>
-<li>Count profitable orders (Profit&gt;0) in 2023</li>
-<li>Average sales for California customers</li>
-<li>Concatenate FirstName and LastName with space</li>
-<li>Extract area code from phone using LEFT</li>
-</ol>
-<h3 id="independent-practice-hour-3---60-min-8">Independent Practice
-(60 min):</h3>
-<ol type="1">
-<li>Sum sales where: East region, Furniture, Sales&gt;1000 (3
-criteria)</li>
-<li>Count orders: West region AND discount&gt;10%</li>
-<li>Average profit: Technology category in 2023</li>
-<li>Create full address using CONCATENATE or TEXTJOIN</li>
-<li>Extract product code from SKU using MID</li>
-<li>Clean customer names: TRIM + PROPER</li>
-<li>Count high-value customers in East region</li>
-<li>Sum quantities: Chairs category, Q4 (Oct-Dec)</li>
-<li>Extract domain from email (use RIGHT and FIND)</li>
-<li>Count products with “Pro” in name (use wildcards)</li>
-<li>Average sales by region AND category (multiple AVERAGEIFS)</li>
-<li>Create product descriptions using TEXTJOIN</li>
-</ol>
-<h3 id="daily-assignment-hour-4---60-min-8">Daily Assignment (60 min):</h3>
-<ul>
-<li>Create customer segmentation report using SUMIFS and COUNTIFS with
-multiple criteria</li>
-<li>Clean a messy dataset using text functions (remove spaces, fix case,
-extract parts)</li>
-<li>Combine text from multiple columns into formatted output</li>
-<li><strong>Save as:</strong> Day09_Excel_Practice.xlsx</li>
-</ul>
-<h3 id="expected-outcomes-8">Expected Outcomes:</h3>
-<p>✓ Use multiple criteria functions effectively<br/>
-✓ Manipulate and clean text data<br/>
-✓ Combine multiple functions for complex tasks<br/>
-✓ Submit: Day09_Excel_Practice.xlsx</p>
-<hr/>
-<h2><a href="day9.html">DAY 9: Excel - Advanced Functions (SUMIFS, COUNTIFS, Text Functions)</a></h2>
-<p><strong>Learning Objectives:</strong>
-- Master multiple criteria functions (SUMIFS, COUNTIFS, AVERAGEIFS)
-- Use text manipulation functions
-- Combine functions for complex calculations
-- Handle errors with IFERROR and IFNA
-- Build dynamic formulas with array functions</p>
-<h3 id="topics-covered-hour-1---60-min-9">Topics Covered (60 min):</h3>
-<p><strong>1. Multiple Criteria Functions</strong>
-- <code>SUMIFS(sum_range, criteria_range1, criteria1, [criteria_range2, criteria2]...)</code>
-- <code>COUNTIFS(criteria_range1, criteria1, [criteria_range2, criteria2]...)</code>
-- <code>AVERAGEIFS(average_range, criteria_range1, criteria1...)</code>
-- Example: Sum sales for Region="West" AND Product="Tech"
-- Can use wildcards: <code>COUNTIFS(A:A, "Tech*")</code></p>
-<p><strong>2. Text Functions</strong>
-- <code>LEFT(text, num_chars)</code>, <code>RIGHT(text, num_chars)</code>, <code>MID(text, start, num_chars)</code>
-- <code>LEN(text)</code> - Length of text
-- <code>UPPER(text)</code>, <code>LOWER(text)</code>, <code>PROPER(text)</code>
-- <code>TRIM(text)</code> - Remove extra spaces
-- <code>CONCATENATE()</code> or <code>&amp;</code> operator or <code>TEXTJOIN()</code>
-- <code>FIND()</code>, <code>SEARCH()</code>, <code>SUBSTITUTE()</code></p>
-<p><strong>3. Error Handling</strong>
-- <code>IFERROR(value, value_if_error)</code> - Catch all errors
-- <code>IFNA(value, value_if_na)</code> - Catch #N/A errors specifically
-- Example: <code>=IFERROR(VLOOKUP(A2, Table, 2, 0), "Not Found")</code>
-- Clean up division by zero: <code>=IFERROR(A2/B2, 0)</code>
-- Nested error handling for complex formulas</p>
-<p><strong>4. Array Formulas &amp; UNIQUE</strong>
-- <code>UNIQUE(array)</code> - Get unique values
-- <code>SORT(array, [sort_index], [sort_order])</code>
-- <code>FILTER(array, include, [if_empty])</code>
-- Dynamic arrays (Excel 365)
-- Combining functions: <code>=SORT(UNIQUE(A2:A100))</code></p>
-<h3 id="video-resources-9">📺 Video Resources:</h3>
-<ol type="1">
-<li><strong>SUMIFS, COUNTIFS, AVERAGEIFS</strong> (15 min)<br/>
-https://www.youtube.com/watch?v=YvV7Jinnv-w - Leila Gharani</li>
-<li><strong>Excel Text Functions</strong> (12 min)<br/>
-https://www.youtube.com/watch?v=ZYJHgGp-RL0 - MyOnlineTrainingHub</li>
-<li><strong>IFERROR and Error Handling</strong> (10 min)<br/>
-https://www.youtube.com/watch?v=mGTcBfmL4Ss - Excel Campus</li>
-<li><strong>Dynamic Array Functions</strong> (18 min)<br/>
-https://www.youtube.com/watch?v=9WyFUO_llBc - Leila Gharani</li>
-</ol>
-<h3 id="ai-learning-prompts-concept-understanding-only-9">🤖 AI Learning Prompts (Concept Understanding Only):</h3>
-<p><strong>Understanding Multiple Criteria Functions:</strong></p>
-<pre><code>I'm learning Excel multiple criteria functions. Please explain:
-
-1. What is the difference between SUMIF and SUMIFS?
-2. How do I sum sales where Region="East" AND Category="Technology" AND Sales&gt;1000?
-3. Show me how to use wildcards with COUNTIFS
-4. Can I use comparison operators (&gt;=, &lt;=) in criteria?
-5. Provide examples using sales data with multiple conditions
-
-Use step-by-step examples for beginners.</code></pre>
-<p><strong>Understanding Text Functions:</strong></p>
-<pre><code>Help me understand Excel text manipulation:
-
-1. How do I extract first name from "John Smith" in cell A1?
-2. Show me how to combine first and last name with a space
-3. How do I remove extra spaces and convert to proper case?
-4. Explain FIND vs SEARCH functions
-5. Provide examples for cleaning messy text data
-
-Explain with practical data cleaning scenarios.</code></pre>
-<p><strong>Understanding Error Handling:</strong></p>
-<pre><code>I'm learning error handling in Excel. Please explain:
-
-1. What types of errors occur in Excel (#N/A, #DIV/0!, #VALUE!, etc.)?
-2. When should I use IFERROR vs IFNA?
-3. Show me how to handle VLOOKUP errors gracefully
-4. How do I prevent division by zero errors?
-5. Provide examples of nested error handling
-
-Use practical examples with formulas.</code></pre>
-<h3 id="guided-practice-hour-2---60-min-9">Guided Practice (60 min):</h3>
-<p><em>Using Superstore Sales dataset</em></p>
-<p><strong>Exercise 1: Multiple Criteria Analysis</strong>
-1. Calculate total sales for Region="West" AND Category="Technology"
-2. Count orders where Ship Mode="Standard Class" AND Sales&gt;500
-3. Average profit for Region="East" AND Year=2023
-4. Sum sales for Product names containing "Chair"
-5. Count unique customers with sales &gt; $1000</p>
-<p><strong>Exercise 2: Text Manipulation</strong>
-1. Extract state from "City, State" format
-2. Create full product code: Category + "-" + SubCategory + "-" + ID
-3. Clean customer names (remove extra spaces, proper case)
-4. Extract area code from phone number "(555) 123-4567"
-5. Split "LastName, FirstName" into separate columns</p>
-<p><strong>Exercise 3: Error Handling</strong>
-1. Add IFERROR to VLOOKUP formulas
-2. Handle division by zero in profit margin calculation
-3. Create "Not Found" message for missing products
-4. Combine IFERROR with SUMIFS for safe calculations
-5. Nest multiple error handlers</p>
-<h3 id="independent-practice-hour-3---60-min-9">Independent Practice (60 min):</h3>
-<p><strong>Challenge 1: Sales Analysis Dashboard</strong>
-- Calculate sales by multiple criteria (Region + Category + Year)
-- Count orders meeting various conditions
-- Use text functions to create product hierarchies
-- Add error handling to all formulas
-- Create summary with UNIQUE and SORT</p>
-<p><strong>Challenge 2: Data Cleaning Project</strong>
-- Clean customer names (trim, proper case)
-- Extract components from address field
-- Standardize phone number format
-- Remove duplicates and create clean list
-- Handle missing data with IFERROR</p>
-<h3 id="daily-assignment-hour-4---60-min-9">Daily Assignment (60 min):</h3>
-<p><strong>Assignment: Advanced Sales Report with Data Cleaning</strong></p>
-<p>Create a comprehensive report with:
-1. <strong>Multi-Criteria Analysis:</strong>
-   - Total sales by Region AND Category (use SUMIFS)
-   - Count of orders by multiple conditions (COUNTIFS)
-   - Average order value by segment (AVERAGEIFS)
-   - Sales for products containing specific keywords
-2. <strong>Text Processing:</strong>
-   - Split customer names into first/last
-   - Create standardized product codes
-   - Clean and format addresses
-   - Extract useful information from combined fields
-3. <strong>Error-Proof Formulas:</strong>
-   - Wrap all lookups in IFERROR
-   - Handle division by zero in all calculations
-   - Provide meaningful error messages
-   - Test with missing/invalid data
-4. <strong>Dynamic Lists:</strong>
-   - Create sorted list of unique customers
-   - Filter top products by sales
-   - Generate dynamic category summaries</p>
-<p><strong>Requirements:</strong>
-- Use at least 5 different SUMIFS/COUNTIFS formulas
-- Apply 5+ text functions for data cleaning
-- Implement IFERROR on all formulas
-- Use UNIQUE and SORT for dynamic lists
-- Format professionally with clear labels</p>
-<h3 id="expected-outcomes-9">Expected Outcomes:</h3>
-<ul>
-<li>Master SUMIFS, COUNTIFS, AVERAGEIFS with multiple criteria</li>
-<li>Confidently manipulate text with LEFT, RIGHT, MID, TRIM, CONCATENATE</li>
-<li>Implement error handling with IFERROR and IFNA</li>
-<li>Use dynamic array functions (UNIQUE, SORT, FILTER)</li>
-<li>Combine multiple functions for complex calculations</li>
-<li>Create clean, professional, error-free reports</li>
-</ul>
-<hr/>
-<h2><a href="day10.html">DAY 10: SQL - Subqueries</a></h2>
-<p><strong>Learning Objectives:</strong> - Use subqueries in WHERE
-clause - Create subqueries in SELECT - Understand IN and EXISTS
-operators - Learn correlated vs non-correlated subqueries</p>
-<h3 id="topics-covered-hour-1---60-min-9">Topics Covered (60
-min):</h3>
-<p><strong>1. WHERE Subquery (Non-Correlated)</strong> -
-<code>SELECT * FROM Orders WHERE Sales &gt; (SELECT AVG(Sales) FROM Orders)</code>
-- Find records above/below aggregate - Inner query runs once</p>
-<p><strong>2. IN Operator</strong> -
-<code>WHERE CustomerID IN (SELECT ID FROM Customers WHERE State='CA')</code>
-- Tests if value is in subquery results - Returns multiple values</p>
-<p><strong>3. EXISTS Operator</strong> -
-<code>WHERE EXISTS (SELECT 1 FROM OrderDetails WHERE OrderID = Orders.ID)</code>
-- Tests if subquery returns ANY rows - Usually faster than IN for large
-datasets - Returns TRUE/FALSE</p>
-<p><strong>4. SELECT Subquery (Scalar)</strong> -
-<code>SELECT OrderID, (SELECT Name FROM Customers WHERE ID=Orders.CustomerID) AS Customer</code>
-- Must return single value - Adds calculated column</p>
-<p><strong>5. Correlated Subquery</strong> - References outer query -
-<code>WHERE Salary &gt; (SELECT AVG(Salary) FROM Employees E2 WHERE E2.Department = E1.Department)</code>
-- Runs for each row (slower)</p>
-<h3 id="video-resources-10">📺 Video Resources:</h3>
-<ol type="1">
-<li><p><strong>SQL Subqueries Explained</strong> (20 min)<br/>
-https://www.youtube.com/watch?v=X2P84cMjblU - Programming with
-Mosh</p></li>
-<li><p><strong>Subqueries vs JOINs</strong> (12 min)<br/>
-https://www.youtube.com/watch?v=f0t4UhtxV8Q - Socratica</p></li>
-<li><p><strong>Correlated Subqueries</strong> (15 min)<br/>
-https://www.youtube.com/watch?v=SEh9IzfRhPE - Simplilearn</p></li>
-<li><p><strong>W3Schools SQL Subqueries</strong><br/>
-https://www.w3schools.com/sql/sql_subqueries.asp</p></li>
-</ol>
-<h3 id="ai-learning-prompts-concept-understanding-only-9">🤖 AI Learning
-Prompts (Concept Understanding Only):</h3>
-<p><strong>Understanding Subqueries Basics:</strong></p>
-<pre><code>Explain SQL subqueries:
-
-1. What is a subquery and why use it?
-2. Where can subqueries be placed (WHERE, SELECT, FROM)?
-3. How do I write a subquery: SELECT ... WHERE col &gt; (SELECT ...)?
-4. Show me examples using Employee data (find employees with salary &gt; average)
-5. What's the difference between subquery and JOIN?
-6. When should I use subquery vs JOIN?
-
-Use HR or academic data for examples (not sales).</code></pre>
-<p><strong>Understanding IN and EXISTS:</strong></p>
-<pre><code>Explain IN and EXISTS with subqueries:
-
-1. How does IN operator work with subqueries?
-2. What's the syntax: WHERE column IN (SELECT ...)?
-3. How does EXISTS differ from IN?
-4. When is EXISTS more efficient than IN?
-5. Show me examples: Find students who are enrolled in at least one class
-6. What's the difference between NOT IN and NOT EXISTS?
-
-Use school enrollment or membership data for examples.</code></pre>
-<p><strong>Understanding Correlated Subqueries:</strong></p>
-<pre><code>Explain correlated subqueries:
-
-1. What makes a subquery "correlated"?
-2. How does it reference the outer query?
-3. Show me examples: Find employees earning more than average in their department
-4. Why are correlated subqueries slower?
-5. Can I rewrite correlated subqueries as JOINs?
-
-Use departmental or grouped data for examples.</code></pre>
-<p><strong>Understanding Subqueries in SELECT:</strong></p>
-<pre><code>Explain subqueries in the SELECT clause:
-
-1. How do I use subqueries to add calculated columns?
-2. What are scalar subqueries (returning single value)?
-3. Show me examples: Add "Department Average Salary" column to employee list
-4. When should I use subquery vs JOIN for this?
-
-Use organizational hierarchy examples.</code></pre>
-<h3 id="guided-practice-hour-2---60-min-9">Guided Practice (60
-min):</h3>
-<ol type="1">
-<li>Find orders with sales above average</li>
-<li>Select customers who have placed orders (using IN)</li>
-<li>Find products that have been sold (using EXISTS)</li>
-<li>Add customer name using subquery in SELECT</li>
-<li>Find top 10% of orders by revenue (using subquery)</li>
-</ol>
-<h3 id="independent-practice-hour-3---60-min-9">Independent Practice
-(60 min):</h3>
-<ol type="1">
-<li>Customers with above-average order value</li>
-<li>Products in top 3 revenue categories (subquery)</li>
-<li>Orders from California customers (IN subquery)</li>
-<li>Customers with more than 5 orders (subquery + HAVING)</li>
-<li>Products never ordered (NOT EXISTS)</li>
-<li>Orders above category average (correlated)</li>
-<li>High-value customers (top 20% by total sales)</li>
-<li>Products with above-average profit margin</li>
-<li>Regions performing above company average</li>
-<li>Customers with orders in last 30 days (subquery + date)</li>
-<li>Products in profitable categories only</li>
-<li>Orders from best customers (defined by criteria)</li>
-</ol>
-<h3 id="daily-assignment-hour-4---60-min-9">Daily Assignment (60 min):</h3>
-<ul>
-<li>Create complex analysis using subqueries for comparisons</li>
-<li>Compare with Excel Day 9 multi-criteria formulas</li>
-<li>Find patterns using subqueries (above average, top performers,
-etc.)</li>
-<li><strong>Save as:</strong> Day10_SQL_Practice.sql</li>
-<li><strong>WEEK 2 TEST:</strong> Complete Week 2 assessment (provided
-separately by instructor)</li>
-</ul>
-<h3 id="expected-outcomes-9">Expected Outcomes:</h3>
-<p>✓ Write subqueries in various clauses<br/>
-✓ Use IN and EXISTS effectively<br/>
-✓ Understand when to use subqueries vs JOINs<br/>
-✓ Submit: Day10_SQL_Practice.sql</p>
-<hr/>
-    <a href="#" class="back-to-top">↑ Back to Top</a>
   </div>
 </div>
+<button class="back-to-top" id="back-to-top" aria-label="Back to top"></button>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -1398,8 +741,12 @@ document.addEventListener('DOMContentLoaded', function() {
         button.textContent = 'Error';
         setTimeout(() => button.textContent = 'Copy', 2000);
       }
-    
-  // 4. Theme toggle functionality (Claude-style)
+    });
+
+    pre.appendChild(button);
+  });
+
+  // 2. Theme toggle functionality (Claude-style)
   const themeToggle = document.getElementById('theme-toggle');
   const themeIcon = document.querySelector('.theme-icon');
   const themeText = document.querySelector('.theme-text');
@@ -1428,12 +775,22 @@ document.addEventListener('DOMContentLoaded', function() {
       updateThemeButton(newTheme);
     });
   }
-});
 
-    pre.appendChild(button);
+  // 2b. Font selector functionality
+  const fontSelector = document.getElementById('font-selector');
+
+  // Load saved font preference (default to Candara)
+  const savedFont = localStorage.getItem('training-font') || 'candara';
+  document.documentElement.setAttribute('data-font', savedFont);
+  fontSelector.value = savedFont;
+
+  fontSelector.addEventListener('change', (e) => {
+    const selectedFont = e.target.value;
+    document.documentElement.setAttribute('data-font', selectedFont);
+    localStorage.setItem('training-font', selectedFont);
   });
 
-  // 2. Highlight active page in TOC and scroll to it
+  // 3. Highlight active page in TOC and scroll to it
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const tocLinks = document.querySelectorAll('nav#TOC a');
 
@@ -1455,7 +812,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // 3. Add AI prompts usage note
+  // 4. Add AI prompts usage note
   const aiPromptsHeadings = document.querySelectorAll('h3[id*="ai-learning-prompts"]');
   aiPromptsHeadings.forEach(heading => {
     // Check if note already exists
@@ -1470,6 +827,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     heading.parentNode.insertBefore(note, heading.nextSibling);
   });
+
+  // 5. Back to top button functionality
+  const backToTopBtn = document.getElementById('back-to-top');
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
 });
 </script>
 

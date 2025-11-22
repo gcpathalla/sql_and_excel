@@ -29,6 +29,7 @@ modern_head_template = '''<!DOCTYPE html>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/opendyslexic" rel="stylesheet">
 
   <style>
     * {
@@ -75,11 +76,35 @@ modern_head_template = '''<!DOCTYPE html>
       --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
     }
 
+    /* Font families */
+    html {
+      font-family: Candara, 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+    }
+
+    [data-font="candara"] {
+      font-family: Candara, 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+    }
+
+    [data-font="arial"] {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    [data-font="courier"] {
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    [data-font="georgia"] {
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    [data-font="dyslexic"] {
+      font-family: 'OpenDyslexic', sans-serif;
+    }
+
     html, body {
       height: 100%;
       background: var(--bg-primary);
       color: var(--text-primary);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 16px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
@@ -89,16 +114,16 @@ modern_head_template = '''<!DOCTYPE html>
     /* Header */
     #title-block-header {
       background: var(--bg-secondary);
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 2px solid var(--border-subtle);
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
       backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.95);
+      box-shadow: var(--shadow-md);
     }
 
     .header-row {
-      max-width: 1400px;
+      max-width: 1600px;
       margin: 0 auto;
       padding: 1rem 2rem;
       display: flex;
@@ -120,6 +145,29 @@ modern_head_template = '''<!DOCTYPE html>
       align-items: center;
     }
 
+    .font-selector {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .font-selector:hover {
+      background: var(--bg-secondary);
+      border-color: var(--accent-brown);
+      color: var(--text-primary);
+    }
+
+    .font-selector:focus {
+      border-color: var(--accent-orange);
+      box-shadow: 0 0 0 3px rgba(217, 119, 87, 0.1);
+    }
 
     .theme-toggle {
       background: var(--bg-primary);
@@ -164,7 +212,7 @@ modern_head_template = '''<!DOCTYPE html>
 
     /* Layout */
     .page {
-      max-width: 1400px;
+      max-width: 1600px;
       margin: 0 auto;
       display: flex;
       gap: 2rem;
@@ -286,19 +334,25 @@ modern_head_template = '''<!DOCTYPE html>
     }
 
     h2 {
-      font-size: 1.75rem;
-      font-weight: 600;
+      font-size: 1.875rem;
+      font-weight: 700;
       color: var(--text-primary);
-      letter-spacing: -0.01em;
-      margin: 2.5rem 0 1rem 0;
-      padding-top: 1rem;
+      letter-spacing: -0.015em;
+      margin: 2.5rem 0 1.5rem 0;
+      padding: 1.25rem 1.5rem;
+      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      border-left: 4px solid var(--accent-orange);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
     }
 
     h3 {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       font-weight: 600;
       color: var(--text-primary);
       margin: 2rem 0 1rem 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-light);
     }
 
     p {
@@ -453,26 +507,60 @@ modern_head_template = '''<!DOCTYPE html>
       margin: 2.5rem 0;
     }
 
-    /* Back to top */
+    /* Back to top - Fixed button */
     .back-to-top {
-      display: inline-block;
-      margin-top: 3rem;
-      padding: 0.75rem 1.5rem;
-      background: var(--bg-primary);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      color: var(--text-secondary);
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 3rem;
+      height: 3rem;
+      background: var(--accent-orange);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      transition: all 0.3s ease;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
+
+    .back-to-top::before {
+      content: '↑';
+      display: block;
+    }
+
+    .back-to-top::after {
+      content: 'Back to Top';
+      position: absolute;
+      right: 100%;
+      margin-right: 0.75rem;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
       font-weight: 500;
-      transition: all 0.2s ease;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-subtle);
     }
 
     .back-to-top:hover {
-      background: var(--accent-orange);
-      color: white;
-      border-color: var(--accent-orange);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-      text-decoration: none;
+      background: var(--accent-brown);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .back-to-top:hover::after {
+      opacity: 1;
     }
 
     /* Section Cards */
@@ -555,8 +643,12 @@ document.addEventListener('DOMContentLoaded', function() {
         button.textContent = 'Error';
         setTimeout(() => button.textContent = 'Copy', 2000);
       }
-    
-  // 4. Theme toggle functionality (Claude-style)
+    });
+
+    pre.appendChild(button);
+  });
+
+  // 2. Theme toggle functionality (Claude-style)
   const themeToggle = document.getElementById('theme-toggle');
   const themeIcon = document.querySelector('.theme-icon');
   const themeText = document.querySelector('.theme-text');
@@ -585,12 +677,22 @@ document.addEventListener('DOMContentLoaded', function() {
       updateThemeButton(newTheme);
     });
   }
-});
 
-    pre.appendChild(button);
+  // 2b. Font selector functionality
+  const fontSelector = document.getElementById('font-selector');
+
+  // Load saved font preference (default to Candara)
+  const savedFont = localStorage.getItem('training-font') || 'candara';
+  document.documentElement.setAttribute('data-font', savedFont);
+  fontSelector.value = savedFont;
+
+  fontSelector.addEventListener('change', (e) => {
+    const selectedFont = e.target.value;
+    document.documentElement.setAttribute('data-font', selectedFont);
+    localStorage.setItem('training-font', selectedFont);
   });
 
-  // 2. Highlight active page in TOC and scroll to it
+  // 3. Highlight active page in TOC and scroll to it
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const tocLinks = document.querySelectorAll('nav#TOC a');
 
@@ -612,7 +714,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // 3. Add AI prompts usage note
+  // 4. Add AI prompts usage note
   const aiPromptsHeadings = document.querySelectorAll('h3[id*="ai-learning-prompts"]');
   aiPromptsHeadings.forEach(heading => {
     // Check if note already exists
@@ -627,6 +729,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     heading.parentNode.insertBefore(note, heading.nextSibling);
   });
+
+  // 5. Back to top button functionality
+  const backToTopBtn = document.getElementById('back-to-top');
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
 });
 </script>
 '''
@@ -687,6 +800,13 @@ def create_html_page(title, toc_html, content_html, current_page=''):
   <div class="header-row">
     <h1 class="title">{title}</h1>
     <div class="header-controls">
+      <select class="font-selector" id="font-selector" aria-label="Select font">
+        <option value="candara">Candara</option>
+        <option value="arial">Arial</option>
+        <option value="courier">Courier New</option>
+        <option value="georgia">Georgia</option>
+        <option value="dyslexic">OpenDyslexic</option>
+      </select>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
         <span class="theme-icon">🌙</span>
         <span class="theme-text">Dark</span>
@@ -700,9 +820,9 @@ def create_html_page(title, toc_html, content_html, current_page=''):
   </nav>
   <div class="content">
 {content_html}
-    <a href="#" class="back-to-top">↑ Back to Top</a>
   </div>
 </div>
+<button class="back-to-top" id="back-to-top" aria-label="Back to top"></button>
 {enhanced_scripts}
 </body>
 </html>'''
@@ -752,7 +872,7 @@ def create_week_summary(week_num, days):
         title = day_titles.get(day_num, f"Day {day_num}")
         topic = re.sub(r'^DAY \d+:\s*', '', title)
         summary += f'''<div style="margin-bottom: 1.5rem;">
-<h3 style="margin-bottom: 0.5rem;"><a href="day{day_num}.html" style="color: var(--accent-orange); text-decoration: none;">📚 {topic}</a></h3>
+<h3 style="margin-bottom: 0.5rem;"><a href="day{day_num}.html" style="color: var(--accent-orange); text-decoration: none;">📚 Day {day_num}: {topic}</a></h3>
 <p style="margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem;">Comprehensive 4-hour lesson with tutorials, practice exercises, and assignments</p>
 </div>
 '''
@@ -855,14 +975,12 @@ for week_num in range(1, 7):
     print(f"Generating pages/week{week_num}.html...")
     week_days = list(range((week_num-1)*5+1, week_num*5+1))
     week_summary = create_week_summary(week_num, week_days)
-    week_content = extract_week_content(week_num)
-    # Prepend summary to content
-    week_content = week_summary + '\n' + week_content
+    # Week pages now only show overview + learning path (no redundant content)
     toc = create_toc(f'week{week_num}')
     week_html = create_html_page(
         week_titles[week_num - 1],
         toc,
-        week_content,
+        week_summary,
         f'week{week_num}'
     )
     with open(f'pages/week{week_num}.html', 'w', encoding='utf-8') as f:
