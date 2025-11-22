@@ -609,61 +609,28 @@ Filtering & Conditional Functions</title>
       min-height: 36px;
     }
 
-    .chatgpt-btn {
+    /* All AI buttons - Consistent black and white theme */
+    .chatgpt-btn,
+    .claude-btn,
+    .google-btn {
       background: #000000;
       color: white;
       border-color: #333333;
     }
 
-    .chatgpt-btn:hover {
+    .chatgpt-btn:hover,
+    .claude-btn:hover,
+    .google-btn:hover {
       background: #333333;
       transform: translateY(-1px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
       text-decoration: none;
     }
 
-    /* Claude button - Theme-aware like Claude's actual theme */
-    [data-theme="light"] .claude-btn {
-      background: #E5E5E5;
-      color: #CC785C;
-      border-color: #CC785C;
-      border-width: 2px;
-    }
-
-    [data-theme="dark"] .claude-btn {
-      background: white;
-      color: #CC785C;
-      border-color: #CC785C;
-      border-width: 2px;
-    }
-
-    [data-theme="light"] .claude-btn:hover {
-      background: #D0D0D0;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(204, 120, 92, 0.3);
-      text-decoration: none;
-      border-color: #B86A50;
-    }
-
-    [data-theme="dark"] .claude-btn:hover {
-      background: #FFF5F2;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(204, 120, 92, 0.3);
-      text-decoration: none;
-      border-color: #B86A50;
-    }
-
-    .google-btn {
-      background: #4285F4;
-      color: white;
-      border-color: #3B78E7;
-    }
-
-    .google-btn:hover {
-      background: #3B78E7;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(66, 133, 244, 0.3);
-      text-decoration: none;
+    /* Make sure icons are white */
+    .ai-quick-btn svg,
+    .ai-quick-btn img {
+      filter: brightness(0) invert(1);
     }
 
     .ai-quick-btn svg {
