@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>DAY 18</title>
+<style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+<link href="style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;display=swap" rel="stylesheet"/>
+<style id="dark-theme">
+    :root{
+      /* Grayscale-only palette (black -> white shades) */
+      --bg: #0b0b0b;        /* page background */
+      --sidebar: #040404;   /* sidebar background (slightly darker) */
+      --panel: #0f0f0f;     /* content panel */
+      --muted: #9a9a9a;     /* secondary text */
+      --text: #eaeaea;      /* main text */
+      --border: rgba(255,255,255,0.04);
+      --hier-line: #222222; /* hierarchy line color */
+      --section-bg: #0f0f0f;
+      --toc-width: 20%; /* default TOC width */
+      --base-font-size: 16px; /* default base font size */
+    }
+    html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;font-size:var(--base-font-size);line-height:1.6;margin:0;padding:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    /* make container fit viewport width */
+    .page{width:calc(100% - 40px);max-width:none;margin:20px auto;display:flex;gap:20px;padding:0 18px;align-items:flex-start}
+    .content{flex:1;min-width:0;background:transparent}
+    #title-block-header{background:transparent;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+    .header-row{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1200px;margin:0 auto;padding:0 18px}
+    .title{margin:0;font-size:clamp(1.25rem,2.6vw,2.2rem);font-weight:700;color:var(--text)}
+    .header-controls{display:flex;gap:8px;align-items:center}
+    /* ChatGPT-like flat sidebar */
+    nav#TOC{width:var(--toc-width);min-width:160px;max-width:420px;padding:8px 0;background:var(--sidebar);border-right:1px solid var(--border);color:var(--muted);align-self:flex-start;position:sticky;top:20px;height:calc(100vh - 100px);overflow:auto;border-radius:0;box-shadow:none;font-size:0.92rem}
+    nav#TOC ul{padding:8px 12px;margin:0}
+    nav#TOC li{padding:6px 8px;border-radius:6px;margin:4px 6px}
+    nav#TOC a{color:var(--muted);text-decoration:none;display:block;font-weight:600}
+    nav#TOC a:hover{color:var(--text);background:rgba(255,255,255,0.02);border-radius:6px}
+    nav#TOC::-webkit-scrollbar{width:10px;height:10px}
+    nav#TOC::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.03);border-radius:8px}
+    /* Hierarchy lines for nested lists */
+    nav#TOC ul { position: relative }
+    nav#TOC ul ul { margin-left:8px; padding-left:12px; border-left:2px solid var(--hier-line); }
+    nav#TOC ul ul ul { margin-left:8px; padding-left:12px; border-left:2px solid rgba(34,34,34,0.9); }
+    /* add toggle control */
+    .toc-toggle{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;margin-right:6px;color:var(--muted);background:transparent;border:none;padding:0;cursor:pointer;font-size:12px}
+    .toc-toggle:focus{outline:2px solid rgba(255,255,255,0.06);outline-offset:2px}
+    /* collapsed state */
+    nav#TOC li.collapsed > ul { display:none }
+    nav#TOC li.collapsed > .toc-toggle { transform: rotate(-90deg) }
+    /* draggable divider */
+    .dragbar{width:8px;cursor:col-resize;background:transparent;display:flex;align-items:center;justify-content:center}
+    .dragbar:after{content:'';width:2px;height:40%;background:rgba(255,255,255,0.04);border-radius:2px}
+    .dragbar:hover:after{background:rgba(255,255,255,0.08)}
+    /* content headings and spacing */
+    h1{padding:12px 0;color:var(--text);margin:18px 0;border-bottom:1px solid var(--border)}
+    h2{font-size:1.05rem;margin:18px 0 8px 0;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,0.02)}
+    h3{font-size:0.98rem;margin:12px 0}
+    p,li{color:var(--muted);margin:0 0 10px 0}
+    a{color:var(--text)}
+    /* small open button for links inside content */
+    .link-open-btn{display:inline-flex;align-items:center;justify-content:center;width:26px;height:20px;margin-right:6px;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:4px;cursor:pointer;font-size:0.9rem}
+    .link-open-btn:hover{color:var(--text);border-color:rgba(0,0,0,0.08)}
+    /* small nav go button removed (reverted) */
+    table{width:100%;border-collapse:collapse;background:transparent}
+    table th, table td{border:1px solid rgba(255,255,255,0.02);padding:10px;text-align:left;color:var(--text)}
+    /* Improve code-block wrapping and spacing to avoid overlapping lines */
+    pre, pre.sourceCode {white-space:pre-wrap;word-break:break-word;line-height:1.6;margin:12px 0;padding:12px;background:var(--panel);border-radius:6px;border:1px solid var(--border);font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace;font-size:0.95rem;color:var(--text)}
+    code, code.sourceCode{background:transparent;padding:0;color:var(--text);font-family:inherit;line-height:1.6}
+    /* Override any colored syntax span rules to grayscale */
+    code span, pre code span, code.sourceCode > span, pre.sourceCode > span { color: var(--text) !important; }
+    blockquote{border-left:3px solid rgba(255,255,255,0.03);padding:10px 16px;color:var(--muted);background:transparent;border-radius:0}
+    img{max-width:100%;border-radius:6px}
+    /* ensure links are clickable even when UI elements are nearby */
+    a, nav#TOC a { position:relative; z-index:2; pointer-events:auto }
+    .toc-toggle { z-index:3 }
+    kbd{background:#0b0b0b;border:1px solid rgba(255,255,255,0.03);padding:3px 7px;border-radius:4px;color:var(--text);font-weight:600}
+    /* code copy button */
+    pre{position:relative}
+    .copy-btn{position:absolute;right:8px;top:8px;background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 8px;border-radius:6px;cursor:pointer;font-size:0.85rem}
+    .copy-btn:hover{color:var(--text);border-color:rgba(255,255,255,0.06)}
+    /* flat button like chat controls */
+    .button{background:transparent;color:var(--text);padding:6px 10px;border-radius:6px;text-decoration:none;font-weight:700;display:inline-block;border:1px solid rgba(255,255,255,0.04);cursor:pointer}
+    .flex-row{display:flex;gap:20px;align-items:flex-start}
+    .section-card{background:var(--panel);padding:14px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);margin-bottom:18px}
+    @media (max-width:1100px){.page{padding:0 12px;width:100%}nav#TOC{display:none}.flex-row{flex-direction:column}}
+  </style>
+<script>
+    (function(){
+      const THEMES = {
+        dark: {
+          '--bg':'#0b0b0b',
+          '--sidebar':'#040404',
+          '--panel':'#0f0f0f',
+          '--muted':'#9a9a9a',
+          '--text':'#eaeaea',
+          '--border':'rgba(255,255,255,0.06)',
+          '--hier-line':'#222222'
+        },
+        light: {
+          '--bg':'#ffffff',
+          '--sidebar':'#f4f4f5',
+          '--panel':'#ffffff',
+          '--muted':'#555555',
+          '--text':'#0b0b0b',
+          '--border':'rgba(0,0,0,0.12)',
+          '--hier-line':'#dddddd'
+        }
+      };
+
+      function applyTheme(name){
+        const theme = THEMES[name] || THEMES.dark;
+        Object.keys(theme).forEach(k => document.documentElement.style.setProperty(k, theme[k]));
+        const btn = document.getElementById('theme-toggle');
+        if(btn) btn.textContent = (name === 'dark') ? 'Dark' : 'Light';
+      }
+
+      document.addEventListener('DOMContentLoaded', function(){
+        const saved = localStorage.getItem('tb_dark_pref') || 'light';
+        applyTheme(saved);
+
+        const btn = document.getElementById('theme-toggle');
+        if(!btn) return;
+        btn.addEventListener('click', function(){
+          // read current preference (default to light, same as initialization)
+          const cur = localStorage.getItem('tb_dark_pref') || 'light';
+          const next = (cur === 'dark') ? 'light' : 'dark';
+          localStorage.setItem('tb_dark_pref', next);
+          applyTheme(next);
+        });
+      });
+    })();
+  </script>
+</head>
+<body>
+<header id="title-block-header">
+<div class="header-row">
+<h1 class="title">DAY 18</h1>
+<div class="header-controls">
+<button aria-label="Decrease font" class="button" id="font-decrease" title="Decrease font size">A-</button>
+<button aria-label="Increase font" class="button" id="font-increase" title="Increase font size">A+</button>
+<button aria-label="Toggle theme" class="button" id="theme-toggle">Dark</button>
+</div>
+</div>
+</header>
+<div class="page">
+  <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="index.html">30-DAY EXCEL &amp; SQL TRAINING PLAN</a>
+<ul>
+<li><a href="index.html#how-to-use-this-plan">📖 HOW TO USE THIS PLAN</a></li>
+<li><a href="index.html#program-overview">PROGRAM OVERVIEW</a></li>
+</ul>
+</li>
+<li><a href="week1.html">WEEK 1: FOUNDATIONS</a>
+<ul>
+<li><a href="day1.html">DAY 1: Excel - Formulas
+& Basic Functions</a></li>
+<li><a href="day2.html">DAY 2: SQL - SELECT &
+Aggregates</a></li>
+<li><a href="day3.html">DAY 3: Excel -
+Filtering & Conditional Functions</a></li>
+<li><a href="day4.html">DAY 4: SQL - WHERE Clause
+& Filtering</a></li>
+<li><a href="day5.html">DAY 5: Excel - VLOOKUP &
+XLOOKUP</a></li>
+</ul>
+</li>
+<li><a href="week2.html">WEEK 2: DATA ANALYSIS FUNDAMENTALS</a>
+<ul>
+<li><a href="day6.html">DAY 6: SQL - JOIN Operations</a></li>
+<li><a href="day7.html">DAY 7: Excel - Pivot Tables
+& Charts</a></li>
+<li><a href="day8.html">DAY 8: SQL - GROUP BY &
+HAVING</a></li>
+<li><a href="day9.html">DAY 9</a></li>
+<li><a href="day10.html">DAY 10: SQL - Subqueries</a></li>
+</ul>
+</li>
+<li><a href="week3.html">WEEK 3: INTERMEDIATE CONCEPTS</a>
+<ul>
+<li><a href="day11.html">DAY 11</a></li>
+<li><a href="day12.html">DAY 12</a></li>
+<li><a href="day13.html">DAY 13</a></li>
+<li><a href="day14.html">DAY 14</a></li>
+<li><a href="day15.html">DAY 15</a></li>
+</ul>
+</li>
+<li><a href="week4.html">WEEK 4: ADVANCED CONCEPTS</a>
+<ul>
+<li><a href="day16.html">DAY 16</a></li>
+<li><a href="day17.html">DAY 17</a></li>
+<li><a href="day18.html">DAY 18</a></li>
+<li><a href="day19.html">DAY 19</a></li>
+<li><a href="day20.html">DAY 20</a></li>
+</ul>
+</li>
+<li><a href="week5.html">WEEK 5: ANALYTICS &amp; OPTIMIZATION</a>
+<ul>
+<li><a href="day21.html">DAY 21</a></li>
+<li><a href="day22.html">DAY 22</a></li>
+<li><a href="day23.html">DAY 23</a></li>
+<li><a href="day24.html">DAY 24</a></li>
+<li><a href="day25.html">DAY 25</a></li>
+</ul>
+</li>
+<li><a href="week6.html">WEEK 6: MASTERY &amp; PROJECTS</a>
+<ul>
+<li><a href="day26.html">DAY 26</a></li>
+<li><a href="day27.html">DAY 27</a></li>
+<li><a href="day28.html">DAY 28</a></li>
+<li><a href="day29.html">DAY 29</a></li>
+<li><a href="day30.html">DAY 30</a></li>
+</ul>
+</li>
+</ul>
+  </nav>
+  <div class="dragbar" id="dragbar" aria-hidden="true"></div>
+  <div class="content">
+<h1>DAY 18</h1><p>Content coming soon...</p>
+    <a href="#top" class="back-to-top">↑ Back to Top</a>
+  </div>
+</div>
+<script>
+    (function(){
+      const THEMES = {
+        dark: {
+          '--bg':'#0b0b0b',
+          '--sidebar':'#040404',
+          '--panel':'#0f0f0f',
+          '--muted':'#9a9a9a',
+          '--text':'#eaeaea',
+          '--border':'rgba(255,255,255,0.06)',
+          '--hier-line':'#222222'
+        },
+        light: {
+          '--bg':'#ffffff',
+          '--sidebar':'#f4f4f5',
+          '--panel':'#ffffff',
+          '--muted':'#555555',
+          '--text':'#0b0b0b',
+          '--border':'rgba(0,0,0,0.12)',
+          '--hier-line':'#dddddd'
+        }
+      };
+
+      function applyTheme(name){
+        const theme = THEMES[name] || THEMES.dark;
+        Object.keys(theme).forEach(k => document.documentElement.style.setProperty(k, theme[k]));
+        const btn = document.getElementById('theme-toggle');
+        if(btn) btn.textContent = (name === 'dark') ? 'Dark' : 'Light';
+      }
+
+      document.addEventListener('DOMContentLoaded', function(){
+        const saved = localStorage.getItem('tb_dark_pref') || 'light';
+        applyTheme(saved);
+
+        const btn = document.getElementById('theme-toggle');
+        if(!btn) return;
+        btn.addEventListener('click', function(){
+          // read current preference (default to light, same as initialization)
+          const cur = localStorage.getItem('tb_dark_pref') || 'light';
+          const next = (cur === 'dark') ? 'light' : 'dark';
+          localStorage.setItem('tb_dark_pref', next);
+          applyTheme(next);
+        });
+      });
+    })();
+  </script>
+<script>
+    // TOC collapsible toggles
+    (function(){
+      function initTOC(){
+        const toc = document.getElementById('TOC');
+        if(!toc) return;
+        const items = toc.querySelectorAll('li');
+        items.forEach(li => {
+          const childUl = li.querySelector(':scope > ul');
+          const link = li.querySelector(':scope > a');
+          if(childUl && link){
+            // create toggle button
+            const btn = document.createElement('button');
+            btn.className = 'toc-toggle';
+            btn.setAttribute('aria-expanded','true');
+            btn.innerHTML = '▾'; // down chevron
+            // insert before link
+            li.insertBefore(btn, link);
+            // click toggles collapsed state
+            btn.addEventListener('click', function(e){
+              e.stopPropagation();
+              const collapsed = li.classList.toggle('collapsed');
+              btn.setAttribute('aria-expanded', String(!collapsed));
+              btn.innerHTML = collapsed ? '▸' : '▾';
+            });
+            // clicking the link should keep default behavior (navigate)
+          }
+        });
+      }
+      if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initTOC); else initTOC();
+    })();
+  </script>
+<script>
+    // Drag-to-resize TOC and font-size controls
+    (function(){
+      const dragbar = document.getElementById('dragbar');
+      const toc = document.getElementById('TOC');
+      const root = document.documentElement;
+      if(dragbar && toc){
+        let dragging = false;
+        let startX = 0;
+        let startWidth = 0;
+        const minW = 160; const maxW = 420;
+        // restore saved width
+        const saved = localStorage.getItem('tb_toc_width');
+        if(saved){ toc.style.width = saved; root.style.setProperty('--toc-width', saved); }
+
+        const onMove = (e) => {
+          if(!dragging) return;
+          const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+          const dx = clientX - startX;
+          let newW = startWidth + dx;
+          newW = Math.max(minW, Math.min(maxW, newW));
+          toc.style.width = newW + 'px';
+          root.style.setProperty('--toc-width', newW + 'px');
+        };
+
+        const onUp = (e) => {
+          if(!dragging) return; dragging = false;
+          document.body.style.userSelect = '';
+          // persist
+          localStorage.setItem('tb_toc_width', toc.style.width);
+          window.removeEventListener('mousemove', onMove);
+          window.removeEventListener('mouseup', onUp);
+          window.removeEventListener('touchmove', onMove);
+          window.removeEventListener('touchend', onUp);
+        };
+
+        dragbar.addEventListener('mousedown', function(e){
+          dragging = true; startX = e.clientX; startWidth = toc.getBoundingClientRect().width;
+          document.body.style.userSelect = 'none';
+          window.addEventListener('mousemove', onMove);
+          window.addEventListener('mouseup', onUp);
+        });
+        dragbar.addEventListener('touchstart', function(e){
+          dragging = true; startX = e.touches[0].clientX; startWidth = toc.getBoundingClientRect().width;
+          window.addEventListener('touchmove', onMove, {passive:false});
+          window.addEventListener('touchend', onUp);
+        });
+      }
+
+      // Font size controls
+      const inc = document.getElementById('font-increase');
+      const dec = document.getElementById('font-decrease');
+      function getBaseSize(){
+        const val = getComputedStyle(root).getPropertyValue('--base-font-size') || '16px';
+        return parseInt(val,10);
+      }
+      function setBaseSize(px){
+        const clamped = Math.max(12, Math.min(22, px));
+        root.style.setProperty('--base-font-size', clamped + 'px');
+        localStorage.setItem('tb_base_font_size', clamped + 'px');
+      }
+      // restore saved font size
+      const savedFont = localStorage.getItem('tb_base_font_size');
+      if(savedFont) root.style.setProperty('--base-font-size', savedFont);
+
+      if(inc){ inc.addEventListener('click', ()=> setBaseSize(getBaseSize()+1)); }
+      if(dec){ dec.addEventListener('click', ()=> setBaseSize(getBaseSize()-1)); }
+    })();
+  </script>
+<script>
+    // Add copy buttons to all <pre> blocks
+    (function(){
+      function createCopyButtons(){
+        const pres = document.querySelectorAll('pre');
+        pres.forEach(pre => {
+          // avoid adding twice
+          if(pre.querySelector('.copy-btn')) return;
+          const btn = document.createElement('button');
+          btn.className = 'copy-btn';
+          btn.type = 'button';
+          btn.setAttribute('aria-label','Copy code');
+          btn.textContent = 'Copy';
+          btn.addEventListener('click', async function(){
+            try{
+              // Prefer code text inside pre
+              const code = pre.querySelector('code');
+              const text = code ? code.innerText : pre.innerText;
+              await navigator.clipboard.writeText(text);
+              const old = btn.textContent;
+              btn.textContent = 'Copied';
+              setTimeout(()=> btn.textContent = old, 1400);
+            }catch(e){
+              console.error('Copy failed', e);
+              btn.textContent = 'Error';
+              setTimeout(()=> btn.textContent = 'Copy', 1400);
+            }
+          });
+          pre.insertBefore(btn, pre.firstChild);
+        });
+      }
+      if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', createCopyButtons); else createCopyButtons();
+    })();
+  </script>
+<script>
+  (function(){
+    function linkifyContent(){
+      const content = document.querySelector('.content') || document.body;
+      if(!content) return;
+      const urlRegex = /\bhttps?:\/\/[^\s<'\"()]+/gi;
+
+      const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT, null, false);
+      const nodes = [];
+      while(walker.nextNode()) nodes.push(walker.currentNode);
+
+      nodes.forEach(textNode => {
+        if(!textNode.nodeValue) return;
+        const matches = textNode.nodeValue.match(urlRegex);
+        if(!matches) return;
+        const parent = textNode.parentNode;
+        const frag = document.createDocumentFragment();
+        let lastIndex = 0;
+        const str = textNode.nodeValue;
+        str.replace(urlRegex, function(url, offset){
+          if(offset > lastIndex){
+            frag.appendChild(document.createTextNode(str.slice(lastIndex, offset)));
+          }
+          const a = document.createElement('a');
+          a.href = url;
+          a.textContent = url;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          frag.appendChild(a);
+          lastIndex = offset + url.length;
+        });
+        if(lastIndex < str.length) frag.appendChild(document.createTextNode(str.slice(lastIndex)));
+        parent.replaceChild(frag, textNode);
+      });
+
+      const anchors = content.querySelectorAll('a[href]');
+      anchors.forEach(a => {
+        if(a.previousElementSibling && a.previousElementSibling.classList && a.previousElementSibling.classList.contains('link-open-btn')) return;
+        const btn = document.createElement('button');
+        btn.type = 'button'; btn.className = 'link-open-btn'; btn.setAttribute('aria-label','Open link'); btn.textContent = '↗';
+        btn.addEventListener('click', e => { e.stopPropagation(); window.open(a.href, '_blank', 'noopener'); });
+        a.parentNode.insertBefore(btn, a);
+      });
+    }
+
+    function ensureAnchors(){
+      // No-op for now; placeholder for future enhancements
+    }
+
+    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ linkifyContent(); ensureAnchors(); }); else { linkifyContent(); ensureAnchors(); }
+  })();
+</script>
+</body>
+</html>
