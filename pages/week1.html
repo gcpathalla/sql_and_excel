@@ -565,6 +565,81 @@
       color: white;
     }
 
+    /* AI Quick Actions Buttons */
+    .ai-quick-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 1rem 0;
+      padding: 0.875rem 1.25rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      flex-wrap: wrap;
+    }
+
+    .quick-actions-label {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.875rem;
+    }
+
+    .ai-quick-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.875rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid;
+    }
+
+    .chatgpt-btn {
+      background: #10A37F;
+      color: white;
+      border-color: #0D8C6C;
+    }
+
+    .chatgpt-btn:hover {
+      background: #0D8C6C;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(16, 163, 127, 0.3);
+      text-decoration: none;
+    }
+
+    .claude-btn {
+      background: #CC785C;
+      color: white;
+      border-color: #B86A50;
+    }
+
+    .claude-btn:hover {
+      background: #B86A50;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(204, 120, 92, 0.3);
+      text-decoration: none;
+    }
+
+    .google-btn {
+      background: #4285F4;
+      color: white;
+      border-color: #3B78E7;
+    }
+
+    .google-btn:hover {
+      background: #3B78E7;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(66, 133, 244, 0.3);
+      text-decoration: none;
+    }
+
+    .ai-quick-btn svg {
+      flex-shrink: 0;
+    }
+
     /* AI Prompts Note */
     .ai-prompts-note {
       background: var(--bg-primary);
