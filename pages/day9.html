@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>DAY 9: Excel - Advanced Functions (SUMIFS, COUNTIFS, Text Functions)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Anthropic-inspired color palette */
+      --bg-primary: #F5F3EF;      /* Warm cream background */
+      --bg-secondary: #FFFFFF;     /* White for cards */
+      --bg-sidebar: #FDFCFA;       /* Slightly off-white for sidebar */
+      --text-primary: #1A1A1A;     /* Dark text */
+      --text-secondary: #6B6B6B;   /* Muted text */
+      --text-tertiary: #9B9B9B;    /* Even more muted */
+      --accent-orange: #D97757;    /* Anthropic orange */
+      --accent-brown: #8B6B47;     /* Warm brown */
+      --border-subtle: #E5E2DC;    /* Subtle border */
+      --border-light: #F0EDE7;     /* Very light border */
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+      --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Header */
+    #title-block-header {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .header-row {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .header-controls {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .button {
+      background: var(--bg-primary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      padding: 0.5rem 0.875rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .button:hover {
+      background: var(--bg-secondary);
+      border-color: var(--accent-brown);
+      color: var(--text-primary);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Layout */
+    .page {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      gap: 2rem;
+      padding: 2rem;
+      min-height: calc(100vh - 80px);
+    }
+
+    /* Modern Sidebar */
+    nav#TOC {
+      width: 280px;
+      min-width: 280px;
+      background: var(--bg-sidebar);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      align-self: flex-start;
+      position: sticky;
+      top: 100px;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+      box-shadow: var(--shadow-sm);
+    }
+
+    nav#TOC::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    nav#TOC::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    nav#TOC::-webkit-scrollbar-thumb {
+      background: var(--border-subtle);
+      border-radius: 3px;
+    }
+
+    nav#TOC::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-brown);
+    }
+
+    nav#TOC ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav#TOC > ul > li {
+      margin-bottom: 1.5rem;
+    }
+
+    nav#TOC li {
+      margin: 0;
+    }
+
+    nav#TOC a {
+      display: block;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      line-height: 1.4;
+    }
+
+    nav#TOC > ul > li > a {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+      margin-bottom: 0.5rem;
+    }
+
+    nav#TOC a:hover {
+      background: var(--bg-secondary);
+      color: var(--accent-orange);
+      transform: translateX(2px);
+    }
+
+    nav#TOC ul ul {
+      margin-top: 0.25rem;
+      margin-left: 0.75rem;
+      padding-left: 0.75rem;
+      border-left: 2px solid var(--border-light);
+    }
+
+    /* Content Area */
+    .content {
+      flex: 1;
+      min-width: 0;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Typography */
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--border-subtle);
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      margin: 2.5rem 0 1rem 0;
+      padding-top: 1rem;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 2rem 0 1rem 0;
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+
+    strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    a {
+      color: var(--accent-orange);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: var(--accent-brown);
+      text-decoration: underline;
+    }
+
+    /* Lists */
+    ul, ol {
+      margin: 1rem 0;
+      padding-left: 1.5rem;
+      color: var(--text-secondary);
+    }
+
+    li {
+      margin: 0.5rem 0;
+      line-height: 1.6;
+    }
+
+    /* Code */
+    code {
+      background: var(--bg-primary);
+      color: var(--accent-brown);
+      padding: 0.125rem 0.375rem;
+      border-radius: 4px;
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+      font-size: 0.875em;
+      font-weight: 500;
+    }
+
+    pre {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      position: relative;
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 0.875rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    th {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    td {
+      color: var(--text-secondary);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Horizontal Rule */
+    hr {
+      border: none;
+      height: 1px;
+      background: var(--border-subtle);
+      margin: 2.5rem 0;
+    }
+
+    /* Back to top */
+    .back-to-top {
+      display: inline-block;
+      margin-top: 3rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .back-to-top:hover {
+      background: var(--accent-orange);
+      color: white;
+      border-color: var(--accent-orange);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      text-decoration: none;
+    }
+
+    /* Section Cards */
+    .section-card {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .page {
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      nav#TOC {
+        position: static;
+        width: 100%;
+        max-height: none;
+        margin-bottom: 2rem;
+      }
+
+      .content {
+        padding: 2rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header-row {
+        padding: 1rem;
+      }
+
+      .title {
+        font-size: 1rem;
+      }
+
+      .content {
+        padding: 1.5rem 1rem;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<header id="title-block-header">
+  <div class="header-row">
+    <h1 class="title">DAY 9: Excel - Advanced Functions (SUMIFS, COUNTIFS, Text Functions)</h1>
+  </div>
+</header>
+<div class="page">
+  <nav id="TOC" role="navigation">
+<ul>
+<li><a href="../index.html" if "pages/" in current_page else "index.html">📚 Training Overview</a></li>
+<li><a href="week1.html">Week 1: Foundations</a>
+<ul>
+<li><a href="day1.html">Day 1: Excel - Formulas
+& Basic Functions</a></li>
+<li><a href="day2.html">Day 2: SQL - SELECT &
+Aggregates</a></li>
+<li><a href="day3.html">Day 3: Excel -
+Filtering & Conditional Funct...</a></li>
+<li><a href="day4.html">Day 4: SQL - WHERE Clause
+& Filtering</a></li>
+<li><a href="day5.html">Day 5: Excel - VLOOKUP &
+XLOOKUP</a></li>
+</ul>
+</li>
+<li><a href="week2.html">Week 2: Data Analysis</a>
+<ul>
+<li><a href="day6.html">Day 6: SQL - JOIN Operations</a></li>
+<li><a href="day7.html">Day 7: Excel - Pivot Tables
+& Charts</a></li>
+<li><a href="day8.html">Day 8: SQL - GROUP BY &
+HAVING</a></li>
+<li><a href="day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
+<li><a href="day10.html">Day 10: SQL - Subqueries</a></li>
+</ul>
+</li>
+<li><a href="week3.html">Week 3: Intermediate Concepts</a>
+<ul>
+<li><a href="day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
+<li><a href="day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
+<li><a href="day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
+<li><a href="day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
+<li><a href="day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
+</ul>
+</li>
+<li><a href="week4.html">Week 4: Advanced Concepts</a>
+<ul>
+<li><a href="day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
+<li><a href="day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
+<li><a href="day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
+<li><a href="day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
+<li><a href="day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
+</ul>
+</li>
+<li><a href="week5.html">Week 5: Analytics & Optimization</a>
+<ul>
+<li><a href="day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
+<li><a href="day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
+<li><a href="day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
+<li><a href="day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
+<li><a href="day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
+</ul>
+</li>
+<li><a href="week6.html">Week 6: Mastery & Projects</a>
+<ul>
+<li><a href="day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
+<li><a href="day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
+<li><a href="day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
+<li><a href="day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
+<li><a href="day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
+</ul>
+</li>
+</ul>
+  </nav>
+  <div class="content">
+<h2 id="day-9-excel---advanced-functions-sumifs-countifs-text-functions">DAY 9: Excel - Advanced Functions (SUMIFS, COUNTIFS, Text Functions)</h2>
+<p><strong>Learning Objectives:</strong>
+- Master multiple criteria functions (SUMIFS, COUNTIFS, AVERAGEIFS)
+- Use text manipulation functions
+- Combine functions for complex calculations
+- Handle errors with IFERROR and IFNA
+- Build dynamic formulas with array functions</p>
+<h3 id="topics-covered-hour-1---60-min-9">Topics Covered (60 min):</h3>
+<p><strong>1. Multiple Criteria Functions</strong>
+- <code>SUMIFS(sum_range, criteria_range1, criteria1, [criteria_range2, criteria2]...)</code>
+- <code>COUNTIFS(criteria_range1, criteria1, [criteria_range2, criteria2]...)</code>
+- <code>AVERAGEIFS(average_range, criteria_range1, criteria1...)</code>
+- Example: Sum sales for Region="West" AND Product="Tech"
+- Can use wildcards: <code>COUNTIFS(A:A, "Tech*")</code></p>
+<p><strong>2. Text Functions</strong>
+- <code>LEFT(text, num_chars)</code>, <code>RIGHT(text, num_chars)</code>, <code>MID(text, start, num_chars)</code>
+- <code>LEN(text)</code> - Length of text
+- <code>UPPER(text)</code>, <code>LOWER(text)</code>, <code>PROPER(text)</code>
+- <code>TRIM(text)</code> - Remove extra spaces
+- <code>CONCATENATE()</code> or <code>&amp;</code> operator or <code>TEXTJOIN()</code>
+- <code>FIND()</code>, <code>SEARCH()</code>, <code>SUBSTITUTE()</code></p>
+<p><strong>3. Error Handling</strong>
+- <code>IFERROR(value, value_if_error)</code> - Catch all errors
+- <code>IFNA(value, value_if_na)</code> - Catch #N/A errors specifically
+- Example: <code>=IFERROR(VLOOKUP(A2, Table, 2, 0), "Not Found")</code>
+- Clean up division by zero: <code>=IFERROR(A2/B2, 0)</code>
+- Nested error handling for complex formulas</p>
+<p><strong>4. Array Formulas &amp; UNIQUE</strong>
+- <code>UNIQUE(array)</code> - Get unique values
+- <code>SORT(array, [sort_index], [sort_order])</code>
+- <code>FILTER(array, include, [if_empty])</code>
+- Dynamic arrays (Excel 365)
+- Combining functions: <code>=SORT(UNIQUE(A2:A100))</code></p>
+<h3 id="video-resources-9">📺 Video Resources:</h3>
+<ol type="1">
+<li><strong>SUMIFS, COUNTIFS, AVERAGEIFS</strong> (15 min)<br/>
+https://www.youtube.com/watch?v=YvV7Jinnv-w - Leila Gharani</li>
+<li><strong>Excel Text Functions</strong> (12 min)<br/>
+https://www.youtube.com/watch?v=ZYJHgGp-RL0 - MyOnlineTrainingHub</li>
+<li><strong>IFERROR and Error Handling</strong> (10 min)<br/>
+https://www.youtube.com/watch?v=mGTcBfmL4Ss - Excel Campus</li>
+<li><strong>Dynamic Array Functions</strong> (18 min)<br/>
+https://www.youtube.com/watch?v=9WyFUO_llBc - Leila Gharani</li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-9">🤖 AI Learning Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding Multiple Criteria Functions:</strong></p>
+<pre><code>I'm learning Excel multiple criteria functions. Please explain:
+
+1. What is the difference between SUMIF and SUMIFS?
+2. How do I sum sales where Region="East" AND Category="Technology" AND Sales&gt;1000?
+3. Show me how to use wildcards with COUNTIFS
+4. Can I use comparison operators (&gt;=, &lt;=) in criteria?
+5. Provide examples using sales data with multiple conditions
+
+Use step-by-step examples for beginners.</code></pre>
+<p><strong>Understanding Text Functions:</strong></p>
+<pre><code>Help me understand Excel text manipulation:
+
+1. How do I extract first name from "John Smith" in cell A1?
+2. Show me how to combine first and last name with a space
+3. How do I remove extra spaces and convert to proper case?
+4. Explain FIND vs SEARCH functions
+5. Provide examples for cleaning messy text data
+
+Explain with practical data cleaning scenarios.</code></pre>
+<p><strong>Understanding Error Handling:</strong></p>
+<pre><code>I'm learning error handling in Excel. Please explain:
+
+1. What types of errors occur in Excel (#N/A, #DIV/0!, #VALUE!, etc.)?
+2. When should I use IFERROR vs IFNA?
+3. Show me how to handle VLOOKUP errors gracefully
+4. How do I prevent division by zero errors?
+5. Provide examples of nested error handling
+
+Use practical examples with formulas.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-9">Guided Practice (60 min):</h3>
+<p><em>Using Superstore Sales dataset</em></p>
+<p><strong>Exercise 1: Multiple Criteria Analysis</strong>
+1. Calculate total sales for Region="West" AND Category="Technology"
+2. Count orders where Ship Mode="Standard Class" AND Sales&gt;500
+3. Average profit for Region="East" AND Year=2023
+4. Sum sales for Product names containing "Chair"
+5. Count unique customers with sales &gt; $1000</p>
+<p><strong>Exercise 2: Text Manipulation</strong>
+1. Extract state from "City, State" format
+2. Create full product code: Category + "-" + SubCategory + "-" + ID
+3. Clean customer names (remove extra spaces, proper case)
+4. Extract area code from phone number "(555) 123-4567"
+5. Split "LastName, FirstName" into separate columns</p>
+<p><strong>Exercise 3: Error Handling</strong>
+1. Add IFERROR to VLOOKUP formulas
+2. Handle division by zero in profit margin calculation
+3. Create "Not Found" message for missing products
+4. Combine IFERROR with SUMIFS for safe calculations
+5. Nest multiple error handlers</p>
+<h3 id="independent-practice-hour-3---60-min-9">Independent Practice (60 min):</h3>
+<p><strong>Challenge 1: Sales Analysis Dashboard</strong>
+- Calculate sales by multiple criteria (Region + Category + Year)
+- Count orders meeting various conditions
+- Use text functions to create product hierarchies
+- Add error handling to all formulas
+- Create summary with UNIQUE and SORT</p>
+<p><strong>Challenge 2: Data Cleaning Project</strong>
+- Clean customer names (trim, proper case)
+- Extract components from address field
+- Standardize phone number format
+- Remove duplicates and create clean list
+- Handle missing data with IFERROR</p>
+<h3 id="daily-assignment-hour-4---60-min-9">Daily Assignment (60 min):</h3>
+<p><strong>Assignment: Advanced Sales Report with Data Cleaning</strong></p>
+<p>Create a comprehensive report with:
+1. <strong>Multi-Criteria Analysis:</strong>
+   - Total sales by Region AND Category (use SUMIFS)
+   - Count of orders by multiple conditions (COUNTIFS)
+   - Average order value by segment (AVERAGEIFS)
+   - Sales for products containing specific keywords
+2. <strong>Text Processing:</strong>
+   - Split customer names into first/last
+   - Create standardized product codes
+   - Clean and format addresses
+   - Extract useful information from combined fields
+3. <strong>Error-Proof Formulas:</strong>
+   - Wrap all lookups in IFERROR
+   - Handle division by zero in all calculations
+   - Provide meaningful error messages
+   - Test with missing/invalid data
+4. <strong>Dynamic Lists:</strong>
+   - Create sorted list of unique customers
+   - Filter top products by sales
+   - Generate dynamic category summaries</p>
+<p><strong>Requirements:</strong>
+- Use at least 5 different SUMIFS/COUNTIFS formulas
+- Apply 5+ text functions for data cleaning
+- Implement IFERROR on all formulas
+- Use UNIQUE and SORT for dynamic lists
+- Format professionally with clear labels</p>
+<h3 id="expected-outcomes-9">Expected Outcomes:</h3>
+<ul>
+<li>Master SUMIFS, COUNTIFS, AVERAGEIFS with multiple criteria</li>
+<li>Confidently manipulate text with LEFT, RIGHT, MID, TRIM, CONCATENATE</li>
+<li>Implement error handling with IFERROR and IFNA</li>
+<li>Use dynamic array functions (UNIQUE, SORT, FILTER)</li>
+<li>Combine multiple functions for complex calculations</li>
+<li>Create clean, professional, error-free reports</li>
+</ul>
+<hr/>
+    <a href="#" class="back-to-top">↑ Back to Top</a>
+  </div>
+</div>
+
+<script>
+// Simple navigation - no complex features needed for modern design
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('30-Day Training Plan loaded');
+});
+</script>
+
+</body>
+</html>

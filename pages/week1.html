@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Week 1: Foundations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Anthropic-inspired color palette */
+      --bg-primary: #F5F3EF;      /* Warm cream background */
+      --bg-secondary: #FFFFFF;     /* White for cards */
+      --bg-sidebar: #FDFCFA;       /* Slightly off-white for sidebar */
+      --text-primary: #1A1A1A;     /* Dark text */
+      --text-secondary: #6B6B6B;   /* Muted text */
+      --text-tertiary: #9B9B9B;    /* Even more muted */
+      --accent-orange: #D97757;    /* Anthropic orange */
+      --accent-brown: #8B6B47;     /* Warm brown */
+      --border-subtle: #E5E2DC;    /* Subtle border */
+      --border-light: #F0EDE7;     /* Very light border */
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+      --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Header */
+    #title-block-header {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .header-row {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .header-controls {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .button {
+      background: var(--bg-primary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      padding: 0.5rem 0.875rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .button:hover {
+      background: var(--bg-secondary);
+      border-color: var(--accent-brown);
+      color: var(--text-primary);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Layout */
+    .page {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      gap: 2rem;
+      padding: 2rem;
+      min-height: calc(100vh - 80px);
+    }
+
+    /* Modern Sidebar */
+    nav#TOC {
+      width: 280px;
+      min-width: 280px;
+      background: var(--bg-sidebar);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      align-self: flex-start;
+      position: sticky;
+      top: 100px;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+      box-shadow: var(--shadow-sm);
+    }
+
+    nav#TOC::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    nav#TOC::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    nav#TOC::-webkit-scrollbar-thumb {
+      background: var(--border-subtle);
+      border-radius: 3px;
+    }
+
+    nav#TOC::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-brown);
+    }
+
+    nav#TOC ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav#TOC > ul > li {
+      margin-bottom: 1.5rem;
+    }
+
+    nav#TOC li {
+      margin: 0;
+    }
+
+    nav#TOC a {
+      display: block;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      line-height: 1.4;
+    }
+
+    nav#TOC > ul > li > a {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+      margin-bottom: 0.5rem;
+    }
+
+    nav#TOC a:hover {
+      background: var(--bg-secondary);
+      color: var(--accent-orange);
+      transform: translateX(2px);
+    }
+
+    nav#TOC ul ul {
+      margin-top: 0.25rem;
+      margin-left: 0.75rem;
+      padding-left: 0.75rem;
+      border-left: 2px solid var(--border-light);
+    }
+
+    /* Content Area */
+    .content {
+      flex: 1;
+      min-width: 0;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Typography */
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--border-subtle);
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      margin: 2.5rem 0 1rem 0;
+      padding-top: 1rem;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 2rem 0 1rem 0;
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+
+    strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    a {
+      color: var(--accent-orange);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: var(--accent-brown);
+      text-decoration: underline;
+    }
+
+    /* Lists */
+    ul, ol {
+      margin: 1rem 0;
+      padding-left: 1.5rem;
+      color: var(--text-secondary);
+    }
+
+    li {
+      margin: 0.5rem 0;
+      line-height: 1.6;
+    }
+
+    /* Code */
+    code {
+      background: var(--bg-primary);
+      color: var(--accent-brown);
+      padding: 0.125rem 0.375rem;
+      border-radius: 4px;
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+      font-size: 0.875em;
+      font-weight: 500;
+    }
+
+    pre {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      position: relative;
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 0.875rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    th {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    td {
+      color: var(--text-secondary);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Horizontal Rule */
+    hr {
+      border: none;
+      height: 1px;
+      background: var(--border-subtle);
+      margin: 2.5rem 0;
+    }
+
+    /* Back to top */
+    .back-to-top {
+      display: inline-block;
+      margin-top: 3rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .back-to-top:hover {
+      background: var(--accent-orange);
+      color: white;
+      border-color: var(--accent-orange);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      text-decoration: none;
+    }
+
+    /* Section Cards */
+    .section-card {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .page {
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      nav#TOC {
+        position: static;
+        width: 100%;
+        max-height: none;
+        margin-bottom: 2rem;
+      }
+
+      .content {
+        padding: 2rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header-row {
+        padding: 1rem;
+      }
+
+      .title {
+        font-size: 1rem;
+      }
+
+      .content {
+        padding: 1.5rem 1rem;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<header id="title-block-header">
+  <div class="header-row">
+    <h1 class="title">Week 1: Foundations</h1>
+  </div>
+</header>
+<div class="page">
+  <nav id="TOC" role="navigation">
+<ul>
+<li><a href="../index.html" if "pages/" in current_page else "index.html">📚 Training Overview</a></li>
+<li><a href="week1.html">Week 1: Foundations</a>
+<ul>
+<li><a href="day1.html">Day 1: Excel - Formulas
+& Basic Functions</a></li>
+<li><a href="day2.html">Day 2: SQL - SELECT &
+Aggregates</a></li>
+<li><a href="day3.html">Day 3: Excel -
+Filtering & Conditional Funct...</a></li>
+<li><a href="day4.html">Day 4: SQL - WHERE Clause
+& Filtering</a></li>
+<li><a href="day5.html">Day 5: Excel - VLOOKUP &
+XLOOKUP</a></li>
+</ul>
+</li>
+<li><a href="week2.html">Week 2: Data Analysis</a>
+<ul>
+<li><a href="day6.html">Day 6: SQL - JOIN Operations</a></li>
+<li><a href="day7.html">Day 7: Excel - Pivot Tables
+& Charts</a></li>
+<li><a href="day8.html">Day 8: SQL - GROUP BY &
+HAVING</a></li>
+<li><a href="day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
+<li><a href="day10.html">Day 10: SQL - Subqueries</a></li>
+</ul>
+</li>
+<li><a href="week3.html">Week 3: Intermediate Concepts</a>
+<ul>
+<li><a href="day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
+<li><a href="day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
+<li><a href="day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
+<li><a href="day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
+<li><a href="day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
+</ul>
+</li>
+<li><a href="week4.html">Week 4: Advanced Concepts</a>
+<ul>
+<li><a href="day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
+<li><a href="day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
+<li><a href="day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
+<li><a href="day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
+<li><a href="day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
+</ul>
+</li>
+<li><a href="week5.html">Week 5: Analytics & Optimization</a>
+<ul>
+<li><a href="day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
+<li><a href="day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
+<li><a href="day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
+<li><a href="day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
+<li><a href="day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
+</ul>
+</li>
+<li><a href="week6.html">Week 6: Mastery & Projects</a>
+<ul>
+<li><a href="day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
+<li><a href="day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
+<li><a href="day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
+<li><a href="day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
+<li><a href="day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
+</ul>
+</li>
+</ul>
+  </nav>
+  <div class="content">
+<h1 id="week-1-foundations">WEEK 1: FOUNDATIONS</h1>
+<hr/>
+<h2><a href="day1.html">DAY 1: Excel - Formulas
+& Basic Functions</a></h2>
+<p><strong>Learning Objectives:</strong> - Understand Excel interface
+and navigation - Master cell references (Relative, Absolute, Mixed) -
+Learn basic arithmetic and formulas - Use SUM, AVERAGE, COUNT, MAX, MIN
+functions</p>
+<h3 id="topics-covered-hour-1---60-min">Topics Covered (60
+min):</h3>
+<p><strong>1. Excel Interface Basics</strong> - Ribbon, tabs, quick
+access toolbar - Workbooks, worksheets, cells - Navigation shortcuts
+(Ctrl+Arrow, Ctrl+Home/End)</p>
+<p><strong>2. Cell References</strong> - <strong>Relative (A1):</strong>
+Changes when copied - Example: =A1<em>B1 becomes =A2</em>B2 when copied
+down - <strong>Absolute ($A<span class="math inline">1) :  *  * <em>F</em><em>i</em><em>x</em><em>e</em><em>d</em><em>w</em><em>h</em><em>e</em><em>n</em><em>c</em><em>o</em><em>p</em><em>i</em><em>e</em><em>d</em> − <em>E</em><em>x</em><em>a</em><em>m</em><em>p</em><em>l</em><em>e</em> :  = <em>A</em>1*</span>B<span class="math inline">1(<em>B</em>1<em>s</em><em>t</em><em>a</em><em>y</em><em>s</em><em>s</em><em>a</em><em>m</em><em>e</em><em>f</em><em>o</em><em>r</em><em>a</em><em>l</em><em>l</em><em>r</em><em>o</em><em>w</em><em>s</em>) −  *  * <em>M</em><em>i</em><em>x</em><em>e</em><em>d</em>(</span>A1
+or A$1):</strong> Lock row OR column - $A1: Column fixed, row changes -
+A$1: Row fixed, column changes</p>
+<p><strong>3. Basic Functions</strong> - <code>=SUM(A1:A10)</code> -
+Adds all numbers in range - <code>=AVERAGE(B1:B10)</code> - Calculates
+mean - <code>=COUNT(C1:C10)</code> - Counts numeric values -
+<code>=MAX(D1:D10)</code> - Finds highest value -
+<code>=MIN(D1:D10)</code> - Finds lowest value</p>
+<h3 id="video-resources-1">📺 Video Resources:</h3>
+<ol type="1">
+<li><p><strong>Excel Basics &amp; Interface</strong> (10 min)<br/>
+https://www.youtube.com/watch?v=rwbho0CgEAE - Microsoft Official
+Tutorial</p></li>
+<li><p><strong>Cell References Explained</strong> (8 min)<br/>
+https://www.youtube.com/watch?v=zcK7eCEnTgE - Leila Gharani</p></li>
+<li><p><strong>Basic Excel Functions</strong> (15 min)<br/>
+https://www.youtube.com/watch?v=Vl0H-qTclOg -
+MyOnlineTrainingHub</p></li>
+<li><p><strong>Excel Video Training</strong><br/>
+https://support.microsoft.com/en-us/office/excel-video-training-9bc05390-e94c-46af-a5b3-d7c22f6990bb</p></li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only">🤖 AI Learning
+Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding Cell References:</strong></p>
+<pre><code>I'm learning Excel cell references. Please explain:
+
+1. What is the difference between relative (A1), absolute ($A$1), and mixed ($A1, A$1) cell references?
+2. Give me 3 real-world scenarios where I should use each type
+3. Show me what happens when I copy a formula with each reference type to different cells
+4. Provide examples using a simple price × quantity calculation
+
+Please explain in beginner-friendly language with step-by-step examples.</code></pre>
+<p><strong>Understanding Basic Functions:</strong></p>
+<pre><code>Explain Excel's basic functions for a beginner:
+
+1. How do SUM, AVERAGE, COUNT, MAX, and MIN functions work?
+2. What is the exact syntax for each function?
+3. Give me examples using employee salary data (different from sales data)
+4. What are common mistakes beginners make with these functions?
+5. When would I use COUNT vs COUNTA?
+
+Provide simple examples that help me understand the concepts.</code></pre>
+<p><strong>Understanding Formula Logic:</strong></p>
+<pre><code>Help me understand how Excel formulas work:
+
+1. Why do formulas start with = sign?
+2. What is the order of operations in Excel (PEMDAS)?
+3. How do I reference cells from different sheets?
+4. Explain the concept of cell ranges (A1:A10)
+5. Show me examples using student test scores (not sales data)
+
+Use simple examples to explain each concept.</code></pre>
+<h3 id="guided-practice-hour-2---60-min">Guided Practice (60
+min):</h3>
+<p><em>Using Superstore Sales dataset</em></p>
+<ol type="1">
+<li>Calculate total sales for all orders</li>
+<li>Find average discount given across all transactions</li>
+<li>Count total number of orders in dataset</li>
+<li>Find maximum and minimum order quantities</li>
+<li>Calculate profit for each order (Sales - Cost) using formulas</li>
+</ol>
+<h3 id="independent-practice-hour-3---60-min">Independent Practice (60 min):</h3>
+<p><em>Solve these 8 problems yourself - practice makes
+perfect!</em></p>
+<ol type="1">
+<li>Create 15% tax formula using absolute reference for tax rate</li>
+<li>Find total quantity of products sold</li>
+<li>Calculate average profit margin (Profit/Sales)</li>
+<li>Count how many products have discount &gt; 0</li>
+<li>Find highest profit amount in dataset</li>
+<li>Create commission calculator: 5% if sales&lt;500, else 8%</li>
+<li>Calculate range (MAX-MIN) of order quantities</li>
+<li>Sum all profits for East region only</li>
+</ol>
+<h3 id="daily-assignment-hour-4---60-min">Daily Assignment (60
+min):</h3>
+<ul>
+<li>Create sales summary report for top 5 customers (total sales, avg
+discount, total profit)</li>
+<li>Build shipping cost calculator: $5 base rate + $0.50 per pound</li>
+<li><strong>Save as:</strong> Day01_Excel_Practice.xlsx</li>
+</ul>
+<h3 id="expected-outcomes">Expected Outcomes:</h3>
+<p>✓ Understand when to use relative vs absolute references<br/>
+✓ Write formulas with basic functions confidently<br/>
+✓ Complete practice problems with 80%+ accuracy<br/>
+✓ Submit: Day01_Excel_Practice.xlsx</p>
+<hr/>
+<h2><a href="day2.html">DAY 2: SQL - SELECT &
+Aggregates</a></h2>
+<p><strong>Learning Objectives:</strong> - Understand database structure
+(tables, columns, rows) - Master SELECT statement basics - Learn SQL
+aggregate functions (SUM, AVG, COUNT, MAX, MIN) - Use DISTINCT and ORDER
+BY</p>
+<h3 id="topics-covered-hour-1---60-min-1">Topics Covered (60
+min):</h3>
+<p><strong>1. Database Fundamentals</strong> - <strong>Tables:</strong>
+Collections of data (like Excel sheets) - <strong>Columns:</strong>
+Fields/attributes (like Excel column headers) - <strong>Rows:</strong>
+Individual records - <strong>Example:</strong> Orders table with
+OrderID, CustomerID, OrderDate, Amount</p>
+<p><strong>2. SELECT Statement</strong> - All columns:
+<code>SELECT * FROM Orders;</code> - Specific columns:
+<code>SELECT OrderID, Sales FROM Orders;</code> - Unique values:
+<code>SELECT DISTINCT Region FROM Sales;</code></p>
+<p><strong>3. Aggregate Functions (Mirror Excel Day 1)</strong> -
+<code>SELECT SUM(Sales) FROM Orders;</code> - Total sales -
+<code>SELECT AVG(Discount) FROM Orders;</code> - Average discount -
+<code>SELECT COUNT(*) FROM Orders;</code> - Count rows -
+<code>SELECT MAX(Quantity), MIN(Quantity) FROM Orders;</code></p>
+<p><strong>4. ORDER BY</strong> - Ascending:
+<code>ORDER BY Sales ASC;</code> - Descending:
+<code>ORDER BY Sales DESC;</code> - Multiple:
+<code>ORDER BY Region ASC, Sales DESC;</code></p>
+<h3 id="video-resources-2">📺 Video Resources:</h3>
+<ol type="1">
+<li><p><strong>SQL for Beginners</strong> (20 min)<br/>
+https://www.youtube.com/watch?v=HXV3zeQKqGY - FreeCodeCamp</p></li>
+<li><p><strong>SELECT Statement Tutorial</strong> (12 min)<br/>
+https://www.youtube.com/watch?v=9Pzj7Aj25lw - Programming with
+Mosh</p></li>
+<li><p><strong>SQL Aggregate Functions</strong> (15 min)<br/>
+https://www.youtube.com/watch?v=AywtnUjQ6X4 - Simplilearn</p></li>
+<li><p><strong>W3Schools SQL SELECT</strong><br/>
+https://www.w3schools.com/sql/sql_select.asp</p></li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-1">🤖 AI Learning
+Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding Databases &amp; Tables:</strong></p>
+<pre><code>I'm new to SQL and databases. Please explain:
+
+1. What are databases, tables, columns, and rows? Use an analogy like an Excel spreadsheet or filing cabinet
+2. What's the difference between a database and a table?
+3. Show me a simple example of a Students table structure with 5 columns (ID, Name, Age, Grade, City)
+4. How is SQL different from Excel?
+5. What does relational database mean?
+
+Use beginner-friendly language and real-world analogies.</code></pre>
+<p><strong>Understanding SELECT Statement:</strong></p>
+<pre><code>Explain the SQL SELECT statement:
+
+1. What is the basic syntax of SELECT?
+2. What's the difference between SELECT * and SELECT specific columns?
+3. When and why should I use DISTINCT?
+4. How does ORDER BY work? What's the difference between ASC and DESC?
+5. Can I select columns in any order?
+6. Show me examples using a Books table (Title, Author, Price, Year)
+
+Provide clear syntax examples for each concept.</code></pre>
+<p><strong>Understanding SQL Aggregates (Mirror Excel Day
+1):</strong></p>
+<pre><code>Yesterday I learned SUM, AVG, COUNT, MAX, MIN in Excel. Help me understand SQL equivalents:
+
+1. Show me the SQL syntax for each aggregate function
+2. How do SQL aggregates differ from Excel functions?
+3. Give me side-by-side comparison: Excel formula vs SQL query
+4. Provide examples using an Inventory table (Product, Quantity, Price)
+5. What happens when I use aggregate functions with NULL values?
+
+Include syntax examples that help me understand the parallel.</code></pre>
+<p><strong>Understanding ORDER BY:</strong></p>
+<pre><code>Explain SQL sorting with ORDER BY:
+
+1. What is the syntax for ORDER BY?
+2. How do I sort by multiple columns?
+3. What's the default sort order (ASC or DESC)?
+4. Can I sort by a column I didn't SELECT?
+5. Show examples using an Employees table (Name, Department, Salary, HireDate)
+
+Provide clear examples for each scenario.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-1">Guided Practice (60
+min):</h3>
+<p><em>Using Superstore database</em></p>
+<ol type="1">
+<li>Write query to select all columns from Orders table</li>
+<li>Select only OrderID, CustomerName, and Sales columns</li>
+<li>Calculate total sales across all orders</li>
+<li>Find average discount given</li>
+<li>Count total number of orders</li>
+</ol>
+<h3 id="independent-practice-hour-3---60-min-1">Independent Practice
+(60 min):</h3>
+<p><em>Solve these 8 problems yourself!</em></p>
+<ol type="1">
+<li>Find maximum and minimum order quantities</li>
+<li>List all unique regions using DISTINCT</li>
+<li>Calculate total profit across all orders</li>
+<li>Find average profit margin (you’ll need to calculate)</li>
+<li>Count distinct customers in database</li>
+<li>Display all orders sorted by Sales (highest to lowest)</li>
+<li>Show OrderID and Profit, sorted by Profit (lowest to highest)</li>
+<li>List unique product categories</li>
+</ol>
+<h3 id="daily-assignment-hour-4---60-min-1">Daily Assignment (60 min):</h3>
+<ul>
+<li>Replicate ALL Excel Day 1 calculations using SQL</li>
+<li>Compare your results - they should match the Excel answers!</li>
+<li>Document any differences you find</li>
+<li><strong>Save as:</strong> Day02_SQL_Practice.sql</li>
+</ul>
+<h3 id="expected-outcomes-1">Expected Outcomes:</h3>
+<p>✓ Understand parallel between Excel and SQL aggregates<br/>
+✓ Write basic SELECT queries with confidence<br/>
+✓ Complete practice problems with 80%+ accuracy<br/>
+✓ Submit: Day02_SQL_Practice.sql</p>
+<hr/>
+<h2><a href="day3.html">DAY 3: Excel -
+Filtering & Conditional Functions</a></h2>
+<p><strong>Learning Objectives:</strong> - Master AutoFilter and
+Advanced Filter - Use IF, IFS, and nested IF functions - Learn COUNTIF,
+SUMIF, AVERAGEIF - Apply conditional logic in formulas</p>
+<h3 id="topics-covered-hour-1---60-min-2">Topics Covered (60
+min):</h3>
+<p><strong>1. Data Filtering</strong> - AutoFilter: Quick column
+filtering - Advanced Filter: Complex multi-criteria - Filter by values,
+text, numbers, dates - Clear filters, filter multiple columns</p>
+<p><strong>2. IF Function</strong> - Syntax:
+<code>=IF(condition, value_if_true, value_if_false)</code> - Example:
+<code>=IF(A1&gt;100, "High", "Low")</code> - Nested:
+<code>=IF(A1&gt;100, "High", IF(A1&gt;50, "Med", "Low"))</code> - IFS
+(2019+):
+<code>=IFS(A1&gt;100, "High", A1&gt;50, "Med", TRUE, "Low")</code></p>
+<p><strong>3. Conditional Aggregates</strong> -
+<code>=COUNTIF(range, criteria)</code> - Count cells meeting condition -
+<code>=SUMIF(range, criteria, sum_range)</code> - Sum with condition -
+<code>=AVERAGEIF(range, criteria, avg_range)</code> - Average with
+condition - Example: <code>=SUMIF(B:B, "&gt;100", C:C)</code> - Sum C
+where B&gt;100</p>
+<p><strong>4. Multiple Criteria</strong> -
+<code>=SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2)</code>
+- Can add many criteria pairs</p>
+<h3 id="video-resources-3">📺 Video Resources:</h3>
+<ol type="1">
+<li><p><strong>Excel Filtering Tutorial</strong> (10 min)<br/>
+https://www.youtube.com/watch?v=9gUWva5QvjA - Excel Campus</p></li>
+<li><p><strong>IF Function Complete Guide</strong> (18 min)<br/>
+https://www.youtube.com/watch?v=jO1RcpXO7p0 - Leila Gharani</p></li>
+<li><p><strong>SUMIF, COUNTIF, AVERAGEIF</strong> (15 min)<br/>
+https://www.youtube.com/watch?v=x7yALReP_CQ -
+MyOnlineTrainingHub</p></li>
+<li><p><strong>Advanced Filter Tutorial</strong><br/>
+https://support.microsoft.com/en-us/office/filter-data-in-a-range-or-table-01832226-31b5-4568-8806-38c37dcc180e</p></li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-2">🤖 AI Learning
+Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding IF Functions:</strong></p>
+<pre><code>Explain Excel IF functions for conditional logic:
+
+1. What is the syntax of the IF function?
+2. How do I read the logic: IF(condition, value_if_true, value_if_false)?
+3. What's the difference between IF, IFS, and nested IF?
+4. When should I use each type?
+5. Show me examples using student grades (if score &gt;=60, "Pass", else "Fail")
+6. How many levels can I nest IF statements?
+
+Provide clear examples using grades or temperature data (not sales).</code></pre>
+<p><strong>Understanding Conditional Aggregates:</strong></p>
+<pre><code>Explain conditional aggregate functions in Excel:
+
+1. What's the syntax for SUMIF, COUNTIF, and AVERAGEIF?
+2. How do they differ from regular SUM, COUNT, AVERAGE?
+3. What types of criteria can I use (numbers, text, dates)?
+4. How do I use comparison operators (&gt;, &lt;, &gt;=, &lt;=, &lt;&gt;)?
+5. Show examples using library book data (count books by genre, sum pages for fiction, etc.)
+6. What's the difference between SUMIF and SUMIFS?
+
+Use examples with book inventory or student records (not sales data).</code></pre>
+<p><strong>Understanding Multiple Criteria:</strong></p>
+<pre><code>Explain how to handle multiple conditions in Excel:
+
+1. How do SUMIFS, COUNTIFS, AVERAGEIFS work?
+2. What's the syntax difference from single-criteria functions?
+3. Can I mix AND/OR logic?
+4. Show me examples using employee data (count employees by department AND salary range)
+5. How many criteria can I use?
+
+Provide examples using HR data or school records.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-2">Guided Practice (60
+min):</h3>
+<ol type="1">
+<li>Filter sales data to show only East region</li>
+<li>Use IF to categorize: if sales&gt;1000, “Large”, else “Small”</li>
+<li>Count orders with discount &gt; 10%</li>
+<li>Sum sales for Technology category only</li>
+<li>Calculate average profit for West region</li>
+</ol>
+<h3 id="independent-practice-hour-3---60-min-2">Independent Practice
+(60 min):</h3>
+<ol type="1">
+<li>Create profit status: IF profit&lt;0, “Loss”, else “Profit”</li>
+<li>Count customers from California</li>
+<li>Sum quantities where product is “Chairs”</li>
+<li>Nested IF for discount tiers: &gt;20%=“High”, &gt;10%=“Med”,
+else=“Low”</li>
+<li>Average sales for orders with quantity&gt;10</li>
+<li>Count orders in Q4 (October-December)</li>
+<li>Sum profits for profitable orders only (Profit&gt;0)</li>
+<li>Use IFS to categorize: Sales&gt;5000=“A”, &gt;2000=“B”,
+else=“C”</li>
+</ol>
+<h3 id="daily-assignment-hour-4---60-min-2">Daily Assignment (60 min):</h3>
+<ul>
+<li>Create customer segmentation: Large (&gt;10 orders), Medium (5-10),
+Small (&lt;5)</li>
+<li>Build profitability dashboard showing counts by profit status</li>
+<li><strong>Save as:</strong> Day03_Excel_Practice.xlsx</li>
+</ul>
+<h3 id="expected-outcomes-2">Expected Outcomes:</h3>
+<p>✓ Filter data effectively using AutoFilter<br/>
+✓ Apply conditional logic with IF functions<br/>
+✓ Use conditional aggregates for analysis<br/>
+✓ Submit: Day03_Excel_Practice.xlsx</p>
+<hr/>
+<h2><a href="day4.html">DAY 4: SQL - WHERE Clause
+& Filtering</a></h2>
+<p><strong>Learning Objectives:</strong> - Master WHERE clause for
+filtering data - Use comparison operators (=, &lt;, &gt;, &lt;=, &gt;=,
+&lt;&gt;) - Learn logical operators (AND, OR, NOT) - Use IN, BETWEEN,
+LIKE for advanced filtering</p>
+<h3 id="topics-covered-hour-1---60-min-3">Topics Covered (60
+min):</h3>
+<p><strong>1. WHERE Clause Basics</strong> - Syntax:
+<code>SELECT * FROM table WHERE condition;</code> - Numeric:
+<code>WHERE Sales &gt; 1000</code> - Text:
+<code>WHERE Region = 'East'</code> (use single quotes) - NULL:
+<code>WHERE column IS NULL</code> or <code>IS NOT NULL</code></p>
+<p><strong>2. Comparison Operators</strong> - <code>=</code> (equal),
+<code>&lt;&gt;</code> or <code>!=</code> (not equal) - <code>&gt;</code>
+(greater than), <code>&lt;</code> (less than) - <code>&gt;=</code>
+(greater or equal), <code>&lt;=</code> (less or equal)</p>
+<p><strong>3. Logical Operators (Mirror Excel Day 3)</strong> - AND:
+<code>WHERE Region='East' AND Sales&gt;1000</code> - OR:
+<code>WHERE Region='East' OR Region='West'</code> - NOT:
+<code>WHERE NOT Region='South'</code> - Combined:
+<code>WHERE (Region='East' OR Region='West') AND Sales&gt;500</code></p>
+<p><strong>4. Advanced Filtering</strong> - IN:
+<code>WHERE Region IN ('East', 'West', 'Central')</code> - BETWEEN:
+<code>WHERE Sales BETWEEN 100 AND 1000</code> - LIKE:
+<code>WHERE CustomerName LIKE 'A%'</code> (starts with A) - Wildcards:
+<code>%</code> = any characters, <code>_</code> = single character</p>
+<h3 id="video-resources-4">📺 Video Resources:</h3>
+<ol type="1">
+<li><p><strong>SQL WHERE Clause</strong> (12 min)<br/>
+https://www.youtube.com/watch?v=PKxJRfVmxzI - Programming with
+Mosh</p></li>
+<li><p><strong>SQL Operators Complete Guide</strong> (15 min)<br/>
+https://www.youtube.com/watch?v=YufocuHbYZo - Simplilearn</p></li>
+<li><p><strong>LIKE and Wildcards</strong> (10 min)<br/>
+https://www.youtube.com/watch?v=qEodnQJeV6Y - Joey’s Tech</p></li>
+<li><p><strong>W3Schools WHERE Tutorial</strong><br/>
+https://www.w3schools.com/sql/sql_where.asp</p></li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-3">🤖 AI Learning
+Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding WHERE Clause (Mirror Excel Day 3):</strong></p>
+<pre><code>I learned Excel filtering yesterday. Help me understand SQL WHERE:
+
+1. How does SQL WHERE clause compare to Excel AutoFilter?
+2. What is the basic syntax of WHERE?
+3. Show me all comparison operators: =, &lt;, &gt;, &lt;=, &gt;=, &lt;&gt; (or !=)
+4. How do I filter text vs numbers vs dates?
+5. Provide examples using a Movies table (Title, Genre, Year, Rating, Director)
+6. What happens with NULL values in WHERE clause?
+
+Explain with examples using movie or book data (not sales).</code></pre>
+<p><strong>Understanding Logical Operators:</strong></p>
+<pre><code>Explain AND, OR, NOT in SQL:
+
+1. How do I combine multiple conditions with AND?
+2. How does OR work differently from AND?
+3. What does NOT do?
+4. Can I mix AND and OR? How do I use parentheses?
+5. Show me examples using a Cars table (Make, Model, Year, Price, Color)
+6. What's the order of precedence (AND vs OR)?
+
+Provide clear examples with vehicle or product data.</code></pre>
+<p><strong>Understanding Pattern Matching with LIKE:</strong></p>
+<pre><code>Explain SQL pattern matching:
+
+1. What is the LIKE operator used for?
+2. How do wildcards work: % (multiple chars) and _ (single char)?
+3. Show me examples: starts with, ends with, contains
+4. How do I find names starting with 'A'?
+5. What about case sensitivity?
+6. Give examples using a Cities table (CityName, Country, Population)
+
+Use geography or people names for examples.</code></pre>
+<p><strong>Understanding IN and BETWEEN:</strong></p>
+<pre><code>Explain IN and BETWEEN operators:
+
+1. When should I use IN instead of multiple OR conditions?
+2. What's the syntax for IN with a list of values?
+3. How does BETWEEN work with numbers and dates?
+4. Is BETWEEN inclusive or exclusive?
+5. Show examples using a Weather table (Date, City, Temperature, Condition)
+
+Provide examples with weather or calendar data.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-3">Guided Practice (60
+min):</h3>
+<ol type="1">
+<li>Select orders where Region equals ‘East’</li>
+<li>Find orders with Sales greater than 1000</li>
+<li>Get orders with Discount &gt; 0.1 (10%)</li>
+<li>Select products in Technology category</li>
+<li>Find orders from year 2023</li>
+</ol>
+<h3 id="independent-practice-hour-3---60-min-3">Independent Practice
+(60 min):</h3>
+<ol type="1">
+<li>Find orders with Profit less than 0 (losses)</li>
+<li>Select California customers</li>
+<li>Find sales between 500 and 2000</li>
+<li>Get products with names starting with ‘Chair’</li>
+<li>Select East OR West regions with Sales&gt;1000</li>
+<li>Find orders NOT in South region</li>
+<li>Get customers with names ending in ‘son’</li>
+<li>Select high-value orders: Sales&gt;5000 OR Profit&gt;1000</li>
+</ol>
+<h3 id="daily-assignment-hour-4---60-min-3">Daily Assignment (60 min):</h3>
+<ul>
+<li>Replicate ALL Excel Day 3 filtering using SQL WHERE</li>
+<li>Create queries for each customer segment from Day 3</li>
+<li>Compare results with Excel filtering</li>
+<li><strong>Save as:</strong> Day04_SQL_Practice.sql</li>
+</ul>
+<h3 id="expected-outcomes-3">Expected Outcomes:</h3>
+<p>✓ Filter data effectively using WHERE clause<br/>
+✓ Combine multiple conditions with logical operators<br/>
+✓ Use pattern matching with LIKE<br/>
+✓ Submit: Day04_SQL_Practice.sql</p>
+<hr/>
+<h2><a href="day5.html">DAY 5: Excel - VLOOKUP &
+XLOOKUP</a></h2>
+<p><strong>Learning Objectives:</strong> - Master VLOOKUP for data
+lookup - Learn XLOOKUP (Excel 365) - Understand INDEX-MATCH combination
+- Handle lookup errors gracefully</p>
+<h3 id="topics-covered-hour-1---60-min-4">Topics Covered (60
+min):</h3>
+<p><strong>1. VLOOKUP Fundamentals</strong> - Syntax:
+<code>=VLOOKUP(lookup_value, table_array, col_index, [range_lookup])</code>
+- Exact match: range_lookup = FALSE or 0 - Approximate: range_lookup =
+TRUE or 1 (requires sorted data) - Example:
+<code>=VLOOKUP(A2, ProductList, 3, 0)</code> - Find price -
+<strong>Limitation:</strong> Only looks to the right</p>
+<p><strong>2. XLOOKUP (Excel 365)</strong> - Syntax:
+<code>=XLOOKUP(lookup, lookup_array, return_array, [if_not_found])</code>
+- Can look left or right - Example:
+<code>=XLOOKUP(A2, ProductIDs, ProductNames, "Not Found")</code> - More
+flexible than VLOOKUP</p>
+<p><strong>3. INDEX-MATCH Alternative</strong> - INDEX: Returns value
+from position - MATCH: Returns position of value - Combined:
+<code>=INDEX(return_range, MATCH(lookup_value, lookup_range, 0))</code>
+- Works left/right, more powerful</p>
+<p><strong>4. Error Handling</strong> -
+<code>=IFERROR(VLOOKUP(...), "Not Found")</code> -
+<code>=IFNA(XLOOKUP(...), "No Match")</code> - Handles #N/A, #REF!,
+#VALUE! errors</p>
+<h3 id="video-resources-5">📺 Video Resources:</h3>
+<ol type="1">
+<li><p><strong>VLOOKUP Complete Tutorial</strong> (20 min)<br/>
+https://www.youtube.com/watch?v=d3BYVQ6xIE4 - Leila Gharani</p></li>
+<li><p><strong>XLOOKUP for Beginners</strong> (15 min)<br/>
+https://www.youtube.com/watch?v=AQCdH5gOZIU -
+MyOnlineTrainingHub</p></li>
+<li><p><strong>INDEX MATCH vs VLOOKUP</strong> (12 min)<br/>
+https://www.youtube.com/watch?v=F264FpBDX28 - Excel Campus</p></li>
+<li><p><strong>Microsoft VLOOKUP Guide</strong><br/>
+https://support.microsoft.com/en-us/office/vlookup-function-0bbc8083-26fe-4963-8ab8-93a18ad188a1</p></li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-4">🤖 AI Learning
+Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding VLOOKUP:</strong></p>
+<pre><code>Explain Excel VLOOKUP function:
+
+1. What does VLOOKUP stand for and what does it do?
+2. Break down the syntax: =VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])
+3. What does each parameter mean?
+4. What's the difference between exact match (FALSE/0) and approximate match (TRUE/1)?
+5. Why can't VLOOKUP look to the left?
+6. Show me examples using employee data (lookup employee name by ID, or salary by name)
+7. What are the common errors: #N/A, #REF!, #VALUE!?
+
+Use employee or student data for examples (not sales data).</code></pre>
+<p><strong>Understanding XLOOKUP:</strong></p>
+<pre><code>Explain XLOOKUP and its advantages:
+
+1. What is XLOOKUP and why is it better than VLOOKUP?
+2. What's the syntax: =XLOOKUP(lookup_value, lookup_array, return_array, [if_not_found])?
+3. How can XLOOKUP look both left and right?
+4. How do I handle missing values with the if_not_found parameter?
+5. Show me examples using a Product catalog (lookup price by product ID, category by name)
+6. Can I use XLOOKUP in Excel 2016? What are alternatives?
+
+Use product inventory or library data for examples.</code></pre>
+<p><strong>Understanding INDEX-MATCH:</strong></p>
+<pre><code>Explain INDEX and MATCH combination:
+
+1. What does INDEX function do? What does MATCH function do?
+2. Why combine them: =INDEX(return_range, MATCH(lookup_value, lookup_range, 0))?
+3. How is INDEX-MATCH more flexible than VLOOKUP?
+4. Show me the step-by-step breakdown of how INDEX-MATCH works
+5. Give examples using student records (lookup grade by student name)
+
+Use school or personnel data for examples.</code></pre>
+<p><strong>Understanding Error Handling:</strong></p>
+<pre><code>Explain error handling in lookup functions:
+
+1. What causes #N/A errors in VLOOKUP?
+2. How does IFERROR work: =IFERROR(formula, value_if_error)?
+3. What's the difference between IFERROR and IFNA?
+4. Show me how to display "Not Found" instead of #N/A
+5. Give examples using membership data (lookup member status, show "Inactive" if not found)
+
+Provide examples with membership or registration data.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-4">Guided Practice (60
+min):</h3>
+<p><em>Create separate Customer &amp; Product reference tables</em></p>
+<ol type="1">
+<li>VLOOKUP customer name by Customer ID</li>
+<li>VLOOKUP product price by Product Name</li>
+<li>XLOOKUP region by Customer ID</li>
+<li>Find product category for each product</li>
+<li>Handle missing lookups with IFERROR</li>
+</ol>
+<h3 id="independent-practice-hour-3---60-min-4">Independent Practice
+(60 min):</h3>
+<ol type="1">
+<li>Create order detail report using VLOOKUP to add customer
+information</li>
+<li>Add product names to orders using XLOOKUP</li>
+<li>Calculate extended price: Quantity × VLOOKUP(Unit Price)</li>
+<li>Use INDEX-MATCH to find discount rate</li>
+<li>Lookup shipping cost by region</li>
+<li>Multi-criteria lookup using XLOOKUP</li>
+<li>Create customer summary with multiple VLOOKUPs</li>
+<li>Handle errors: Show “Unknown” for missing data</li>
+</ol>
+<h3 id="daily-assignment-hour-4---60-min-4">Daily Assignment (60 min):</h3>
+<ul>
+<li>Build comprehensive order report: Orders + Customer data + Product
+data</li>
+<li>Use lookups to enrich order information</li>
+<li>Calculate totals using all Week 1 skills (SUM, formulas,
+lookups)</li>
+<li><strong>Save as:</strong> Day05_Excel_Practice.xlsx</li>
+<li><strong>WEEK 1 TEST:</strong> Complete Week 1 assessment (provided
+separately by instructor)</li>
+</ul>
+<h3 id="expected-outcomes-4">Expected Outcomes:</h3>
+<p>✓ Perform data lookups efficiently<br/>
+✓ Choose appropriate lookup function for each scenario<br/>
+✓ Handle lookup errors gracefully<br/>
+✓ Submit: Day05_Excel_Practice.xlsx</p>
+<hr/>
+    <a href="#" class="back-to-top">↑ Back to Top</a>
+  </div>
+</div>
+
+<script>
+// Simple navigation - no complex features needed for modern design
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('30-Day Training Plan loaded');
+});
+</script>
+
+</body>
+</html>

@@ -1,9 +1,31 @@
-<!DOCTYPE html>
+#!/usr/bin/env python3
+"""
+Restructure with modern Anthropic-inspired design and organized folder structure
+"""
+
+from bs4 import BeautifulSoup
+import re
+import os
+import shutil
+from pathlib import Path
+
+# Create pages directory
+pages_dir = Path('pages')
+pages_dir.mkdir(exist_ok=True)
+
+# Read the original HTML file
+with open('Complete_30Day_Training_Full.html', 'r', encoding='utf-8') as f:
+    html_content = f.read()
+
+soup = BeautifulSoup(html_content, 'html.parser')
+
+# Modern Anthropic-inspired head section with updated styling
+modern_head_template = '''<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>30-Day Excel & SQL Training Plan</title>
+  <title>{title}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -404,138 +426,224 @@
     }
   </style>
 </head>
+'''
 
-<body>
-<header id="title-block-header">
-  <div class="header-row">
-    <h1 class="title">30-Day Excel & SQL Training Plan</h1>
-  </div>
-</header>
-<div class="page">
-  <nav id="TOC" role="navigation">
-<ul>
-<li><a href="../index.html" if "pages/" in current_page else "index.html">📚 Training Overview</a></li>
-<li><a href="pages/week1.html">Week 1: Foundations</a>
-<ul>
-<li><a href="pages/day1.html">Day 1: Excel - Formulas
-& Basic Functions</a></li>
-<li><a href="pages/day2.html">Day 2: SQL - SELECT &
-Aggregates</a></li>
-<li><a href="pages/day3.html">Day 3: Excel -
-Filtering & Conditional Funct...</a></li>
-<li><a href="pages/day4.html">Day 4: SQL - WHERE Clause
-& Filtering</a></li>
-<li><a href="pages/day5.html">Day 5: Excel - VLOOKUP &
-XLOOKUP</a></li>
-</ul>
-</li>
-<li><a href="pages/week2.html">Week 2: Data Analysis</a>
-<ul>
-<li><a href="pages/day6.html">Day 6: SQL - JOIN Operations</a></li>
-<li><a href="pages/day7.html">Day 7: Excel - Pivot Tables
-& Charts</a></li>
-<li><a href="pages/day8.html">Day 8: SQL - GROUP BY &
-HAVING</a></li>
-<li><a href="pages/day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
-<li><a href="pages/day10.html">Day 10: SQL - Subqueries</a></li>
-</ul>
-</li>
-<li><a href="pages/week3.html">Week 3: Intermediate Concepts</a>
-<ul>
-<li><a href="pages/day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
-<li><a href="pages/day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
-<li><a href="pages/day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
-<li><a href="pages/day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
-<li><a href="pages/day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
-</ul>
-</li>
-<li><a href="pages/week4.html">Week 4: Advanced Concepts</a>
-<ul>
-<li><a href="pages/day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
-<li><a href="pages/day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
-<li><a href="pages/day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
-<li><a href="pages/day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
-<li><a href="pages/day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
-</ul>
-</li>
-<li><a href="pages/week5.html">Week 5: Analytics & Optimization</a>
-<ul>
-<li><a href="pages/day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
-<li><a href="pages/day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
-<li><a href="pages/day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
-<li><a href="pages/day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
-<li><a href="pages/day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
-</ul>
-</li>
-<li><a href="pages/week6.html">Week 6: Mastery & Projects</a>
-<ul>
-<li><a href="pages/day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
-<li><a href="pages/day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
-<li><a href="pages/day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
-<li><a href="pages/day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
-<li><a href="pages/day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
-</ul>
-</li>
-</ul>
-  </nav>
-  <div class="content">
-<h2 id="complete-training-with-video-resources-ai-learning-prompts">Complete
-Training with Video Resources &amp; AI Learning Prompts</h2>
-<p><strong>Duration:</strong> 30 Days (6 weeks, 5 days/week)<br/>
-<strong>Daily Time:</strong> 4 hours<br/>
-<strong>Approach:</strong> Alternating Excel &amp; SQL with mirrored
-concepts<br/>
-<strong>Complexity:</strong> Gradual progression (beginner →
-intermediate → advanced)</p>
-<hr/>
-<h2 id="how-to-use-this-plan">📖 HOW TO USE THIS PLAN</h2>
-<h3 id="video-resources">📺 Video Resources</h3>
-<p>Each day includes curated video tutorials to help you learn concepts
-visually.</p>
-<h3 id="ai-learning-prompts">🤖 AI Learning Prompts</h3>
-<p><strong>IMPORTANT:</strong> These prompts are for
-<strong>understanding concepts only</strong> - NOT for solving your
-assignments!</p>
-<ul>
-<li>✅ <strong>USE prompts to:</strong> Learn concepts, understand
-theory, see different examples</li>
-<li>❌ <strong>DON’T use prompts to:</strong> Solve practice problems,
-complete assignments, cheat</li>
-</ul>
-<p><strong>How to use:</strong> 1. Copy the prompt (including the
-backticks) 2. Paste into Claude or ChatGPT 3. Read and understand the
-explanation 4. Then solve YOUR practice problems yourself!</p>
-<hr/>
-<h2 id="program-overview">PROGRAM OVERVIEW</h2>
-<h3 id="pacing-strategy">Pacing Strategy:</h3>
-<ul>
-<li><strong>Days 1-10:</strong> Light (8-10 practice problems) - ONE
-major concept</li>
-<li><strong>Days 11-20:</strong> Medium (12-15 problems) - TWO related
-concepts</li>
-<li><strong>Days 21-30:</strong> Advanced (15-20 problems) - Complex
-integrated topics</li>
-</ul>
-<h3 id="resources">Resources:</h3>
-<p><strong>Datasets:</strong> - Superstore Sales:
-https://www.kaggle.com/datasets/vivek468/superstore-dataset-final - HR
-Employee:
-https://www.kaggle.com/datasets/rhuebner/human-resources-data-set -
-Northwind: https://github.com/pthom/northwind_psql</p>
-<p><strong>Software:</strong> - Excel: Microsoft Excel 2016+ or
-LibreOffice Calc - SQL: SQLite Browser (https://sqlitebrowser.org/) OR
-SQL Server + SSMS</p>
-<hr/>
-    <a href="#" class="back-to-top">↑ Back to Top</a>
-  </div>
-</div>
-
+# Simple scripts without complex features
+simple_scripts = '''
 <script>
 // Simple navigation - no complex features needed for modern design
 document.addEventListener('DOMContentLoaded', function() {
   console.log('30-Day Training Plan loaded');
 });
 </script>
+'''
 
+def create_toc(current_page=''):
+    """Build clean TOC"""
+    weeks = [
+        ("Week 1: Foundations", "week1.html", list(range(1, 6))),
+        ("Week 2: Data Analysis", "week2.html", list(range(6, 11))),
+        ("Week 3: Intermediate Concepts", "week3.html", list(range(11, 16))),
+        ("Week 4: Advanced Concepts", "week4.html", list(range(16, 21))),
+        ("Week 5: Analytics & Optimization", "week5.html", list(range(21, 26))),
+        ("Week 6: Mastery & Projects", "week6.html", list(range(26, 31)))
+    ]
+
+    day_titles = extract_day_titles()
+
+    toc = ['<ul>']
+    toc.append('<li><a href="../index.html" if "pages/" in current_page else "index.html">📚 Training Overview</a></li>')
+
+    for week_name, week_file, days in weeks:
+        week_link = f'pages/{week_file}' if current_page == 'index' else week_file
+        toc.append(f'<li><a href="{week_link}">{week_name}</a>')
+        toc.append('<ul>')
+        for day_num in days:
+            day_title = day_titles.get(day_num, f"Day {day_num}")
+            day_link = f'pages/day{day_num}.html' if current_page == 'index' else f'day{day_num}.html'
+            # Shorten titles for TOC
+            short_title = day_title.replace('DAY ' + str(day_num) + ': ', '')
+            if len(short_title) > 40:
+                short_title = short_title[:37] + '...'
+            toc.append(f'<li><a href="{day_link}">Day {day_num}: {short_title}</a></li>')
+        toc.append('</ul>')
+        toc.append('</li>')
+
+    toc.append('</ul>')
+    return '\n'.join(toc)
+
+def extract_day_titles():
+    """Extract day titles from HTML"""
+    day_titles = {}
+    all_h2 = soup.find_all('h2')
+    for h2 in all_h2:
+        if h2.get('id', '').startswith('day-'):
+            text = h2.get_text()
+            match = re.match(r'DAY (\d+):', text)
+            if match:
+                day_num = int(match.group(1))
+                day_titles[day_num] = text
+    return day_titles
+
+def create_html_page(title, toc_html, content_html, current_page=''):
+    """Create complete HTML page"""
+    modern_head = modern_head_template.replace('{title}', title)
+    return modern_head + f'''
+<body>
+<header id="title-block-header">
+  <div class="header-row">
+    <h1 class="title">{title}</h1>
+  </div>
+</header>
+<div class="page">
+  <nav id="TOC" role="navigation">
+{toc_html}
+  </nav>
+  <div class="content">
+{content_html}
+    <a href="#" class="back-to-top">↑ Back to Top</a>
+  </div>
+</div>
+{simple_scripts}
 </body>
-</html>
+</html>'''
+
+def extract_intro_content():
+    """Extract intro for index"""
+    content = []
+    main_h1 = soup.find('h1', id='day-excel-sql-training-plan')
+    if main_h1:
+        current = main_h1
+        while current:
+            current = current.find_next_sibling()
+            if current and current.name == 'h1' and 'week' in current.get('id', '').lower():
+                break
+            if current:
+                content.append(str(current))
+    return '\n'.join(content)
+
+def extract_week_content(week_num):
+    """Extract week content"""
+    week_ids = {
+        1: 'week-1-foundations',
+        2: 'week-2-data-analysis-fundamentals',
+        3: 'week-3-intermediate-concepts',
+        4: 'week-4-advanced-concepts',
+        5: 'week-5-analytics-optimization',
+        6: 'week-6-mastery-projects'
+    }
+
+    week_id = week_ids.get(week_num)
+    if not week_id:
+        # Try alternate IDs
+        week_id = f'week-{week_num}'
+
+    week_h1 = soup.find('h1', id=lambda x: x and week_id in x if x else False)
+    if not week_h1:
+        return f"<h1>Week {week_num}</h1><p>Content coming soon...</p>"
+
+    content = [str(week_h1)]
+    current = week_h1
+    while current:
+        current = current.find_next_sibling()
+        if current and current.name == 'h1' and current != week_h1:
+            break
+        if current and current.name == 'h2':
+            day_text = current.get_text()
+            day_match = re.match(r'DAY (\d+):', day_text)
+            if day_match:
+                day_num = day_match.group(1)
+                content.append(f'<h2><a href="day{day_num}.html">{day_text}</a></h2>')
+                continue
+        if current:
+            content.append(str(current))
+
+    return '\n'.join(content)
+
+def extract_day_content(day_num):
+    """Extract day content"""
+    all_h2 = soup.find_all('h2')
+    day_h2 = None
+
+    for h2 in all_h2:
+        if h2.get('id', '').startswith('day-'):
+            text = h2.get_text()
+            match = re.match(rf'DAY {day_num}:', text)
+            if match:
+                day_h2 = h2
+                break
+
+    if not day_h2:
+        return f"<h1>Day {day_num}</h1><p>Content coming soon...</p>"
+
+    content = [str(day_h2)]
+    current = day_h2
+    while current:
+        current = current.find_next_sibling()
+        if current and current.name == 'h2' and current.get('id', '').startswith('day-'):
+            break
+        if current and current.name == 'h1':
+            break
+        if current:
+            content.append(str(current))
+
+    return '\n'.join(content)
+
+# Generate index.html (at root)
+print("Generating index.html...")
+intro_content = extract_intro_content()
+toc = create_toc('index')
+index_html = create_html_page(
+    '30-Day Excel & SQL Training Plan',
+    toc,
+    intro_content,
+    'index'
+)
+with open('index.html', 'w', encoding='utf-8') as f:
+    f.write(index_html)
+
+# Generate week pages (in pages/)
+week_titles = [
+    "Week 1: Foundations",
+    "Week 2: Data Analysis Fundamentals",
+    "Week 3: Intermediate Concepts",
+    "Week 4: Advanced Concepts",
+    "Week 5: Analytics & Optimization",
+    "Week 6: Mastery & Projects"
+]
+
+for week_num in range(1, 7):
+    print(f"Generating pages/week{week_num}.html...")
+    week_content = extract_week_content(week_num)
+    toc = create_toc(f'week{week_num}')
+    week_html = create_html_page(
+        week_titles[week_num - 1],
+        toc,
+        week_content,
+        f'week{week_num}'
+    )
+    with open(f'pages/week{week_num}.html', 'w', encoding='utf-8') as f:
+        f.write(week_html)
+
+# Generate day pages (in pages/)
+day_titles_dict = extract_day_titles()
+for day_num in range(1, 31):
+    print(f"Generating pages/day{day_num}.html...")
+    day_content = extract_day_content(day_num)
+    toc = create_toc(f'day{day_num}')
+    day_title = day_titles_dict.get(day_num, f"Day {day_num}")
+    day_html = create_html_page(
+        day_title,
+        toc,
+        day_content,
+        f'day{day_num}'
+    )
+    with open(f'pages/day{day_num}.html', 'w', encoding='utf-8') as f:
+        f.write(day_html)
+
+print("\n✅ Done! Generated modern design with:")
+print("  - index.html (at root)")
+print("  - pages/week1-6.html")
+print("  - pages/day1-30.html")
+print("  - Anthropic-inspired modern design")
+print("  - Clean, organized file structure")
