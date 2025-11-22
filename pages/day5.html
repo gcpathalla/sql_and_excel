@@ -80,11 +80,31 @@ XLOOKUP</title>
       font-family: 'OpenDyslexic', sans-serif;
     }
 
+    /* Font sizes */
+    html {
+      font-size: 16px;
+    }
+
+    [data-font-size="small"] {
+      font-size: 14px;
+    }
+
+    [data-font-size="medium"] {
+      font-size: 16px;
+    }
+
+    [data-font-size="large"] {
+      font-size: 18px;
+    }
+
+    [data-font-size="x-large"] {
+      font-size: 20px;
+    }
+
     html, body {
       height: 100%;
       background: var(--bg-primary);
       color: var(--text-primary);
-      font-size: 16px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -146,6 +166,50 @@ XLOOKUP</title>
     .font-selector:focus {
       border-color: var(--accent-orange);
       box-shadow: 0 0 0 3px rgba(217, 119, 87, 0.1);
+    }
+
+    .font-size-controls {
+      display: flex;
+      gap: 0.25rem;
+      align-items: center;
+    }
+
+    .font-size-btn {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .font-size-btn:hover {
+      background: var(--bg-secondary);
+      border-color: var(--accent-brown);
+      color: var(--text-primary);
+      transform: translateY(-1px);
+    }
+
+    .font-size-btn:active {
+      transform: translateY(0);
+    }
+
+    .font-size-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .font-size-btn:disabled:hover {
+      background: var(--bg-primary);
+      border-color: var(--border-subtle);
+      transform: none;
     }
 
     .theme-toggle {
@@ -431,17 +495,19 @@ XLOOKUP</title>
 
     /* AI Prompts Note */
     .ai-prompts-note {
-      background: #FFF9F0;
+      background: var(--bg-primary);
       border-left: 4px solid var(--accent-orange);
       padding: 1rem 1.25rem;
       margin: 1rem 0 1.5rem 0;
       border-radius: var(--radius-sm);
       font-size: 0.9rem;
       color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
     }
 
     .ai-prompts-note strong {
       color: var(--accent-orange);
+      font-weight: 600;
     }
 
     /* Tables */
@@ -484,6 +550,63 @@ XLOOKUP</title>
       height: 1px;
       background: var(--border-subtle);
       margin: 2.5rem 0;
+    }
+
+    /* Feedback Bar */
+    .feedback-bar {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-subtle);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .feedback-bar p {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .feedback-link {
+      color: var(--accent-orange);
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .feedback-link:hover {
+      color: var(--accent-brown);
+      text-decoration: underline;
+    }
+
+    /* Practice Notes */
+    .practice-note {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--accent-brown);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin: 1rem 0 1.5rem 0;
+    }
+
+    .practice-note p {
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .practice-note ul {
+      margin: 0;
+      padding-left: 1.5rem;
+    }
+
+    .practice-note li {
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+
+    .practice-note strong {
+      color: var(--text-primary);
     }
 
     /* Back to top - Fixed button */
@@ -607,6 +730,10 @@ XLOOKUP</h1>
         <option value="georgia">Georgia</option>
         <option value="dyslexic">OpenDyslexic</option>
       </select>
+      <div class="font-size-controls">
+        <button class="font-size-btn" id="decrease-font" aria-label="Decrease font size" title="Decrease font size">A-</button>
+        <button class="font-size-btn" id="increase-font" aria-label="Increase font size" title="Increase font size">A+</button>
+      </div>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
         <span class="theme-icon">🌙</span>
         <span class="theme-text">Dark</span>
@@ -708,18 +835,18 @@ from position - MATCH: Returns position of value - Combined:
 <code>=IFERROR(VLOOKUP(...), "Not Found")</code> -
 <code>=IFNA(XLOOKUP(...), "No Match")</code> - Handles #N/A, #REF!,
 #VALUE! errors</p>
-<h3 id="video-resources-5">📺 Video Resources:</h3>
+<h3 id="video-resources-5">Video Resources:</h3>
 <ol type="1">
 <li><p><strong>VLOOKUP Complete Tutorial</strong> (20 min)<br/>
-<a href="https://www.youtube.com/watch?v=d3BYVQ6xIE4" target="_blank">Leila Gharani</a></p></li>
+<a href="https://www.youtube.com/watch?v=d3BYVQ6xIE4" target="_blank">https://www.youtube.com/watch?v=d3BYVQ6xIE4</a></p></li>
 <li><p><strong>XLOOKUP for Beginners</strong> (15 min)<br/>
-<a href="https://www.youtube.com/watch?v=AQCdH5gOZIU" target="_blank">MyOnlineTrainingHub</a></p></li>
+<a href="https://www.youtube.com/watch?v=AQCdH5gOZIU" target="_blank">https://www.youtube.com/watch?v=AQCdH5gOZIU</a></p></li>
 <li><p><strong>INDEX MATCH vs VLOOKUP</strong> (12 min)<br/>
-<a href="https://www.youtube.com/watch?v=F264FpBDX28" target="_blank">Excel Campus</a></p></li>
+<a href="https://www.youtube.com/watch?v=F264FpBDX28" target="_blank">https://www.youtube.com/watch?v=F264FpBDX28</a></p></li>
 <li><p><strong>Microsoft VLOOKUP Guide</strong><br/>
-<a href="https://support.microsoft.com/en-us/office/vlookup-function-0bbc8083-26fe-4963-8ab8" target="_blank">93a18ad188a1</a></p></li>
+<a href="https://support.microsoft.com/en-us/office/vlookup-function-0bbc8083-26fe-4963-8ab8" target="_blank">https://support.microsoft.com/en-us/office/vlookup-function-0bbc8083-26fe-4963-8ab8</a></p></li>
 </ol>
-<h3 id="ai-learning-prompts-concept-understanding-only-4">🤖 AI Learning
+<h3 id="ai-learning-prompts-concept-understanding-only-4">AI Learning
 Prompts (Concept Understanding Only):</h3>
 <p><strong>Understanding VLOOKUP:</strong></p>
 <pre><code>Explain Excel VLOOKUP function:
@@ -766,6 +893,16 @@ Use school or personnel data for examples.</code></pre>
 Provide examples with membership or registration data.</code></pre>
 <h3 id="guided-practice-hour-2---60-min-4">Guided Practice (60
 min):</h3>
+<div class="practice-note">
+<p><strong>📝 How to approach Guided Practice:</strong></p>
+<ul>
+<li><strong>Follow step-by-step:</strong> Work through each exercise in order</li>
+<li><strong>Use provided resources:</strong> Reference the video tutorials and AI prompts if you get stuck</li>
+<li><strong>Verify your work:</strong> Check your results match expected outcomes</li>
+<li><strong>Take notes:</strong> Document key learnings and shortcuts you discover</li>
+<li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
+</ul>
+</div>
 <p><em>Create separate Customer &amp; Product reference tables</em></p>
 <ol type="1">
 <li>VLOOKUP customer name by Customer ID</li>
@@ -776,6 +913,16 @@ min):</h3>
 </ol>
 <h3 id="independent-practice-hour-3---60-min-4">Independent Practice
 (60 min):</h3>
+<div class="practice-note">
+<p><strong>💡 Hints for Independent Practice:</strong></p>
+<ul>
+<li><strong>Start simple:</strong> Begin with basic variations before attempting complex modifications</li>
+<li><strong>Break it down:</strong> Divide complex problems into smaller, manageable steps</li>
+<li><strong>Test incrementally:</strong> Verify each step works before moving to the next</li>
+<li><strong>Use documentation:</strong> Refer to official docs or tutorials when needed</li>
+<li><strong>Experiment:</strong> Try different approaches to find what works best</li>
+</ul>
+</div>
 <ol type="1">
 <li>Create order detail report using VLOOKUP to add customer
 information</li>
@@ -805,6 +952,9 @@ separately by instructor)</li>
 ✓ Submit: Day05_Excel_Practice.xlsx</p>
 <hr/>
   </div>
+</div>
+<div class="feedback-bar">
+  <p>Have feedback or questions? <a href="mailto:gcpath@live.com?subject=30-Day Excel & SQL Training Feedback" class="feedback-link">Email us at gcpath@live.com</a></p>
 </div>
 <button class="back-to-top" id="back-to-top" aria-label="Back to top"></button>
 
@@ -880,6 +1030,40 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectedFont = e.target.value;
     document.documentElement.setAttribute('data-font', selectedFont);
     localStorage.setItem('training-font', selectedFont);
+  });
+
+  // 2c. Font size controls
+  const fontSizes = ['small', 'medium', 'large', 'x-large'];
+  const decreaseBtn = document.getElementById('decrease-font');
+  const increaseBtn = document.getElementById('increase-font');
+
+  // Load saved font size (default to medium)
+  let currentSizeIndex = fontSizes.indexOf(localStorage.getItem('training-font-size') || 'medium');
+  if (currentSizeIndex === -1) currentSizeIndex = 1; // Default to medium
+
+  function applyFontSize(index) {
+    document.documentElement.setAttribute('data-font-size', fontSizes[index]);
+    localStorage.setItem('training-font-size', fontSizes[index]);
+
+    // Disable buttons at limits
+    decreaseBtn.disabled = index === 0;
+    increaseBtn.disabled = index === fontSizes.length - 1;
+  }
+
+  applyFontSize(currentSizeIndex);
+
+  decreaseBtn.addEventListener('click', () => {
+    if (currentSizeIndex > 0) {
+      currentSizeIndex--;
+      applyFontSize(currentSizeIndex);
+    }
+  });
+
+  increaseBtn.addEventListener('click', () => {
+    if (currentSizeIndex < fontSizes.length - 1) {
+      currentSizeIndex++;
+      applyFontSize(currentSizeIndex);
+    }
   });
 
   // 3. Highlight active page in TOC and scroll to it

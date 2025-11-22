@@ -101,11 +101,31 @@ modern_head_template = '''<!DOCTYPE html>
       font-family: 'OpenDyslexic', sans-serif;
     }
 
+    /* Font sizes */
+    html {
+      font-size: 16px;
+    }
+
+    [data-font-size="small"] {
+      font-size: 14px;
+    }
+
+    [data-font-size="medium"] {
+      font-size: 16px;
+    }
+
+    [data-font-size="large"] {
+      font-size: 18px;
+    }
+
+    [data-font-size="x-large"] {
+      font-size: 20px;
+    }
+
     html, body {
       height: 100%;
       background: var(--bg-primary);
       color: var(--text-primary);
-      font-size: 16px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -167,6 +187,50 @@ modern_head_template = '''<!DOCTYPE html>
     .font-selector:focus {
       border-color: var(--accent-orange);
       box-shadow: 0 0 0 3px rgba(217, 119, 87, 0.1);
+    }
+
+    .font-size-controls {
+      display: flex;
+      gap: 0.25rem;
+      align-items: center;
+    }
+
+    .font-size-btn {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .font-size-btn:hover {
+      background: var(--bg-secondary);
+      border-color: var(--accent-brown);
+      color: var(--text-primary);
+      transform: translateY(-1px);
+    }
+
+    .font-size-btn:active {
+      transform: translateY(0);
+    }
+
+    .font-size-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .font-size-btn:disabled:hover {
+      background: var(--bg-primary);
+      border-color: var(--border-subtle);
+      transform: none;
     }
 
     .theme-toggle {
@@ -452,17 +516,19 @@ modern_head_template = '''<!DOCTYPE html>
 
     /* AI Prompts Note */
     .ai-prompts-note {
-      background: #FFF9F0;
+      background: var(--bg-primary);
       border-left: 4px solid var(--accent-orange);
       padding: 1rem 1.25rem;
       margin: 1rem 0 1.5rem 0;
       border-radius: var(--radius-sm);
       font-size: 0.9rem;
       color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
     }
 
     .ai-prompts-note strong {
       color: var(--accent-orange);
+      font-weight: 600;
     }
 
     /* Tables */
@@ -505,6 +571,63 @@ modern_head_template = '''<!DOCTYPE html>
       height: 1px;
       background: var(--border-subtle);
       margin: 2.5rem 0;
+    }
+
+    /* Feedback Bar */
+    .feedback-bar {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-subtle);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .feedback-bar p {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .feedback-link {
+      color: var(--accent-orange);
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .feedback-link:hover {
+      color: var(--accent-brown);
+      text-decoration: underline;
+    }
+
+    /* Practice Notes */
+    .practice-note {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--accent-brown);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin: 1rem 0 1.5rem 0;
+    }
+
+    .practice-note p {
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .practice-note ul {
+      margin: 0;
+      padding-left: 1.5rem;
+    }
+
+    .practice-note li {
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+
+    .practice-note strong {
+      color: var(--text-primary);
     }
 
     /* Back to top - Fixed button */
@@ -692,6 +815,40 @@ document.addEventListener('DOMContentLoaded', function() {
     localStorage.setItem('training-font', selectedFont);
   });
 
+  // 2c. Font size controls
+  const fontSizes = ['small', 'medium', 'large', 'x-large'];
+  const decreaseBtn = document.getElementById('decrease-font');
+  const increaseBtn = document.getElementById('increase-font');
+
+  // Load saved font size (default to medium)
+  let currentSizeIndex = fontSizes.indexOf(localStorage.getItem('training-font-size') || 'medium');
+  if (currentSizeIndex === -1) currentSizeIndex = 1; // Default to medium
+
+  function applyFontSize(index) {
+    document.documentElement.setAttribute('data-font-size', fontSizes[index]);
+    localStorage.setItem('training-font-size', fontSizes[index]);
+
+    // Disable buttons at limits
+    decreaseBtn.disabled = index === 0;
+    increaseBtn.disabled = index === fontSizes.length - 1;
+  }
+
+  applyFontSize(currentSizeIndex);
+
+  decreaseBtn.addEventListener('click', () => {
+    if (currentSizeIndex > 0) {
+      currentSizeIndex--;
+      applyFontSize(currentSizeIndex);
+    }
+  });
+
+  increaseBtn.addEventListener('click', () => {
+    if (currentSizeIndex < fontSizes.length - 1) {
+      currentSizeIndex++;
+      applyFontSize(currentSizeIndex);
+    }
+  });
+
   // 3. Highlight active page in TOC and scroll to it
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const tocLinks = document.querySelectorAll('nav#TOC a');
@@ -807,6 +964,10 @@ def create_html_page(title, toc_html, content_html, current_page=''):
         <option value="georgia">Georgia</option>
         <option value="dyslexic">OpenDyslexic</option>
       </select>
+      <div class="font-size-controls">
+        <button class="font-size-btn" id="decrease-font" aria-label="Decrease font size" title="Decrease font size">A-</button>
+        <button class="font-size-btn" id="increase-font" aria-label="Increase font size" title="Increase font size">A+</button>
+      </div>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
         <span class="theme-icon">🌙</span>
         <span class="theme-text">Dark</span>
@@ -821,6 +982,9 @@ def create_html_page(title, toc_html, content_html, current_page=''):
   <div class="content">
 {content_html}
   </div>
+</div>
+<div class="feedback-bar">
+  <p>Have feedback or questions? <a href="mailto:gcpath@live.com?subject=30-Day Excel & SQL Training Feedback" class="feedback-link">Email us at gcpath@live.com</a></p>
 </div>
 <button class="back-to-top" id="back-to-top" aria-label="Back to top"></button>
 {enhanced_scripts}
