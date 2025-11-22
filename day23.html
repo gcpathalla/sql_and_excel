@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta content="pandoc" name="generator"/>
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
-<title>DAY 23</title>
+<title>DAY 23: Excel - Advanced Conditional Formatting & Data Validation</title>
 <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -215,7 +215,7 @@
 <body>
 <header id="title-block-header">
 <div class="header-row">
-<h1 class="title">DAY 23</h1>
+<h1 class="title">DAY 23: Excel - Advanced Conditional Formatting & Data Validation</h1>
 <div class="header-controls">
 <button aria-label="Decrease font" class="button" id="font-decrease" title="Decrease font size">A-</button>
 <button aria-label="Increase font" class="button" id="font-increase" title="Increase font size">A+</button>
@@ -259,45 +259,127 @@ HAVING</a></li>
 </li>
 <li><a href="week3.html">WEEK 3: INTERMEDIATE CONCEPTS</a>
 <ul>
-<li><a href="day11.html">DAY 11</a></li>
-<li><a href="day12.html">DAY 12</a></li>
-<li><a href="day13.html">DAY 13</a></li>
-<li><a href="day14.html">DAY 14</a></li>
-<li><a href="day15.html">DAY 15</a></li>
+<li><a href="day11.html">DAY 11: Excel - Date Functions (TODAY, DATEDIF, NETWORKDAYS, EOMONTH)</a></li>
+<li><a href="day12.html">DAY 12: SQL - Date Functions & Window Functions Part 1 (ROW_NUMBER, RANK)</a></li>
+<li><a href="day13.html">DAY 13: Excel - What-If Analysis (Goal Seek, Data Tables, Scenarios)</a></li>
+<li><a href="day14.html">DAY 14: SQL - Window Functions Part 2 (LAG, LEAD, Running Totals)</a></li>
+<li><a href="day15.html">DAY 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
 </ul>
 </li>
 <li><a href="week4.html">WEEK 4: ADVANCED CONCEPTS</a>
 <ul>
-<li><a href="day16.html">DAY 16</a></li>
-<li><a href="day17.html">DAY 17</a></li>
-<li><a href="day18.html">DAY 18</a></li>
-<li><a href="day19.html">DAY 19</a></li>
-<li><a href="day20.html">DAY 20</a></li>
+<li><a href="day16.html">DAY 16: SQL - CTEs & Recursive Queries</a></li>
+<li><a href="day17.html">DAY 17: Excel - Power Pivot & Data Modeling (DAX basics)</a></li>
+<li><a href="day18.html">DAY 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
+<li><a href="day19.html">DAY 19: Excel - Advanced Charts & Dashboards</a></li>
+<li><a href="day20.html">DAY 20: SQL - Views, Stored Procedures, Optimization + WEEK 4 TEST</a></li>
 </ul>
 </li>
 <li><a href="week5.html">WEEK 5: ANALYTICS &amp; OPTIMIZATION</a>
 <ul>
-<li><a href="day21.html">DAY 21</a></li>
-<li><a href="day22.html">DAY 22</a></li>
-<li><a href="day23.html">DAY 23</a></li>
-<li><a href="day24.html">DAY 24</a></li>
-<li><a href="day25.html">DAY 25</a></li>
+<li><a href="day21.html">DAY 21: Excel - Statistical Analysis & Forecasting</a></li>
+<li><a href="day22.html">DAY 22: SQL - Advanced Aggregations (GROUPING SETS, CUBE, ROLLUP)</a></li>
+<li><a href="day23.html">DAY 23: Excel - Advanced Conditional Formatting & Data Validation</a></li>
+<li><a href="day24.html">DAY 24: SQL - Query Optimization & Performance Tuning</a></li>
+<li><a href="day25.html">DAY 25: Integration Project: Excel + SQL + WEEK 5 TEST</a></li>
 </ul>
 </li>
 <li><a href="week6.html">WEEK 6: MASTERY &amp; PROJECTS</a>
 <ul>
-<li><a href="day26.html">DAY 26</a></li>
-<li><a href="day27.html">DAY 27</a></li>
-<li><a href="day28.html">DAY 28</a></li>
-<li><a href="day29.html">DAY 29</a></li>
-<li><a href="day30.html">DAY 30</a></li>
+<li><a href="day26.html">DAY 26: Excel - Macros & Automation Basics</a></li>
+<li><a href="day27.html">DAY 27: SQL - Advanced Analytics (Cohort, Retention, RFM Analysis)</a></li>
+<li><a href="day28.html">DAY 28: Excel - Executive Dashboard Creation</a></li>
+<li><a href="day29.html">DAY 29: SQL - Complex Business Scenarios</a></li>
+<li><a href="day30.html">DAY 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
 </ul>
 </li>
 </ul>
   </nav>
   <div class="dragbar" id="dragbar" aria-hidden="true"></div>
   <div class="content">
-<h1>DAY 23</h1><p>Content coming soon...</p>
+<h2 id="day-23-day-23-excel---advanced-conditional-formatting--data-validation">DAY 23: Excel - Advanced Conditional Formatting &amp; Data Validation</h2>
+<p><strong>Learning Objectives:</strong>
+- Master advanced conditional formatting
+- Create custom formatting rules
+- Use formulas in conditional formatting
+- Build data validation with custom rules
+- Design user-friendly data entry forms</p>
+<h3 id="topics-covered-hour-1---60-min-23">Topics Covered (60 min):</h3>
+<p><strong>1. Advanced Conditional Formatting</strong>
+- Formula-based rules
+- Highlight duplicates across columns
+- Color scales and data bars
+- Icon sets with custom thresholds
+- Stop If True option</p>
+<p><strong>2. Formula-Based Rules</strong>
+- Use formulas to determine formatting
+- Example: <code>=AND($B2&gt;1000, $C2&lt;0.5)</code>
+- Reference entire row with $
+- Highlight based on other columns
+- Multiple conditions with AND/OR</p>
+<p><strong>3. Data Validation Rules</strong>
+- List (dropdown)
+- Whole number, Decimal, Date
+- Text length restrictions
+- Custom formula validation
+- Input message and error alert</p>
+<p><strong>4. Advanced Validation</strong>
+- Dependent dropdowns (INDIRECT)
+- Prevent duplicates
+- Validation based on other cells
+- Custom error messages
+- Circle Invalid Data tool</p>
+<h3 id="video-resources-23">📺 Video Resources:</h3>
+<ol type="1">
+<li><strong>Advanced Conditional Formatting</strong> (18 min)<br/>
+https://www.youtube.com/watch?v=YvV7Jinnv-w - Leila Gharani</li>
+<li><strong>Data Validation Tricks</strong> (15 min)<br/>
+https://www.youtube.com/watch?v=ZYJHgGp-RL0 - MyOnlineTrainingHub</li>
+<li><strong>Dependent Dropdowns</strong> (12 min)<br/>
+https://www.youtube.com/watch?v=mGTcBfmL4Ss - Excel Campus</li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-23">🤖 AI Learning Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding Conditional Formatting:</strong></p>
+<pre><code>I'm learning advanced conditional formatting. Please explain:
+
+1. How do I use formulas in conditional formatting rules?
+2. Show me how to highlight an entire row based on one cell's value
+3. How do I create alternating row colors that don't break when filtering?
+4. Explain color scales vs icon sets vs data bars
+5. Provide examples for sales performance dashboards
+
+Use step-by-step instructions.</code></pre>
+<p><strong>Understanding Data Validation:</strong></p>
+<pre><code>Help me understand data validation:
+
+1. What is data validation and why use it?
+2. How do I create dependent dropdowns (second dropdown based on first)?
+3. Show me how to prevent duplicate entries
+4. How do I validate based on another cell's value?
+5. Provide examples for order entry forms
+
+Explain with practical scenarios.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-23">Guided Practice (60 min):</h3>
+<p><em>Create formula-based formatting rules, build dependent dropdowns, add custom validation</em></p>
+<h3 id="independent-practice-hour-3---60-min-23">Independent Practice (60 min):</h3>
+<p>Apply the concepts learned to different datasets and scenarios.</p>
+<h3 id="daily-assignment-hour-4---60-min-23">Daily Assignment (60 min):</h3>
+<p><strong>Assignment:</strong></p>
+<p>Data Entry Form with Advanced Validation:
+1. **Conditional Formatting:** Highlight overdue invoices (due date &lt; today), profit margins &lt; 20%, top 10% sales
+2. **Data Validation:** Create dropdowns for Category, Region, Product; add date validation, number ranges
+3. **Dependent Dropdowns:** Category dropdown → Product dropdown (products filtered by category)
+4. **Duplicate Prevention:** Validate Order ID is unique, prevent duplicate customer entries
+5. **Professional Form:** Add input messages, error alerts, formatted for user-friendly data entry</p>
+<h3 id="expected-outcomes-23">Expected Outcomes:</h3>
+<ul>
+<li>Master advanced conditional formatting</li>
+<li>Create custom formatting rules</li>
+<li>Use formulas in conditional formatting</li>
+<li>Build data validation with custom rules</li>
+<li>Design user-friendly data entry forms</li>
+</ul>
+<hr/>
     <a href="#top" class="back-to-top">↑ Back to Top</a>
   </div>
 </div>

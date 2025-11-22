@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta content="pandoc" name="generator"/>
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
-<title>DAY 27</title>
+<title>DAY 27: SQL - Advanced Analytics (Cohort, Retention, RFM Analysis)</title>
 <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -215,7 +215,7 @@
 <body>
 <header id="title-block-header">
 <div class="header-row">
-<h1 class="title">DAY 27</h1>
+<h1 class="title">DAY 27: SQL - Advanced Analytics (Cohort, Retention, RFM Analysis)</h1>
 <div class="header-controls">
 <button aria-label="Decrease font" class="button" id="font-decrease" title="Decrease font size">A-</button>
 <button aria-label="Increase font" class="button" id="font-increase" title="Increase font size">A+</button>
@@ -259,45 +259,128 @@ HAVING</a></li>
 </li>
 <li><a href="week3.html">WEEK 3: INTERMEDIATE CONCEPTS</a>
 <ul>
-<li><a href="day11.html">DAY 11</a></li>
-<li><a href="day12.html">DAY 12</a></li>
-<li><a href="day13.html">DAY 13</a></li>
-<li><a href="day14.html">DAY 14</a></li>
-<li><a href="day15.html">DAY 15</a></li>
+<li><a href="day11.html">DAY 11: Excel - Date Functions (TODAY, DATEDIF, NETWORKDAYS, EOMONTH)</a></li>
+<li><a href="day12.html">DAY 12: SQL - Date Functions & Window Functions Part 1 (ROW_NUMBER, RANK)</a></li>
+<li><a href="day13.html">DAY 13: Excel - What-If Analysis (Goal Seek, Data Tables, Scenarios)</a></li>
+<li><a href="day14.html">DAY 14: SQL - Window Functions Part 2 (LAG, LEAD, Running Totals)</a></li>
+<li><a href="day15.html">DAY 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
 </ul>
 </li>
 <li><a href="week4.html">WEEK 4: ADVANCED CONCEPTS</a>
 <ul>
-<li><a href="day16.html">DAY 16</a></li>
-<li><a href="day17.html">DAY 17</a></li>
-<li><a href="day18.html">DAY 18</a></li>
-<li><a href="day19.html">DAY 19</a></li>
-<li><a href="day20.html">DAY 20</a></li>
+<li><a href="day16.html">DAY 16: SQL - CTEs & Recursive Queries</a></li>
+<li><a href="day17.html">DAY 17: Excel - Power Pivot & Data Modeling (DAX basics)</a></li>
+<li><a href="day18.html">DAY 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
+<li><a href="day19.html">DAY 19: Excel - Advanced Charts & Dashboards</a></li>
+<li><a href="day20.html">DAY 20: SQL - Views, Stored Procedures, Optimization + WEEK 4 TEST</a></li>
 </ul>
 </li>
 <li><a href="week5.html">WEEK 5: ANALYTICS &amp; OPTIMIZATION</a>
 <ul>
-<li><a href="day21.html">DAY 21</a></li>
-<li><a href="day22.html">DAY 22</a></li>
-<li><a href="day23.html">DAY 23</a></li>
-<li><a href="day24.html">DAY 24</a></li>
-<li><a href="day25.html">DAY 25</a></li>
+<li><a href="day21.html">DAY 21: Excel - Statistical Analysis & Forecasting</a></li>
+<li><a href="day22.html">DAY 22: SQL - Advanced Aggregations (GROUPING SETS, CUBE, ROLLUP)</a></li>
+<li><a href="day23.html">DAY 23: Excel - Advanced Conditional Formatting & Data Validation</a></li>
+<li><a href="day24.html">DAY 24: SQL - Query Optimization & Performance Tuning</a></li>
+<li><a href="day25.html">DAY 25: Integration Project: Excel + SQL + WEEK 5 TEST</a></li>
 </ul>
 </li>
 <li><a href="week6.html">WEEK 6: MASTERY &amp; PROJECTS</a>
 <ul>
-<li><a href="day26.html">DAY 26</a></li>
-<li><a href="day27.html">DAY 27</a></li>
-<li><a href="day28.html">DAY 28</a></li>
-<li><a href="day29.html">DAY 29</a></li>
-<li><a href="day30.html">DAY 30</a></li>
+<li><a href="day26.html">DAY 26: Excel - Macros & Automation Basics</a></li>
+<li><a href="day27.html">DAY 27: SQL - Advanced Analytics (Cohort, Retention, RFM Analysis)</a></li>
+<li><a href="day28.html">DAY 28: Excel - Executive Dashboard Creation</a></li>
+<li><a href="day29.html">DAY 29: SQL - Complex Business Scenarios</a></li>
+<li><a href="day30.html">DAY 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
 </ul>
 </li>
 </ul>
   </nav>
   <div class="dragbar" id="dragbar" aria-hidden="true"></div>
   <div class="content">
-<h1>DAY 27</h1><p>Content coming soon...</p>
+<h2 id="day-27-day-27-sql---advanced-analytics-cohort-retention-rfm-analysis">DAY 27: SQL - Advanced Analytics (Cohort, Retention, RFM Analysis)</h2>
+<p><strong>Learning Objectives:</strong>
+- Perform cohort analysis
+- Calculate retention rates
+- Conduct RFM analysis
+- Build customer segmentation
+- Apply advanced analytical techniques</p>
+<h3 id="topics-covered-hour-1---60-min-27">Topics Covered (60 min):</h3>
+<p><strong>1. Cohort Analysis</strong>
+- Group customers by acquisition date
+- Track behavior over time by cohort
+- Example: Month 0, Month 1, Month 2 retention
+- Use DATEDIFF and CASE for cohort buckets
+- Pivot results for cohort matrix</p>
+<p><strong>2. Retention Analysis</strong>
+- Calculate repeat purchase rate
+- Monthly/quarterly retention cohorts
+- Churn rate calculation
+- Retention curve visualization
+- Identify patterns in customer lifecycle</p>
+<p><strong>3. RFM Analysis</strong>
+- Recency: Days since last purchase
+- Frequency: Number of purchases
+- Monetary: Total spending
+- Score each dimension (1-5 scale)
+- Combine for customer segments
+- Example: 555 = Champions, 111 = Lost</p>
+<p><strong>4. Customer Segmentation</strong>
+- Use NTILE for percentile-based scoring
+- Create meaningful segments
+- Action strategies per segment
+- Lifetime value estimation
+- Predictive scoring</p>
+<h3 id="video-resources-27">📺 Video Resources:</h3>
+<ol type="1">
+<li><strong>Cohort Analysis SQL</strong> (20 min)<br/>
+https://www.youtube.com/watch?v=7XW1bRYU1Vg - Data with Baraa</li>
+<li><strong>RFM Analysis Tutorial</strong> (18 min)<br/>
+https://www.youtube.com/watch?v=sFaCdxMpC6w - Alex The Analyst</li>
+<li><strong>Customer Analytics</strong> (22 min)<br/>
+https://www.youtube.com/watch?v=gR2K_GksMDY - Programming with Mosh</li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-27">🤖 AI Learning Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding Cohort Analysis:</strong></p>
+<pre><code>I'm learning cohort and retention analysis. Please explain:
+
+1. What is cohort analysis and why is it useful?
+2. How do I group customers by signup month and track retention?
+3. Show me how to calculate month-over-month retention
+4. What is churn rate and how do I calculate it?
+5. Provide SQL examples using customer order data
+
+Use SQL Server syntax with clear examples.</code></pre>
+<p><strong>Understanding RFM Analysis:</strong></p>
+<pre><code>Help me understand RFM analysis:
+
+1. What is RFM and what do Recency, Frequency, Monetary mean?
+2. How do I calculate RFM scores (1-5 for each)?
+3. Show me how to segment customers based on RFM
+4. What actions should I take for each segment?
+5. Provide complete SQL example with customer data
+
+Explain with step-by-step implementation.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-27">Guided Practice (60 min):</h3>
+<p><em>Build cohort retention matrix, calculate RFM scores, create customer segments</em></p>
+<h3 id="independent-practice-hour-3---60-min-27">Independent Practice (60 min):</h3>
+<p>Apply the concepts learned to different datasets and scenarios.</p>
+<h3 id="daily-assignment-hour-4---60-min-27">Daily Assignment (60 min):</h3>
+<p><strong>Assignment:</strong></p>
+<p>Advanced Customer Analytics Project:
+1. **Cohort Analysis:** Group customers by signup month, calculate retention for each cohort over 12 months
+2. **Retention Metrics:** Calculate overall retention rate, churn rate, average customer lifetime
+3. **RFM Scoring:** Calculate Recency (days since last order), Frequency (order count), Monetary (total spend); score 1-5 for each
+4. **Segmentation:** Create segments (Champions, Loyal, At Risk, Lost) based on RFM scores
+5. **Recommendations:** Provide action plan for each customer segment</p>
+<h3 id="expected-outcomes-27">Expected Outcomes:</h3>
+<ul>
+<li>Perform cohort analysis</li>
+<li>Calculate retention rates</li>
+<li>Conduct RFM analysis</li>
+<li>Build customer segmentation</li>
+<li>Apply advanced analytical techniques</li>
+</ul>
+<hr/>
     <a href="#top" class="back-to-top">↑ Back to Top</a>
   </div>
 </div>

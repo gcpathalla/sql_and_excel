@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta content="pandoc" name="generator"/>
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
-<title>DAY 22</title>
+<title>DAY 22: SQL - Advanced Aggregations (GROUPING SETS, CUBE, ROLLUP)</title>
 <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -215,7 +215,7 @@
 <body>
 <header id="title-block-header">
 <div class="header-row">
-<h1 class="title">DAY 22</h1>
+<h1 class="title">DAY 22: SQL - Advanced Aggregations (GROUPING SETS, CUBE, ROLLUP)</h1>
 <div class="header-controls">
 <button aria-label="Decrease font" class="button" id="font-decrease" title="Decrease font size">A-</button>
 <button aria-label="Increase font" class="button" id="font-increase" title="Increase font size">A+</button>
@@ -259,45 +259,125 @@ HAVING</a></li>
 </li>
 <li><a href="week3.html">WEEK 3: INTERMEDIATE CONCEPTS</a>
 <ul>
-<li><a href="day11.html">DAY 11</a></li>
-<li><a href="day12.html">DAY 12</a></li>
-<li><a href="day13.html">DAY 13</a></li>
-<li><a href="day14.html">DAY 14</a></li>
-<li><a href="day15.html">DAY 15</a></li>
+<li><a href="day11.html">DAY 11: Excel - Date Functions (TODAY, DATEDIF, NETWORKDAYS, EOMONTH)</a></li>
+<li><a href="day12.html">DAY 12: SQL - Date Functions & Window Functions Part 1 (ROW_NUMBER, RANK)</a></li>
+<li><a href="day13.html">DAY 13: Excel - What-If Analysis (Goal Seek, Data Tables, Scenarios)</a></li>
+<li><a href="day14.html">DAY 14: SQL - Window Functions Part 2 (LAG, LEAD, Running Totals)</a></li>
+<li><a href="day15.html">DAY 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
 </ul>
 </li>
 <li><a href="week4.html">WEEK 4: ADVANCED CONCEPTS</a>
 <ul>
-<li><a href="day16.html">DAY 16</a></li>
-<li><a href="day17.html">DAY 17</a></li>
-<li><a href="day18.html">DAY 18</a></li>
-<li><a href="day19.html">DAY 19</a></li>
-<li><a href="day20.html">DAY 20</a></li>
+<li><a href="day16.html">DAY 16: SQL - CTEs & Recursive Queries</a></li>
+<li><a href="day17.html">DAY 17: Excel - Power Pivot & Data Modeling (DAX basics)</a></li>
+<li><a href="day18.html">DAY 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
+<li><a href="day19.html">DAY 19: Excel - Advanced Charts & Dashboards</a></li>
+<li><a href="day20.html">DAY 20: SQL - Views, Stored Procedures, Optimization + WEEK 4 TEST</a></li>
 </ul>
 </li>
 <li><a href="week5.html">WEEK 5: ANALYTICS &amp; OPTIMIZATION</a>
 <ul>
-<li><a href="day21.html">DAY 21</a></li>
-<li><a href="day22.html">DAY 22</a></li>
-<li><a href="day23.html">DAY 23</a></li>
-<li><a href="day24.html">DAY 24</a></li>
-<li><a href="day25.html">DAY 25</a></li>
+<li><a href="day21.html">DAY 21: Excel - Statistical Analysis & Forecasting</a></li>
+<li><a href="day22.html">DAY 22: SQL - Advanced Aggregations (GROUPING SETS, CUBE, ROLLUP)</a></li>
+<li><a href="day23.html">DAY 23: Excel - Advanced Conditional Formatting & Data Validation</a></li>
+<li><a href="day24.html">DAY 24: SQL - Query Optimization & Performance Tuning</a></li>
+<li><a href="day25.html">DAY 25: Integration Project: Excel + SQL + WEEK 5 TEST</a></li>
 </ul>
 </li>
 <li><a href="week6.html">WEEK 6: MASTERY &amp; PROJECTS</a>
 <ul>
-<li><a href="day26.html">DAY 26</a></li>
-<li><a href="day27.html">DAY 27</a></li>
-<li><a href="day28.html">DAY 28</a></li>
-<li><a href="day29.html">DAY 29</a></li>
-<li><a href="day30.html">DAY 30</a></li>
+<li><a href="day26.html">DAY 26: Excel - Macros & Automation Basics</a></li>
+<li><a href="day27.html">DAY 27: SQL - Advanced Analytics (Cohort, Retention, RFM Analysis)</a></li>
+<li><a href="day28.html">DAY 28: Excel - Executive Dashboard Creation</a></li>
+<li><a href="day29.html">DAY 29: SQL - Complex Business Scenarios</a></li>
+<li><a href="day30.html">DAY 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
 </ul>
 </li>
 </ul>
   </nav>
   <div class="dragbar" id="dragbar" aria-hidden="true"></div>
   <div class="content">
-<h1>DAY 22</h1><p>Content coming soon...</p>
+<h2 id="day-22-day-22-sql---advanced-aggregations-grouping-sets-cube-rollup">DAY 22: SQL - Advanced Aggregations (GROUPING SETS, CUBE, ROLLUP)</h2>
+<p><strong>Learning Objectives:</strong>
+- Use GROUPING SETS for multiple aggregations
+- Create summary reports with ROLLUP
+- Generate cross-tabulations with CUBE
+- Understand subtotals and grand totals
+- Master multi-dimensional analysis</p>
+<h3 id="topics-covered-hour-1---60-min-22">Topics Covered (60 min):</h3>
+<p><strong>1. GROUPING SETS</strong>
+- Multiple GROUP BY in single query
+- Syntax: <code>GROUP BY GROUPING SETS ((col1), (col2), (col1, col2))</code>
+- Replaces multiple UNION ALL queries
+- Example: Sales by Region, by Product, by Both</p>
+<p><strong>2. ROLLUP</strong>
+- Hierarchical subtotals
+- Syntax: <code>GROUP BY ROLLUP (col1, col2)</code>
+- Creates hierarchy: (col1, col2), (col1), ()
+- Grand total row
+- Example: Sales by Region → City with subtotals</p>
+<p><strong>3. CUBE</strong>
+- All possible grouping combinations
+- Syntax: <code>GROUP BY CUBE (col1, col2)</code>
+- Creates: (col1, col2), (col1), (col2), ()
+- Cross-dimensional analysis
+- Example: Sales by Region AND Product (all combinations)</p>
+<p><strong>4. GROUPING and GROUPING_ID</strong>
+- Identify NULL vs subtotal rows
+- <code>GROUPING(column)</code> returns 1 for subtotal
+- <code>GROUPING_ID(col1, col2)</code> binary identifier
+- Use with CASE to label subtotals</p>
+<h3 id="video-resources-22">📺 Video Resources:</h3>
+<ol type="1">
+<li><strong>GROUPING SETS Explained</strong> (15 min)<br/>
+https://www.youtube.com/watch?v=5K9FNtGQQEE - WiseOwlTutorials</li>
+<li><strong>ROLLUP and CUBE</strong> (18 min)<br/>
+https://www.youtube.com/watch?v=rGfGmwWRqPE - Programming with Mosh</li>
+<li><strong>Advanced GROUP BY</strong> (12 min)<br/>
+https://www.youtube.com/watch?v=KI2fLk8Q1ak - Data with Baraa</li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-22">🤖 AI Learning Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding GROUPING SETS:</strong></p>
+<pre><code>I'm learning SQL advanced aggregations. Please explain:
+
+1. What is GROUPING SETS and why use it instead of UNION ALL?
+2. Show me how to get sales by Category, by Region, and Total in one query
+3. What is the difference between GROUPING SETS, ROLLUP, and CUBE?
+4. Provide examples using sales data with multiple dimensions
+5. When should I use each method?
+
+Use SQL Server syntax with clear examples.</code></pre>
+<p><strong>Understanding ROLLUP and CUBE:</strong></p>
+<pre><code>Help me understand ROLLUP and CUBE:
+
+1. What does ROLLUP do and how does it create hierarchies?
+2. Show me ROLLUP with Region → State → City
+3. What is CUBE and when should I use it?
+4. How do I identify subtotal rows with GROUPING()?
+5. Provide practical examples for multi-dimensional sales reports
+
+Explain with step-by-step examples.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-22">Guided Practice (60 min):</h3>
+<p><em>Create GROUPING SETS for multi-level summary, use ROLLUP for hierarchical totals, build CUBE for cross-tabs</em></p>
+<h3 id="independent-practice-hour-3---60-min-22">Independent Practice (60 min):</h3>
+<p>Apply the concepts learned to different datasets and scenarios.</p>
+<h3 id="daily-assignment-hour-4---60-min-22">Daily Assignment (60 min):</h3>
+<p><strong>Assignment:</strong></p>
+<p>Advanced Aggregation Analysis:
+1. **GROUPING SETS:** Create report showing sales by (Category), (Region), (Category + Region), (Total)
+2. **ROLLUP:** Hierarchical summary by Year → Quarter → Month with subtotals
+3. **CUBE:** Cross-tabulation of sales by Region and Product Category (all combinations)
+4. **Labeled Subtotals:** Use GROUPING() with CASE to label rows as 'Category Total', 'Region Total', 'Grand Total'
+5. **Performance Analysis:** Compare performance of GROUPING SETS vs multiple queries</p>
+<h3 id="expected-outcomes-22">Expected Outcomes:</h3>
+<ul>
+<li>Use GROUPING SETS for multiple aggregations</li>
+<li>Create summary reports with ROLLUP</li>
+<li>Generate cross-tabulations with CUBE</li>
+<li>Understand subtotals and grand totals</li>
+<li>Master multi-dimensional analysis</li>
+</ul>
+<hr/>
     <a href="#top" class="back-to-top">↑ Back to Top</a>
   </div>
 </div>

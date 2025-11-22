@@ -1,0 +1,293 @@
+<!-- WEEK 3: INTERMEDIATE CONCEPTS -->
+
+<h2 id="day-11-excel---date-functions">DAY 11: Excel - Date Functions (TODAY, DATEDIF, NETWORKDAYS, EOMONTH)</h2>
+
+<p><strong>Learning Objectives:</strong>
+- Master Excel date and time functions
+- Calculate date differences and working days
+- Use date functions for business analytics
+- Handle month-end calculations and aging reports</p>
+
+<h3 id="topics-covered-hour-1---60-min-11">Topics Covered (60 min):</h3>
+
+<p><strong>1. Understanding Excel Dates</strong>
+- Excel stores dates as serial numbers (1 = Jan 1, 1900)
+- Current date: <code>=TODAY()</code>
+- Current date & time: <code>=NOW()</code>
+- Date formatting (Short Date, Long Date, Custom)</p>
+
+<p><strong>2. Date Difference Functions</strong>
+- <code>=DATEDIF(start_date, end_date, "unit")</code>
+- Units: "Y" (years), "M" (months), "D" (days), "YM" (months ignoring years)
+- Example: Age calculation = <code>=DATEDIF(birthdate, TODAY(), "Y")</code>
+- Example: Employment tenure = <code>=DATEDIF(hire_date, TODAY(), "Y") &amp; " years"</code></p>
+
+<p><strong>3. Business Day Calculations</strong>
+- <code>=NETWORKDAYS(start_date, end_date, [holidays])</code> - Working days between dates
+- <code>=WORKDAY(start_date, days, [holidays])</code> - Date after X working days
+- Exclude weekends and holidays for project timelines</p>
+
+<p><strong>4. Month-End Functions</strong>
+- <code>=EOMONTH(start_date, months)</code> - End of month calculation
+- <code>=EDATE(start_date, months)</code> - Date X months from start
+- Invoice due dates: <code>=EOMONTH(invoice_date, 0) + 30</code></p>
+
+<h3 id="video-resources-11">📺 Video Resources:</h3>
+<ol type="1">
+<li><strong>Excel Date Functions Tutorial</strong> (12 min)<br />
+https://www.youtube.com/watch?v=3fcDRH6UPbI - Leila Gharani</li>
+<li><strong>DATEDIF Function Explained</strong> (8 min)<br />
+https://www.youtube.com/watch?v=4dVtr4RjKAg - Excel Campus</li>
+<li><strong>NETWORKDAYS & WORKDAY</strong> (10 min)<br />
+https://www.youtube.com/watch?v=2xO_vqsQ8ig - MyOnlineTrainingHub</li>
+</ol>
+
+<h3 id="ai-learning-prompts-concept-understanding-only-11">🤖 AI Learning Prompts (Concept Understanding Only):</h3>
+
+<p><strong>Understanding Date Functions:</strong></p>
+<pre><code>I'm learning Excel date functions. Please explain:
+
+1. How does Excel store dates internally as serial numbers?
+2. What is the difference between TODAY() and NOW()?
+3. Explain the DATEDIF function with all its unit options ("Y", "M", "D", "YM", "MD", "YD")
+4. Give me 3 real-world business scenarios for using NETWORKDAYS
+5. How do I create a dynamic aging report using date functions?
+
+Provide step-by-step examples for each concept.</code></pre>
+
+<p><strong>Understanding EOMONTH and Month Calculations:</strong></p>
+<pre><code>Help me understand month-end calculations in Excel:
+
+1. What is the difference between EOMONTH and EDATE?
+2. How do I calculate payment due dates (e.g., 30 days after month-end)?
+3. Show me how to create a fiscal quarter calculator
+4. How do I calculate "days outstanding" for invoices?
+5. Provide examples using invoice and payment tracking scenarios
+
+Use beginner-friendly language with practical examples.</code></pre>
+
+<h3 id="guided-practice-hour-2---60-min-11">Guided Practice (60 min):</h3>
+
+<p><em>Using HR Employee dataset</em></p>
+
+<p><strong>Exercise 1: Employee Age &amp; Tenure Calculation</strong>
+1. Calculate employee age using DATEDIF and birthdate
+2. Calculate years of service from hire date
+3. Create "Years.Months" format (e.g., "5.7 years")
+4. Identify employees with 10+ years tenure
+5. Calculate average employee age by department</p>
+
+<p><strong>Exercise 2: Project Timeline Calculator</strong>
+1. Create project start date column
+2. Calculate project end date (90 working days later) using WORKDAY
+3. Add company holiday list
+4. Calculate actual working days between start and today
+5. Determine if project is on schedule</p>
+
+<h3 id="independent-practice-hour-3---60-min-11">Independent Practice (60 min):</h3>
+
+<p><strong>Challenge 1: Invoice Aging Report</strong>
+- Create columns: Invoice Date, Due Date (30 days), Days Outstanding
+- Use TODAY() to calculate days overdue
+- Categorize invoices: Current, 30 Days, 60 Days, 90+ Days
+- Use COUNTIFS to count invoices in each aging bucket
+- Calculate total amount in each category</p>
+
+<p><strong>Challenge 2: Employee Anniversary Tracker</strong>
+- Calculate next anniversary date for each employee
+- Identify employees with anniversaries in current month
+- Calculate milestone years (5, 10, 15, 20, 25)
+- Create summary: "5 employees have 10-year anniversary this quarter"</p>
+
+<h3 id="daily-assignment-hour-4---60-min-11">Daily Assignment (60 min):</h3>
+
+<p><strong>Assignment: Complete HR Analytics Dashboard</strong></p>
+
+<p>Create a comprehensive HR dashboard with:
+1. <strong>Employee Metrics:</strong>
+   - Average employee age by department
+   - Average tenure in years
+   - Retirement eligibility (age 65+ or 30+ years service)
+2. <strong>Upcoming Events:</strong>
+   - Birthdays this month
+   - Work anniversaries this quarter
+   - Probation end dates (90 working days from hire)
+3. <strong>Turnover Analysis:</strong>
+   - Calculate tenure for terminated employees
+   - Average days between hire and termination
+   - Turnover by department using date ranges</p>
+
+<p><strong>Requirements:</strong>
+- Use TODAY() for dynamic calculations
+- Use DATEDIF for all age/tenure calculations
+- Use NETWORKDAYS for working day calculations
+- Create at least 5 summary statistics
+- Format dates professionally</p>
+
+<h3 id="expected-outcomes-11">Expected Outcomes:</h3>
+<ul>
+<li>Confidently use TODAY(), DATEDIF, NETWORKDAYS, EOMONTH</li>
+<li>Calculate age, tenure, and date differences accurately</li>
+<li>Create aging reports and timeline calculators</li>
+<li>Handle business day calculations with holidays</li>
+<li>Build dynamic date-based analytics</li>
+</ul>
+
+<hr />
+
+<h2 id="day-12-sql---date-functions-window-functions-part-1">DAY 12: SQL - Date Functions &amp; Window Functions Part 1 (ROW_NUMBER, RANK)</h2>
+
+<p><strong>Learning Objectives:</strong>
+- Master SQL date and time functions
+- Understand window functions and OVER clause
+- Use ROW_NUMBER for ranking and pagination
+- Apply RANK and DENSE_RANK for competitive ranking</p>
+
+<h3 id="topics-covered-hour-1---60-min-12">Topics Covered (60 min):</h3>
+
+<p><strong>1. SQL Date Functions</strong>
+- <code>GETDATE()</code> / <code>CURRENT_DATE</code> - Current date/time
+- <code>DATEADD(interval, number, date)</code> - Add/subtract dates
+- <code>DATEDIFF(interval, start_date, end_date)</code> - Date difference
+- <code>DATEPART(part, date)</code> - Extract year, month, day, etc.
+- <code>EOMONTH(date, months)</code> - End of month calculation</p>
+
+<p><strong>2. Date Formatting &amp; Extraction</strong>
+- <code>YEAR(date)</code>, <code>MONTH(date)</code>, <code>DAY(date)</code>
+- <code>DATENAME(part, date)</code> - Get month/day names
+- <code>FORMAT(date, 'format')</code> - Custom date formatting
+- Example: <code>WHERE YEAR(OrderDate) = 2023 AND MONTH(OrderDate) = 12</code></p>
+
+<p><strong>3. Window Functions - ROW_NUMBER</strong>
+- Syntax: <code>ROW_NUMBER() OVER (PARTITION BY col ORDER BY col)</code>
+- Assigns unique sequential numbers within partitions
+- Use for: pagination, top N per group, duplicate detection
+- Example: Number orders per customer</p>
+
+<p><strong>4. Window Functions - RANK &amp; DENSE_RANK</strong>
+- <code>RANK()</code> - Leaves gaps after ties (1, 2, 2, 4)
+- <code>DENSE_RANK()</code> - No gaps (1, 2, 2, 3)
+- Use PARTITION BY to rank within groups
+- Example: Rank salespeople by revenue per region</p>
+
+<h3 id="video-resources-12">📺 Video Resources:</h3>
+<ol type="1">
+<li><strong>SQL Date Functions</strong> (15 min)<br />
+https://www.youtube.com/watch?v=G0bBLvWXBvc - Programming with Mosh</li>
+<li><strong>Window Functions Explained</strong> (20 min)<br />
+https://www.youtube.com/watch?v=Ww71knvhQ-s - Alex The Analyst</li>
+<li><strong>ROW_NUMBER vs RANK vs DENSE_RANK</strong> (12 min)<br />
+https://www.youtube.com/watch?v=QFj-hZi8MKk - Data with Baraa</li>
+</ol>
+
+<h3 id="ai-learning-prompts-concept-understanding-only-12">🤖 AI Learning Prompts (Concept Understanding Only):</h3>
+
+<p><strong>Understanding SQL Date Functions:</strong></p>
+<pre><code>I'm learning SQL date functions. Please explain:
+
+1. What is the difference between DATEADD and DATEDIFF?
+2. How do I calculate "days since last order" for each customer?
+3. Show me how to extract year, quarter, month from dates
+4. How do I filter for "last 30 days" or "current month"?
+5. Provide examples for calculating customer age from birthdate
+
+Use SQL Server syntax with clear examples.</code></pre>
+
+<p><strong>Understanding Window Functions:</strong></p>
+<pre><code>Help me understand SQL window functions:
+
+1. What does the OVER clause do?
+2. Explain the difference between ROW_NUMBER(), RANK(), and DENSE_RANK()
+3. What is PARTITION BY and how does it work?
+4. Show me how to find "top 3 products per category by sales"
+5. How do I use ROW_NUMBER for pagination?
+6. Provide examples using sales and customer data
+
+Explain with simple examples suitable for beginners.</code></pre>
+
+<h3 id="guided-practice-hour-2---60-min-12">Guided Practice (60 min):</h3>
+
+<p><em>Using Superstore Sales dataset</em></p>
+
+<p><strong>Exercise 1: Date Analysis</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a><span class="co">-- 1. Calculate days since last order</span></span>
+<span id="cb3-2"><a aria-hidden="true" href="#cb3-2" tabindex="-1"></a><span class="kw">SELECT</span> CustomerID, </span>
+<span id="cb3-3"><a aria-hidden="true" href="#cb3-3" tabindex="-1"></a>       <span class="fu">MAX</span>(OrderDate) <span class="kw">AS</span> LastOrderDate,</span>
+<span id="cb3-4"><a aria-hidden="true" href="#cb3-4" tabindex="-1"></a>       DATEDIFF(<span class="kw">day</span>, <span class="fu">MAX</span>(OrderDate), GETDATE()) <span class="kw">AS</span> DaysSinceLastOrder</span>
+<span id="cb3-5"><a aria-hidden="true" href="#cb3-5" tabindex="-1"></a><span class="kw">FROM</span> Orders</span>
+<span id="cb3-6"><a aria-hidden="true" href="#cb3-6" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> CustomerID;</span>
+<span id="cb3-7"><a aria-hidden="true" href="#cb3-7" tabindex="-1"></a></span>
+<span id="cb3-8"><a aria-hidden="true" href="#cb3-8" tabindex="-1"></a><span class="co">-- 2. Sales by year and quarter</span></span>
+<span id="cb3-9"><a aria-hidden="true" href="#cb3-9" tabindex="-1"></a><span class="kw">SELECT</span> <span class="dt">YEAR</span>(OrderDate) <span class="kw">AS</span> OrderYear,</span>
+<span id="cb3-10"><a aria-hidden="true" href="#cb3-10" tabindex="-1"></a>       DATEPART(<span class="dt">quarter</span>, OrderDate) <span class="kw">AS</span> OrderQuarter,</span>
+<span id="cb3-11"><a aria-hidden="true" href="#cb3-11" tabindex="-1"></a>       <span class="fu">SUM</span>(Sales) <span class="kw">AS</span> TotalSales</span>
+<span id="cb3-12"><a aria-hidden="true" href="#cb3-12" tabindex="-1"></a><span class="kw">FROM</span> Orders</span>
+<span id="cb3-13"><a aria-hidden="true" href="#cb3-13" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="dt">YEAR</span>(OrderDate), DATEPART(<span class="dt">quarter</span>, OrderDate);</span></code></pre></div>
+
+<p><strong>Exercise 2: Window Functions</strong></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a><span class="co">-- 1. Rank products by sales within each category</span></span>
+<span id="cb4-2"><a aria-hidden="true" href="#cb4-2" tabindex="-1"></a><span class="kw">SELECT</span> Category, ProductName, <span class="fu">SUM</span>(Sales) <span class="kw">AS</span> TotalSales,</span>
+<span id="cb4-3"><a aria-hidden="true" href="#cb4-3" tabindex="-1"></a>       <span class="fu">ROW_NUMBER</span>() <span class="dt">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> Category <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="fu">SUM</span>(Sales) <span class="kw">DESC</span>) <span class="kw">AS</span> ProductRank</span>
+<span id="cb4-4"><a aria-hidden="true" href="#cb4-4" tabindex="-1"></a><span class="kw">FROM</span> Orders</span>
+<span id="cb4-5"><a aria-hidden="true" href="#cb4-5" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> Category, ProductName;</span>
+<span id="cb4-6"><a aria-hidden="true" href="#cb4-6" tabindex="-1"></a></span>
+<span id="cb4-7"><a aria-hidden="true" href="#cb4-7" tabindex="-1"></a><span class="co">-- 2. Get top 3 customers per region</span></span>
+<span id="cb4-8"><a aria-hidden="true" href="#cb4-8" tabindex="-1"></a><span class="kw">WITH</span> RankedCustomers <span class="kw">AS</span> (</span>
+<span id="cb4-9"><a aria-hidden="true" href="#cb4-9" tabindex="-1"></a>  <span class="kw">SELECT</span> Region, CustomerName, <span class="fu">SUM</span>(Sales) <span class="kw">AS</span> TotalSales,</span>
+<span id="cb4-10"><a aria-hidden="true" href="#cb4-10" tabindex="-1"></a>         <span class="fu">ROW_NUMBER</span>() <span class="dt">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> Region <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="fu">SUM</span>(Sales) <span class="kw">DESC</span>) <span class="kw">AS</span> Rank</span>
+<span id="cb4-11"><a aria-hidden="true" href="#cb4-11" tabindex="-1"></a>  <span class="kw">FROM</span> Orders</span>
+<span id="cb4-12"><a aria-hidden="true" href="#cb4-12" tabindex="-1"></a>  <span class="kw">GROUP</span> <span class="kw">BY</span> Region, CustomerName</span>
+<span id="cb4-13"><a aria-hidden="true" href="#cb4-13" tabindex="-1"></a>)</span>
+<span id="cb4-14"><a aria-hidden="true" href="#cb4-14" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> RankedCustomers <span class="kw">WHERE</span> Rank <span class="op">&lt;=</span> <span class="dv">3</span>;</span></code></pre></div>
+
+<h3 id="independent-practice-hour-3---60-min-12">Independent Practice (60 min):</h3>
+
+<p><strong>Challenge 1: Customer Recency Analysis</strong>
+- Find customers who haven't ordered in 90+ days
+- Calculate average days between orders per customer
+- Identify "at risk" customers (no order in 6 months)
+- Compare current month sales vs same month last year</p>
+
+<p><strong>Challenge 2: Product Performance Ranking</strong>
+- Rank products by sales within each category
+- Find the #1 product in each subcategory
+- Identify products in bottom 10% by sales
+- Number orders sequentially for each customer</p>
+
+<h3 id="daily-assignment-hour-4---60-min-12">Daily Assignment (60 min):</h3>
+
+<p><strong>Assignment: Sales Performance Dashboard Query</strong></p>
+
+<p>Create a comprehensive SQL report with:
+1. <strong>Date-Based Metrics:</strong>
+   - Sales by year, quarter, month
+   - Year-over-year growth calculation
+   - Orders placed in last 30/60/90 days
+2. <strong>Ranking Analysis:</strong>
+   - Top 5 products by sales (overall)
+   - Top 3 customers per region (use ROW_NUMBER)
+   - Rank categories by profitability
+3. <strong>Customer Segmentation:</strong>
+   - Customers by recency (0-30, 31-60, 61-90, 91+ days)
+   - Use DATEDIFF to calculate days since last order
+   - Count customers in each recency bucket</p>
+
+<p><strong>Requirements:</strong>
+- Use at least 3 different date functions
+- Use ROW_NUMBER with PARTITION BY
+- Use RANK or DENSE_RANK for one analysis
+- Include comments explaining each query
+- Format dates in output (MM/DD/YYYY)</p>
+
+<h3 id="expected-outcomes-12">Expected Outcomes:</h3>
+<ul>
+<li>Master SQL date manipulation and calculations</li>
+<li>Understand window functions and OVER clause</li>
+<li>Use ROW_NUMBER for pagination and top N queries</li>
+<li>Apply RANK/DENSE_RANK for competitive ranking</li>
+<li>Combine date functions with window functions</li>
+</ul>
+
+<hr />
+
+<!-- Continue with Days 13-15 in next section -->
