@@ -16,24 +16,42 @@ Filtering & Conditional Functions</title>
       box-sizing: border-box;
     }
 
+    
     :root {
-      /* Anthropic-inspired color palette */
-      --bg-primary: #F5F3EF;      /* Warm cream background */
-      --bg-secondary: #FFFFFF;     /* White for cards */
-      --bg-sidebar: #FDFCFA;       /* Slightly off-white for sidebar */
-      --text-primary: #1A1A1A;     /* Dark text */
-      --text-secondary: #6B6B6B;   /* Muted text */
-      --text-tertiary: #9B9B9B;    /* Even more muted */
-      --accent-orange: #D97757;    /* Anthropic orange */
-      --accent-brown: #8B6B47;     /* Warm brown */
-      --border-subtle: #E5E2DC;    /* Subtle border */
-      --border-light: #F0EDE7;     /* Very light border */
+      /* Light theme (default - Claude style) */
+      --bg-primary: #F5F3EF;
+      --bg-secondary: #FFFFFF;
+      --bg-sidebar: #FDFCFA;
+      --text-primary: #1A1A1A;
+      --text-secondary: #6B6B6B;
+      --text-tertiary: #9B9B9B;
+      --accent-orange: #D97757;
+      --accent-brown: #8B6B47;
+      --border-subtle: #E5E2DC;
+      --border-light: #F0EDE7;
       --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
       --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
       --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
       --radius-sm: 6px;
       --radius-md: 10px;
       --radius-lg: 16px;
+    }
+
+    [data-theme="dark"] {
+      /* Dark theme (Claude desktop style) */
+      --bg-primary: #1F1F1F;
+      --bg-secondary: #2B2B2B;
+      --bg-sidebar: #242424;
+      --text-primary: #ECECEC;
+      --text-secondary: #A8A8A8;
+      --text-tertiary: #7A7A7A;
+      --accent-orange: #E89A7A;
+      --accent-brown: #B8936A;
+      --border-subtle: #3A3A3A;
+      --border-light: #333333;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
     }
 
     html, body {
@@ -79,6 +97,28 @@ Filtering & Conditional Functions</title>
       display: flex;
       gap: 0.5rem;
       align-items: center;
+    }
+
+
+    .theme-toggle {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 0.5rem 0.875rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .theme-toggle:hover {
+      background: var(--bg-secondary);
+      border-color: var(--accent-brown);
+      color: var(--text-primary);
     }
 
     .button {
@@ -471,6 +511,12 @@ Filtering & Conditional Functions</title>
   <div class="header-row">
     <h1 class="title">DAY 3: Excel -
 Filtering & Conditional Functions</h1>
+    <div class="header-controls">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <span class="theme-icon">🌙</span>
+        <span class="theme-text">Dark</span>
+      </button>
+    </div>
   </div>
 </header>
 <div class="page">
@@ -614,13 +660,118 @@ Use examples with book inventory or student records (not sales data).</code></pr
 Provide examples using HR data or school records.</code></pre>
 <h3 id="guided-practice-hour-2---60-min-2">Guided Practice (60
 min):</h3>
-<ol type="1">
-<li>Filter sales data to show only East region</li>
-<li>Use IF to categorize: if sales&gt;1000, “Large”, else “Small”</li>
-<li>Count orders with discount &gt; 10%</li>
-<li>Sum sales for Technology category only</li>
-<li>Calculate average profit for West region</li>
+<p><em>Using Superstore Sales dataset - SQL Practice</em></p>
+<div class="section-card">
+<p><strong>📝 Setup Instructions:</strong></p>
+<ol>
+<li>Install SQLite Browser or use an online SQL editor</li>
+<li>Import the Superstore dataset as a table named "Orders"</li>
+<li>Open the SQL query editor</li>
+<li>Test connection: <code>SELECT * FROM Orders LIMIT 10;</code></li>
 </ol>
+</div>
+<p><strong>Exercise 1: Simple SELECT Queries</strong></p>
+<ul>
+<li><strong>Task:</strong> Select specific columns from the Orders table</li>
+<li><strong>Query 1 - All data:</strong>
+<pre><code>SELECT * FROM Orders LIMIT 100;</code></pre>
+<em>Note: LIMIT restricts output for easier viewing</em>
+</li>
+<li><strong>Query 2 - Specific columns:</strong>
+<pre><code>SELECT OrderID, CustomerName, Sales, Profit
+FROM Orders
+LIMIT 20;</code></pre>
+<em>Tip: Always capitalize SQL keywords for readability</em>
+</li>
+<li><strong>Expected Result:</strong> Table showing only the requested columns</li>
+</ul>
+<p><strong>Exercise 2: Using DISTINCT</strong></p>
+<ul>
+<li><strong>Task:</strong> Find unique values in a column</li>
+<li><strong>Query:</strong>
+<pre><code>SELECT DISTINCT Region FROM Orders;</code></pre>
+</li>
+<li><strong>Step-by-step:</strong>
+<ol>
+<li>Type the query in the SQL editor</li>
+<li>Execute (press F5 or click Run)</li>
+<li>Count how many unique regions exist</li>
+</ol>
+</li>
+<li><strong>Expected Result:</strong> List of unique regions (Central, East, South, West)</li>
+</ul>
+<p><strong>Exercise 3: Aggregate Functions</strong></p>
+<ul>
+<li><strong>Task:</strong> Calculate total sales using SUM</li>
+<li><strong>Query:</strong>
+<pre><code>SELECT SUM(Sales) AS TotalSales FROM Orders;</code></pre>
+<em>Note: AS renames the output column</em>
+</li>
+<li><strong>Try these variations:</strong>
+<ul>
+<li><code>SELECT AVG(Sales) AS AvgSales FROM Orders;</code></li>
+<li><code>SELECT COUNT(*) AS TotalOrders FROM Orders;</code></li>
+<li><code>SELECT MAX(Sales) AS HighestSale FROM Orders;</code></li>
+<li><code>SELECT MIN(Discount) AS LowestDiscount FROM Orders;</code></li>
+</ul>
+</li>
+<li><strong>Expected Result:</strong> Single number for each aggregate</li>
+</ul>
+<p><strong>Exercise 4: ORDER BY Practice</strong></p>
+<ul>
+<li><strong>Task:</strong> Sort results by different columns</li>
+<li><strong>Ascending order:</strong>
+<pre><code>SELECT ProductName, Sales
+FROM Orders
+ORDER BY Sales ASC
+LIMIT 10;</code></pre>
+<em>Shows 10 lowest sales</em>
+</li>
+<li><strong>Descending order:</strong>
+<pre><code>SELECT ProductName, Sales
+FROM Orders
+ORDER BY Sales DESC
+LIMIT 10;</code></pre>
+<em>Shows 10 highest sales</em>
+</li>
+<li><strong>Multiple columns:</strong>
+<pre><code>SELECT Region, Category, Sales
+FROM Orders
+ORDER BY Region, Sales DESC;</code></pre>
+<em>Sorts by region first, then by sales within each region</em>
+</li>
+</ul>
+<p><strong>Exercise 5: Combining Concepts</strong></p>
+<ul>
+<li><strong>Task:</strong> Write a query using SELECT, aggregate, and ORDER BY</li>
+<li><strong>Challenge Query:</strong>
+<pre><code>SELECT Category,
+       COUNT(*) AS NumOrders,
+       SUM(Sales) AS TotalSales,
+       AVG(Profit) AS AvgProfit
+FROM Orders
+GROUP BY Category
+ORDER BY TotalSales DESC;</code></pre>
+</li>
+<li><strong>What this does:</strong>
+<ol>
+<li>Groups data by Category</li>
+<li>Counts orders in each category</li>
+<li>Sums total sales per category</li>
+<li>Calculates average profit per category</li>
+<li>Sorts by total sales (highest first)</li>
+</ol>
+</li>
+</ul>
+<div class="section-card">
+<p><strong>✅ Self-Check:</strong></p>
+<ul>
+<li>Can you write a SELECT query from memory?</li>
+<li>Do you understand what DISTINCT does?</li>
+<li>Can you use SUM, AVG, COUNT, MAX, MIN?</li>
+<li>Can you sort with ORDER BY?</li>
+</ul>
+</div>
 <h3 id="independent-practice-hour-3---60-min-2">Independent Practice
 (60 min):</h3>
 <ol type="1">
@@ -677,7 +828,37 @@ document.addEventListener('DOMContentLoaded', function() {
         button.textContent = 'Error';
         setTimeout(() => button.textContent = 'Copy', 2000);
       }
+    
+  // 4. Theme toggle functionality (Claude-style)
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeIcon = document.querySelector('.theme-icon');
+  const themeText = document.querySelector('.theme-text');
+
+  // Load saved theme
+  const savedTheme = localStorage.getItem('training-theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  updateThemeButton(savedTheme);
+
+  function updateThemeButton(theme) {
+    if (theme === 'dark') {
+      themeIcon.textContent = '☀️';
+      themeText.textContent = 'Light';
+    } else {
+      themeIcon.textContent = '🌙';
+      themeText.textContent = 'Dark';
+    }
+  }
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('training-theme', newTheme);
+      updateThemeButton(newTheme);
     });
+  }
+});
 
     pre.appendChild(button);
   });

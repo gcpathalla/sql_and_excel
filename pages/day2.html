@@ -16,24 +16,42 @@ Aggregates</title>
       box-sizing: border-box;
     }
 
+    
     :root {
-      /* Anthropic-inspired color palette */
-      --bg-primary: #F5F3EF;      /* Warm cream background */
-      --bg-secondary: #FFFFFF;     /* White for cards */
-      --bg-sidebar: #FDFCFA;       /* Slightly off-white for sidebar */
-      --text-primary: #1A1A1A;     /* Dark text */
-      --text-secondary: #6B6B6B;   /* Muted text */
-      --text-tertiary: #9B9B9B;    /* Even more muted */
-      --accent-orange: #D97757;    /* Anthropic orange */
-      --accent-brown: #8B6B47;     /* Warm brown */
-      --border-subtle: #E5E2DC;    /* Subtle border */
-      --border-light: #F0EDE7;     /* Very light border */
+      /* Light theme (default - Claude style) */
+      --bg-primary: #F5F3EF;
+      --bg-secondary: #FFFFFF;
+      --bg-sidebar: #FDFCFA;
+      --text-primary: #1A1A1A;
+      --text-secondary: #6B6B6B;
+      --text-tertiary: #9B9B9B;
+      --accent-orange: #D97757;
+      --accent-brown: #8B6B47;
+      --border-subtle: #E5E2DC;
+      --border-light: #F0EDE7;
       --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
       --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
       --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
       --radius-sm: 6px;
       --radius-md: 10px;
       --radius-lg: 16px;
+    }
+
+    [data-theme="dark"] {
+      /* Dark theme (Claude desktop style) */
+      --bg-primary: #1F1F1F;
+      --bg-secondary: #2B2B2B;
+      --bg-sidebar: #242424;
+      --text-primary: #ECECEC;
+      --text-secondary: #A8A8A8;
+      --text-tertiary: #7A7A7A;
+      --accent-orange: #E89A7A;
+      --accent-brown: #B8936A;
+      --border-subtle: #3A3A3A;
+      --border-light: #333333;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
     }
 
     html, body {
@@ -79,6 +97,28 @@ Aggregates</title>
       display: flex;
       gap: 0.5rem;
       align-items: center;
+    }
+
+
+    .theme-toggle {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 0.5rem 0.875rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .theme-toggle:hover {
+      background: var(--bg-secondary);
+      border-color: var(--accent-brown);
+      color: var(--text-primary);
     }
 
     .button {
@@ -471,6 +511,12 @@ Aggregates</title>
   <div class="header-row">
     <h1 class="title">DAY 2: SQL - SELECT &
 Aggregates</h1>
+    <div class="header-controls">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <span class="theme-icon">🌙</span>
+        <span class="theme-text">Dark</span>
+      </button>
+    </div>
   </div>
 </header>
 <div class="page">
@@ -625,14 +671,89 @@ Include syntax examples that help me understand the parallel.</code></pre>
 Provide clear examples for each scenario.</code></pre>
 <h3 id="guided-practice-hour-2---60-min-1">Guided Practice (60
 min):</h3>
-<p><em>Using Superstore database</em></p>
-<ol type="1">
-<li>Write query to select all columns from Orders table</li>
-<li>Select only OrderID, CustomerName, and Sales columns</li>
-<li>Calculate total sales across all orders</li>
-<li>Find average discount given</li>
-<li>Count total number of orders</li>
+<p><em>Using Superstore Sales dataset</em></p>
+<div class="section-card">
+<p><strong>📝 Setup Instructions:</strong></p>
+<ol>
+<li>Download the Superstore Sales dataset from the provided link</li>
+<li>Open it in Excel (or create sample data if dataset unavailable)</li>
+<li>Familiarize yourself with the columns: OrderID, Sales, Discount, Profit, Quantity, etc.</li>
 </ol>
+</div>
+<p><strong>Exercise 1: Calculate Total Sales</strong></p>
+<ul>
+<li><strong>Task:</strong> Calculate total sales for all orders</li>
+<li><strong>Step-by-step:</strong>
+<ol>
+<li>Click on an empty cell (e.g., H2)</li>
+<li>Type the formula: <code>=SUM(D:D)</code> (assuming Sales is in column D)</li>
+<li>Press Enter to see the result</li>
+<li><em>Note:</em> Using <code>D:D</code> selects the entire column</li>
+</ol>
+</li>
+<li><strong>Expected Result:</strong> A single number showing total of all sales</li>
+</ul>
+<p><strong>Exercise 2: Find Average Discount</strong></p>
+<ul>
+<li><strong>Task:</strong> Find average discount given across all transactions</li>
+<li><strong>Step-by-step:</strong>
+<ol>
+<li>Click on cell H3</li>
+<li>Type: <code>=AVERAGE(E:E)</code> (assuming Discount is in column E)</li>
+<li>Press Enter</li>
+<li>Format as percentage if needed: Right-click → Format Cells → Percentage</li>
+</ol>
+</li>
+<li><strong>Expected Result:</strong> Average discount percentage (e.g., 15.5%)</li>
+</ul>
+<p><strong>Exercise 3: Count Total Orders</strong></p>
+<ul>
+<li><strong>Task:</strong> Count total number of orders in dataset</li>
+<li><strong>Step-by-step:</strong>
+<ol>
+<li>Click on cell H4</li>
+<li>Type: <code>=COUNT(A:A)</code> or <code>=COUNTA(A:A)</code> for text</li>
+<li>Press Enter</li>
+<li><em>Tip:</em> COUNT counts numbers, COUNTA counts non-empty cells</li>
+</ol>
+</li>
+<li><strong>Expected Result:</strong> Total number of rows (e.g., 9,994)</li>
+</ul>
+<p><strong>Exercise 4: Find Min/Max Quantities</strong></p>
+<ul>
+<li><strong>Task:</strong> Find maximum and minimum order quantities</li>
+<li><strong>Step-by-step:</strong>
+<ol>
+<li>In cell H5, type: <code>=MAX(F:F)</code> (assuming Quantity in column F)</li>
+<li>In cell H6, type: <code>=MIN(F:F)</code></li>
+<li>Label these cells for clarity (e.g., "Max Qty" in G5, "Min Qty" in G6)</li>
+</ol>
+</li>
+<li><strong>Expected Result:</strong> Highest and lowest quantity values</li>
+</ul>
+<p><strong>Exercise 5: Calculate Profit Formula</strong></p>
+<ul>
+<li><strong>Task:</strong> Calculate profit for each order using formulas</li>
+<li><strong>Step-by-step:</strong>
+<ol>
+<li>Add a new column header "Calculated Profit" (e.g., in column I)</li>
+<li>In cell I2, type: <code>=D2-G2</code> (Sales minus Cost)</li>
+<li>Press Enter, then drag the fill handle down to copy the formula</li>
+<li>Compare with existing Profit column to verify accuracy</li>
+<li><em>Tip:</em> Results should match existing profit data</li>
+</ol>
+</li>
+<li><strong>Expected Result:</strong> Profit calculated for each row</li>
+</ul>
+<div class="section-card">
+<p><strong>✅ Self-Check:</strong> Have you...</p>
+<ul>
+<li>Used SUM, AVERAGE, COUNT, MAX, MIN functions?</li>
+<li>Created at least one formula yourself?</li>
+<li>Understood the difference between each function?</li>
+<li>Verified your results make sense?</li>
+</ul>
+</div>
 <h3 id="independent-practice-hour-3---60-min-1">Independent Practice
 (60 min):</h3>
 <p><em>Solve these 8 problems yourself!</em></p>
@@ -688,7 +809,37 @@ document.addEventListener('DOMContentLoaded', function() {
         button.textContent = 'Error';
         setTimeout(() => button.textContent = 'Copy', 2000);
       }
+    
+  // 4. Theme toggle functionality (Claude-style)
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeIcon = document.querySelector('.theme-icon');
+  const themeText = document.querySelector('.theme-text');
+
+  // Load saved theme
+  const savedTheme = localStorage.getItem('training-theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  updateThemeButton(savedTheme);
+
+  function updateThemeButton(theme) {
+    if (theme === 'dark') {
+      themeIcon.textContent = '☀️';
+      themeText.textContent = 'Light';
+    } else {
+      themeIcon.textContent = '🌙';
+      themeText.textContent = 'Dark';
+    }
+  }
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('training-theme', newTheme);
+      updateThemeButton(newTheme);
     });
+  }
+});
 
     pre.appendChild(button);
   });

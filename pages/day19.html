@@ -15,24 +15,42 @@
       box-sizing: border-box;
     }
 
+    
     :root {
-      /* Anthropic-inspired color palette */
-      --bg-primary: #F5F3EF;      /* Warm cream background */
-      --bg-secondary: #FFFFFF;     /* White for cards */
-      --bg-sidebar: #FDFCFA;       /* Slightly off-white for sidebar */
-      --text-primary: #1A1A1A;     /* Dark text */
-      --text-secondary: #6B6B6B;   /* Muted text */
-      --text-tertiary: #9B9B9B;    /* Even more muted */
-      --accent-orange: #D97757;    /* Anthropic orange */
-      --accent-brown: #8B6B47;     /* Warm brown */
-      --border-subtle: #E5E2DC;    /* Subtle border */
-      --border-light: #F0EDE7;     /* Very light border */
+      /* Light theme (default - Claude style) */
+      --bg-primary: #F5F3EF;
+      --bg-secondary: #FFFFFF;
+      --bg-sidebar: #FDFCFA;
+      --text-primary: #1A1A1A;
+      --text-secondary: #6B6B6B;
+      --text-tertiary: #9B9B9B;
+      --accent-orange: #D97757;
+      --accent-brown: #8B6B47;
+      --border-subtle: #E5E2DC;
+      --border-light: #F0EDE7;
       --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
       --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
       --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
       --radius-sm: 6px;
       --radius-md: 10px;
       --radius-lg: 16px;
+    }
+
+    [data-theme="dark"] {
+      /* Dark theme (Claude desktop style) */
+      --bg-primary: #1F1F1F;
+      --bg-secondary: #2B2B2B;
+      --bg-sidebar: #242424;
+      --text-primary: #ECECEC;
+      --text-secondary: #A8A8A8;
+      --text-tertiary: #7A7A7A;
+      --accent-orange: #E89A7A;
+      --accent-brown: #B8936A;
+      --border-subtle: #3A3A3A;
+      --border-light: #333333;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
     }
 
     html, body {
@@ -78,6 +96,28 @@
       display: flex;
       gap: 0.5rem;
       align-items: center;
+    }
+
+
+    .theme-toggle {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 0.5rem 0.875rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .theme-toggle:hover {
+      background: var(--bg-secondary);
+      border-color: var(--accent-brown);
+      color: var(--text-primary);
     }
 
     .button {
@@ -469,6 +509,12 @@
 <header id="title-block-header">
   <div class="header-row">
     <h1 class="title">DAY 19: Excel - Advanced Charts & Dashboards</h1>
+    <div class="header-controls">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <span class="theme-icon">🌙</span>
+        <span class="theme-text">Dark</span>
+      </button>
+    </div>
   </div>
 </header>
 <div class="page">
@@ -651,7 +697,37 @@ document.addEventListener('DOMContentLoaded', function() {
         button.textContent = 'Error';
         setTimeout(() => button.textContent = 'Copy', 2000);
       }
+    
+  // 4. Theme toggle functionality (Claude-style)
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeIcon = document.querySelector('.theme-icon');
+  const themeText = document.querySelector('.theme-text');
+
+  // Load saved theme
+  const savedTheme = localStorage.getItem('training-theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  updateThemeButton(savedTheme);
+
+  function updateThemeButton(theme) {
+    if (theme === 'dark') {
+      themeIcon.textContent = '☀️';
+      themeText.textContent = 'Light';
+    } else {
+      themeIcon.textContent = '🌙';
+      themeText.textContent = 'Dark';
+    }
+  }
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('training-theme', newTheme);
+      updateThemeButton(newTheme);
     });
+  }
+});
 
     pre.appendChild(button);
   });
