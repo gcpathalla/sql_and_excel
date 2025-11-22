@@ -541,13 +541,18 @@
       background: var(--bg-secondary);
       border: 1px solid var(--border-subtle);
       color: var(--text-secondary);
-      padding: 0.375rem 0.75rem;
-      border-radius: var(--radius-sm);
+      padding: 0.5rem;
+      border-radius: 6px;
       font-size: 0.75rem;
       font-weight: 500;
       cursor: pointer;
       opacity: 0;
       transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
     }
 
     pre:hover .copy-btn {
@@ -558,11 +563,17 @@
       background: var(--accent-orange);
       color: white;
       border-color: var(--accent-orange);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .copy-btn.copied {
       background: var(--accent-brown);
       color: white;
+    }
+
+    .copy-btn svg {
+      flex-shrink: 0;
     }
 
     /* AI Quick Actions Buttons */
@@ -587,14 +598,17 @@
     .ai-quick-btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.4rem;
-      padding: 0.5rem 0.875rem;
-      border-radius: var(--radius-sm);
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
       font-size: 0.8125rem;
       font-weight: 500;
       text-decoration: none;
       transition: all 0.2s ease;
       border: 1px solid;
+      min-width: 36px;
+      min-height: 36px;
     }
 
     .chatgpt-btn {
@@ -640,22 +654,6 @@
       flex-shrink: 0;
     }
 
-    /* AI Prompts Note */
-    .ai-prompts-note {
-      background: var(--bg-primary);
-      border-left: 4px solid var(--accent-orange);
-      padding: 1rem 1.25rem;
-      margin: 1rem 0 1.5rem 0;
-      border-radius: var(--radius-sm);
-      font-size: 0.9rem;
-      color: var(--text-primary);
-      border: 1px solid var(--border-subtle);
-    }
-
-    .ai-prompts-note strong {
-      color: var(--accent-orange);
-      font-weight: 600;
-    }
 
     /* Tables */
     table {
@@ -1026,7 +1024,7 @@ Use SQL Server syntax with clear examples.</code></pre>
   </a>
 <a class="ai-quick-btn claude-btn" href="https://claude.ai/new?q=I%27m%20learning%20cohort%20and%20retention%20analysis.%20Please%20explain%3A%0A%0A1.%20What%20is%20cohort%20analysis%20and%20why%20is%20it%20useful%3F%0A2.%20How%20do%20I%20group%20customers%20by%20signup%20month%20and%20track%20retention%3F%0A3.%20Show%20me%20how%20to%20calculate%20month-over-month%20retention%0A4.%20What%20is%20churn%20rate%20and%20how%20do%20I%20calculate%20it%3F%0A5.%20Provide%20SQL%20examples%20using%20customer%20order%20data%0A%0AUse%20SQL%20Server%20syntax%20with%20clear%20examples." target="_blank" title="Open in Claude">
 <svg fill="currentColor" height="14" viewbox="0 0 24 24" width="14">
-<path d="M16.77 3.5L12 1l-4.77 2.5L2 1v13.5l5.23 2.5L12 14.5l4.77 2.5L22 14.5V1l-5.23 2.5zM7.5 13.38L4 11.63V4.37l3.5 1.75v7.26zm4.5 1.12l-3.5-1.75V5.5L12 7.25v7.25zm4.5-1.12l-3.5 1.75V7.88l3.5-1.75v7.25zm3.5-1.75l-3.5 1.75V5.5l3.5-1.75v7.88z"></path>
+<path d="M17.5 3L19 6.5L22.5 8L19 9.5L17.5 13L16 9.5L12.5 8L16 6.5L17.5 3ZM7.5 11L9 14.5L12.5 16L9 17.5L7.5 21L6 17.5L2.5 16L6 14.5L7.5 11ZM14 14L15 16.5L17.5 17.5L15 18.5L14 21L13 18.5L10.5 17.5L13 16.5L14 14Z"></path>
 </svg>
     Claude
   </a>
@@ -1046,8 +1044,8 @@ Use SQL Server syntax with clear examples.</code></pre>
     ChatGPT
   </a>
 <a class="ai-quick-btn claude-btn" href="https://claude.ai/new?q=I%27m%20learning%20cohort%20and%20retention%20analysis.%20Please%20explain%3A%0A%0A1.%20What%20is%20cohort%20analysis%20and%20why%20is%20it%20useful%3F%0A2.%20How%20do%20I%20group%20customers%20by%20signup%20month%20and%20track%20retention%3F%0A3.%20Show%20me%20how%20to%20calculate%20month-over-month%20retention%0A4.%20What%20is%20churn%20rate%20and%20how%20do%20I%20calculate%20it%3F%0A5.%20Provide%20SQL%20examples%20using%20customer%20order%20data%0A%0AUse%20SQL%20Server%20syntax%20with%20clear%20examples." target="_blank" title="Open in Claude">
-<svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
-<path d="M16.77 3.5L12 1l-4.77 2.5L2 1v13.5l5.23 2.5L12 14.5l4.77 2.5L22 14.5V1l-5.23 2.5zM7.5 13.38L4 11.63V4.37l3.5 1.75v7.26zm4.5 1.12l-3.5-1.75V5.5L12 7.25v7.25zm4.5-1.12l-3.5 1.75V7.88l3.5-1.75v7.25zm3.5-1.75l-3.5 1.75V5.5l3.5-1.75v7.88z"></path>
+<svg fill="currentColor" height="14" viewbox="0 0 24 24" width="14">
+<path d="M17.5 3L19 6.5L22.5 8L19 9.5L17.5 13L16 9.5L12.5 8L16 6.5L17.5 3ZM7.5 11L9 14.5L12.5 16L9 17.5L7.5 21L6 17.5L2.5 16L6 14.5L7.5 11ZM14 14L15 16.5L17.5 17.5L15 18.5L14 21L13 18.5L10.5 17.5L13 16.5L14 14Z"></path>
 </svg>
     Claude
   </a>
@@ -1080,8 +1078,8 @@ Explain with step-by-step implementation.</code></pre>
     ChatGPT
   </a>
 <a class="ai-quick-btn claude-btn" href="https://claude.ai/new?q=Help%20me%20understand%20RFM%20analysis%3A%0A%0A1.%20What%20is%20RFM%20and%20what%20do%20Recency%2C%20Frequency%2C%20Monetary%20mean%3F%0A2.%20How%20do%20I%20calculate%20RFM%20scores%20%281-5%20for%20each%29%3F%0A3.%20Show%20me%20how%20to%20segment%20customers%20based%20on%20RFM%0A4.%20What%20actions%20should%20I%20take%20for%20each%20segment%3F%0A5.%20Provide%20complete%20SQL%20example%20with%20customer%20data%0A%0AExplain%20with%20step-by-step%20implementation." target="_blank" title="Open in Claude">
-<svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
-<path d="M16.77 3.5L12 1l-4.77 2.5L2 1v13.5l5.23 2.5L12 14.5l4.77 2.5L22 14.5V1l-5.23 2.5zM7.5 13.38L4 11.63V4.37l3.5 1.75v7.26zm4.5 1.12l-3.5-1.75V5.5L12 7.25v7.25zm4.5-1.12l-3.5 1.75V7.88l3.5-1.75v7.25zm3.5-1.75l-3.5 1.75V5.5l3.5-1.75v7.88z"></path>
+<svg fill="currentColor" height="14" viewbox="0 0 24 24" width="14">
+<path d="M17.5 3L19 6.5L22.5 8L19 9.5L17.5 13L16 9.5L12.5 8L16 6.5L17.5 3ZM7.5 11L9 14.5L12.5 16L9 17.5L7.5 21L6 17.5L2.5 16L6 14.5L7.5 11ZM14 14L15 16.5L17.5 17.5L15 18.5L14 21L13 18.5L10.5 17.5L13 16.5L14 14Z"></path>
 </svg>
     Claude
   </a>
@@ -1148,8 +1146,12 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('pre').forEach(pre => {
     const button = document.createElement('button');
     button.className = 'copy-btn';
-    button.textContent = 'Copy';
+    button.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+    </svg>`;
     button.setAttribute('aria-label', 'Copy code');
+    button.setAttribute('title', 'Copy to clipboard');
 
     button.addEventListener('click', async () => {
       const code = pre.querySelector('code') || pre;
@@ -1157,15 +1159,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
       try {
         await navigator.clipboard.writeText(text);
-        button.textContent = 'Copied!';
+        button.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>`;
         button.classList.add('copied');
         setTimeout(() => {
-          button.textContent = 'Copy';
+          button.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>`;
           button.classList.remove('copied');
         }, 2000);
       } catch (err) {
-        button.textContent = 'Error';
-        setTimeout(() => button.textContent = 'Copy', 2000);
+        button.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>`;
+        setTimeout(() => {
+          button.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>`;
+        }, 2000);
       }
     });
 
@@ -1272,23 +1287,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // 4. Add AI prompts usage note
-  const aiPromptsHeadings = document.querySelectorAll('h3[id*="ai-learning-prompts"]');
-  aiPromptsHeadings.forEach(heading => {
-    // Check if note already exists
-    const nextElement = heading.nextElementSibling;
-    if (nextElement && nextElement.classList.contains('ai-prompts-note')) {
-      return;
-    }
-
-    const note = document.createElement('div');
-    note.className = 'ai-prompts-note';
-    note.innerHTML = '<strong>💡 How to use these prompts:</strong> Copy any prompt below and paste it into <strong>Claude</strong>, <strong>ChatGPT</strong>, <strong>Gemini</strong>, or any other AI assistant to learn the concepts. These are for understanding only—solve practice problems yourself!';
-
-    heading.parentNode.insertBefore(note, heading.nextSibling);
-  });
-
-  // 5. Back to top button functionality
+  // 4. Back to top button functionality
   const backToTopBtn = document.getElementById('back-to-top');
   if (backToTopBtn) {
     backToTopBtn.addEventListener('click', () => {
