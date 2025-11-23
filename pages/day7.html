@@ -1133,13 +1133,181 @@ min):</h3>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<ol type="1">
-<li>Create Pivot Table: Sales by Region</li>
-<li>Add second dimension: Sales by Category and Region</li>
-<li>Group dates to show monthly sales trend</li>
-<li>Add calculated field for Profit Margin %</li>
-<li>Create Pivot Chart from your Pivot Table</li>
+<p><em>Using Superstore Sales dataset - Excel Practice</em></p>
+<div class="section-card">
+<p><strong>📝 Setup Instructions:</strong></p>
+<ol>
+<li>Open your Superstore Sales dataset from Day 1</li>
+<li>Ensure you have columns: OrderDate, Region, Category, Product, Sales, Quantity, Profit</li>
+<li>Your data should be in a continuous range (no blank rows/columns)</li>
+<li>Save as "Day07_Practice.xlsx"</li>
 </ol>
+<p><strong>💡 What are Pivot Tables?</strong> Pivot Tables are Excel's most powerful data analysis tool. They let you quickly summarize, analyze, and explore large datasets by dragging and dropping fields. Think of them as interactive, dynamic summary reports!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 1: Create Your First Pivot Table - Sales by Region</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Click any cell in your data range</li>
+<li>Go to <strong>Insert tab</strong> → Click <strong>PivotTable</strong></li>
+<li>In the dialog:
+<ul>
+<li>"Table/Range" should auto-select your data</li>
+<li>Choose "New Worksheet"</li>
+<li>Click <strong>OK</strong></li>
+</ul>
+</li>
+<li>You'll see a blank Pivot Table with a Field List on the right</li>
+<li><strong>Build the Pivot Table:</strong>
+<ul>
+<li>Drag "Region" to the <strong>Rows</strong> area</li>
+<li>Drag "Sales" to the <strong>Values</strong> area</li>
+</ul>
+</li>
+<li>You now see total sales by region!</li>
+</ol>
+<p><strong>💡 Understanding Pivot Table Areas:</strong></p>
+<ul>
+<li><strong>Rows:</strong> Categories to group by (appears as row labels)</li>
+<li><strong>Columns:</strong> Additional grouping (appears as column headers)</li>
+<li><strong>Values:</strong> Numbers to calculate (SUM, COUNT, AVERAGE, etc.)</li>
+<li><strong>Filters:</strong> Data filters at the top of the pivot table</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> A simple table showing 4 regions with their total sales</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Add Two Dimensions - Region AND Category</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Using your existing Pivot Table from Exercise 1</li>
+<li>Drag "Category" to the <strong>Rows</strong> area (below Region)</li>
+<li>You now see sales broken down by both Region AND Category!</li>
+<li>Click the collapse/expand buttons (+ / -) next to regions to hide/show categories</li>
+<li><strong>Try rearranging:</strong> Drag Category above Region in Rows - notice how the grouping changes!</li>
+<li><strong>Add to Columns instead:</strong> Drag Category from Rows to <strong>Columns</strong> area - creates a matrix view!</li>
+</ol>
+<p><strong>💡 Pivot Table Flexibility:</strong></p>
+<ul>
+<li>Drag fields between areas to instantly reorganize data</li>
+<li>No formulas needed - Excel recalculates automatically</li>
+<li>Experiment with different layouts to find insights</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Sales broken down by Region and Category in various layouts</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Group Dates to Show Monthly Trends</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Create a new Pivot Table (or clear existing one)</li>
+<li>Drag "OrderDate" to <strong>Rows</strong></li>
+<li>Drag "Sales" to <strong>Values</strong></li>
+<li><strong>Group dates by month:</strong>
+<ul>
+<li>Right-click on any date in the Pivot Table</li>
+<li>Select <strong>"Group"</strong></li>
+<li>In the dialog, select <strong>"Months"</strong> (and optionally "Years")</li>
+<li>Click <strong>OK</strong></li>
+</ul>
+</li>
+<li>Now you see monthly sales totals!</li>
+<li><strong>Try different groupings:</strong> Quarters, Years, or combinations</li>
+</ol>
+<p><strong>💡 Date Grouping Options:</strong></p>
+<ul>
+<li>Seconds, Minutes, Hours (for time data)</li>
+<li>Days, Months, Quarters, Years</li>
+<li>Can select multiple: Months + Years for multi-year analysis</li>
+<li>Custom date ranges possible</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Sales summarized by month, showing trends over time</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Add Calculated Fields - Profit Margin %</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Click anywhere in your Pivot Table</li>
+<li>Go to <strong>PivotTable Analyze tab</strong> (or PivotTable Tools) → <strong>Fields, Items, & Sets</strong> → <strong>Calculated Field</strong></li>
+<li>In the dialog:
+<ul>
+<li><strong>Name:</strong> "Profit Margin %"</li>
+<li><strong>Formula:</strong> <code>=Profit/Sales*100</code></li>
+<li>Click <strong>Add</strong> then <strong>OK</strong></li>
+</ul>
+</li>
+<li>The new calculated field appears in your Values area!</li>
+<li><strong>Format as percentage:</strong>
+<ul>
+<li>Right-click the Profit Margin % values</li>
+<li>Value Field Settings → Number Format → Percentage</li>
+</ul>
+</li>
+</ol>
+<p><strong>💡 Calculated Fields:</strong></p>
+<ul>
+<li>Create custom calculations using existing fields</li>
+<li>Formula applies to the entire Pivot Table</li>
+<li>Updates automatically when data refreshes</li>
+<li>Examples: Margins, growth rates, ratios</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Pivot Table showing both sales AND profit margin percentage</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Create a Pivot Chart for Visual Analysis</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Create a simple Pivot Table: Region in Rows, Sales in Values</li>
+<li>Click anywhere in the Pivot Table</li>
+<li>Go to <strong>PivotTable Analyze tab</strong> → Click <strong>PivotChart</strong></li>
+<li>Choose a chart type (Column chart recommended)</li>
+<li>Click <strong>OK</strong></li>
+<li>You now have an interactive chart!</li>
+<li><strong>Try this:</strong> Add "Category" to Rows in your Pivot Table - watch the chart update automatically!</li>
+<li><strong>Filter the chart:</strong> Click the filter button on the chart to show only certain regions</li>
+</ol>
+<p><strong>🎯 Pivot Chart Benefits:</strong></p>
+<ul>
+<li>Automatically updates when Pivot Table changes</li>
+<li>Interactive filters built-in</li>
+<li>Perfect for presentations and dashboards</li>
+<li>Drill down by clicking chart elements</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Interactive chart that visualizes your Pivot Table data</p>
+</div>
+
+<div class="section-card">
+<p><strong>🎯 Practice Goal Checkpoint:</strong></p>
+<p>By completing these 5 exercises, you should now be able to:</p>
+<ul>
+<li>Create Pivot Tables from raw data</li>
+<li>Drag fields to Rows, Columns, Values, and Filters</li>
+<li>Group dates by months, quarters, or years</li>
+<li>Add calculated fields for custom metrics</li>
+<li>Create interactive Pivot Charts</li>
+<li>Reorganize data instantly by dragging fields</li>
+</ul>
+<p><strong>Key Insight:</strong> Pivot Tables eliminate the need for complex formulas! Instead of writing hundreds of SUMIFs and formulas, you drag and drop to analyze data from any angle.</p>
+<p><strong>Common Use Cases:</strong></p>
+<ul>
+<li>Sales reports by region, product, time period</li>
+<li>Inventory analysis</li>
+<li>Budget vs. actual comparisons</li>
+<li>Customer analysis and segmentation</li>
+<li>Survey data analysis</li>
+</ul>
+<p><strong>💡 Pro Tips:</strong></p>
+<ul>
+<li>Right-click field buttons to access more options</li>
+<li>Use slicers (Insert → Slicer) for better filtering</li>
+<li>Refresh data: Right-click Pivot Table → Refresh</li>
+<li>Format with Pivot Table Styles for professional look</li>
+</ul>
+<p><strong>Take a 5-minute break, then move on to Independent Practice!</strong></p>
+</div>
 <h3 id="independent-practice-hour-3---60-min-6">Independent Practice
 (60 min):</h3>
 <div class="practice-note">
