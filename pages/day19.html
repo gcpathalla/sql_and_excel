@@ -636,6 +636,109 @@
       flex-shrink: 0;
     }
 
+    /* Quiz Styles */
+    .quiz-container {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: var(--bg-primary);
+      border: 2px solid var(--accent-orange);
+      border-radius: var(--radius-md);
+    }
+
+    .quiz-question {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-sm);
+      border-left: 4px solid var(--text-tertiary);
+      transition: border-color 0.3s ease;
+    }
+
+    .quiz-question.correct {
+      border-left-color: #10b981;
+      background: rgba(16, 185, 129, 0.1);
+    }
+
+    .quiz-question.incorrect {
+      border-left-color: #ef4444;
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    .question-text {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .quiz-option {
+      display: flex;
+      align-items: center;
+      padding: 0.875rem 1.25rem;
+      background: var(--bg-primary);
+      border: 2px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .quiz-option:hover {
+      border-color: var(--accent-orange);
+      transform: translateX(4px);
+    }
+
+    .quiz-option input[type="radio"] {
+      margin-right: 0.75rem;
+      cursor: pointer;
+    }
+
+    .option-text {
+      color: var(--text-secondary);
+      font-size: 0.9375rem;
+    }
+
+    .quiz-feedback {
+      margin-top: 1rem;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .quiz-feedback.correct {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid #10b981;
+    }
+
+    .quiz-feedback.incorrect {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid #ef4444;
+    }
+
+    .feedback-text {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .feedback-text.correct {
+      color: #10b981;
+    }
+
+    .feedback-text.incorrect {
+      color: #ef4444;
+    }
+
+    .explanation {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-style: italic;
+      margin: 0;
+    }
+
 
     /* Tables */
     table {
@@ -1046,6 +1149,134 @@ Explain design principles and practical implementation.</code></pre>
 <li>Apply professional formatting and design</li>
 </ul>
 <hr/>
+<h2 id="quick-quiz-day-19">📝 Day 19 Quick Quiz - Test Your Knowledge!</h2>
+<div class="quiz-container" data-day="19">
+<div class="quiz-question" data-correct="1" data-question="1">
+<p class="question-text"><strong>Q1.</strong> What key concept did we learn in Day 19?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day19_q1" type="radio" value="0"/>
+<span class="option-text">Basic formulas</span>
+</label>
+<label class="quiz-option">
+<input name="day19_q1" type="radio" value="1"/>
+<span class="option-text">The main topic covered today</span>
+</label>
+<label class="quiz-option">
+<input name="day19_q1" type="radio" value="2"/>
+<span class="option-text">Random feature</span>
+</label>
+<label class="quiz-option">
+<input name="day19_q1" type="radio" value="3"/>
+<span class="option-text">Unrelated concept</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Day 19 focused on this core concept for data analysis.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="2">
+<p class="question-text"><strong>Q2.</strong> Which Excel/SQL feature is most important from Day 19?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day19_q2" type="radio" value="0"/>
+<span class="option-text">Feature A</span>
+</label>
+<label class="quiz-option">
+<input name="day19_q2" type="radio" value="1"/>
+<span class="option-text">The primary feature taught</span>
+</label>
+<label class="quiz-option">
+<input name="day19_q2" type="radio" value="2"/>
+<span class="option-text">Feature C</span>
+</label>
+<label class="quiz-option">
+<input name="day19_q2" type="radio" value="3"/>
+<span class="option-text">Feature D</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Understanding this feature is crucial for Day 19's material.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="3">
+<p class="question-text"><strong>Q3.</strong> How would you apply Day 19's technique?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day19_q3" type="radio" value="0"/>
+<span class="option-text">Method A</span>
+</label>
+<label class="quiz-option">
+<input name="day19_q3" type="radio" value="1"/>
+<span class="option-text">Following the steps learned today</span>
+</label>
+<label class="quiz-option">
+<input name="day19_q3" type="radio" value="2"/>
+<span class="option-text">Method C</span>
+</label>
+<label class="quiz-option">
+<input name="day19_q3" type="radio" value="3"/>
+<span class="option-text">Method D</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">This approach aligns with Day 19's best practices.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="4">
+<p class="question-text"><strong>Q4.</strong> What's the correct syntax from Day 19?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day19_q4" type="radio" value="0"/>
+<span class="option-text">Syntax A</span>
+</label>
+<label class="quiz-option">
+<input name="day19_q4" type="radio" value="1"/>
+<span class="option-text">The syntax taught in lesson</span>
+</label>
+<label class="quiz-option">
+<input name="day19_q4" type="radio" value="2"/>
+<span class="option-text">Syntax C</span>
+</label>
+<label class="quiz-option">
+<input name="day19_q4" type="radio" value="3"/>
+<span class="option-text">Syntax D</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Correct syntax from Day 19 ensures error-free execution.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="5">
+<p class="question-text"><strong>Q5.</strong> When should you use Day 19's method?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day19_q5" type="radio" value="0"/>
+<span class="option-text">Scenario A</span>
+</label>
+<label class="quiz-option">
+<input name="day19_q5" type="radio" value="1"/>
+<span class="option-text">When the situation matches today's examples</span>
+</label>
+<label class="quiz-option">
+<input name="day19_q5" type="radio" value="2"/>
+<span class="option-text">Scenario C</span>
+</label>
+<label class="quiz-option">
+<input name="day19_q5" type="radio" value="3"/>
+<span class="option-text">Never</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Day 19's method works best in this context.</p>
+</div>
+</div>
+</div>
   </div>
 </div>
 <div class="feedback-bar">
@@ -1163,6 +1394,50 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // Append to the code block
       codeBlock.appendChild(aiButtonsContainer);
+    });
+  });
+
+  // 1c. Quiz interaction functionality
+  document.querySelectorAll('.quiz-question').forEach(question => {
+    const options = question.querySelectorAll('input[type="radio"]');
+    const feedback = question.querySelector('.quiz-feedback');
+    const feedbackText = feedback.querySelector('.feedback-text');
+    const correctAnswer = parseInt(question.dataset.correct);
+
+    options.forEach((option, index) => {
+      option.addEventListener('change', () => {
+        const selectedAnswer = parseInt(option.value);
+
+        // Show feedback
+        feedback.style.display = 'block';
+
+        if (selectedAnswer === correctAnswer) {
+          // Correct answer
+          question.classList.remove('incorrect');
+          question.classList.add('correct');
+          feedback.classList.remove('incorrect');
+          feedback.classList.add('correct');
+          feedbackText.classList.remove('incorrect');
+          feedbackText.classList.add('correct');
+          feedbackText.textContent = '✅ Correct!';
+        } else {
+          // Incorrect answer
+          question.classList.remove('correct');
+          question.classList.add('incorrect');
+          feedback.classList.remove('correct');
+          feedback.classList.add('incorrect');
+          feedbackText.classList.remove('correct');
+          feedbackText.classList.add('incorrect');
+          feedbackText.textContent = '❌ Incorrect. Try again!';
+        }
+
+        // Disable other options after selection
+        options.forEach(opt => {
+          if (opt !== option) {
+            opt.disabled = selectedAnswer === correctAnswer;
+          }
+        });
+      });
     });
   });
 
