@@ -1141,13 +1141,201 @@ min):</h3>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<ol type="1">
-<li>Total sales by region (GROUP BY)</li>
-<li>Average order value by category</li>
-<li>Count of orders per customer</li>
-<li>Sales by region AND category (multiple GROUP BY)</li>
-<li>Regions with total sales &gt; $50,000 (HAVING)</li>
+<p><em>Using Superstore Sales dataset - SQL Practice</em></p>
+<div class="section-card">
+<p><strong>📝 Setup Instructions:</strong></p>
+<ol>
+<li>Open SQLite Browser with your Superstore database</li>
+<li>Today you'll learn SQL aggregation - the equivalent of Excel Pivot Tables!</li>
+<li>GROUP BY groups rows together; HAVING filters grouped results</li>
 </ol>
+<p><strong>💡 GROUP BY = SQL's Pivot Table:</strong> Remember Day 7 (Excel Pivot Tables)? GROUP BY does the same thing in SQL - summarize data by categories! It's one of the most powerful SQL features.</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 1: GROUP BY Basics - Total Sales by Region</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Type this query:
+<pre><code>SELECT
+    Region,
+    SUM(Sales) AS TotalSales
+FROM Orders
+GROUP BY Region
+ORDER BY TotalSales DESC;</code></pre>
+</li>
+<li>Click Execute (▶️)</li>
+<li>You'll see total sales for each region!</li>
+</ol>
+<p><strong>🔍 Understanding GROUP BY:</strong></p>
+<ul>
+<li><code>GROUP BY Region</code> = Group all rows with the same Region together</li>
+<li><code>SUM(Sales)</code> = Calculate total sales for each group</li>
+<li>Result: One row per region with aggregated data</li>
+<li>This is like dragging Region to Rows and Sales to Values in a Pivot Table!</li>
+</ul>
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li>Columns in SELECT must either be in GROUP BY or use aggregate functions</li>
+<li>Common aggregates: SUM, AVG, COUNT, MAX, MIN</li>
+<li>GROUP BY comes after WHERE, before ORDER BY</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> 4 rows (one per region) with total sales for each</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Multiple Aggregates - Comprehensive Summary</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Calculate multiple metrics for each category:
+<pre><code>SELECT
+    Category,
+    COUNT(*) AS TotalOrders,
+    SUM(Sales) AS TotalSales,
+    AVG(Sales) AS AvgOrderValue,
+    MAX(Sales) AS HighestSale,
+    MIN(Sales) AS LowestSale
+FROM Orders
+GROUP BY Category
+ORDER BY TotalSales DESC;</code></pre>
+</li>
+<li>This gives you a complete statistical summary per category!</li>
+</ol>
+<p><strong>💡 Multiple Aggregates:</strong></p>
+<ul>
+<li>You can calculate many metrics in one query</li>
+<li>Each aggregate operates on the grouped rows</li>
+<li>Much more efficient than separate queries</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Each category with 6 different metrics</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: GROUP BY Multiple Columns - Two Dimensions</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Group by both Region AND Category:
+<pre><code>SELECT
+    Region,
+    Category,
+    COUNT(*) AS OrderCount,
+    SUM(Sales) AS TotalSales
+FROM Orders
+GROUP BY Region, Category
+ORDER BY Region, TotalSales DESC;</code></pre>
+</li>
+<li>You now see sales broken down by both dimensions!</li>
+<li>This is like having both Region and Category in Rows in a Pivot Table</li>
+</ol>
+<p><strong>🎯 Multi-Column Grouping:</strong></p>
+<ul>
+<li>Creates unique combinations of all grouped columns</li>
+<li>Order matters: <code>GROUP BY Region, Category</code> groups by Region first</li>
+<li>Can group by 3+ columns: <code>GROUP BY Region, Category, Year</code></li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Sales for each Region + Category combination (e.g., "East - Furniture", "East - Technology", etc.)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Combining WHERE and GROUP BY - Filtered Aggregation</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Calculate sales by region, but only for profitable orders:
+<pre><code>SELECT
+    Region,
+    COUNT(*) AS ProfitableOrders,
+    SUM(Sales) AS TotalSales,
+    SUM(Profit) AS TotalProfit
+FROM Orders
+WHERE Profit > 0
+GROUP BY Region
+ORDER BY TotalProfit DESC;</code></pre>
+</li>
+<li>WHERE filters BEFORE grouping (filters individual rows)</li>
+</ol>
+<p><strong>📌 WHERE vs HAVING:</strong></p>
+<ul>
+<li><strong>WHERE:</strong> Filters rows BEFORE grouping (filters raw data)</li>
+<li><strong>HAVING:</strong> Filters groups AFTER aggregation (filters summarized data)</li>
+<li>Example: WHERE Profit > 0 (row level) vs HAVING SUM(Profit) > 1000 (group level)</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Regional sales including only profitable orders</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: HAVING Clause - Filter Aggregated Results</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Find regions with total sales exceeding $50,000:
+<pre><code>SELECT
+    Region,
+    SUM(Sales) AS TotalSales,
+    COUNT(*) AS OrderCount
+FROM Orders
+GROUP BY Region
+HAVING SUM(Sales) > 50000
+ORDER BY TotalSales DESC;</code></pre>
+</li>
+<li>HAVING filters groups based on aggregate calculations</li>
+<li><strong>More examples:</strong>
+<pre><code>-- Customers with more than 10 orders
+SELECT CustomerID, COUNT(*) AS OrderCount
+FROM Orders
+GROUP BY CustomerID
+HAVING COUNT(*) > 10;
+
+-- Categories with average sale > $200
+SELECT Category, AVG(Sales) AS AvgSale
+FROM Orders
+GROUP BY Category
+HAVING AVG(Sales) > 200;</code></pre>
+</li>
+</ol>
+<p><strong>🎯 HAVING Use Cases:</strong></p>
+<ul>
+<li>Find top customers (by order count or total spend)</li>
+<li>Identify high-performing products/categories</li>
+<li>Filter out insignificant groups (e.g., < 5 orders)</li>
+<li>Quality control (e.g., products with high defect rates)</li>
+</ul>
+<p><strong>💡 Query Order:</strong></p>
+<pre><code>SELECT columns
+FROM table
+WHERE row_filters
+GROUP BY columns
+HAVING group_filters
+ORDER BY columns
+LIMIT n;</code></pre>
+<p><strong>✅ Expected Result:</strong> Only regions meeting the $50,000 threshold</p>
+</div>
+
+<div class="section-card">
+<p><strong>🎯 Practice Goal Checkpoint:</strong></p>
+<p>By completing these 5 exercises, you should now be able to:</p>
+<ul>
+<li>Use GROUP BY to aggregate data by categories</li>
+<li>Apply multiple aggregate functions (SUM, AVG, COUNT, MAX, MIN)</li>
+<li>Group by multiple columns for multi-dimensional analysis</li>
+<li>Combine WHERE with GROUP BY for filtered aggregation</li>
+<li>Use HAVING to filter grouped results</li>
+<li>Understand the difference between WHERE and HAVING</li>
+</ul>
+<p><strong>Key Insight:</strong> GROUP BY is SQL's answer to Excel Pivot Tables. While Excel uses drag-and-drop, SQL uses code - but both summarize data by categories!</p>
+<p><strong>Excel Day 7 vs SQL Day 8:</strong></p>
+<ul>
+<li><strong>Excel Pivot:</strong> Drag Region to Rows, Sales to Values</li>
+<li><strong>SQL GROUP BY:</strong> <code>SELECT Region, SUM(Sales) FROM Orders GROUP BY Region</code></li>
+<li>Same result, different interface!</li>
+</ul>
+<p><strong>Common GROUP BY Patterns:</strong></p>
+<ul>
+<li>Sales analysis by time period, region, product</li>
+<li>Customer segmentation and ranking</li>
+<li>Inventory summaries</li>
+<li>Performance metrics and KPIs</li>
+</ul>
+<p><strong>Take a 5-minute break, then move on to Independent Practice!</strong></p>
+</div>
 <h3 id="independent-practice-hour-3---60-min-7">Independent Practice
 (60 min):</h3>
 <div class="practice-note">
