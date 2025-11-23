@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>30-Day Excel & SQL Training Plan</title>
+  <title>DAY 18: SQL - CASE Statements & PIVOT/UNPIVOT</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -950,7 +950,7 @@
 <body>
 <header id="title-block-header">
   <div class="header-row">
-    <h1 class="title">30-Day Excel & SQL Training Plan</h1>
+    <h1 class="title">DAY 18: SQL - CASE Statements & PIVOT/UNPIVOT</h1>
     <div class="header-author">
       <span class="author-name">Guru Charan Pathalla</span>
       <a href="https://github.com/gcpathalla/sql_and_excel" target="_blank" class="repo-link" title="View on GitHub">
@@ -982,116 +982,296 @@
   <nav id="TOC" role="navigation">
 <ul>
 <li><a href="../index.html" if "pages/" in current_page else "index.html">📚 Training Overview</a></li>
-<li><a href="pages/week1.html">Week 1: Foundations</a>
+<li><a href="week1.html">Week 1: Foundations</a>
 <ul>
-<li><a href="pages/day1.html">Day 1: Excel - Formulas
+<li><a href="day1.html">Day 1: Excel - Formulas
 & Basic Functions</a></li>
-<li><a href="pages/day2.html">Day 2: SQL - SELECT &
+<li><a href="day2.html">Day 2: SQL - SELECT &
 Aggregates</a></li>
-<li><a href="pages/day3.html">Day 3: Excel -
+<li><a href="day3.html">Day 3: Excel -
 Filtering & Conditional Funct...</a></li>
-<li><a href="pages/day4.html">Day 4: SQL - WHERE Clause
+<li><a href="day4.html">Day 4: SQL - WHERE Clause
 & Filtering</a></li>
-<li><a href="pages/day5.html">Day 5: Excel - VLOOKUP &
+<li><a href="day5.html">Day 5: Excel - VLOOKUP &
 XLOOKUP</a></li>
 </ul>
 </li>
-<li><a href="pages/week2.html">Week 2: Data Analysis</a>
+<li><a href="week2.html">Week 2: Data Analysis</a>
 <ul>
-<li><a href="pages/day6.html">Day 6: SQL - JOIN Operations</a></li>
-<li><a href="pages/day7.html">Day 7: Excel - Pivot Tables
+<li><a href="day6.html">Day 6: SQL - JOIN Operations</a></li>
+<li><a href="day7.html">Day 7: Excel - Pivot Tables
 & Charts</a></li>
-<li><a href="pages/day8.html">Day 8: SQL - GROUP BY &
+<li><a href="day8.html">Day 8: SQL - GROUP BY &
 HAVING</a></li>
-<li><a href="pages/day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
-<li><a href="pages/day10.html">Day 10: SQL - Subqueries</a></li>
+<li><a href="day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
+<li><a href="day10.html">Day 10: SQL - Subqueries</a></li>
 </ul>
 </li>
-<li><a href="pages/week3.html">Week 3: Intermediate Concepts</a>
+<li><a href="week3.html">Week 3: Intermediate Concepts</a>
 <ul>
-<li><a href="pages/day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
-<li><a href="pages/day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
-<li><a href="pages/day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
-<li><a href="pages/day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
-<li><a href="pages/day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
+<li><a href="day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
+<li><a href="day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
+<li><a href="day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
+<li><a href="day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
+<li><a href="day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
 </ul>
 </li>
-<li><a href="pages/week4.html">Week 4: Advanced Concepts</a>
+<li><a href="week4.html">Week 4: Advanced Concepts</a>
 <ul>
-<li><a href="pages/day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
-<li><a href="pages/day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
-<li><a href="pages/day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
-<li><a href="pages/day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
-<li><a href="pages/day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
+<li><a href="day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
+<li><a href="day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
+<li><a href="day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
+<li><a href="day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
+<li><a href="day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
 </ul>
 </li>
-<li><a href="pages/week5.html">Week 5: Analytics & Optimization</a>
+<li><a href="week5.html">Week 5: Analytics & Optimization</a>
 <ul>
-<li><a href="pages/day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
-<li><a href="pages/day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
-<li><a href="pages/day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
-<li><a href="pages/day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
-<li><a href="pages/day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
+<li><a href="day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
+<li><a href="day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
+<li><a href="day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
+<li><a href="day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
+<li><a href="day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
 </ul>
 </li>
-<li><a href="pages/week6.html">Week 6: Mastery & Projects</a>
+<li><a href="week6.html">Week 6: Mastery & Projects</a>
 <ul>
-<li><a href="pages/day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
-<li><a href="pages/day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
-<li><a href="pages/day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
-<li><a href="pages/day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
-<li><a href="pages/day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
+<li><a href="day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
+<li><a href="day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
+<li><a href="day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
+<li><a href="day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
+<li><a href="day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
 </ul>
 </li>
 </ul>
   </nav>
   <div class="content">
-<h2 id="complete-training-with-video-resources-ai-learning-prompts">Complete
-Training with Video Resources &amp; AI Learning Prompts</h2>
-<p><strong>Duration:</strong> 30 Days (6 weeks, 5 days/week)<br/>
-<strong>Daily Time:</strong> 4 hours<br/>
-<strong>Approach:</strong> Alternating Excel &amp; SQL with mirrored
-concepts<br/>
-<strong>Complexity:</strong> Gradual progression (beginner →
-intermediate → advanced)</p>
-<hr/>
-<h2 id="how-to-use-this-plan">📖 HOW TO USE THIS PLAN</h2>
-<h3 id="video-resources">Video Resources</h3>
-<p>Each day includes curated video tutorials to help you learn concepts
-visually.</p>
-<h3 id="ai-learning-prompts">AI Learning Prompts</h3>
-<p><strong>IMPORTANT:</strong> These prompts are for
-<strong>understanding concepts only</strong> - NOT for solving your
-assignments!</p>
+<h2 id="day-18-day-18-sql---case-statements--pivot-unpivot">DAY 18: SQL - CASE Statements &amp; PIVOT/UNPIVOT</h2>
+<p><strong>Learning Objectives:</strong>
+- Master CASE expressions for conditional logic
+- Create calculated columns with CASE
+- Use PIVOT to transform rows to columns
+- Use UNPIVOT to transform columns to rows
+- Apply conditional aggregations</p>
+<h3 id="topics-covered-hour-1---60-min-18">Topics Covered (60 min):</h3>
+<p><strong>1. CASE Expressions - Simple CASE</strong>
+- Conditional logic in SQL
+- Syntax: <code>CASE column WHEN value THEN result END</code>
+- Example: <code>CASE Category WHEN 'Tech' THEN 'Technology' END</code>
+- Use in SELECT, WHERE, ORDER BY</p>
+<p><strong>2. CASE Expressions - Searched CASE</strong>
+- Multiple conditions
+- Syntax: <code>CASE WHEN condition THEN result ELSE default END</code>
+- Example: Categorize sales as High/Medium/Low
+- Can use AND, OR, comparison operators</p>
+<p><strong>3. PIVOT Operator</strong>
+- Transform rows into columns
+- Syntax: <code>PIVOT (AGG(column) FOR pivot_column IN ([value1], [value2]))</code>
+- Example: Sales by year as columns instead of rows
+- Creates crosstab/matrix format</p>
+<p><strong>4. UNPIVOT Operator</strong>
+- Transform columns into rows
+- Normalize wide tables
+- Example: Convert Q1, Q2, Q3, Q4 columns to Quarter and Sales rows
+- Inverse of PIVOT operation</p>
+<h3 id="video-resources-18">Video Resources:</h3>
+<ol type="1">
+<li><p><strong>Difference between DATEDIFF and DATEADD</strong> (8:21)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=V4STN2DPVc8" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=V4STN2DPVc8</a></p></li>
+<li><p><strong>DateAdd and DateDiff function in SQL server</strong> (4:53)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=dtw8-LSrpz4" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=dtw8-LSrpz4</a></p></li>
+<li><p><strong>DATEPART, DATEADD and DATEDIFF Functions in SQL</strong> (7:50)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=MMj1tgVenHM" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=MMj1tgVenHM</a></p></li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-18">AI Learning Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding CASE:</strong></p>
+<pre><code>I'm learning SQL CASE statements. Please explain:
+
+1. What is the difference between simple CASE and searched CASE?
+2. Show me how to categorize sales amounts (&lt; 100 = Low, 100-500 = Medium, &gt; 500 = High)
+3. How do I use CASE in WHERE clause and ORDER BY?
+4. Provide examples for customer segmentation (Active, Inactive, New)
+5. Show conditional aggregation examples
+
+Use SQL Server syntax with clear examples.</code></pre>
+<p><strong>Understanding PIVOT/UNPIVOT:</strong></p>
+<pre><code>Help me understand PIVOT and UNPIVOT:
+
+1. What does PIVOT do and when should I use it?
+2. Show me how to convert sales data from rows to columns (months as columns)
+3. What is UNPIVOT and when do I need it?
+4. How do I pivot by multiple columns?
+5. Provide examples using sales data by region and time period
+
+Explain with step-by-step examples.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-18">Guided Practice (60 min):</h3>
+<div class="practice-note">
+<p><strong>📝 How to approach Guided Practice:</strong></p>
 <ul>
-<li>✅ <strong>USE prompts to:</strong> Learn concepts, understand
-theory, see different examples</li>
-<li>❌ <strong>DON’T use prompts to:</strong> Solve practice problems,
-complete assignments, cheat</li>
+<li><strong>Follow step-by-step:</strong> Work through each exercise in order</li>
+<li><strong>Use provided resources:</strong> Reference the video tutorials and AI prompts if you get stuck</li>
+<li><strong>Verify your work:</strong> Check your results match expected outcomes</li>
+<li><strong>Take notes:</strong> Document key learnings and shortcuts you discover</li>
+<li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
-<p><strong>How to use:</strong> 1. Copy the prompt (including the
-backticks) 2. Paste into Claude or ChatGPT 3. Read and understand the
-explanation 4. Then solve YOUR practice problems yourself!</p>
-<hr/>
-<h2 id="program-overview">PROGRAM OVERVIEW</h2>
-<h3 id="pacing-strategy">Pacing Strategy:</h3>
+</div>
+<p><em>Create customer segments with CASE, build sales matrix with PIVOT, normalize data with UNPIVOT</em></p>
+<h3 id="independent-practice-hour-3---60-min-18">Independent Practice (60 min):</h3>
+<div class="practice-note">
+<p><strong>💡 Hints for Independent Practice:</strong></p>
 <ul>
-<li><strong>Days 1-10:</strong> Light (8-10 practice problems) - ONE
-major concept</li>
-<li><strong>Days 11-20:</strong> Medium (12-15 problems) - TWO related
-concepts</li>
-<li><strong>Days 21-30:</strong> Advanced (15-20 problems) - Complex
-integrated topics</li>
+<li><strong>Start simple:</strong> Begin with basic variations before attempting complex modifications</li>
+<li><strong>Break it down:</strong> Divide complex problems into smaller, manageable steps</li>
+<li><strong>Test incrementally:</strong> Verify each step works before moving to the next</li>
+<li><strong>Use documentation:</strong> Refer to official docs or tutorials when needed</li>
+<li><strong>Experiment:</strong> Try different approaches to find what works best</li>
 </ul>
-<h3 id="resources">Resources:</h3>
-<p><strong>Datasets:</strong> - Superstore Sales:
-<a class="external-link" href="https://www.kaggle.com/datasets/vivek468/superstore-dataset-final" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.kaggle.com/datasets/vivek468/superstore-dataset-final</a>
-Employee:
-<a class="external-link" href="https://www.kaggle.com/datasets/rhuebner/human-resources-data-set" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.kaggle.com/datasets/rhuebner/human-resources-data-set</a></p>
-<p><strong>Software:</strong> - Excel: Microsoft Excel 2016+ or
-LibreOffice Calc - SQL: SQLite Browser (<a class="external-link" href="https://sqlitebrowser.org/" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://sqlitebrowser.org/</a> OR
-SQL Server + SSMS</p>
+</div>
+<p>Apply the concepts learned to different datasets and scenarios.</p>
+<h3 id="daily-assignment-hour-4---60-min-18">Daily Assignment (60 min):</h3>
+<p><strong>Assignment:</strong></p>
+<ul>
+<li><strong>Sales Categorization:</strong>CASE to categorize products by price range, sales performance</li>
+<li><strong>PIVOT Report:</strong>Create sales report with months as columns, regions as rows</li>
+<li><strong>Conditional Aggregation:</strong>Count customers by segment, sum sales by category using CASE</li>
+</ul>
+<h3 id="expected-outcomes-18">Expected Outcomes:</h3>
+<ul>
+<li>Master CASE expressions for conditional logic</li>
+<li>Create calculated columns with CASE</li>
+<li>Use PIVOT to transform rows to columns</li>
+<li>Use UNPIVOT to transform columns to rows</li>
+<li>Apply conditional aggregations</li>
+</ul>
 <hr/>
+<h2 id="quick-quiz-day-18">📝 Day 18 Quick Quiz - Test Your Knowledge!</h2>
+<div class="quiz-container" data-day="18">
+<div class="quiz-question" data-correct="1" data-question="1">
+<p class="question-text"><strong>Q1.</strong> What is the primary focus of Day 18?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day18_q1" type="radio" value="0"/>
+<span class="option-text">Basic formulas</span>
+</label>
+<label class="quiz-option">
+<input name="day18_q1" type="radio" value="1"/>
+<span class="option-text">Advanced data analysis techniques</span>
+</label>
+<label class="quiz-option">
+<input name="day18_q1" type="radio" value="2"/>
+<span class="option-text">Simple formatting</span>
+</label>
+<label class="quiz-option">
+<input name="day18_q1" type="radio" value="3"/>
+<span class="option-text">Data entry</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Day 18 covers advanced analytical methods building on earlier concepts.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="2">
+<p class="question-text"><strong>Q2.</strong> Which skill from Day 18 is most valuable for business analysis?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day18_q2" type="radio" value="0"/>
+<span class="option-text">Copy-paste</span>
+</label>
+<label class="quiz-option">
+<input name="day18_q2" type="radio" value="1"/>
+<span class="option-text">The core technique taught today</span>
+</label>
+<label class="quiz-option">
+<input name="day18_q2" type="radio" value="2"/>
+<span class="option-text">Font selection</span>
+</label>
+<label class="quiz-option">
+<input name="day18_q2" type="radio" value="3"/>
+<span class="option-text">Print settings</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Day 18 focuses on practical, business-critical skills.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="3">
+<p class="question-text"><strong>Q3.</strong> How does Day 18 build on previous lessons?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day18_q3" type="radio" value="0"/>
+<span class="option-text">It doesn't</span>
+</label>
+<label class="quiz-option">
+<input name="day18_q3" type="radio" value="1"/>
+<span class="option-text">Combines earlier concepts with new advanced techniques</span>
+</label>
+<label class="quiz-option">
+<input name="day18_q3" type="radio" value="2"/>
+<span class="option-text">Repeats Day 1</span>
+</label>
+<label class="quiz-option">
+<input name="day18_q3" type="radio" value="3"/>
+<span class="option-text">Unrelated content</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Day 18 integrates foundational skills with more sophisticated approaches.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="4">
+<p class="question-text"><strong>Q4.</strong> What type of problems does Day 18 help solve?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day18_q4" type="radio" value="0"/>
+<span class="option-text">Simple calculations</span>
+</label>
+<label class="quiz-option">
+<input name="day18_q4" type="radio" value="1"/>
+<span class="option-text">Complex real-world data challenges</span>
+</label>
+<label class="quiz-option">
+<input name="day18_q4" type="radio" value="2"/>
+<span class="option-text">Basic addition</span>
+</label>
+<label class="quiz-option">
+<input name="day18_q4" type="radio" value="3"/>
+<span class="option-text">None</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Day 18 prepares you for complex analytical scenarios.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="5">
+<p class="question-text"><strong>Q5.</strong> What's the best way to practice Day 18 skills?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day18_q5" type="radio" value="0"/>
+<span class="option-text">Just read about it</span>
+</label>
+<label class="quiz-option">
+<input name="day18_q5" type="radio" value="1"/>
+<span class="option-text">Apply to real datasets using the examples provided</span>
+</label>
+<label class="quiz-option">
+<input name="day18_q5" type="radio" value="2"/>
+<span class="option-text">Memorize formulas</span>
+</label>
+<label class="quiz-option">
+<input name="day18_q5" type="radio" value="3"/>
+<span class="option-text">Skip exercises</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Hands-on practice with realistic data builds true competency.</p>
+</div>
+</div>
+</div>
   </div>
 </div>
 <div class="feedback-bar">
