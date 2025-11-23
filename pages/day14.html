@@ -1147,128 +1147,128 @@ Provide practical examples for financial analysis.</code></pre>
 <h2 id="quick-quiz-day-14">📝 Day 14 Quick Quiz - Test Your Knowledge!</h2>
 <div class="quiz-container" data-day="14">
 <div class="quiz-question" data-correct="1" data-question="1">
-<p class="question-text"><strong>Q1.</strong> What key concept from Day 14?</p>
+<p class="question-text"><strong>Q1.</strong> What does LAG() function do?</p>
 <div class="quiz-options">
 <label class="quiz-option">
 <input name="day14_q1" type="radio" value="0"/>
-<span class="option-text">Basic formulas</span>
+<span class="option-text">Speeds up query</span>
 </label>
 <label class="quiz-option">
 <input name="day14_q1" type="radio" value="1"/>
-<span class="option-text">Main topic covered</span>
+<span class="option-text">Accesses data from a previous row in the result set</span>
 </label>
 <label class="quiz-option">
 <input name="day14_q1" type="radio" value="2"/>
-<span class="option-text">Random feature</span>
+<span class="option-text">Delays execution</span>
 </label>
 <label class="quiz-option">
 <input name="day14_q1" type="radio" value="3"/>
-<span class="option-text">Unrelated</span>
+<span class="option-text">Sorts data</span>
 </label>
 </div>
 <div class="quiz-feedback" style="display:none;">
 <p class="feedback-text"></p>
-<p class="explanation">Day 14 core concept.</p>
+<p class="explanation">LAG() lets you access values from the previous row without a self-join.</p>
 </div>
 </div>
 <div class="quiz-question" data-correct="1" data-question="2">
-<p class="question-text"><strong>Q2.</strong> Which feature is most important?</p>
+<p class="question-text"><strong>Q2.</strong> What does LEAD() function return?</p>
 <div class="quiz-options">
 <label class="quiz-option">
 <input name="day14_q2" type="radio" value="0"/>
-<span class="option-text">Feature A</span>
+<span class="option-text">First row</span>
 </label>
 <label class="quiz-option">
 <input name="day14_q2" type="radio" value="1"/>
-<span class="option-text">Primary feature taught</span>
+<span class="option-text">Value from the next row in the result set</span>
 </label>
 <label class="quiz-option">
 <input name="day14_q2" type="radio" value="2"/>
-<span class="option-text">Feature C</span>
+<span class="option-text">Last row</span>
 </label>
 <label class="quiz-option">
 <input name="day14_q2" type="radio" value="3"/>
-<span class="option-text">Feature D</span>
+<span class="option-text">NULL</span>
 </label>
 </div>
 <div class="quiz-feedback" style="display:none;">
 <p class="feedback-text"></p>
-<p class="explanation">Day 14 key feature.</p>
+<p class="explanation">LEAD() retrieves values from the following row in the ordered result set.</p>
 </div>
 </div>
 <div class="quiz-question" data-correct="1" data-question="3">
-<p class="question-text"><strong>Q3.</strong> How to apply Day 14 technique?</p>
+<p class="question-text"><strong>Q3.</strong> How do you calculate a running total in SQL?</p>
 <div class="quiz-options">
 <label class="quiz-option">
 <input name="day14_q3" type="radio" value="0"/>
-<span class="option-text">Method A</span>
+<span class="option-text">Use SUM() with WHERE</span>
 </label>
 <label class="quiz-option">
 <input name="day14_q3" type="radio" value="1"/>
-<span class="option-text">Steps learned today</span>
+<span class="option-text">Use SUM() OVER (ORDER BY date ROWS UNBOUNDED PRECEDING)</span>
 </label>
 <label class="quiz-option">
 <input name="day14_q3" type="radio" value="2"/>
-<span class="option-text">Method C</span>
+<span class="option-text">Use TOTAL()</span>
 </label>
 <label class="quiz-option">
 <input name="day14_q3" type="radio" value="3"/>
-<span class="option-text">Method D</span>
+<span class="option-text">Use COUNT()</span>
 </label>
 </div>
 <div class="quiz-feedback" style="display:none;">
 <p class="feedback-text"></p>
-<p class="explanation">Day 14 best practice.</p>
+<p class="explanation">Window function with ROWS UNBOUNDED PRECEDING calculates cumulative sum.</p>
 </div>
 </div>
 <div class="quiz-question" data-correct="1" data-question="4">
-<p class="question-text"><strong>Q4.</strong> Correct syntax from Day 14?</p>
+<p class="question-text"><strong>Q4.</strong> What does ROWS BETWEEN 1 PRECEDING AND CURRENT ROW mean?</p>
 <div class="quiz-options">
 <label class="quiz-option">
 <input name="day14_q4" type="radio" value="0"/>
-<span class="option-text">Syntax A</span>
+<span class="option-text">All rows</span>
 </label>
 <label class="quiz-option">
 <input name="day14_q4" type="radio" value="1"/>
-<span class="option-text">Syntax from lesson</span>
+<span class="option-text">Current row and the one before it</span>
 </label>
 <label class="quiz-option">
 <input name="day14_q4" type="radio" value="2"/>
-<span class="option-text">Syntax C</span>
+<span class="option-text">Just current row</span>
 </label>
 <label class="quiz-option">
 <input name="day14_q4" type="radio" value="3"/>
-<span class="option-text">Syntax D</span>
+<span class="option-text">All previous rows</span>
 </label>
 </div>
 <div class="quiz-feedback" style="display:none;">
 <p class="feedback-text"></p>
-<p class="explanation">Day 14 correct syntax.</p>
+<p class="explanation">This window frame includes the current row and one row before it (2 rows total).</p>
 </div>
 </div>
 <div class="quiz-question" data-correct="1" data-question="5">
-<p class="question-text"><strong>Q5.</strong> When to use Day 14 method?</p>
+<p class="question-text"><strong>Q5.</strong> Can you use multiple window functions in one query?</p>
 <div class="quiz-options">
 <label class="quiz-option">
 <input name="day14_q5" type="radio" value="0"/>
-<span class="option-text">Scenario A</span>
+<span class="option-text">No, only one allowed</span>
 </label>
 <label class="quiz-option">
 <input name="day14_q5" type="radio" value="1"/>
-<span class="option-text">Matching examples</span>
+<span class="option-text">Yes, you can use multiple different window functions</span>
 </label>
 <label class="quiz-option">
 <input name="day14_q5" type="radio" value="2"/>
-<span class="option-text">Scenario C</span>
+<span class="option-text">Only with PARTITION BY</span>
 </label>
 <label class="quiz-option">
 <input name="day14_q5" type="radio" value="3"/>
-<span class="option-text">Never</span>
+<span class="option-text">Only in subqueries</span>
 </label>
 </div>
 <div class="quiz-feedback" style="display:none;">
 <p class="feedback-text"></p>
-<p class="explanation">Day 14 appropriate context.</p>
+<p class="explanation">You can use multiple window functions in SELECT, each with different specifications.</p>
 </div>
 </div>
 </div>

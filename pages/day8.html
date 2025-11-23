@@ -1189,128 +1189,128 @@ match!</li>
 <h2 id="quick-quiz-day-8">📝 Day 8 Quick Quiz - Test Your Knowledge!</h2>
 <div class="quiz-container" data-day="8">
 <div class="quiz-question" data-correct="1" data-question="1">
-<p class="question-text"><strong>Q1.</strong> What key concept from Day 8?</p>
+<p class="question-text"><strong>Q1.</strong> What does GROUP BY do?</p>
 <div class="quiz-options">
 <label class="quiz-option">
 <input name="day8_q1" type="radio" value="0"/>
-<span class="option-text">Basic formulas</span>
+<span class="option-text">Sorts results</span>
 </label>
 <label class="quiz-option">
 <input name="day8_q1" type="radio" value="1"/>
-<span class="option-text">Main topic covered</span>
+<span class="option-text">Groups rows with same values in specified columns</span>
 </label>
 <label class="quiz-option">
 <input name="day8_q1" type="radio" value="2"/>
-<span class="option-text">Random feature</span>
+<span class="option-text">Filters data</span>
 </label>
 <label class="quiz-option">
 <input name="day8_q1" type="radio" value="3"/>
-<span class="option-text">Unrelated</span>
+<span class="option-text">Creates groups in database</span>
 </label>
 </div>
 <div class="quiz-feedback" style="display:none;">
 <p class="feedback-text"></p>
-<p class="explanation">Day 8 core concept.</p>
+<p class="explanation">GROUP BY arranges rows into groups based on column values for aggregation.</p>
 </div>
 </div>
 <div class="quiz-question" data-correct="1" data-question="2">
-<p class="question-text"><strong>Q2.</strong> Which feature is most important?</p>
+<p class="question-text"><strong>Q2.</strong> What's the difference between WHERE and HAVING?</p>
 <div class="quiz-options">
 <label class="quiz-option">
 <input name="day8_q2" type="radio" value="0"/>
-<span class="option-text">Feature A</span>
+<span class="option-text">No difference</span>
 </label>
 <label class="quiz-option">
 <input name="day8_q2" type="radio" value="1"/>
-<span class="option-text">Primary feature taught</span>
+<span class="option-text">WHERE filters rows before grouping, HAVING filters groups after aggregation</span>
 </label>
 <label class="quiz-option">
 <input name="day8_q2" type="radio" value="2"/>
-<span class="option-text">Feature C</span>
+<span class="option-text">HAVING is faster</span>
 </label>
 <label class="quiz-option">
 <input name="day8_q2" type="radio" value="3"/>
-<span class="option-text">Feature D</span>
+<span class="option-text">WHERE works with GROUP BY, HAVING doesn't</span>
 </label>
 </div>
 <div class="quiz-feedback" style="display:none;">
 <p class="feedback-text"></p>
-<p class="explanation">Day 8 key feature.</p>
+<p class="explanation">WHERE filters individual rows; HAVING filters aggregated groups.</p>
 </div>
 </div>
-<div class="quiz-question" data-correct="1" data-question="3">
-<p class="question-text"><strong>Q3.</strong> How to apply Day 8 technique?</p>
+<div class="quiz-question" data-correct="0" data-question="3">
+<p class="question-text"><strong>Q3.</strong> Which is correct syntax for GROUP BY?</p>
 <div class="quiz-options">
 <label class="quiz-option">
 <input name="day8_q3" type="radio" value="0"/>
-<span class="option-text">Method A</span>
+<span class="option-text">SELECT dept, SUM(salary) FROM emp GROUP BY dept</span>
 </label>
 <label class="quiz-option">
 <input name="day8_q3" type="radio" value="1"/>
-<span class="option-text">Steps learned today</span>
+<span class="option-text">SELECT dept, SUM(salary) GROUP BY dept FROM emp</span>
 </label>
 <label class="quiz-option">
 <input name="day8_q3" type="radio" value="2"/>
-<span class="option-text">Method C</span>
+<span class="option-text">GROUP BY dept SELECT dept, SUM(salary) FROM emp</span>
 </label>
 <label class="quiz-option">
 <input name="day8_q3" type="radio" value="3"/>
-<span class="option-text">Method D</span>
+<span class="option-text">FROM emp SELECT dept, SUM(salary) GROUP BY dept</span>
 </label>
 </div>
 <div class="quiz-feedback" style="display:none;">
 <p class="feedback-text"></p>
-<p class="explanation">Day 8 best practice.</p>
+<p class="explanation">GROUP BY comes after FROM and WHERE, before HAVING and ORDER BY.</p>
 </div>
 </div>
 <div class="quiz-question" data-correct="1" data-question="4">
-<p class="question-text"><strong>Q4.</strong> Correct syntax from Day 8?</p>
+<p class="question-text"><strong>Q4.</strong> Can you use aggregate functions in WHERE clause?</p>
 <div class="quiz-options">
 <label class="quiz-option">
 <input name="day8_q4" type="radio" value="0"/>
-<span class="option-text">Syntax A</span>
+<span class="option-text">Yes, always</span>
 </label>
 <label class="quiz-option">
 <input name="day8_q4" type="radio" value="1"/>
-<span class="option-text">Syntax from lesson</span>
+<span class="option-text">No, use HAVING for aggregates</span>
 </label>
 <label class="quiz-option">
 <input name="day8_q4" type="radio" value="2"/>
-<span class="option-text">Syntax C</span>
+<span class="option-text">Only with GROUP BY</span>
 </label>
 <label class="quiz-option">
 <input name="day8_q4" type="radio" value="3"/>
-<span class="option-text">Syntax D</span>
+<span class="option-text">Only COUNT()</span>
 </label>
 </div>
 <div class="quiz-feedback" style="display:none;">
 <p class="feedback-text"></p>
-<p class="explanation">Day 8 correct syntax.</p>
+<p class="explanation">Aggregate functions (SUM, COUNT, etc.) must be filtered with HAVING, not WHERE.</p>
 </div>
 </div>
 <div class="quiz-question" data-correct="1" data-question="5">
-<p class="question-text"><strong>Q5.</strong> When to use Day 8 method?</p>
+<p class="question-text"><strong>Q5.</strong> What does COUNT(*) return when used with GROUP BY?</p>
 <div class="quiz-options">
 <label class="quiz-option">
 <input name="day8_q5" type="radio" value="0"/>
-<span class="option-text">Scenario A</span>
+<span class="option-text">Total rows in table</span>
 </label>
 <label class="quiz-option">
 <input name="day8_q5" type="radio" value="1"/>
-<span class="option-text">Matching examples</span>
+<span class="option-text">Number of rows in each group</span>
 </label>
 <label class="quiz-option">
 <input name="day8_q5" type="radio" value="2"/>
-<span class="option-text">Scenario C</span>
+<span class="option-text">Number of groups</span>
 </label>
 <label class="quiz-option">
 <input name="day8_q5" type="radio" value="3"/>
-<span class="option-text">Never</span>
+<span class="option-text">Number of columns</span>
 </label>
 </div>
 <div class="quiz-feedback" style="display:none;">
 <p class="feedback-text"></p>
-<p class="explanation">Day 8 appropriate context.</p>
+<p class="explanation">COUNT(*) with GROUP BY returns the count for each group separately.</p>
 </div>
 </div>
 </div>

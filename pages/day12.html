@@ -1206,128 +1206,128 @@ Explain with simple examples suitable for beginners.</code></pre>
 <h2 id="quick-quiz-day-12">📝 Day 12 Quick Quiz - Test Your Knowledge!</h2>
 <div class="quiz-container" data-day="12">
 <div class="quiz-question" data-correct="1" data-question="1">
-<p class="question-text"><strong>Q1.</strong> What key concept from Day 12?</p>
+<p class="question-text"><strong>Q1.</strong> What does ROW_NUMBER() do in SQL?</p>
 <div class="quiz-options">
 <label class="quiz-option">
 <input name="day12_q1" type="radio" value="0"/>
-<span class="option-text">Basic formulas</span>
+<span class="option-text">Counts total rows</span>
 </label>
 <label class="quiz-option">
 <input name="day12_q1" type="radio" value="1"/>
-<span class="option-text">Main topic covered</span>
+<span class="option-text">Assigns unique sequential number to each row</span>
 </label>
 <label class="quiz-option">
 <input name="day12_q1" type="radio" value="2"/>
-<span class="option-text">Random feature</span>
+<span class="option-text">Sums row values</span>
 </label>
 <label class="quiz-option">
 <input name="day12_q1" type="radio" value="3"/>
-<span class="option-text">Unrelated</span>
+<span class="option-text">Deletes rows</span>
 </label>
 </div>
 <div class="quiz-feedback" style="display:none;">
 <p class="feedback-text"></p>
-<p class="explanation">Day 12 core concept.</p>
+<p class="explanation">ROW_NUMBER() assigns a unique sequential integer to rows within a partition.</p>
 </div>
 </div>
 <div class="quiz-question" data-correct="1" data-question="2">
-<p class="question-text"><strong>Q2.</strong> Which feature is most important?</p>
+<p class="question-text"><strong>Q2.</strong> What's the difference between ROW_NUMBER() and RANK()?</p>
 <div class="quiz-options">
 <label class="quiz-option">
 <input name="day12_q2" type="radio" value="0"/>
-<span class="option-text">Feature A</span>
+<span class="option-text">No difference</span>
 </label>
 <label class="quiz-option">
 <input name="day12_q2" type="radio" value="1"/>
-<span class="option-text">Primary feature taught</span>
+<span class="option-text">RANK() gives same rank to ties, ROW_NUMBER() doesn't</span>
 </label>
 <label class="quiz-option">
 <input name="day12_q2" type="radio" value="2"/>
-<span class="option-text">Feature C</span>
+<span class="option-text">ROW_NUMBER() is faster</span>
 </label>
 <label class="quiz-option">
 <input name="day12_q2" type="radio" value="3"/>
-<span class="option-text">Feature D</span>
+<span class="option-text">RANK() only works with numbers</span>
 </label>
 </div>
 <div class="quiz-feedback" style="display:none;">
 <p class="feedback-text"></p>
-<p class="explanation">Day 12 key feature.</p>
+<p class="explanation">RANK() assigns the same rank to equal values; ROW_NUMBER() always assigns unique numbers.</p>
 </div>
 </div>
 <div class="quiz-question" data-correct="1" data-question="3">
-<p class="question-text"><strong>Q3.</strong> How to apply Day 12 technique?</p>
+<p class="question-text"><strong>Q3.</strong> What does PARTITION BY do in window functions?</p>
 <div class="quiz-options">
 <label class="quiz-option">
 <input name="day12_q3" type="radio" value="0"/>
-<span class="option-text">Method A</span>
+<span class="option-text">Deletes data</span>
 </label>
 <label class="quiz-option">
 <input name="day12_q3" type="radio" value="1"/>
-<span class="option-text">Steps learned today</span>
+<span class="option-text">Divides result set into groups for the function</span>
 </label>
 <label class="quiz-option">
 <input name="day12_q3" type="radio" value="2"/>
-<span class="option-text">Method C</span>
+<span class="option-text">Joins tables</span>
 </label>
 <label class="quiz-option">
 <input name="day12_q3" type="radio" value="3"/>
-<span class="option-text">Method D</span>
+<span class="option-text">Sorts results</span>
 </label>
 </div>
 <div class="quiz-feedback" style="display:none;">
 <p class="feedback-text"></p>
-<p class="explanation">Day 12 best practice.</p>
+<p class="explanation">PARTITION BY divides rows into groups, and the window function applies to each group separately.</p>
 </div>
 </div>
-<div class="quiz-question" data-correct="1" data-question="4">
-<p class="question-text"><strong>Q4.</strong> Correct syntax from Day 12?</p>
+<div class="quiz-question" data-correct="0" data-question="4">
+<p class="question-text"><strong>Q4.</strong> Which SQL function extracts the year from a date?</p>
 <div class="quiz-options">
 <label class="quiz-option">
 <input name="day12_q4" type="radio" value="0"/>
-<span class="option-text">Syntax A</span>
+<span class="option-text">YEAR(date)</span>
 </label>
 <label class="quiz-option">
 <input name="day12_q4" type="radio" value="1"/>
-<span class="option-text">Syntax from lesson</span>
+<span class="option-text">GETYEAR(date)</span>
 </label>
 <label class="quiz-option">
 <input name="day12_q4" type="radio" value="2"/>
-<span class="option-text">Syntax C</span>
+<span class="option-text">date.YEAR</span>
 </label>
 <label class="quiz-option">
 <input name="day12_q4" type="radio" value="3"/>
-<span class="option-text">Syntax D</span>
+<span class="option-text">EXTRACT_YEAR(date)</span>
 </label>
 </div>
 <div class="quiz-feedback" style="display:none;">
 <p class="feedback-text"></p>
-<p class="explanation">Day 12 correct syntax.</p>
+<p class="explanation">YEAR() function extracts the year portion from a date value.</p>
 </div>
 </div>
 <div class="quiz-question" data-correct="1" data-question="5">
-<p class="question-text"><strong>Q5.</strong> When to use Day 12 method?</p>
+<p class="question-text"><strong>Q5.</strong> What does DENSE_RANK() do differently than RANK()?</p>
 <div class="quiz-options">
 <label class="quiz-option">
 <input name="day12_q5" type="radio" value="0"/>
-<span class="option-text">Scenario A</span>
+<span class="option-text">Nothing different</span>
 </label>
 <label class="quiz-option">
 <input name="day12_q5" type="radio" value="1"/>
-<span class="option-text">Matching examples</span>
+<span class="option-text">DENSE_RANK() has no gaps in ranking sequence</span>
 </label>
 <label class="quiz-option">
 <input name="day12_q5" type="radio" value="2"/>
-<span class="option-text">Scenario C</span>
+<span class="option-text">DENSE_RANK() is slower</span>
 </label>
 <label class="quiz-option">
 <input name="day12_q5" type="radio" value="3"/>
-<span class="option-text">Never</span>
+<span class="option-text">DENSE_RANK() only works with dates</span>
 </label>
 </div>
 <div class="quiz-feedback" style="display:none;">
 <p class="feedback-text"></p>
-<p class="explanation">Day 12 appropriate context.</p>
+<p class="explanation">DENSE_RANK() doesn't skip numbers after ties, while RANK() does (1,2,2,4 vs 1,2,2,3).</p>
 </div>
 </div>
 </div>
