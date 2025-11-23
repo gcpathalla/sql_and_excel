@@ -1135,15 +1135,217 @@ min):</h3>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<ol type="1">
-<li>JOIN Orders and Customers to show customer names with each
-order</li>
-<li>JOIN Orders and Products to show product names</li>
-<li>LEFT JOIN to find customers without any orders</li>
-<li>3-table JOIN: Orders + Customers + Products (comprehensive
-view)</li>
-<li>Calculate total sales per customer using JOIN + GROUP BY</li>
+<p><em>Using Superstore Sales with separate tables - SQL Practice</em></p>
+<div class="section-card">
+<p><strong>📝 Setup Instructions:</strong></p>
+<ol>
+<li>Open SQLite Browser with your database</li>
+<li>You should have 3 tables: Orders, Customers, Products</li>
+<li><strong>Orders table:</strong> OrderID, CustomerID, ProductID, Quantity, OrderDate</li>
+<li><strong>Customers table:</strong> CustomerID, CustomerName, Region, Email</li>
+<li><strong>Products table:</strong> ProductID, ProductName, Category, Price</li>
 </ol>
+<p><strong>💡 JOINs = SQL's VLOOKUP:</strong> Remember Day 5 (Excel VLOOKUP)? SQL JOINs do the same thing - combine related data from multiple tables! But JOINs are more powerful and flexible.</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 1: Your First INNER JOIN - Add Customer Names</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Type this query to join Orders with Customers:
+<pre><code>SELECT
+    Orders.OrderID,
+    Orders.CustomerID,
+    Customers.CustomerName,
+    Customers.Region,
+    Orders.Quantity
+FROM Orders
+INNER JOIN Customers
+    ON Orders.CustomerID = Customers.CustomerID
+LIMIT 20;</code></pre>
+</li>
+<li>Click Execute (▶️)</li>
+<li>You'll see order data WITH customer details!</li>
+</ol>
+<p><strong>🔍 Understanding the Syntax:</strong></p>
+<ul>
+<li><code>FROM Orders</code> = Start with Orders table (left table)</li>
+<li><code>INNER JOIN Customers</code> = Connect to Customers table (right table)</li>
+<li><code>ON Orders.CustomerID = Customers.CustomerID</code> = Matching condition (like VLOOKUP lookup value)</li>
+<li><code>Orders.OrderID</code> = Specify which table each column comes from</li>
+</ul>
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li>INNER JOIN returns only rows where match exists in BOTH tables</li>
+<li>Always specify table name for columns: <code>Orders.CustomerID</code></li>
+<li>The ON clause is like the VLOOKUP match - it connects related records</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Orders with customer names and regions added</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: JOIN to Add Product Information</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Now join Orders with Products to get product details:
+<pre><code>SELECT
+    Orders.OrderID,
+    Orders.ProductID,
+    Products.ProductName,
+    Products.Category,
+    Products.Price,
+    Orders.Quantity,
+    (Products.Price * Orders.Quantity) AS TotalPrice
+FROM Orders
+INNER JOIN Products
+    ON Orders.ProductID = Products.ProductID
+ORDER BY TotalPrice DESC
+LIMIT 20;</code></pre>
+</li>
+<li>Notice we calculated TotalPrice directly in the query!</li>
+<li>This is the SQL equivalent of Day 5's VLOOKUP + multiplication</li>
+</ol>
+<p><strong>💡 JOIN vs VLOOKUP Comparison:</strong></p>
+<ul>
+<li><strong>Excel Day 5:</strong> <code>=VLOOKUP(C2, Products!A:D, 4, FALSE)</code></li>
+<li><strong>SQL Day 6:</strong> <code>INNER JOIN Products ON Orders.ProductID = Products.ProductID</code></li>
+<li>Same concept, different syntax!</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Orders with product names, categories, prices, and calculated totals</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: LEFT JOIN - Include ALL Orders (Even Without Matches)</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>LEFT JOIN keeps ALL rows from the left table, even if no match exists:
+<pre><code>SELECT
+    Orders.OrderID,
+    Orders.CustomerID,
+    Customers.CustomerName,
+    Customers.Region
+FROM Orders
+LEFT JOIN Customers
+    ON Orders.CustomerID = Customers.CustomerID;</code></pre>
+</li>
+<li>If an OrderID has a CustomerID not in the Customers table, it still shows (with NULL for customer fields)</li>
+<li>Try finding orders with missing customers:
+<pre><code>SELECT
+    Orders.OrderID,
+    Orders.CustomerID,
+    Customers.CustomerName
+FROM Orders
+LEFT JOIN Customers
+    ON Orders.CustomerID = Customers.CustomerID
+WHERE Customers.CustomerName IS NULL;</code></pre>
+This finds "orphaned" orders - orders without matching customers!
+</li>
+</ol>
+<p><strong>🎯 JOIN Types Comparison:</strong></p>
+<ul>
+<li><strong>INNER JOIN:</strong> Only rows with matches in BOTH tables (most common)</li>
+<li><strong>LEFT JOIN:</strong> ALL rows from left table + matching rows from right (right can be NULL)</li>
+<li><strong>RIGHT JOIN:</strong> ALL rows from right table + matching rows from left (left can be NULL)</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> All orders, including those without matching customers (if any)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Three-Table JOIN - Complete Order View</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Join all three tables for a comprehensive view:
+<pre><code>SELECT
+    Orders.OrderID,
+    Customers.CustomerName,
+    Customers.Region,
+    Products.ProductName,
+    Products.Category,
+    Products.Price,
+    Orders.Quantity,
+    (Products.Price * Orders.Quantity) AS TotalPrice
+FROM Orders
+INNER JOIN Customers
+    ON Orders.CustomerID = Customers.CustomerID
+INNER JOIN Products
+    ON Orders.ProductID = Products.ProductID
+ORDER BY TotalPrice DESC
+LIMIT 30;</code></pre>
+</li>
+<li>This single query combines data from 3 tables!</li>
+<li>You can add WHERE clauses too:
+<pre><code>WHERE Customers.Region = 'West' AND Products.Category = 'Technology'</code></pre>
+</li>
+</ol>
+<p><strong>💡 Multiple JOINs:</strong></p>
+<ul>
+<li>Stack JOINs one after another</li>
+<li>Each JOIN connects to the previous result</li>
+<li>You can join as many tables as needed</li>
+<li>This is database normalization in action!</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Complete order information with customer and product details in one query</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: JOIN + GROUP BY - Aggregate Across Tables</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Calculate total sales per customer using JOIN + GROUP BY:
+<pre><code>SELECT
+    Customers.CustomerName,
+    Customers.Region,
+    COUNT(Orders.OrderID) AS TotalOrders,
+    SUM(Products.Price * Orders.Quantity) AS TotalSales
+FROM Orders
+INNER JOIN Customers
+    ON Orders.CustomerID = Customers.CustomerID
+INNER JOIN Products
+    ON Orders.ProductID = Products.ProductID
+GROUP BY Customers.CustomerName, Customers.Region
+ORDER BY TotalSales DESC
+LIMIT 10;</code></pre>
+</li>
+<li>This finds your top 10 customers by total sales!</li>
+<li><strong>Try these variations:</strong>
+<ul>
+<li>Total sales by Region: <code>GROUP BY Customers.Region</code></li>
+<li>Total sales by Category: <code>GROUP BY Products.Category</code></li>
+<li>Top products: <code>GROUP BY Products.ProductName</code></li>
+</ul>
+</li>
+</ol>
+<p><strong>🎯 Combining Concepts:</strong></p>
+<p>This exercise combines:</p>
+<ul>
+<li>Day 2: SELECT, aggregate functions (SUM, COUNT)</li>
+<li>Day 4: WHERE clause (can add filters)</li>
+<li>Day 6: JOINs (connecting tables)</li>
+<li>Plus: GROUP BY (we'll cover more in Day 8)</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Customer ranking by total sales value</p>
+</div>
+
+<div class="section-card">
+<p><strong>🎯 Practice Goal Checkpoint:</strong></p>
+<p>By completing these 5 exercises, you should now be able to:</p>
+<ul>
+<li>Use INNER JOIN to combine data from multiple tables</li>
+<li>Understand the ON clause (matching condition)</li>
+<li>Use LEFT JOIN to include all rows from one table</li>
+<li>Join three or more tables in a single query</li>
+<li>Combine JOINs with WHERE, GROUP BY, and aggregates</li>
+<li>See the parallel between SQL JOINs and Excel VLOOKUPs</li>
+</ul>
+<p><strong>Key Insight:</strong> JOINs are how databases connect related data. Instead of storing everything in one giant table (like Excel), we normalize data into separate tables and JOIN them when needed. This is more efficient and reduces data duplication!</p>
+<p><strong>Excel vs SQL Data Combination:</strong></p>
+<ul>
+<li><strong>Excel (Day 5):</strong> VLOOKUP pulls one value at a time</li>
+<li><strong>SQL (Day 6):</strong> JOIN combines entire tables at once</li>
+<li>Same goal, but SQL is more powerful for large datasets!</li>
+</ul>
+<p><strong>Take a 5-minute break, then move on to Independent Practice!</strong></p>
+</div>
 <h3 id="independent-practice-hour-3---60-min-5">Independent Practice
 (60 min):</h3>
 <div class="practice-note">

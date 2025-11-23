@@ -1140,14 +1140,176 @@ min):</h3>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<p><em>Create separate Customer &amp; Product reference tables</em></p>
-<ol type="1">
-<li>VLOOKUP customer name by Customer ID</li>
-<li>VLOOKUP product price by Product Name</li>
-<li>XLOOKUP region by Customer ID</li>
-<li>Find product category for each product</li>
-<li>Handle missing lookups with IFERROR</li>
+<p><em>Using Superstore Sales dataset with separate reference tables - Excel Practice</em></p>
+<div class="section-card">
+<p><strong>📝 Setup Instructions:</strong></p>
+<ol>
+<li>Open Excel and create a new workbook "Day05_Practice.xlsx"</li>
+<li><strong>Sheet 1 (Orders):</strong> Your main order data with columns: OrderID, CustomerID, ProductID, Quantity, Date</li>
+<li><strong>Sheet 2 (Customers):</strong> Reference table with CustomerID, CustomerName, Region, Email</li>
+<li><strong>Sheet 3 (Products):</strong> Reference table with ProductID, ProductName, Category, Price</li>
+<li>You'll use VLOOKUP/XLOOKUP to pull information from reference tables into the Orders sheet</li>
 </ol>
+<p><strong>💡 Why Lookup Functions?</strong> Instead of duplicating customer/product details in every order row, we store them once in reference tables and "look them up" when needed. This is database normalization in Excel!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 1: Your First VLOOKUP - Find Customer Names</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Go to your Orders sheet</li>
+<li>Add a column header "Customer Name" (e.g., column E)</li>
+<li>Click on cell E2 (first data row)</li>
+<li>Type this formula:
+<pre><code>=VLOOKUP(B2, Customers!A:D, 2, FALSE)</code></pre>
+Let's break it down:
+<ul>
+<li><code>B2</code> = Lookup value (CustomerID in current row)</li>
+<li><code>Customers!A:D</code> = Table to search (Customers sheet, columns A-D)</li>
+<li><code>2</code> = Column index (return value from 2nd column = CustomerName)</li>
+<li><code>FALSE</code> = Exact match required</li>
+</ul>
+</li>
+<li>Press <kbd>Enter</kbd></li>
+<li>Copy the formula down to all order rows (double-click fill handle)</li>
+</ol>
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li>VLOOKUP always searches the FIRST column of your range</li>
+<li>FALSE = exact match (use this for IDs), TRUE = approximate match (for ranges)</li>
+<li>Use absolute references if needed: <code>$A$2:$D$100</code></li>
+<li>The "V" stands for "Vertical" - searches down columns</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Customer names appear next to their IDs in every order row</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: VLOOKUP Product Prices</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Add a "Unit Price" column in your Orders sheet (e.g., column F)</li>
+<li>In F2, type:
+<pre><code>=VLOOKUP(C2, Products!A:D, 4, FALSE)</code></pre>
+<ul>
+<li><code>C2</code> = ProductID to look up</li>
+<li><code>Products!A:D</code> = Product reference table</li>
+<li><code>4</code> = Return value from 4th column (Price)</li>
+</ul>
+</li>
+<li>Copy down to all rows</li>
+<li>Add a "Total Price" column (G): <code>=F2*D2</code> (Unit Price × Quantity)</li>
+<li>Copy this formula down too</li>
+</ol>
+<p><strong>🔍 Understanding Column Index:</strong></p>
+<ul>
+<li>If your Products table is: A=ProductID, B=ProductName, C=Category, D=Price</li>
+<li>Column index 1 = ProductID, 2 = ProductName, 3 = Category, 4 = Price</li>
+<li>To get category instead: <code>=VLOOKUP(C2, Products!A:D, 3, FALSE)</code></li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Each order shows unit price and calculated total price</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Handle Errors with IFERROR</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>VLOOKUPs return <code>#N/A</code> error when lookup value isn't found</li>
+<li>Wrap your VLOOKUP with IFERROR to handle this gracefully:
+<pre><code>=IFERROR(VLOOKUP(B2, Customers!A:D, 2, FALSE), "Customer Not Found")</code></pre>
+</li>
+<li>Now if a CustomerID doesn't exist, you see "Customer Not Found" instead of #N/A</li>
+<li><strong>Try it:</strong> Temporarily change a CustomerID to "999999" and watch the formula handle it</li>
+<li>Change it back after testing</li>
+</ol>
+<p><strong>💡 Error Handling Best Practices:</strong></p>
+<ul>
+<li>Always wrap VLOOKUPs in IFERROR for user-friendly error messages</li>
+<li>Alternative messages: "Not Found", "N/A", "Check Data", or even ""  (blank)</li>
+<li>Syntax: <code>=IFERROR(your_formula, value_if_error)</code></li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Clean data with user-friendly messages instead of #N/A errors</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: XLOOKUP - The Modern Alternative (Excel 365)</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>XLOOKUP is newer, more flexible than VLOOKUP</li>
+<li>Add a "Region" column (e.g., column H)</li>
+<li>In H2, type:
+<pre><code>=XLOOKUP(B2, Customers!A:A, Customers!C:C, "Not Found")</code></pre>
+Syntax:
+<ul>
+<li><code>B2</code> = Lookup value (CustomerID)</li>
+<li><code>Customers!A:A</code> = Where to search (CustomerID column)</li>
+<li><code>Customers!C:C</code> = What to return (Region column)</li>
+<li><code>"Not Found"</code> = Built-in error handling!</li>
+</ul>
+</li>
+<li>Press <kbd>Enter</kbd> and copy down</li>
+</ol>
+<p><strong>🎯 XLOOKUP Advantages over VLOOKUP:</strong></p>
+<ul>
+<li>Can search any column (not just first column)</li>
+<li>Can return columns to the LEFT of lookup column</li>
+<li>Built-in error handling (no IFERROR needed)</li>
+<li>Can search from bottom-up</li>
+<li>Generally faster and more intuitive</li>
+</ul>
+<p><strong>⚠️ Note:</strong> XLOOKUP only works in Excel 365/2021+. If you don't have it, continue using VLOOKUP or INDEX-MATCH</p>
+<p><strong>✅ Expected Result:</strong> Region data pulled from Customers table with built-in error handling</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: INDEX-MATCH - The Flexible Power Combo</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>INDEX-MATCH is more flexible than VLOOKUP and works in all Excel versions</li>
+<li>Add a "Product Category" column (e.g., column I)</li>
+<li>Type this formula:
+<pre><code>=INDEX(Products!C:C, MATCH(C2, Products!A:A, 0))</code></pre>
+Breaking it down:
+<ul>
+<li><code>MATCH(C2, Products!A:A, 0)</code> finds the row number where C2 (ProductID) appears in Products column A</li>
+<li><code>INDEX(Products!C:C, ...)</code> returns the value from that row in column C (Category)</li>
+<li><code>0</code> = exact match</li>
+</ul>
+</li>
+<li>Wrap in IFERROR for safety:
+<pre><code>=IFERROR(INDEX(Products!C:C, MATCH(C2, Products!A:A, 0)), "Not Found")</code></pre>
+</li>
+<li>Copy down to all rows</li>
+</ol>
+<p><strong>💡 Why INDEX-MATCH?</strong></p>
+<ul>
+<li>More flexible than VLOOKUP (can look left, not just right)</li>
+<li>Can change column references without rewriting formulas</li>
+<li>Works in all Excel versions (unlike XLOOKUP)</li>
+<li>Often faster with large datasets</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Product categories populated using INDEX-MATCH</p>
+</div>
+
+<div class="section-card">
+<p><strong>🎯 Practice Goal Checkpoint:</strong></p>
+<p>By completing these 5 exercises, you should now be able to:</p>
+<ul>
+<li>Use VLOOKUP to retrieve data from reference tables</li>
+<li>Understand VLOOKUP syntax and column index numbers</li>
+<li>Handle lookup errors gracefully with IFERROR</li>
+<li>Use XLOOKUP (Excel 365) with built-in error handling</li>
+<li>Apply INDEX-MATCH for flexible lookups</li>
+<li>Choose the right lookup function for your situation</li>
+</ul>
+<p><strong>Key Insight:</strong> Lookup functions connect related data across tables - this is how databases work! You're learning relational data concepts in Excel.</p>
+<p><strong>Comparison Guide:</strong></p>
+<ul>
+<li><strong>VLOOKUP:</strong> Classic, simple, but limited (only looks right)</li>
+<li><strong>XLOOKUP:</strong> Modern, powerful, easy - use if available</li>
+<li><strong>INDEX-MATCH:</strong> Most flexible, works everywhere, steeper learning curve</li>
+</ul>
+<p><strong>Take a 5-minute break, then move on to Independent Practice!</strong></p>
+</div>
 <h3 id="independent-practice-hour-3---60-min-4">Independent Practice
 (60 min):</h3>
 <div class="practice-note">
