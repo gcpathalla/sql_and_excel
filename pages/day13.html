@@ -1116,7 +1116,237 @@ Explain with practical examples.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<p><em>Create loan calculator with Goal Seek, build Data Tables for interest rate sensitivity, create budget scenarios</em></p>
+
+<div class="section-card">
+<p><strong>Exercise 1: Use Goal Seek to Find Break-Even Point</strong></p>
+<p><strong>Goal:</strong> Learn to use Goal Seek to find the input value needed to achieve a target result.</p>
+
+<p><strong>Setup - Create a simple profit model:</strong></p>
+<ol>
+<li>Cell A1: "Units Sold" | B1: 1000</li>
+<li>Cell A2: "Price per Unit" | B2: 50</li>
+<li>Cell A3: "Cost per Unit" | B3: 30</li>
+<li>Cell A4: "Fixed Costs" | B4: 15000</li>
+<li>Cell A5: "Profit" | B5: <code>=B1*(B2-B3)-B4</code></li>
+</ol>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Verify your formula works:</strong> B5 should show 5000 (profit with current inputs)</li>
+<li><strong>Open Goal Seek:</strong> Data tab → What-If Analysis → Goal Seek</li>
+<li><strong>In the Goal Seek dialog:</strong>
+<ul>
+<li>Set cell: B5 (the profit formula cell)</li>
+<li>To value: 0 (we want to break even, zero profit)</li>
+<li>By changing cell: B1 (units sold)</li>
+</ul>
+</li>
+<li><strong>Click OK</strong> - Goal Seek will calculate the result</li>
+<li><strong>Review the solution:</strong> B1 should now show 750 units - that's your break-even point</li>
+<li><strong>Click OK to accept</strong> or Cancel to revert</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Set cell must contain a formula</strong> - Goal Seek adjusts inputs to make the formula reach target</li>
+<li><strong>By changing cell must be a value cell</strong> - cannot be a formula</li>
+<li><strong>Goal Seek finds one solution</strong> - there might be other solutions, but it finds the first one</li>
+<li><strong>Undo available:</strong> Press Ctrl+Z if you want to revert after accepting</li>
+<li><strong>Iterative calculation:</strong> Goal Seek tries different values until it finds the answer (may take a few seconds)</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Goal Seek finds that you need to sell 750 units to break even (Profit = $0)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Create One-Variable Data Table for Loan Payments</strong></p>
+<p><strong>Goal:</strong> Use Data Tables to test multiple scenarios simultaneously.</p>
+
+<p><strong>Setup - Create a loan calculator:</strong></p>
+<ol>
+<li>Cell A1: "Loan Amount" | B1: 200000</li>
+<li>Cell A2: "Interest Rate" | B2: 5%</li>
+<li>Cell A3: "Loan Term (years)" | B3: 30</li>
+<li>Cell A4: "Monthly Payment" | B4: <code>=PMT(B2/12,B3*12,-B1)</code></li>
+</ol>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Create the Data Table structure:</strong>
+<ul>
+<li>In cell D1, type: =B4 (reference to monthly payment)</li>
+<li>In cells D2:D12, type different interest rates: 3%, 3.5%, 4%, 4.5%, 5%, 5.5%, 6%, 6.5%, 7%, 7.5%, 8%</li>
+</ul>
+</li>
+<li><strong>Select the Data Table range:</strong> Select D1:E12 (formula cell + rates + empty column for results)</li>
+<li><strong>Go to Data tab → What-If Analysis → Data Table</strong></li>
+<li><strong>In the Data Table dialog:</strong>
+<ul>
+<li>Row input cell: (leave blank)</li>
+<li>Column input cell: B2 (the interest rate cell)</li>
+<li>This tells Excel: "Test each value in column D by putting it in B2"</li>
+</ul>
+</li>
+<li><strong>Click OK</strong> - Excel fills column E with monthly payments for each rate</li>
+<li><strong>Format the results:</strong> Select E2:E12 → Format as Currency</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Data Table creates array formulas</strong> - you can't edit individual cells, must edit the whole table</li>
+<li><strong>Column input = variable in column:</strong> Use column input when your test values are in a column</li>
+<li><strong>Don't delete the reference formula (D1):</strong> Data Table needs it to know what to calculate</li>
+<li><strong>Updates automatically:</strong> Change B1 (loan amount) and watch all payments recalculate</li>
+<li><strong>Can add more formulas:</strong> Put more references in F1, G1, etc. for multiple outputs</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A table showing monthly payments at different interest rates (e.g., 3%: $843, 4%: $955, 5%: $1,074, etc.)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Create Two-Variable Data Table for Sensitivity Analysis</strong></p>
+<p><strong>Goal:</strong> Analyze how two variables interact using a two-variable Data Table.</p>
+
+<p><strong>Using the same loan calculator from Exercise 2:</strong></p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Create the table structure:</strong>
+<ul>
+<li>Cell G1: =B4 (reference to monthly payment formula)</li>
+<li>Column G2:G12: Interest rates 3%, 3.5%, 4%...8% (one variable)</li>
+<li>Row H1:L1: Loan terms 15, 20, 25, 30, 35 years (second variable)</li>
+</ul>
+</li>
+<li><strong>Select the entire range:</strong> G1:L12 (includes formula, row headers, column headers, and empty grid)</li>
+<li><strong>Data → What-If Analysis → Data Table</strong></li>
+<li><strong>In the dialog:</strong>
+<ul>
+<li>Row input cell: B3 (loan term - because terms are in the row)</li>
+<li>Column input cell: B2 (interest rate - because rates are in the column)</li>
+</ul>
+</li>
+<li><strong>Click OK</strong> - Excel fills the entire grid with monthly payments for each combination</li>
+<li><strong>Format and analyze:</strong> Use Conditional Formatting to highlight high/low payments</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Two-variable = matrix of results:</strong> Shows all combinations of your two inputs</li>
+<li><strong>Corner cell (G1) must be formula:</strong> This is what gets calculated for each combination</li>
+<li><strong>Row input = horizontal values, Column input = vertical values</strong></li>
+<li><strong>Powerful for sensitivity analysis:</strong> Quickly see how two factors interact</li>
+<li><strong>Add conditional formatting:</strong> Home → Conditional Formatting → Color Scales to visualize the data</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A matrix showing monthly payments for all combinations of interest rates and loan terms</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Create Business Scenarios with Scenario Manager</strong></p>
+<p><strong>Goal:</strong> Use Scenario Manager to save and compare different sets of assumptions.</p>
+
+<p><strong>Setup - Create a simple revenue model:</strong></p>
+<ol>
+<li>Cell A1: "Units Sold" | B1: 10000</li>
+<li>Cell A2: "Price" | B2: 50</li>
+<li>Cell A3: "Cost" | B3: 30</li>
+<li>Cell A4: "Revenue" | B4: =B1*B2</li>
+<li>Cell A5: "Total Cost" | B5: =B1*B3</li>
+<li>Cell A6: "Profit" | B6: =B4-B5</li>
+</ol>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open Scenario Manager:</strong> Data → What-If Analysis → Scenario Manager</li>
+<li><strong>Click "Add" to create first scenario:</strong>
+<ul>
+<li>Scenario name: "Best Case"</li>
+<li>Changing cells: B1:B3 (select all three input cells)</li>
+<li>Click OK</li>
+<li>Enter values: Units: 15000, Price: 55, Cost: 28</li>
+<li>Click OK</li>
+</ul>
+</li>
+<li><strong>Click "Add" again for second scenario:</strong>
+<ul>
+<li>Scenario name: "Worst Case"</li>
+<li>Changing cells: B1:B3</li>
+<li>Enter values: Units: 7000, Price: 45, Cost: 33</li>
+<li>Click OK</li>
+</ul>
+</li>
+<li><strong>Create third scenario:</strong>
+<ul>
+<li>Scenario name: "Most Likely"</li>
+<li>Changing cells: B1:B3</li>
+<li>Enter values: Units: 10000, Price: 50, Cost: 30</li>
+<li>Click OK</li>
+</ul>
+</li>
+<li><strong>Click "Summary" button</strong> in Scenario Manager</li>
+<li><strong>Choose "Scenario Summary"</strong></li>
+<li><strong>Result cells:</strong> Select B4:B6 (Revenue, Cost, Profit)</li>
+<li><strong>Click OK</strong> - Excel creates a new sheet with scenario comparison</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Scenarios are named sets of inputs:</strong> Save multiple "what-if" assumptions</li>
+<li><strong>Easily switch between scenarios:</strong> Select a scenario and click "Show" to apply those values</li>
+<li><strong>Scenario Summary is a report:</strong> Creates a formatted table comparing all scenarios</li>
+<li><strong>Can have up to 32 changing cells:</strong> Complex models supported</li>
+<li><strong>Protection available:</strong> Lock scenarios to prevent accidental changes</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A scenario summary report showing Best Case profit, Worst Case profit, and Most Likely profit side-by-side</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Advanced - Combining Goal Seek with Scenarios</strong></p>
+<p><strong>Goal:</strong> Use multiple What-If tools together for comprehensive analysis.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Using the revenue model from Exercise 4:</strong> Ensure you have Best Case, Worst Case, Most Likely scenarios saved</li>
+<li><strong>Show the "Most Likely" scenario:</strong> Data → What-If Analysis → Scenario Manager → Select "Most Likely" → Show</li>
+<li><strong>Use Goal Seek to find target units:</strong>
+<ul>
+<li>Set cell: B6 (Profit)</li>
+<li>To value: 250000 (target profit)</li>
+<li>By changing cell: B1 (Units)</li>
+<li>Note the result (e.g., 12500 units needed)</li>
+<li>Click Cancel (don't save yet)</li>
+</ul>
+</li>
+<li><strong>Now try with "Best Case" scenario:</strong>
+<ul>
+<li>Show Best Case scenario</li>
+<li>Run Goal Seek again with same target ($250K profit)</li>
+<li>Compare: Fewer units needed in Best Case due to better margins</li>
+</ul>
+</li>
+<li><strong>Create a summary table:</strong>
+<ul>
+<li>In a new area, create columns: Scenario | Units Needed for $250K Profit</li>
+<li>Manually record the Goal Seek results for each scenario</li>
+<li>This shows how your scenarios affect the path to your goal</li>
+</ul>
+</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Combine tools for deeper insights:</strong> Scenarios set the environment, Goal Seek finds the path</li>
+<li><strong>Document your analysis:</strong> Create summary tables to show management</li>
+<li><strong>What-if questions answered:</strong> "How many units do we need to sell in each scenario to hit our profit target?"</li>
+<li><strong>Real-world application:</strong> Budget planning, sales forecasting, resource allocation</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Understanding of how different scenarios require different actions to achieve the same goal</p>
+
+<p><strong>🔄 Connection to SQL:</strong> What-If Analysis is like SQL CASE statements and hypothetical queries - testing different conditions!</p>
+</div>
 <h3 id="independent-practice-hour-3---60-min-13">Independent Practice (60 min):</h3>
 <div class="practice-note">
 <p><strong>💡 Hints for Independent Practice:</strong></p>
