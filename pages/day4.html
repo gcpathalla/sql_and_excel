@@ -1141,13 +1141,208 @@ min):</h3>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<ol type="1">
-<li>Select orders where Region equals ‘East’</li>
-<li>Find orders with Sales greater than 1000</li>
-<li>Get orders with Discount &gt; 0.1 (10%)</li>
-<li>Select products in Technology category</li>
-<li>Find orders from year 2023</li>
+<p><em>Using Superstore Sales dataset - SQL Practice</em></p>
+<div class="section-card">
+<p><strong>📝 Setup Instructions:</strong></p>
+<ol>
+<li>Open SQLite Browser with your Superstore dataset (from Day 2)</li>
+<li>Navigate to the "Execute SQL" tab</li>
+<li>Today you'll learn to filter data - this is like Excel's AutoFilter but with code!</li>
 </ol>
+<p><strong>💡 WHERE Clause = SQL's Filtering Power:</strong> While Day 3 (Excel) used AutoFilter clicking, SQL uses WHERE to write filter rules in code!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 1: Simple WHERE with Text Comparison</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Type this query to find all East region orders:
+<pre><code>SELECT * FROM Orders
+WHERE Region = 'East'
+LIMIT 20;</code></pre>
+</li>
+<li>Click Execute (▶️)</li>
+<li>You should see only East region orders</li>
+</ol>
+<p><strong>⚠️ Important SQL Rules:</strong></p>
+<ul>
+<li>Text values must use <strong>single quotes</strong>: <code>'East'</code> not <code>"East"</code></li>
+<li>SQL is case-sensitive for values: <code>'East'</code> ≠ <code>'east'</code></li>
+<li>WHERE comes AFTER FROM, BEFORE ORDER BY</li>
+</ul>
+<p><strong>Try these variations:</strong></p>
+<pre><code>SELECT ProductName, Sales, Region FROM Orders
+WHERE Region = 'West'
+LIMIT 15;</code></pre>
+<pre><code>SELECT * FROM Orders
+WHERE Category = 'Technology';</code></pre>
+<p><strong>✅ Expected Result:</strong> Only rows matching your WHERE condition</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: WHERE with Numeric Comparisons</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Find high-value orders (Sales > 1000):</strong>
+<pre><code>SELECT OrderID, ProductName, Sales
+FROM Orders
+WHERE Sales > 1000
+ORDER BY Sales DESC;</code></pre>
+</li>
+<li><strong>Find small quantities (Quantity <= 2):</strong>
+<pre><code>SELECT ProductName, Quantity, Sales
+FROM Orders
+WHERE Quantity <= 2
+LIMIT 20;</code></pre>
+</li>
+<li><strong>Find discounted orders (Discount > 0):</strong>
+<pre><code>SELECT ProductName, Discount, Sales
+FROM Orders
+WHERE Discount > 0;</code></pre>
+</li>
+</ol>
+<p><strong>🔢 Comparison Operators in SQL:</strong></p>
+<ul>
+<li><code>=</code> Equal to</li>
+<li><code>&gt;</code> Greater than</li>
+<li><code>&lt;</code> Less than</li>
+<li><code>&gt;=</code> Greater than or equal to</li>
+<li><code>&lt;=</code> Less than or equal to</li>
+<li><code>&lt;&gt;</code> or <code>!=</code> Not equal to</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Only rows where the numeric condition is TRUE</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Combining Conditions with AND</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Find West region AND high-value orders:</strong>
+<pre><code>SELECT ProductName, Region, Sales
+FROM Orders
+WHERE Region = 'West' AND Sales > 500
+ORDER BY Sales DESC;</code></pre>
+Both conditions must be true!
+</li>
+<li><strong>Find Technology products with discount:</strong>
+<pre><code>SELECT ProductName, Category, Discount, Sales
+FROM Orders
+WHERE Category = 'Technology' AND Discount > 0;</code></pre>
+</li>
+<li><strong>Three conditions - profitable high-quantity orders:</strong>
+<pre><code>SELECT ProductName, Quantity, Sales, Profit
+FROM Orders
+WHERE Quantity > 5 AND Sales > 100 AND Profit > 0
+LIMIT 20;</code></pre>
+</li>
+</ol>
+<p><strong>💡 AND Logic:</strong></p>
+<ul>
+<li>ALL conditions must be TRUE for row to appear</li>
+<li>Narrows your results (fewer rows)</li>
+<li>Like applying multiple Excel filters at once</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Only rows matching ALL conditions</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Using OR for Alternative Conditions</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Find orders from East OR West:</strong>
+<pre><code>SELECT ProductName, Region, Sales
+FROM Orders
+WHERE Region = 'East' OR Region = 'West'
+LIMIT 30;</code></pre>
+Either condition can be true!
+</li>
+<li><strong>Find extreme values (very high or very low sales):</strong>
+<pre><code>SELECT ProductName, Sales
+FROM Orders
+WHERE Sales > 5000 OR Sales < 10
+ORDER BY Sales DESC;</code></pre>
+</li>
+<li><strong>Combining AND with OR (use parentheses!):</strong>
+<pre><code>SELECT ProductName, Region, Category, Sales
+FROM Orders
+WHERE (Region = 'East' OR Region = 'West')
+  AND Category = 'Furniture';</code></pre>
+Parentheses ensure OR is evaluated first, then AND
+</li>
+</ol>
+<p><strong>💡 OR Logic:</strong></p>
+<ul>
+<li>AT LEAST ONE condition must be TRUE</li>
+<li>Broadens your results (more rows)</li>
+<li>Use parentheses to control evaluation order</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Rows matching ANY of the OR conditions (and all AND conditions if combined)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Advanced Filtering with IN, BETWEEN, LIKE</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>IN - Match multiple values (cleaner than multiple ORs):</strong>
+<pre><code>SELECT ProductName, Region, Sales
+FROM Orders
+WHERE Region IN ('East', 'West', 'Central')
+LIMIT 20;</code></pre>
+This is cleaner than: <code>WHERE Region = 'East' OR Region = 'West' OR Region = 'Central'</code>
+</li>
+<li><strong>BETWEEN - Range of values:</strong>
+<pre><code>SELECT ProductName, Sales
+FROM Orders
+WHERE Sales BETWEEN 100 AND 500
+ORDER BY Sales;</code></pre>
+Includes both 100 and 500 (inclusive)
+</li>
+<li><strong>LIKE - Pattern matching with wildcards:</strong>
+<pre><code>SELECT ProductName, Sales
+FROM Orders
+WHERE ProductName LIKE '%Chair%'
+LIMIT 20;</code></pre>
+<code>%</code> = any characters. This finds products with "Chair" anywhere in the name
+</li>
+<li><strong>More LIKE examples:</strong>
+<pre><code>-- Products starting with 'Table'
+SELECT ProductName FROM Orders
+WHERE ProductName LIKE 'Table%';
+
+-- Products ending with 'Kit'
+SELECT ProductName FROM Orders
+WHERE ProductName LIKE '%Kit';
+
+-- CustomerName containing 'Smith'
+SELECT DISTINCT CustomerName FROM Orders
+WHERE CustomerName LIKE '%Smith%';</code></pre>
+</li>
+</ol>
+<p><strong>💡 Special Operators:</strong></p>
+<ul>
+<li><code>IN (value1, value2, ...)</code> - Matches any value in the list</li>
+<li><code>BETWEEN x AND y</code> - Inclusive range</li>
+<li><code>LIKE pattern</code> - Pattern matching (<code>%</code> = any chars, <code>_</code> = single char)</li>
+<li><code>IS NULL</code> / <code>IS NOT NULL</code> - Check for missing values</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Rows matching the specified patterns or ranges</p>
+</div>
+
+<div class="section-card">
+<p><strong>🎯 Practice Goal Checkpoint:</strong></p>
+<p>By completing these 5 exercises, you should now be able to:</p>
+<ul>
+<li>Use WHERE clause to filter data by specific conditions</li>
+<li>Apply comparison operators (=, >, <, >=, <=, <>)</li>
+<li>Combine multiple conditions with AND/OR</li>
+<li>Use IN for matching multiple values</li>
+<li>Use BETWEEN for range filtering</li>
+<li>Use LIKE for pattern matching with wildcards</li>
+<li>Understand the parallel between WHERE and Excel's AutoFilter</li>
+</ul>
+<p><strong>Key Insight:</strong> WHERE in SQL = Programmatic filtering. Instead of clicking filter dropdowns (Excel Day 3), you write logical conditions in code!</p>
+<p><strong>Take a 5-minute break, then move on to Independent Practice!</strong></p>
+</div>
 <h3 id="independent-practice-hour-3---60-min-3">Independent Practice
 (60 min):</h3>
 <div class="practice-note">
