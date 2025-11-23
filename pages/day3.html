@@ -1128,117 +1128,172 @@ min):</h3>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<p><em>Using Superstore Sales dataset - SQL Practice</em></p>
+<p><em>Using Superstore Sales dataset - Excel Practice</em></p>
 <div class="section-card">
 <p><strong>📝 Setup Instructions:</strong></p>
 <ol>
-<li>Install SQLite Browser or use an online SQL editor</li>
-<li>Import the Superstore dataset as a table named "Orders"</li>
-<li>Open the SQL query editor</li>
-<li>Test connection: <code>SELECT * FROM Orders LIMIT 10;</code></li>
+<li>Open your Superstore Sales dataset in Excel (from Day 1)</li>
+<li>Make sure you have columns: OrderID, Product, Category, Region, Sales, Quantity, Discount, Profit</li>
+<li>Ensure row 1 has column headers</li>
+<li>Save as "Day03_Practice.xlsx"</li>
 </ol>
 </div>
-<p><strong>Exercise 1: Simple SELECT Queries</strong></p>
-<ul>
-<li><strong>Task:</strong> Select specific columns from the Orders table</li>
-<li><strong>Query 1 - All data:</strong>
-<pre><code>SELECT * FROM Orders LIMIT 100;</code></pre>
-<em>Note: LIMIT restricts output for easier viewing</em>
-</li>
-<li><strong>Query 2 - Specific columns:</strong>
-<pre><code>SELECT OrderID, CustomerName, Sales, Profit
-FROM Orders
-LIMIT 20;</code></pre>
-<em>Tip: Always capitalize SQL keywords for readability</em>
-</li>
-<li><strong>Expected Result:</strong> Table showing only the requested columns</li>
-</ul>
-<p><strong>Exercise 2: Using DISTINCT</strong></p>
-<ul>
-<li><strong>Task:</strong> Find unique values in a column</li>
-<li><strong>Query:</strong>
-<pre><code>SELECT DISTINCT Region FROM Orders;</code></pre>
-</li>
-<li><strong>Step-by-step:</strong>
-<ol>
-<li>Type the query in the SQL editor</li>
-<li>Execute (press F5 or click Run)</li>
-<li>Count how many unique regions exist</li>
-</ol>
-</li>
-<li><strong>Expected Result:</strong> List of unique regions (Central, East, South, West)</li>
-</ul>
-<p><strong>Exercise 3: Aggregate Functions</strong></p>
-<ul>
-<li><strong>Task:</strong> Calculate total sales using SUM</li>
-<li><strong>Query:</strong>
-<pre><code>SELECT SUM(Sales) AS TotalSales FROM Orders;</code></pre>
-<em>Note: AS renames the output column</em>
-</li>
-<li><strong>Try these variations:</strong>
-<ul>
-<li><code>SELECT AVG(Sales) AS AvgSales FROM Orders;</code></li>
-<li><code>SELECT COUNT(*) AS TotalOrders FROM Orders;</code></li>
-<li><code>SELECT MAX(Sales) AS HighestSale FROM Orders;</code></li>
-<li><code>SELECT MIN(Discount) AS LowestDiscount FROM Orders;</code></li>
-</ul>
-</li>
-<li><strong>Expected Result:</strong> Single number for each aggregate</li>
-</ul>
-<p><strong>Exercise 4: ORDER BY Practice</strong></p>
-<ul>
-<li><strong>Task:</strong> Sort results by different columns</li>
-<li><strong>Ascending order:</strong>
-<pre><code>SELECT ProductName, Sales
-FROM Orders
-ORDER BY Sales ASC
-LIMIT 10;</code></pre>
-<em>Shows 10 lowest sales</em>
-</li>
-<li><strong>Descending order:</strong>
-<pre><code>SELECT ProductName, Sales
-FROM Orders
-ORDER BY Sales DESC
-LIMIT 10;</code></pre>
-<em>Shows 10 highest sales</em>
-</li>
-<li><strong>Multiple columns:</strong>
-<pre><code>SELECT Region, Category, Sales
-FROM Orders
-ORDER BY Region, Sales DESC;</code></pre>
-<em>Sorts by region first, then by sales within each region</em>
-</li>
-</ul>
-<p><strong>Exercise 5: Combining Concepts</strong></p>
-<ul>
-<li><strong>Task:</strong> Write a query using SELECT, aggregate, and ORDER BY</li>
-<li><strong>Challenge Query:</strong>
-<pre><code>SELECT Category,
-       COUNT(*) AS NumOrders,
-       SUM(Sales) AS TotalSales,
-       AVG(Profit) AS AvgProfit
-FROM Orders
-GROUP BY Category
-ORDER BY TotalSales DESC;</code></pre>
-</li>
-<li><strong>What this does:</strong>
-<ol>
-<li>Groups data by Category</li>
-<li>Counts orders in each category</li>
-<li>Sums total sales per category</li>
-<li>Calculates average profit per category</li>
-<li>Sorts by total sales (highest first)</li>
-</ol>
-</li>
-</ul>
+
 <div class="section-card">
-<p><strong>✅ Self-Check:</strong></p>
+<p><strong>Exercise 1: Apply AutoFilter to Find Specific Data</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Click on any cell in your data (e.g., A1)</li>
+<li>Go to <strong>Data tab</strong> → Click <strong>Filter</strong> button</li>
+<li>Notice dropdown arrows appear in each column header</li>
+<li><strong>Filter by Region:</strong>
+  <ul>
+  <li>Click the dropdown arrow in the "Region" column</li>
+  <li>Uncheck "Select All"</li>
+  <li>Check only "West"</li>
+  <li>Click OK</li>
+  </ul>
+</li>
+<li>You should now see only West region orders!</li>
+<li><strong>Add another filter:</strong> In the "Category" dropdown, select only "Technology"</li>
+<li>Now you see only West region + Technology category orders</li>
+<li><strong>Clear filters:</strong> Data tab → Click "Clear" button</li>
+</ol>
+<p><strong>💡 Tips:</strong></p>
 <ul>
-<li>Can you write a SELECT query from memory?</li>
-<li>Do you understand what DISTINCT does?</li>
-<li>Can you use SUM, AVG, COUNT, MAX, MIN?</li>
-<li>Can you sort with ORDER BY?</li>
+<li>Keyboard shortcut for Filter: <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>L</kbd></li>
+<li>Filtered rows show blue row numbers</li>
+<li>Status bar shows "X of Y records found"</li>
+<li>You can filter multiple columns simultaneously</li>
 </ul>
+<p><strong>✅ Expected Result:</strong> Data filtered to show only rows matching your criteria</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Use IF Function for Conditional Logic</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Add a new column header "Performance" in column J (or next empty column)</li>
+<li>Click on cell J2 (first data row)</li>
+<li>Type this formula: <code>=IF(I2>0, "Profit", "Loss")</code> (assuming Profit is in column I)</li>
+<li>Press <kbd>Enter</kbd></li>
+<li>Copy the formula down to all rows (double-click the fill handle)</li>
+<li>You should see "Profit" for positive values, "Loss" for negative</li>
+</ol>
+<p><strong>Now try a nested IF for 3 categories:</strong></p>
+<pre><code>=IF(I2>500, "High Profit", IF(I2>0, "Low Profit", "Loss"))</code></pre>
+<p><strong>🔍 Understanding the Formula:</strong></p>
+<ul>
+<li><code>IF(condition, value_if_true, value_if_false)</code></li>
+<li>First checks: Is profit > 500? If yes → "High Profit"</li>
+<li>If no, checks: Is profit > 0? If yes → "Low Profit"</li>
+<li>If both false → "Loss"</li>
+</ul>
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li>Always close your parentheses - Excel will help highlight matching pairs</li>
+<li>Use nested IFs when you have 2-3 conditions; use IFS() for more (Excel 2019+)</li>
+<li>Test with both TRUE and FALSE scenarios</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> A new column with text labels based on profit values</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: COUNTIF - Count Cells Meeting a Condition</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Find an empty area in your spreadsheet (e.g., cell L2)</li>
+<li>Type a label "Orders > $500:" in K2</li>
+<li>In L2, type: <code>=COUNTIF(D:D, ">500")</code> (assuming Sales in column D)</li>
+<li>Press <kbd>Enter</kbd> - this counts how many sales exceed $500</li>
+</ol>
+<p><strong>Try these variations:</strong></p>
+<ul>
+<li>Count West region orders: <code>=COUNTIF(C:C, "West")</code> (if Region is column C)</li>
+<li>Count discounted orders: <code>=COUNTIF(F:F, ">0")</code> (if Discount is column F)</li>
+<li>Count specific products: <code>=COUNTIF(B:B, "Staples")</code> (if Product is column B)</li>
+</ul>
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li>Criteria with operators (>, <, =) must be in quotes: <code>"&gt;100"</code></li>
+<li>Text criteria need quotes: <code>"West"</code></li>
+<li>You can reference a cell: <code>=COUNTIF(C:C, K5)</code> counts values equal to K5</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> A count of cells matching your condition</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: SUMIF - Sum Values Meeting a Condition</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>In cell L4, type label "Total West Sales:" in K4</li>
+<li>Type this formula: <code>=SUMIF(C:C, "West", D:D)</code>
+  <ul>
+  <li>C:C = Range to check (Region column)</li>
+  <li>"West" = Condition to match</li>
+  <li>D:D = Range to sum (Sales column)</li>
+  </ul>
+</li>
+<li>Press <kbd>Enter</kbd> - shows total sales for West region only</li>
+</ol>
+<p><strong>Try these examples:</strong></p>
+<ul>
+<li>Sum profits where sales > 1000: <code>=SUMIF(D:D, "&gt;1000", I:I)</code></li>
+<li>Sum sales for Technology category: <code>=SUMIF(E:E, "Technology", D:D)</code></li>
+<li>Sum quantity for discounted orders: <code>=SUMIF(F:F, "&gt;0", G:G)</code></li>
+</ul>
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li>SUMIF syntax: <code>=SUMIF(range_to_check, criteria, sum_range)</code></li>
+<li>If sum_range is omitted, it sums the range_to_check</li>
+<li>Use absolute references ($C$2:$C$100) if you plan to copy the formula</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Sum of values where condition is TRUE</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: AVERAGEIF - Average Values Meeting a Condition</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>In cell L6, type label "Avg Profit (Profitable Orders):" in K6</li>
+<li>Type formula: <code>=AVERAGEIF(I:I, "&gt;0", I:I)</code>
+  <ul>
+  <li>This calculates average of only positive profits</li>
+  <li>First I:I = range to check</li>
+  <li>"&gt;0" = condition (greater than zero)</li>
+  <li>Second I:I = range to average</li>
+  </ul>
+</li>
+<li>Press <kbd>Enter</kbd></li>
+<li>Compare this to a simple <code>=AVERAGE(I:I)</code> - notice the difference!</li>
+</ol>
+<p><strong>More examples:</strong></p>
+<ul>
+<li>Average sales for East region: <code>=AVERAGEIF(C:C, "East", D:D)</code></li>
+<li>Average quantity for high-value orders: <code>=AVERAGEIF(D:D, "&gt;1000", G:G)</code></li>
+</ul>
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li>AVERAGEIF ignores cells that don't meet the criteria (different from simple AVERAGE)</li>
+<li>Great for calculating averages excluding outliers or specific categories</li>
+<li>Format result as currency/number as appropriate</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Average of only the values meeting your condition</p>
+</div>
+
+<div class="section-card">
+<p><strong>🎯 Practice Goal Checkpoint:</strong></p>
+<p>By completing these 5 exercises, you should now be able to:</p>
+<ul>
+<li>Use AutoFilter to quickly filter data by multiple criteria</li>
+<li>Write IF functions for conditional logic (including nested IFs)</li>
+<li>Use COUNTIF to count cells meeting specific conditions</li>
+<li>Use SUMIF to sum values based on criteria</li>
+<li>Use AVERAGEIF to calculate conditional averages</li>
+<li>Understand the difference between regular and conditional functions</li>
+</ul>
+<p><strong>Key Insight:</strong> Conditional functions let you analyze subsets of your data without actually filtering it visually!</p>
+<p><strong>Take a 5-minute break, then move on to Independent Practice!</strong></p>
 </div>
 <h3 id="independent-practice-hour-3---60-min-2">Independent Practice
 (60 min):</h3>

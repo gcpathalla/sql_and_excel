@@ -1139,88 +1139,180 @@ min):</h3>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<p><em>Using Superstore Sales dataset</em></p>
+<p><em>Using Superstore Sales dataset - SQL Practice</em></p>
 <div class="section-card">
 <p><strong>📝 Setup Instructions:</strong></p>
 <ol>
-<li>Download the Superstore Sales dataset from the provided link</li>
-<li>Open it in Excel (or create sample data if dataset unavailable)</li>
-<li>Familiarize yourself with the columns: OrderID, Sales, Discount, Profit, Quantity, etc.</li>
+<li>Install SQLite Browser (<a href="https://sqlitebrowser.org/dl/" target="_blank">Download here</a>) or use an online SQL editor like <a href="https://www.db-fiddle.com/" target="_blank">DB Fiddle</a></li>
+<li>Import the Superstore dataset as a table named "Orders"</li>
+<li>Open the "Execute SQL" tab in SQLite Browser</li>
+<li>Test your connection: Type <code>SELECT * FROM Orders LIMIT 10;</code> and click Run (▶️)</li>
+<li>You should see the first 10 rows of your data</li>
 </ol>
+<p><strong>💡 Understanding SQL vs Excel:</strong> If you completed Day 1 (Excel), you'll notice SQL does similar things but with different syntax. Instead of clicking cells, you write queries!</p>
 </div>
-<p><strong>Exercise 1: Calculate Total Sales</strong></p>
-<ul>
-<li><strong>Task:</strong> Calculate total sales for all orders</li>
-<li><strong>Step-by-step:</strong>
-<ol>
-<li>Click on an empty cell (e.g., H2)</li>
-<li>Type the formula: <code>=SUM(D:D)</code> (assuming Sales is in column D)</li>
-<li>Press Enter to see the result</li>
-<li><em>Note:</em> Using <code>D:D</code> selects the entire column</li>
-</ol>
-</li>
-<li><strong>Expected Result:</strong> A single number showing total of all sales</li>
-</ul>
-<p><strong>Exercise 2: Find Average Discount</strong></p>
-<ul>
-<li><strong>Task:</strong> Find average discount given across all transactions</li>
-<li><strong>Step-by-step:</strong>
-<ol>
-<li>Click on cell H3</li>
-<li>Type: <code>=AVERAGE(E:E)</code> (assuming Discount is in column E)</li>
-<li>Press Enter</li>
-<li>Format as percentage if needed: Right-click → Format Cells → Percentage</li>
-</ol>
-</li>
-<li><strong>Expected Result:</strong> Average discount percentage (e.g., 15.5%)</li>
-</ul>
-<p><strong>Exercise 3: Count Total Orders</strong></p>
-<ul>
-<li><strong>Task:</strong> Count total number of orders in dataset</li>
-<li><strong>Step-by-step:</strong>
-<ol>
-<li>Click on cell H4</li>
-<li>Type: <code>=COUNT(A:A)</code> or <code>=COUNTA(A:A)</code> for text</li>
-<li>Press Enter</li>
-<li><em>Tip:</em> COUNT counts numbers, COUNTA counts non-empty cells</li>
-</ol>
-</li>
-<li><strong>Expected Result:</strong> Total number of rows (e.g., 9,994)</li>
-</ul>
-<p><strong>Exercise 4: Find Min/Max Quantities</strong></p>
-<ul>
-<li><strong>Task:</strong> Find maximum and minimum order quantities</li>
-<li><strong>Step-by-step:</strong>
-<ol>
-<li>In cell H5, type: <code>=MAX(F:F)</code> (assuming Quantity in column F)</li>
-<li>In cell H6, type: <code>=MIN(F:F)</code></li>
-<li>Label these cells for clarity (e.g., "Max Qty" in G5, "Min Qty" in G6)</li>
-</ol>
-</li>
-<li><strong>Expected Result:</strong> Highest and lowest quantity values</li>
-</ul>
-<p><strong>Exercise 5: Calculate Profit Formula</strong></p>
-<ul>
-<li><strong>Task:</strong> Calculate profit for each order using formulas</li>
-<li><strong>Step-by-step:</strong>
-<ol>
-<li>Add a new column header "Calculated Profit" (e.g., in column I)</li>
-<li>In cell I2, type: <code>=D2-G2</code> (Sales minus Cost)</li>
-<li>Press Enter, then drag the fill handle down to copy the formula</li>
-<li>Compare with existing Profit column to verify accuracy</li>
-<li><em>Tip:</em> Results should match existing profit data</li>
-</ol>
-</li>
-<li><strong>Expected Result:</strong> Profit calculated for each row</li>
-</ul>
+
 <div class="section-card">
-<p><strong>✅ Self-Check:</strong> Have you...</p>
+<p><strong>Exercise 1: Your First SELECT Query - View All Data</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>In the SQL query editor, type exactly: <code>SELECT * FROM Orders;</code></li>
+<li>Click the "Execute" button (▶️) or press <kbd>F5</kbd></li>
+<li>You should see ALL your data displayed</li>
+<li>Now try: <code>SELECT * FROM Orders LIMIT 20;</code> to see only 20 rows</li>
+</ol>
+<p><strong>🔍 What does this mean?</strong></p>
 <ul>
-<li>Used SUM, AVERAGE, COUNT, MAX, MIN functions?</li>
-<li>Created at least one formula yourself?</li>
-<li>Understood the difference between each function?</li>
-<li>Verified your results make sense?</li>
+<li><code>SELECT</code> = "Show me..."</li>
+<li><code>*</code> = "...all columns"</li>
+<li><code>FROM Orders</code> = "...from the Orders table"</li>
+<li><code>LIMIT 20</code> = "...but only 20 rows"</li>
 </ul>
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li>Always end SQL statements with a semicolon <code>;</code></li>
+<li>SQL keywords (SELECT, FROM) are case-insensitive, but UPPERCASE is conventional</li>
+<li>Use LIMIT when exploring large datasets to avoid overwhelming output</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> A table showing all columns and rows (or 20 rows if you used LIMIT)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: SELECT Specific Columns</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Type this query:
+<pre><code>SELECT OrderID, CustomerName, Sales, Profit
+FROM Orders
+LIMIT 20;</code></pre>
+</li>
+<li>Click Execute (▶️)</li>
+<li>Notice how you only see the 4 columns you requested!</li>
+</ol>
+<p><strong>Now try selecting different columns:</strong></p>
+<pre><code>SELECT ProductName, Quantity, Discount
+FROM Orders
+LIMIT 15;</code></pre>
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li>List column names separated by commas</li>
+<li>Order of columns in SELECT determines display order</li>
+<li>Use multi-line formatting for readability (as shown above)</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Only the columns you specified appear in the results</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Using DISTINCT to Find Unique Values</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>First, see ALL regions (with duplicates):
+<pre><code>SELECT Region FROM Orders;</code></pre>
+This shows thousands of rows because each order repeats its region.
+</li>
+<li>Now, get UNIQUE regions only:
+<pre><code>SELECT DISTINCT Region FROM Orders;</code></pre>
+</li>
+<li>You should see exactly 4 unique regions: Central, East, South, West</li>
+</ol>
+<p><strong>Try finding other unique values:</strong></p>
+<pre><code>SELECT DISTINCT Category FROM Orders;</code></pre>
+<pre><code>SELECT DISTINCT ShipMode FROM Orders;</code></pre>
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><code>DISTINCT</code> removes duplicate values from results</li>
+<li>Very useful for finding all unique categories, regions, products, etc.</li>
+<li>Similar to Excel's "Remove Duplicates" feature</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> A short list of unique values (4 regions, 3 categories, etc.)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Aggregate Functions - SUM, AVG, COUNT, MAX, MIN</strong></p>
+<p><strong>🎯 This is the SQL equivalent of Day 1's Excel functions!</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Calculate Total Sales (like Excel's =SUM()):</strong>
+<pre><code>SELECT SUM(Sales) AS TotalSales
+FROM Orders;</code></pre>
+The <code>AS TotalSales</code> renames the output column for clarity.
+</li>
+<li><strong>Find Average Sales (like Excel's =AVERAGE()):</strong>
+<pre><code>SELECT AVG(Sales) AS AverageSales
+FROM Orders;</code></pre>
+</li>
+<li><strong>Count Total Orders (like Excel's =COUNT()):</strong>
+<pre><code>SELECT COUNT(*) AS TotalOrders
+FROM Orders;</code></pre>
+<code>COUNT(*)</code> counts all rows. <code>COUNT(ColumnName)</code> counts non-null values.
+</li>
+<li><strong>Find Maximum Sale (like Excel's =MAX()):</strong>
+<pre><code>SELECT MAX(Sales) AS HighestSale
+FROM Orders;</code></pre>
+</li>
+<li><strong>Find Minimum Discount (like Excel's =MIN()):</strong>
+<pre><code>SELECT MIN(Discount) AS LowestDiscount
+FROM Orders;</code></pre>
+</li>
+</ol>
+<p><strong>💡 Pro Tip - Combine multiple aggregates in one query:</strong></p>
+<pre><code>SELECT
+    SUM(Sales) AS TotalSales,
+    AVG(Sales) AS AvgSales,
+    COUNT(*) AS TotalOrders,
+    MAX(Sales) AS HighestSale,
+    MIN(Sales) AS LowestSale
+FROM Orders;</code></pre>
+<p><strong>✅ Expected Result:</strong> Single row with calculated aggregate values (just like Excel formulas, but in one query!)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: ORDER BY - Sorting Your Results</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Sort by Sales (lowest to highest):</strong>
+<pre><code>SELECT ProductName, Sales
+FROM Orders
+ORDER BY Sales ASC
+LIMIT 10;</code></pre>
+<code>ASC</code> = Ascending (smallest first)
+</li>
+<li><strong>Sort by Sales (highest to lowest):</strong>
+<pre><code>SELECT ProductName, Sales
+FROM Orders
+ORDER BY Sales DESC
+LIMIT 10;</code></pre>
+<code>DESC</code> = Descending (largest first)
+</li>
+<li><strong>Sort by multiple columns:</strong>
+<pre><code>SELECT Region, Category, Sales
+FROM Orders
+ORDER BY Region ASC, Sales DESC;</code></pre>
+This sorts by Region first (A-Z), then within each region, sorts by Sales (high to low)
+</li>
+</ol>
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><code>ORDER BY</code> always comes at the end of your query (before LIMIT)</li>
+<li>ASC is default - you can omit it: <code>ORDER BY Sales</code> = <code>ORDER BY Sales ASC</code></li>
+<li>You can sort by columns not in your SELECT list</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Data sorted in the order you specified</p>
+</div>
+
+<div class="section-card">
+<p><strong>🎯 Practice Goal Checkpoint:</strong></p>
+<p>By completing these 5 exercises, you should now be able to:</p>
+<ul>
+<li>Write basic SELECT queries to retrieve data</li>
+<li>Select specific columns or all columns (*)</li>
+<li>Use DISTINCT to find unique values</li>
+<li>Apply aggregate functions: SUM, AVG, COUNT, MAX, MIN</li>
+<li>Sort results with ORDER BY (ASC/DESC)</li>
+<li>See the parallel between SQL and Excel functions</li>
+</ul>
+<p><strong>Compare with Day 1:</strong> Notice how <code>SELECT SUM(Sales)</code> does the same thing as Excel's <code>=SUM(D:D)</code>? SQL is just a different way to ask the same questions!</p>
+<p><strong>Take a 5-minute break, then move on to Independent Practice!</strong></p>
 </div>
 <h3 id="independent-practice-hour-3---60-min-1">Independent Practice
 (60 min):</h3>
