@@ -1112,19 +1112,252 @@ Use beginner-friendly language with practical examples.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<p><em>Using HR Employee dataset</em></p>
-<p><strong>Exercise 1: Employee Age &amp; Tenure Calculation</strong>
-1. Calculate employee age using DATEDIF and birthdate
-2. Calculate years of service from hire date
-3. Create "Years.Months" format (e.g., "5.7 years")
-4. Identify employees with 10+ years tenure
-5. Calculate average employee age by department</p>
-<p><strong>Exercise 2: Project Timeline Calculator</strong>
-1. Create project start date column
-2. Calculate project end date (90 working days later) using WORKDAY
-3. Add company holiday list
-4. Calculate actual working days between start and today
-5. Determine if project is on schedule</p>
+
+<p><em>📊 Dataset: HR Employee Data with columns: EmployeeID, Name, Birthdate, HireDate, Department</em></p>
+
+<div class="section-card">
+<p><strong>Exercise 1: Calculate Employee Age Using TODAY and DATEDIF</strong></p>
+<p><strong>Goal:</strong> Learn to calculate age from birthdate using TODAY() and DATEDIF functions.</p>
+
+<p><strong>Setup:</strong></p>
+<ul>
+<li>Ensure your dataset has a "Birthdate" column (format: date, e.g., 1/15/1985)</li>
+<li>Create a new column header "Age" in the next available column (e.g., column E)</li>
+</ul>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Click on the first cell under "Age"</strong> (e.g., E2 if your data starts in row 2)</li>
+<li><strong>Type the formula:</strong> <code>=DATEDIF(C2,TODAY(),"Y")</code>
+<ul>
+<li><code>C2</code> is the birthdate cell (adjust if your birthdate column is different)</li>
+<li><code>TODAY()</code> returns today's date</li>
+<li><code>"Y"</code> means calculate complete years</li>
+</ul>
+</li>
+<li><strong>Press Enter</strong> to execute the formula</li>
+<li><strong>Copy the formula down:</strong> Double-click the fill handle (small square at bottom-right of cell) or drag it down to copy to all employee rows</li>
+<li><strong>Verify the results:</strong> Check that ages make sense (e.g., someone born in 1985 should be around 38-40 years old in 2024/2025)</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>DATEDIF is hidden:</strong> Excel doesn't show DATEDIF in formula suggestions, but it works perfectly - just type it manually</li>
+<li><strong>Date format matters:</strong> Make sure your Birthdate column is formatted as Date, not text (use Ctrl+1 to check format)</li>
+<li><strong>TODAY() updates daily:</strong> This function automatically updates when you open the file, so ages will always be current</li>
+<li><strong>Unit codes:</strong> "Y" = years, "M" = months, "D" = days - you can use different units as needed</li>
+<li><strong>Keyboard shortcut:</strong> Ctrl+; inserts today's date as a static value (won't update)</li>
+<li><strong>Error check:</strong> If you see #NUM! error, check that the birthdate is before today's date</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A column showing each employee's current age in years (e.g., 35, 42, 28, etc.)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Calculate Years of Service from Hire Date</strong></p>
+<p><strong>Goal:</strong> Learn to calculate tenure (length of employment) using DATEDIF.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Create a new column header</strong> "Years of Service" (e.g., column F)</li>
+<li><strong>Click on cell F2</strong> (first data row)</li>
+<li><strong>Type the formula:</strong> <code>=DATEDIF(D2,TODAY(),"Y")</code>
+<ul>
+<li><code>D2</code> is the hire date cell (adjust to match your column)</li>
+<li>This calculates complete years from hire date to today</li>
+</ul>
+</li>
+<li><strong>Press Enter and copy down</strong> to all employees (double-click fill handle)</li>
+<li><strong>Verify:</strong> Someone hired in 2018 should show approximately 6-7 years of service</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Same function, different purpose:</strong> DATEDIF works for any date difference - age, tenure, project duration, etc.</li>
+<li><strong>Whole years only:</strong> Using "Y" gives complete years (5.8 years shows as 5)</li>
+<li><strong>Quick verification:</strong> Sort by Years of Service (descending) to see your longest-tenured employees first</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A column showing tenure in complete years (e.g., 5, 12, 2, etc.)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Create "Years.Months" Format for Precise Tenure</strong></p>
+<p><strong>Goal:</strong> Display tenure in a more precise format like "5.7 years" or "5 years 7 months".</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Create a new column header</strong> "Tenure (Detailed)" (e.g., column G)</li>
+<li><strong>Method 1 - Decimal format (5.7 years):</strong>
+<pre><code>=DATEDIF(D2,TODAY(),"Y") & "." & DATEDIF(D2,TODAY(),"YM") & " years"</code></pre>
+<ul>
+<li><code>DATEDIF(D2,TODAY(),"Y")</code> = complete years</li>
+<li><code>&</code> = concatenate (join text)</li>
+<li><code>DATEDIF(D2,TODAY(),"YM")</code> = remaining months after complete years</li>
+<li><code>&amp; " years"</code> = adds the word "years" at the end</li>
+</ul>
+</li>
+<li><strong>Press Enter and copy down</strong></li>
+<li><strong>Method 2 - Full text format (5 years 7 months):</strong>
+<pre><code>=DATEDIF(D2,TODAY(),"Y") & " years " & DATEDIF(D2,TODAY(),"YM") & " months"</code></pre>
+This creates more readable text like "5 years 7 months"</li>
+<li><strong>Method 3 - With IF for singular/plural (advanced):</strong>
+<pre><code>=DATEDIF(D2,TODAY(),"Y") & IF(DATEDIF(D2,TODAY(),"Y")=1," year "," years ") & DATEDIF(D2,TODAY(),"YM") & IF(DATEDIF(D2,TODAY(),"YM")=1," month"," months")</code></pre>
+This handles "1 year" vs "2 years" correctly</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>"YM" unit:</strong> Returns months between dates, ignoring years - perfect for the "remainder" months</li>
+<li><strong>Text concatenation:</strong> Use <code>&</code> to join text, numbers, and formula results</li>
+<li><strong>Formatting flexibility:</strong> Choose the format that best suits your report (decimal for calculations, text for readability)</li>
+<li><strong>Alternative approach:</strong> You could calculate total months and divide by 12: <code>=DATEDIF(D2,TODAY(),"M")/12</code> for decimal years</li>
+<li><strong>Professional tip:</strong> For HR reports, "5 years 7 months" is more professional than "5.7 years"</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Text like "5.7 years" or "5 years 7 months" showing precise tenure for each employee</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Identify Employees with 10+ Years Tenure</strong></p>
+<p><strong>Goal:</strong> Use IF function with date calculations to flag long-tenured employees.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Create a new column header</strong> "10+ Years?" (e.g., column H)</li>
+<li><strong>Type the formula:</strong>
+<pre><code>=IF(DATEDIF(D2,TODAY(),"Y")>=10,"Yes","No")</code></pre>
+<ul>
+<li>Checks if years of service is 10 or more</li>
+<li>Returns "Yes" if true, "No" if false</li>
+</ul>
+</li>
+<li><strong>Press Enter and copy down</strong> to all rows</li>
+<li><strong>Apply conditional formatting (optional but recommended):</strong>
+<ul>
+<li>Select the entire column of Yes/No values</li>
+<li>Home tab → Conditional Formatting → Highlight Cell Rules → Text that Contains</li>
+<li>Type "Yes" and choose green fill</li>
+</ul>
+</li>
+<li><strong>Count the total:</strong> In a cell below your data, type:
+<pre><code>=COUNTIF(H:H,"Yes")</code></pre>
+This counts how many employees have 10+ years tenure</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Combining functions:</strong> DATEDIF inside IF is a powerful combination for date-based decisions</li>
+<li><strong>Change the threshold:</strong> Easily adjust "10" to any other number (5, 15, 20) for different milestones</li>
+<li><strong>Alternative outputs:</strong> Instead of "Yes"/"No", you could use "Milestone" or leave blank: <code>=IF(DATEDIF(D2,TODAY(),"Y")>=10,"Milestone","")</code></li>
+<li><strong>Filter for analysis:</strong> Use AutoFilter (Ctrl+Shift+L) to quickly see only "Yes" employees</li>
+<li><strong>Advanced variation:</strong> Use IFS for multiple milestones: <code>=IFS(tenure>=20,"20yr", tenure>=10,"10yr", tenure>=5,"5yr", TRUE,"&lt;5yr")</code></li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A column with "Yes" or "No" for each employee, with "Yes" appearing for those with 10 or more years of service</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Calculate Average Employee Age by Department</strong></p>
+<p><strong>Goal:</strong> Learn to combine date calculations with AVERAGEIF for grouped analysis.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>First, ensure you have the Age column</strong> calculated from Exercise 1 (e.g., column E)</li>
+<li><strong>Create a summary table</strong> off to the side or below your data:
+<ul>
+<li>Column 1 header: "Department"</li>
+<li>Column 2 header: "Average Age"</li>
+<li>List your departments: Sales, Marketing, IT, HR, Finance, etc. (one per row)</li>
+</ul>
+</li>
+<li><strong>In the Average Age column</strong> (next to "Sales"), type:
+<pre><code>=AVERAGEIF($E$2:$E$100,$J2,$E$2:$E$100)</code></pre>
+Wait, that's wrong! Let me correct:
+<pre><code>=AVERAGEIF($F$2:$F$100,J2,$E$2:$E$100)</code></pre>
+<ul>
+<li><code>$F$2:$F$100</code> = Department column range (use $ for absolute reference)</li>
+<li><code>J2</code> = The department name you're checking (e.g., "Sales")</li>
+<li><code>$E$2:$E$100</code> = Age column range to average</li>
+<li>Adjust ranges to match your data size</li>
+</ul>
+</li>
+<li><strong>Press Enter and copy down</strong> to all department rows</li>
+<li><strong>Format the results:</strong> Select the average age cells → Right-click → Format Cells → Number → 1 decimal place</li>
+<li><strong>Add a grand average:</strong> Below your summary table:
+<pre><code>=AVERAGE(E2:E100)</code></pre>
+This shows the overall company average age</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Dollar signs matter:</strong> Use $F$2:$F$100 (absolute reference) so the range doesn't change when you copy down</li>
+<li><strong>Range size:</strong> Adjust "100" to match your actual data size, or use dynamic ranges like <code>$F:$F</code> (entire column)</li>
+<li><strong>Alternative approach:</strong> Use a Pivot Table (Day 7) - insert Pivot Table, Rows=Department, Values=Average of Age</li>
+<li><strong>Visualization:</strong> Create a bar chart to show average age by department visually</li>
+<li><strong>Advanced variation:</strong> Also calculate average tenure by department using the same technique</li>
+<li><strong>Data validation:</strong> If departments aren't consistent (e.g., "IT" vs "Information Technology"), use Find & Replace first</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A summary table showing each department with its average employee age (e.g., Sales: 37.5 years, Marketing: 32.8 years, etc.)</p>
+
+<p><strong>🔄 Connection to SQL:</strong> This Excel AVERAGEIF is similar to SQL's <code>SELECT Department, AVG(Age) FROM Employees GROUP BY Department</code> from Day 8!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Bonus Exercise: Project Timeline Calculator with WORKDAY</strong></p>
+<p><strong>Goal:</strong> Learn to calculate business days (excluding weekends) using WORKDAY and NETWORKDAYS functions.</p>
+
+<p><strong>Setup:</strong></p>
+<ul>
+<li>Create a small project tracker with columns: ProjectName, StartDate, TargetDays (e.g., 90)</li>
+<li>Optional: Create a holiday list in a separate area (dates of company holidays)</li>
+</ul>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Calculate project end date (90 working days later):</strong>
+<pre><code>=WORKDAY(B2,C2)</code></pre>
+<ul>
+<li><code>B2</code> = Start date</li>
+<li><code>C2</code> = Number of working days (e.g., 90)</li>
+<li>WORKDAY automatically skips weekends</li>
+</ul>
+</li>
+<li><strong>Include company holidays:</strong>
+<pre><code>=WORKDAY(B2,C2,$G$2:$G$10)</code></pre>
+<ul>
+<li>Third parameter = range of holiday dates</li>
+<li>WORKDAY now skips weekends AND holidays</li>
+</ul>
+</li>
+<li><strong>Calculate actual working days elapsed so far:</strong>
+<pre><code>=NETWORKDAYS(B2,TODAY(),$G$2:$G$10)</code></pre>
+<ul>
+<li>Returns number of working days from start date to today</li>
+<li>Also excludes weekends and holidays</li>
+</ul>
+</li>
+<li><strong>Determine if project is on schedule:</strong>
+<pre><code>=IF(NETWORKDAYS(B2,TODAY(),$G$2:$G$10)<=C2,"On Track","Review Needed")</code></pre>
+This checks if working days used is less than or equal to target</li>
+<li><strong>Calculate percentage complete:</strong>
+<pre><code>=NETWORKDAYS(B2,TODAY(),$G$2:$G$10)/C2</code></pre>
+Format as percentage (Ctrl+Shift+%)</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>WORKDAY vs NETWORKDAYS:</strong> WORKDAY calculates a future date; NETWORKDAYS counts days between two dates</li>
+<li><strong>International versions:</strong> Use WORKDAY.INTL to specify custom weekends (e.g., Friday-Saturday in some countries)</li>
+<li><strong>Holiday list:</strong> Put holidays in a separate sheet for cleaner organization</li>
+<li><strong>Common use cases:</strong> Project timelines, SLA tracking, delivery date calculations, working days until deadline</li>
+<li><strong>Error handling:</strong> If you get #VALUE! error, check that dates are formatted correctly</li>
+<li><strong>Real-world tip:</strong> Always account for holidays - projects that ignore holidays often miss deadlines</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A project end date that falls on a weekday (skipping weekends), working days elapsed count, and on-track status</p>
+</div>
 <h3 id="independent-practice-hour-3---60-min-11">Independent Practice (60 min):</h3>
 <div class="practice-note">
 <p><strong>💡 Hints for Independent Practice:</strong></p>
