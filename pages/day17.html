@@ -1118,7 +1118,140 @@ Explain with practical scenarios.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<p><em>Build data model with relationships, create calculated columns for profit, write DAX measures</em></p>
+
+<div class="section-card">
+<p><strong>Exercise 1: Enable Power Pivot and Load Data into Data Model</strong></p>
+<p><strong>Goal:</strong> Learn to activate Power Pivot and import tables into the Excel Data Model.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Enable Power Pivot:</strong> File → Options → Add-ins → Manage: COM Add-ins → Go → Check "Microsoft Power Pivot" → OK</li>
+<li><strong>Verify Power Pivot tab:</strong> You should see a new "Power Pivot" tab in the ribbon</li>
+<li><strong>Prepare your data:</strong> Have 3 worksheets ready - Orders (OrderID, CustomerID, ProductID, Sales, OrderDate), Customers (CustomerID, Name, City), Products (ProductID, Name, Category)</li>
+<li><strong>Load Orders table:</strong> Select any cell in Orders data → Power Pivot tab → Add to Data Model</li>
+<li><strong>Repeat for other tables:</strong> Load Customers and Products tables to Data Model</li>
+<li><strong>View in Power Pivot window:</strong> Power Pivot → Manage → You'll see all three tables loaded</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Power Pivot vs regular Excel:</strong> Power Pivot handles millions of rows, regular Excel limited to ~1M rows</li>
+<li><strong>Table names:</strong> Excel converts ranges to proper tables automatically when loading to Data Model</li>
+<li><strong>Data Model is in-memory:</strong> Faster than worksheet calculations for large datasets</li>
+<li><strong>No duplicate checking:</strong> Power Pivot doesn't prevent duplicate IDs - ensure data quality first</li>
+<li><strong>Keyboard shortcut:</strong> Alt+B+M opens Manage Data Model</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Three tables visible in Power Pivot window, ready for relationships</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Create Relationships Between Tables (Star Schema)</strong></p>
+<p><strong>Goal:</strong> Build a star schema by creating relationships between fact (Orders) and dimension tables (Customers, Products).</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>In Power Pivot window:</strong> Click Home → Diagram View (or click diagram icon)</li>
+<li><strong>Understand the layout:</strong> Orders is your fact table (center), Customers and Products are dimension tables</li>
+<li><strong>Create Orders-Customers relationship:</strong> Drag CustomerID from Orders table to CustomerID in Customers table</li>
+<li><strong>Create Orders-Products relationship:</strong> Drag ProductID from Orders to ProductID in Products</li>
+<li><strong>Verify relationships:</strong> You'll see lines connecting tables with "1" (one) and "*" (many) indicators</li>
+<li><strong>Check relationship details:</strong> Double-click any relationship line to see properties (should be 1-to-many)</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>One-to-many relationships:</strong> One customer → many orders, one product → many orders</li>
+<li><strong>Primary/Foreign keys:</strong> Dimension table IDs are primary keys (unique), fact table IDs are foreign keys</li>
+<li><strong>Auto-detect:</strong> Power Pivot sometimes auto-detects relationships based on column names</li>
+<li><strong>Relationship direction:</strong> Filters flow from dimension to fact table (one-way by default)</li>
+<li><strong>Star schema benefits:</strong> Organized, performant, matches how business thinks about data</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Diagram showing Orders in center connected to Customers and Products, with 1:* relationships</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Create Calculated Columns with DAX</strong></p>
+<p><strong>Goal:</strong> Add calculated columns to your tables using DAX formulas.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>In Power Pivot window:</strong> Switch to Data View (grid icon)</li>
+<li><strong>Click Orders table</strong></li>
+<li><strong>Add Profit column:</strong> Click in "Add Column" header → Type: <code>=Orders[Sales] - Orders[Cost]</code> → Enter</li>
+<li><strong>Rename the column:</strong> Right-click column header → Rename → Type "Profit"</li>
+<li><strong>Add Profit Margin %:</strong> New column → <code>=Orders[Profit] / Orders[Sales]</code> → Format as Percentage</li>
+<li><strong>Add Year column:</strong> <code>=YEAR(Orders[OrderDate])</code> → Rename to "OrderYear"</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>DAX vs Excel formulas:</strong> DAX is column-based (operates on entire columns), Excel is cell-based</li>
+<li><strong>Table[Column] syntax:</strong> Always reference columns as TableName[ColumnName]</li>
+<li><strong>Calculated columns vs measures:</strong> Calculated columns store values in model, measures calculate on-the-fly</li>
+<li><strong>When to use calculated columns:</strong> When you need to filter or slice by the calculated value</li>
+<li><strong>Performance:</strong> Calculated columns increase model size, use sparingly for large datasets</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Orders table has three new columns: Profit, Profit Margin %, OrderYear with calculated values</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Create DAX Measures for Analysis</strong></p>
+<p><strong>Goal:</strong> Write DAX measures for dynamic calculations in Pivot Tables.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>In Power Pivot:</strong> Click Orders table → Home → New Measure (or click in measure grid at bottom)</li>
+<li><strong>Create Total Sales measure:</strong> Measure Name: "Total Sales" | Formula: <code>=SUM(Orders[Sales])</code> → OK</li>
+<li><strong>Create Total Profit:</strong> New Measure → Name: "Total Profit" | Formula: <code>=SUM(Orders[Profit])</code></li>
+<li><strong>Create Average Order Value:</strong> <code>=AVERAGE(Orders[Sales])</code></li>
+<li><strong>Create Customer Count:</strong> <code>=DISTINCTCOUNT(Orders[CustomerID])</code></li>
+<li><strong>Create Profit Margin %:</strong> <code>=[Total Profit] / [Total Sales]</code> (references other measures!)</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Measures vs Calculated Columns:</strong> Measures don't store data, calculate based on pivot table context</li>
+<li><strong>Measure syntax:</strong> No table prefix needed: <code>=SUM(Orders[Sales])</code> or <code>=[Total Sales]</code> for measure references</li>
+<li><strong>Context matters:</strong> Same measure shows different values based on rows/columns in pivot table</li>
+<li><strong>Best practice:</strong> Use measures for aggregations (SUM, AVG, COUNT), calculated columns for row-level logic</li>
+<li><strong>Format measures:</strong> Right-click measure → Format → Choose currency, percentage, etc.</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Five measures visible in field list, ready to drag into pivot tables</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Build Pivot Table Using Data Model and Measures</strong></p>
+<p><strong>Goal:</strong> Create a pivot table that uses your relationships and measures for analysis.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Return to Excel worksheet:</strong> Close Power Pivot window</li>
+<li><strong>Insert Pivot Table:</strong> Insert tab → PivotTable → Use this workbook's Data Model → OK</li>
+<li><strong>In PivotTable Fields:</strong> You'll see all tables with expand arrows</li>
+<li><strong>Add rows:</strong> Drag Products[Category] to Rows area</li>
+<li><strong>Add measures:</strong> Drag "Total Sales", "Total Profit", "Profit Margin %" to Values area</li>
+<li><strong>Add slicer for Year:</strong> Expand Orders table → Right-click OrderYear → Add as Slicer</li>
+<li><strong>Add slicer for City:</strong> From Customers table → Right-click City → Add as Slicer</li>
+<li><strong>Test interactivity:</strong> Click different years/cities and watch measures update</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Data Model pivot tables are different:</strong> Can use fields from multiple tables due to relationships</li>
+<li><strong>Measures vs regular fields:</strong> Measures show ∑ icon, regular fields show different icons</li>
+<li><strong>Slicers filter all:</strong> Slicers work across all tables when relationships are correct</li>
+<li><strong>Cannot change values:</strong> Data Model pivot tables are read-only (can't double-click to drill to detail)</li>
+<li><strong>Advanced features:</strong> Use Analyze tab → Fields, Items, & Sets for advanced layouts</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Interactive pivot table showing sales/profit by category, filterable by year and city using slicers</p>
+
+<p><strong>🔄 Connection to SQL:</strong> Power Pivot relationships are like SQL JOINs, and DAX measures are like SQL aggregate functions with GROUP BY!</p>
+</div>
 <h3 id="independent-practice-hour-3---60-min-17">Independent Practice (60 min):</h3>
 <div class="practice-note">
 <p><strong>💡 Hints for Independent Practice:</strong></p>
