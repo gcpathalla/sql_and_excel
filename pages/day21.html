@@ -1117,7 +1117,117 @@ Provide practical examples with sales data.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<p><em>Calculate descriptive statistics, perform regression analysis, create sales forecast</em></p>
+
+<div class="section-card">
+<p><strong>Exercise 1: Calculate Descriptive Statistics with Data Analysis ToolPak</strong></p>
+<p><strong>Goal:</strong> Use Excel's built-in statistical tools to analyze data distribution.</p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Enable Data Analysis ToolPak:</strong> File → Options → Add-ins → Analysis ToolPak → Go → Check it → OK</li>
+<li><strong>Prepare sales data:</strong> Have monthly sales in column (e.g., A1:A12)</li>
+<li><strong>Run Descriptive Statistics:</strong> Data tab → Data Analysis → Descriptive Statistics</li>
+<li><strong>Configure:</strong> Input Range: A1:A12, Check "Summary statistics", Output Range: C1</li>
+<li><strong>Analyze output:</strong> Mean, Median, Mode, Std Deviation, Variance, Min, Max, etc.</li>
+</ol>
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Mean vs Median:</strong> Mean affected by outliers, median more robust</li>
+<li><strong>Standard deviation:</strong> Measures spread - higher = more variation</li>
+<li><strong>Quartiles:</strong> Help identify data distribution (Q1=25th percentile, Q3=75th)</li>
+<li><strong>Quick formulas:</strong> Use =AVERAGE(), =MEDIAN(), =STDEV.S() for quick stats</li>
+<li><strong>Visual check:</strong> Create histogram to see distribution shape</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Statistical summary showing mean, median, std dev, and other key metrics</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Perform Correlation Analysis</strong></p>
+<p><strong>Goal:</strong> Measure relationships between variables using CORREL function.</p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Setup data:</strong> Column A: Price, Column B: Sales Volume</li>
+<li><strong>Use CORREL function:</strong> <code>=CORREL(A2:A13,B2:B13)</code></li>
+<li><strong>Interpret result:</strong> Values: -1 (perfect negative) to +1 (perfect positive), 0 (no correlation)</li>
+<li><strong>Create scatter plot:</strong> Select both columns → Insert → Scatter Chart</li>
+<li><strong>Add trendline:</strong> Click chart → Chart Design → Add Trendline → Display R-squared</li>
+</ol>
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Correlation ≠ causation:</strong> High correlation doesn't mean one causes the other</li>
+<li><strong>R-squared:</strong> Shows % of variance explained (0.8 = 80% explained)</li>
+<li><strong>Positive correlation:</strong> Both variables move same direction</li>
+<li><strong>Negative correlation:</strong> Variables move opposite directions</li>
+<li><strong>Multiple correlations:</strong> Use Data Analysis → Correlation for multiple variables</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Correlation coefficient and scatter plot with trendline</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Create Linear Forecast with FORECAST.LINEAR</strong></p>
+<p><strong>Goal:</strong> Project future values using historical trend.</p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Historical data:</strong> Months 1-12 in column A, Sales in column B</li>
+<li><strong>Create forecast for month 13:</strong> <code>=FORECAST.LINEAR(13,B2:B13,A2:A13)</code></li>
+<li><strong>Forecast next 6 months:</strong> In A14:A19 enter 13-18, in B14 enter formula above, copy down</li>
+<li><strong>Visualize:</strong> Create line chart showing historical + forecast data</li>
+<li><strong>Format forecast:</strong> Use different line style/color to distinguish forecast from actual</li>
+</ol>
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Linear assumption:</strong> Works best when data shows steady linear trend</li>
+<li><strong>Forecast accuracy:</strong> Less reliable further into future</li>
+<li><strong>Alternative:</strong> Use TREND() function for same result</li>
+<li><strong>Confidence intervals:</strong> Add ±2*STDEV.S() bands to show uncertainty</li>
+<li><strong>Check fit:</strong> Use R-squared from regression to assess fit quality</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Forecast values for next 6 months with visualization</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Perform Regression Analysis</strong></p>
+<p><strong>Goal:</strong> Analyze relationship between independent and dependent variables.</p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Setup:</strong> Marketing Spend (X) in column A, Revenue (Y) in column B</li>
+<li><strong>Run Regression:</strong> Data → Data Analysis → Regression</li>
+<li><strong>Configure:</strong> Y Range: B1:B13, X Range: A1:A13, Output Range: D1</li>
+<li><strong>Check "Line Fit Plots" and "Residual Plots"</strong></li>
+<li><strong>Interpret:</strong> R-squared (fit quality), Coefficients (equation), P-values (significance)</li>
+</ol>
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>R-squared interpretation:</strong> >0.7 is good fit, >0.9 is excellent</li>
+<li><strong>P-value:</strong> <0.05 means statistically significant relationship</li>
+<li><strong>Equation:</strong> Y = Intercept + (Coefficient × X)</li>
+<li><strong>Residuals:</strong> Check residual plot for patterns (should be random)</li>
+<li><strong>Multiple regression:</strong> Can include multiple X variables</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Regression statistics, equation, and fit plots</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Create Time Series Forecast with FORECAST.ETS</strong></p>
+<p><strong>Goal:</strong> Account for seasonality using exponential smoothing.</p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Seasonal data:</strong> Monthly sales for 2-3 years showing seasonal pattern</li>
+<li><strong>Forecast next month:</strong> <code>=FORECAST.ETS(target_date, values, timeline, [seasonality])</code></li>
+<li><strong>Example:</strong> <code>=FORECAST.ETS(DATE(2025,1,1),B2:B37,A2:A37,12)</code></li>
+<li><strong>Seasonality parameter:</strong> 12 for monthly data with yearly pattern, 4 for quarterly</li>
+<li><strong>Create forecast table:</strong> Generate forecasts for next 12 months</li>
+</ol>
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>ETS vs LINEAR:</strong> ETS handles seasonality, LINEAR doesn't</li>
+<li><strong>Data requirement:</strong> Need at least 2 full seasonal cycles</li>
+<li><strong>Auto-detect seasonality:</strong> Omit seasonality parameter to auto-detect</li>
+<li><strong>Confidence intervals:</strong> Use FORECAST.ETS.CONFINT() for uncertainty bands</li>
+<li><strong>Validation:</strong> Hold out last period, forecast it, compare to actual</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Seasonal forecast accounting for repeating patterns</p>
+<p><strong>🔄 Connection to SQL:</strong> Statistical analysis in Excel complements SQL's data aggregation from Day 22!</p>
+</div>
 <h3 id="independent-practice-hour-3---60-min-21">Independent Practice (60 min):</h3>
 <div class="practice-note">
 <p><strong>💡 Hints for Independent Practice:</strong></p>
