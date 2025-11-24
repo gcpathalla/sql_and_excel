@@ -8740,8 +8740,11 @@ Explain best practices for communication.</code></pre>
 </script>
 
 <script>
-  // Smooth navigation without page jumps (like the reference dashboard)
+  // Smooth navigation without page jumps - Simple and elegant
   (function(){
+    // Flag to prevent auto-scroll during AJAX navigation
+    window.isAjaxNavigation = false;
+
     function initSmoothNav(){
       const toc = document.getElementById('TOC');
       const contentDiv = document.querySelector('.content');
@@ -8749,7 +8752,7 @@ Explain best practices for communication.</code></pre>
 
       if(!toc || !contentDiv) return;
 
-      // Save TOC scroll position
+      // Save TOC scroll position continuously
       let tocScrollPos = 0;
       toc.addEventListener('scroll', function(){
         tocScrollPos = toc.scrollTop;
@@ -8761,13 +8764,10 @@ Explain best practices for communication.</code></pre>
         if(!link) return;
 
         const href = link.getAttribute('href');
-        // Only handle same-origin HTML links and hash links within page
         if(!href) return;
 
-        // Handle internal page hash links (stay on same page, just scroll)
-        if(href.startsWith('#')){
-          return; // Let default behavior handle it
-        }
+        // Handle internal hash links (stay on same page)
+        if(href.startsWith('#')) return;
 
         // Skip external links
         if(href.startsWith('http')) return;
@@ -8777,8 +8777,8 @@ Explain best practices for communication.</code></pre>
 
         e.preventDefault();
 
-        // Add loading state
-        contentDiv.classList.add('loading');
+        // Set flag to prevent auto-scroll
+        window.isAjaxNavigation = true;
 
         // Fetch the new page
         fetch(href)
@@ -8793,33 +8793,34 @@ Explain best practices for communication.</code></pre>
             const newTitle = doc.querySelector('.title');
 
             if(newContent){
-              // Smooth transition
-              setTimeout(function(){
-                // Update content
-                contentDiv.innerHTML = newContent.innerHTML;
+              // Update content instantly
+              contentDiv.innerHTML = newContent.innerHTML;
 
-                // Update title if exists
-                if(newTitle && titleBlock){
-                  const currentTitle = titleBlock.querySelector('.title');
-                  if(currentTitle) currentTitle.textContent = newTitle.textContent;
-                }
+              // Update title if exists
+              if(newTitle && titleBlock){
+                const currentTitle = titleBlock.querySelector('.title');
+                if(currentTitle) currentTitle.textContent = newTitle.textContent;
+              }
 
-                // Update URL without reload
-                history.pushState({href: href}, '', href);
+              // Update URL without reload
+              history.pushState({href: href}, '', href);
 
-                // Restore TOC scroll position (this prevents the sidebar from jumping)
-                toc.scrollTop = tocScrollPos;
+              // Keep TOC exactly where it was - NO scrolling
+              toc.scrollTop = tocScrollPos;
 
-                // Scroll content to top smoothly
-                window.scrollTo({top: 0, behavior: 'smooth'});
+              // Scroll main content to top
+              window.scrollTo({top: 0, behavior: 'instant'});
 
-                // Remove loading state
-                contentDiv.classList.remove('loading');
+              // Update active link highlighting WITHOUT scrolling
+              updateActiveLink(href);
 
-                // Re-initialize scripts for new content
-                if(typeof createCopyButtons === 'function') createCopyButtons();
-                if(typeof linkifyContent === 'function') linkifyContent();
-              }, 150);
+              // Re-initialize scripts for new content (copy buttons, etc.)
+              initContentScripts();
+
+              // Reset flag after a short delay
+              setTimeout(() => {
+                window.isAjaxNavigation = false;
+              }, 100);
             } else {
               // Fallback to normal navigation
               window.location.href = href;
@@ -8827,7 +8828,6 @@ Explain best practices for communication.</code></pre>
           })
           .catch(err => {
             console.error('Navigation error:', err);
-            contentDiv.classList.remove('loading');
             // Fallback to normal navigation
             window.location.href = href;
           });
@@ -8841,7 +8841,32 @@ Explain best practices for communication.</code></pre>
       });
     }
 
-    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initSmoothNav); else initSmoothNav();
+    // Update active link without scrolling TOC
+    function updateActiveLink(href) {
+      const tocLinks = document.querySelectorAll('nav#TOC a');
+      const pageName = href.split('/').pop();
+
+      tocLinks.forEach(link => {
+        link.classList.remove('active');
+        const linkHref = link.getAttribute('href');
+        if(linkHref === pageName || linkHref === href || linkHref.endsWith('/' + pageName)) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    // Re-initialize content scripts (copy buttons, AI buttons, etc.)
+    function initContentScripts() {
+      // Trigger the DOMContentLoaded handlers for the new content
+      const event = new Event('DOMContentLoaded');
+      document.dispatchEvent(event);
+    }
+
+    if(document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSmoothNav);
+    } else {
+      initSmoothNav();
+    }
   })();
 </script>
 </body>
