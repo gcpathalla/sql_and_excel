@@ -8740,132 +8740,50 @@ Explain best practices for communication.</code></pre>
 </script>
 
 <script>
-  // Smooth navigation without page jumps - Simple and elegant
+  // Simple hash navigation - no page reloads, just smooth scrolling
   (function(){
-    // Flag to prevent auto-scroll during AJAX navigation
-    window.isAjaxNavigation = false;
+    // Highlight active section in TOC as user scrolls
+    function updateActiveTOC() {
+      const sections = document.querySelectorAll('[id^="day-"], [id^="week-"]');
+      const tocLinks = document.querySelectorAll('nav#TOC a[href^="#"]');
 
-    function initSmoothNav(){
-      const toc = document.getElementById('TOC');
-      const contentDiv = document.querySelector('.content');
-      const titleBlock = document.getElementById('title-block-header');
+      let currentSection = '';
+      const scrollPos = window.scrollY + 150; // Offset for header
 
-      if(!toc || !contentDiv) return;
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
 
-      // Save TOC scroll position continuously
-      let tocScrollPos = 0;
-      toc.addEventListener('scroll', function(){
-        tocScrollPos = toc.scrollTop;
-      });
-
-      // Intercept TOC link clicks
-      toc.addEventListener('click', function(e){
-        const link = e.target.closest('a[href]');
-        if(!link) return;
-
-        const href = link.getAttribute('href');
-        if(!href) return;
-
-        // Handle internal hash links (stay on same page)
-        if(href.startsWith('#')) return;
-
-        // Skip external links
-        if(href.startsWith('http')) return;
-
-        // Only intercept HTML page links
-        if(!href.endsWith('.html')) return;
-
-        e.preventDefault();
-
-        // Set flag to prevent auto-scroll
-        window.isAjaxNavigation = true;
-
-        // Fetch the new page
-        fetch(href)
-          .then(response => response.text())
-          .then(html => {
-            // Parse the HTML
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-
-            // Extract new content
-            const newContent = doc.querySelector('.content');
-            const newTitle = doc.querySelector('.title');
-
-            if(newContent){
-              // Update content instantly
-              contentDiv.innerHTML = newContent.innerHTML;
-
-              // Update title if exists
-              if(newTitle && titleBlock){
-                const currentTitle = titleBlock.querySelector('.title');
-                if(currentTitle) currentTitle.textContent = newTitle.textContent;
-              }
-
-              // Update URL without reload
-              history.pushState({href: href}, '', href);
-
-              // Keep TOC exactly where it was - NO scrolling
-              toc.scrollTop = tocScrollPos;
-
-              // Scroll main content to top
-              window.scrollTo({top: 0, behavior: 'instant'});
-
-              // Update active link highlighting WITHOUT scrolling
-              updateActiveLink(href);
-
-              // Re-initialize scripts for new content (copy buttons, etc.)
-              initContentScripts();
-
-              // Reset flag after a short delay
-              setTimeout(() => {
-                window.isAjaxNavigation = false;
-              }, 100);
-            } else {
-              // Fallback to normal navigation
-              window.location.href = href;
-            }
-          })
-          .catch(err => {
-            console.error('Navigation error:', err);
-            // Fallback to normal navigation
-            window.location.href = href;
-          });
-      });
-
-      // Handle browser back/forward buttons
-      window.addEventListener('popstate', function(e){
-        if(e.state && e.state.href){
-          window.location.reload();
+        if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+          currentSection = '#' + section.id;
         }
       });
-    }
-
-    // Update active link without scrolling TOC
-    function updateActiveLink(href) {
-      const tocLinks = document.querySelectorAll('nav#TOC a');
-      const pageName = href.split('/').pop();
 
       tocLinks.forEach(link => {
         link.classList.remove('active');
-        const linkHref = link.getAttribute('href');
-        if(linkHref === pageName || linkHref === href || linkHref.endsWith('/' + pageName)) {
+        if (link.getAttribute('href') === currentSection) {
           link.classList.add('active');
         }
       });
     }
 
-    // Re-initialize content scripts (copy buttons, AI buttons, etc.)
-    function initContentScripts() {
-      // Trigger the DOMContentLoaded handlers for the new content
-      const event = new Event('DOMContentLoaded');
-      document.dispatchEvent(event);
-    }
+    // Update on scroll (throttled)
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          updateActiveTOC();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
 
-    if(document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initSmoothNav);
+    // Update on page load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', updateActiveTOC);
     } else {
-      initSmoothNav();
+      updateActiveTOC();
     }
   })();
 </script>
