@@ -1132,25 +1132,187 @@ Use practical examples with formulas.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<p><em>Using Superstore Sales dataset</em></p>
-<p><strong>Exercise 1: Multiple Criteria Analysis</strong>
-1. Calculate total sales for Region="West" AND Category="Technology"
-2. Count orders where Ship Mode="Standard Class" AND Sales&gt;500
-3. Average profit for Region="East" AND Year=2023
-4. Sum sales for Product names containing "Chair"
-5. Count unique customers with sales &gt; $1000</p>
-<p><strong>Exercise 2: Text Manipulation</strong>
-1. Extract state from "City, State" format
-2. Create full product code: Category + "-" + SubCategory + "-" + ID
-3. Clean customer names (remove extra spaces, proper case)
-4. Extract area code from phone number "(555) 123-4567"
-5. Split "LastName, FirstName" into separate columns</p>
-<p><strong>Exercise 3: Error Handling</strong>
-1. Add IFERROR to VLOOKUP formulas
-2. Handle division by zero in profit margin calculation
-3. Create "Not Found" message for missing products
-4. Combine IFERROR with SUMIFS for safe calculations
-5. Nest multiple error handlers</p>
+<p><em>Using Superstore Sales dataset - Excel Practice</em></p>
+<div class="section-card">
+<p><strong>📝 Setup Instructions:</strong></p>
+<ol>
+<li>Open your Superstore Sales dataset</li>
+<li>Ensure columns: Region, Category, Sales, Profit, Product Name, Customer Name, etc.</li>
+<li>Today builds on Day 3 (SUMIF/COUNTIF) - now with MULTIPLE criteria!</li>
+</ol>
+<p><strong>💡 Advanced Functions:</strong> Day 3 taught SUMIF (one condition). Today you'll master SUMIFS, COUNTIFS, AVERAGEIFS (multiple conditions) plus text manipulation!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 1: SUMIFS - Sum with Multiple Criteria</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Calculate total sales for West region AND Technology category</li>
+<li>In an empty cell, type:
+<pre><code>=SUMIFS(D:D, C:C, "West", E:E, "Technology")</code></pre>
+Breaking it down:
+<ul>
+<li><code>D:D</code> = Sum range (Sales column)</li>
+<li><code>C:C, "West"</code> = First criteria: Region = West</li>
+<li><code>E:E, "Technology"</code> = Second criteria: Category = Technology</li>
+</ul>
+</li>
+<li>Press <kbd>Enter</kbd></li>
+<li><strong>Try more combinations:</strong>
+<pre><code>=SUMIFS(D:D, C:C, "East", F:F, ">500")</code></pre>
+Sum sales for East region where Sales > 500
+</li>
+</ol>
+<p><strong>💡 SUMIFS vs SUMIF:</strong></p>
+<ul>
+<li><strong>SUMIF:</strong> One condition - <code>=SUMIF(range, criteria, sum_range)</code></li>
+<li><strong>SUMIFS:</strong> Multiple conditions - <code>=SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2...)</code></li>
+<li>Note: SUMIFS puts sum_range FIRST!</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Total sales matching ALL specified criteria</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: COUNTIFS & AVERAGEIFS - More Multi-Criteria Functions</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>COUNTIFS - Count rows meeting multiple conditions:</strong>
+<pre><code>=COUNTIFS(C:C, "West", D:D, ">1000")</code></pre>
+Counts West region orders with Sales > 1000
+</li>
+<li><strong>AVERAGEIFS - Average with multiple criteria:</strong>
+<pre><code>=AVERAGEIFS(I:I, C:C, "East", D:D, ">0")</code></pre>
+Average profit for East region where Sales > 0
+</li>
+<li><strong>Three criteria example:</strong>
+<pre><code>=SUMIFS(D:D, C:C, "West", E:E, "Furniture", I:I, ">0")</code></pre>
+Sum West + Furniture + Profitable orders
+</li>
+</ol>
+<p><strong>💡 Pattern Recognition:</strong></p>
+<ul>
+<li>All end with "IFS" for multiple criteria</li>
+<li>Format: <code>=XXXIFS(value_range, criteria_range1, criteria1, criteria_range2, criteria2...)</code></li>
+<li>Can have many criteria pairs (not limited to 2!)</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Counts and averages based on multiple conditions</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Text Functions - Extract and Manipulate</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>LEFT, RIGHT, MID - Extract parts of text:</strong>
+<pre><code>=LEFT(A2, 3)  // First 3 characters
+=RIGHT(A2, 4)  // Last 4 characters
+=MID(A2, 2, 5)  // 5 characters starting at position 2</code></pre>
+</li>
+<li><strong>CONCATENATE or & - Combine text:</strong>
+<pre><code>=B2 & "-" & C2 & "-" & D2  // Join with hyphens
+=CONCATENATE(B2, " ", C2)  // Join with space</code></pre>
+</li>
+<li><strong>UPPER, LOWER, PROPER - Change case:</strong>
+<pre><code>=UPPER(A2)  // ALL CAPS
+=LOWER(A2)  // all lowercase
+=PROPER(A2)  // Title Case</code></pre>
+</li>
+<li><strong>TRIM - Remove extra spaces:</strong>
+<pre><code>=TRIM(A2)  // Removes leading/trailing/extra spaces</code></pre>
+</li>
+<li><strong>LEN - Count characters:</strong>
+<pre><code>=LEN(A2)  // Number of characters</code></pre>
+</li>
+</ol>
+<p><strong>💡 Practical Example - Create Product Code:</strong></p>
+<pre><code>=UPPER(LEFT(B2,3)) & "-" & C2</code></pre>
+<p>This takes first 3 letters of product name (uppercase) + hyphen + category</p>
+<p><strong>✅ Expected Result:</strong> Extracted, combined, or formatted text as needed</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: IFERROR - Handle Errors Gracefully</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Basic IFERROR with division:</strong>
+<pre><code>=IFERROR(I2/D2, 0)</code></pre>
+Calculates Profit/Sales; if error (division by zero), returns 0
+</li>
+<li><strong>IFERROR with VLOOKUP (from Day 5):</strong>
+<pre><code>=IFERROR(VLOOKUP(A2, Products!A:C, 2, FALSE), "Not Found")</code></pre>
+If product not found, shows "Not Found" instead of #N/A
+</li>
+<li><strong>Nested error handling:</strong>
+<pre><code>=IFERROR(I2/D2, IFERROR(I2/E2, "No Data"))</code></pre>
+Try first calculation; if error, try second; if still error, show "No Data"
+</li>
+</ol>
+<p><strong>💡 Common Errors Handled:</strong></p>
+<ul>
+<li><code>#DIV/0!</code> - Division by zero</li>
+<li><code>#N/A</code> - VLOOKUP/XLOOKUP not found</li>
+<li><code>#VALUE!</code> - Wrong data type</li>
+<li><code>#REF!</code> - Invalid cell reference</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Clean output with user-friendly messages instead of error codes</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Combining Advanced Functions - Real-World Example</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Create a dashboard cell showing: "West region Technology sales for profitable orders"</li>
+<li>Use this formula:
+<pre><code>=IFERROR(
+  "West Tech Profitable Sales: $" &
+  TEXT(SUMIFS(D:D, C:C, "West", E:E, "Technology", I:I, ">0"), "#,##0"),
+  "Data Not Available"
+)</code></pre>
+Breaking it down:
+<ul>
+<li>SUMIFS calculates the sum (multiple criteria)</li>
+<li>TEXT formats the number with commas</li>
+<li>& concatenates the label and value</li>
+<li>IFERROR handles any errors</li>
+</ul>
+</li>
+<li>Result looks like: "West Tech Profitable Sales: $125,450"</li>
+</ol>
+<p><strong>🎯 Function Nesting:</strong></p>
+<ul>
+<li>You can nest functions inside each other</li>
+<li>Excel evaluates from inside out</li>
+<li>Combine multiple functions for powerful calculations</li>
+<li>Always test each part separately first!</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Professional-looking formatted output combining multiple advanced functions</p>
+</div>
+
+<div class="section-card">
+<p><strong>🎯 Practice Goal Checkpoint:</strong></p>
+<p>By completing these 5 exercises, you should now be able to:</p>
+<ul>
+<li>Use SUMIFS, COUNTIFS, AVERAGEIFS for multiple criteria</li>
+<li>Manipulate text with LEFT, RIGHT, MID, CONCATENATE, UPPER/LOWER/PROPER, TRIM</li>
+<li>Handle errors gracefully with IFERROR</li>
+<li>Combine multiple functions in complex formulas</li>
+<li>Create professional, formatted outputs</li>
+</ul>
+<p><strong>Key Insight:</strong> Advanced functions eliminate manual work! Instead of filtering data repeatedly, one formula can calculate exactly what you need across any criteria.</p>
+<p><strong>Comparison with Previous Days:</strong></p>
+<ul>
+<li><strong>Day 3:</strong> SUMIF (one condition)</li>
+<li><strong>Day 9:</strong> SUMIFS (multiple conditions) + text manipulation + error handling</li>
+<li>Building complexity step by step!</li>
+</ul>
+<p><strong>Common Use Cases:</strong></p>
+<ul>
+<li>Complex reports with multiple filters</li>
+<li>Data cleaning and standardization</li>
+<li>Dashboard calculations</li>
+<li>Automated data processing</li>
+</ul>
+<p><strong>Take a 5-minute break, then move on to Independent Practice!</strong></p>
+</div>
 <h3 id="independent-practice-hour-3---60-min-9">Independent Practice (60 min):</h3>
 <div class="practice-note">
 <p><strong>💡 Hints for Independent Practice:</strong></p>
