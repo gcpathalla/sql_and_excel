@@ -1117,7 +1117,279 @@ Explain with step-by-step examples.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<p><em>Create GROUPING SETS for multi-level summary, use ROLLUP for hierarchical totals, build CUBE for cross-tabs</em></p>
+<div class="section-card">
+<p><strong>Exercise 1: Create Multi-Level Summary with GROUPING SETS</strong></p>
+<p><strong>Goal:</strong> Learn to use GROUPING SETS to create multiple aggregation levels in a single query without using UNION ALL.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open your SQL editor</strong> (SQL Server Management Studio, pgAdmin, or online SQL environment)</li>
+<li><strong>Create a sample Sales table</strong> with data to practice:
+<pre><code>CREATE TABLE Sales (
+    SaleID INT,
+    Region VARCHAR(50),
+    Category VARCHAR(50),
+    Amount DECIMAL(10,2)
+);
+
+INSERT INTO Sales VALUES
+(1, 'East', 'Electronics', 1500),
+(2, 'East', 'Furniture', 800),
+(3, 'West', 'Electronics', 2000),
+(4, 'West', 'Furniture', 1200),
+(5, 'East', 'Electronics', 1800),
+(6, 'West', 'Electronics', 2200);</code></pre></li>
+<li><strong>First, understand what we want:</strong> Sales totals by Region only, by Category only, and by both combined</li>
+<li><strong>Write the GROUPING SETS query:</strong>
+<pre><code>SELECT
+    Region,
+    Category,
+    SUM(Amount) AS TotalSales
+FROM Sales
+GROUP BY GROUPING SETS (
+    (Region),           -- Sales by Region only
+    (Category),         -- Sales by Category only
+    (Region, Category), -- Sales by both
+    ()                  -- Grand total
+)
+ORDER BY Region, Category;</code></pre></li>
+<li><strong>Run the query</strong> and observe how you get multiple aggregation levels in one result set</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>GROUPING SETS replaces multiple queries:</strong> One query instead of 3-4 separate GROUP BY queries with UNION ALL</li>
+<li><strong>NULL indicates aggregation level:</strong> NULL in a column means that column was aggregated out</li>
+<li><strong>Order matters in GROUPING SETS:</strong> List the most detailed grouping first for better readability</li>
+<li><strong>Performance benefit:</strong> Single table scan instead of multiple scans with UNION ALL</li>
+<li><strong>Use empty () for grand total:</strong> The empty set gives you the overall total</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A result set showing sales aggregated by Region, by Category, by both, and a grand total - all in one query</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Similar to creating multiple pivot tables in Excel (Day 7), but in SQL</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Build Hierarchical Totals with ROLLUP</strong></p>
+<p><strong>Goal:</strong> Master ROLLUP to create hierarchical subtotals automatically from left to right in the GROUP BY columns.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Expand the Sales table</strong> with more hierarchical data:
+<pre><code>CREATE TABLE SalesHierarchy (
+    SaleID INT,
+    Year INT,
+    Quarter INT,
+    Month INT,
+    Amount DECIMAL(10,2)
+);
+
+INSERT INTO SalesHierarchy VALUES
+(1, 2024, 1, 1, 5000),
+(2, 2024, 1, 2, 5500),
+(3, 2024, 1, 3, 6000),
+(4, 2024, 2, 4, 7000),
+(5, 2024, 2, 5, 7500),
+(6, 2024, 2, 6, 8000);</code></pre></li>
+<li><strong>Understand the hierarchy:</strong> Year → Quarter → Month (from general to specific)</li>
+<li><strong>Write the ROLLUP query:</strong>
+<pre><code>SELECT
+    Year,
+    Quarter,
+    Month,
+    SUM(Amount) AS TotalSales
+FROM SalesHierarchy
+GROUP BY ROLLUP (Year, Quarter, Month)
+ORDER BY Year, Quarter, Month;</code></pre></li>
+<li><strong>Analyze the results:</strong> You'll see:
+   - Individual months
+   - Subtotals for each quarter
+   - Subtotals for each year
+   - Grand total (all NULLs)</li>
+<li><strong>Compare with manual approach:</strong> This one query replaces 4 separate GROUP BY queries!</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>ROLLUP creates right-to-left hierarchy:</strong> It removes columns from right to left for aggregation</li>
+<li><strong>Column order is critical:</strong> Put the most general column first (Year), most specific last (Month)</li>
+<li><strong>Subtotal rows have NULLs:</strong> Quarter subtotals show NULL for Month, Year subtotals show NULL for Quarter and Month</li>
+<li><strong>Perfect for financial reports:</strong> Common in sales reports, budgets, and hierarchical data</li>
+<li><strong>ROLLUP is a shorthand:</strong> It's equivalent to specific GROUPING SETS but more concise</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A hierarchical report showing totals at each level: monthly, quarterly, yearly, and grand total</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Similar to Excel subtotals feature (Day 2), but more powerful and automated</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Generate Cross-Tabulations with CUBE</strong></p>
+<p><strong>Goal:</strong> Use CUBE to create all possible combinations of groupings for comprehensive multi-dimensional analysis.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Use the Sales table</strong> from Exercise 1 or create new data:
+<pre><code>-- Reuse Sales table from Exercise 1
+-- Or insert more diverse data</code></pre></li>
+<li><strong>Understand what CUBE does:</strong> It creates ALL possible combinations of the specified columns</li>
+<li><strong>Write the CUBE query:</strong>
+<pre><code>SELECT
+    Region,
+    Category,
+    SUM(Amount) AS TotalSales,
+    COUNT(*) AS SalesCount
+FROM Sales
+GROUP BY CUBE (Region, Category)
+ORDER BY
+    CASE WHEN Region IS NULL THEN 1 ELSE 0 END,
+    Region,
+    CASE WHEN Category IS NULL THEN 1 ELSE 0 END,
+    Category;</code></pre></li>
+<li><strong>Analyze the output - you'll get:</strong>
+   - Sales by Region AND Category (both specified)
+   - Sales by Region only (Category = NULL)
+   - Sales by Category only (Region = NULL)
+   - Grand total (both NULL)</li>
+<li><strong>Count the combinations:</strong> With 2 columns, CUBE creates 2² = 4 grouping combinations</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>CUBE creates all combinations:</strong> For N columns, you get 2^N combinations (including grand total)</li>
+<li><strong>More powerful than ROLLUP:</strong> ROLLUP is hierarchical, CUBE is comprehensive across all dimensions</li>
+<li><strong>Perfect for pivot-style reports:</strong> When you need to analyze data from multiple angles</li>
+<li><strong>Can be expensive:</strong> With many columns (5+), CUBE generates many rows and can impact performance</li>
+<li><strong>Use with caution:</strong> For 3+ columns, consider if you need ALL combinations or just specific GROUPING SETS</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> All possible aggregate combinations showing sales from every analytical angle</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Similar to Excel's multi-dimensional pivot tables (Day 7) showing row and column totals</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Identify Subtotal Rows with GROUPING() Function</strong></p>
+<p><strong>Goal:</strong> Learn to use the GROUPING() function to distinguish between NULL values from data and NULL values from aggregation.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Start with a ROLLUP query</strong> from Exercise 2</li>
+<li><strong>Understand the problem:</strong> How do we know if a NULL is a subtotal or actual NULL data?</li>
+<li><strong>Add GROUPING() to identify aggregation NULLs:</strong>
+<pre><code>SELECT
+    Year,
+    Quarter,
+    Month,
+    SUM(Amount) AS TotalSales,
+    GROUPING(Year) AS IsYearTotal,
+    GROUPING(Quarter) AS IsQuarterTotal,
+    GROUPING(Month) AS IsMonthTotal
+FROM SalesHierarchy
+GROUP BY ROLLUP (Year, Quarter, Month)
+ORDER BY Year, Quarter, Month;</code></pre></li>
+<li><strong>Interpret the GROUPING() results:</strong>
+   - Returns 1 if the column is aggregated out (subtotal row)
+   - Returns 0 if the column has an actual value</li>
+<li><strong>Use GROUPING_ID for combined identifier:</strong>
+<pre><code>SELECT
+    Year,
+    Quarter,
+    Month,
+    SUM(Amount) AS TotalSales,
+    GROUPING_ID(Year, Quarter, Month) AS GroupLevel
+FROM SalesHierarchy
+GROUP BY ROLLUP (Year, Quarter, Month)
+ORDER BY Year, Quarter, Month;</code></pre>
+The GroupLevel will be:
+   - 0 (binary 000) = Detail row
+   - 1 (binary 001) = Month total
+   - 3 (binary 011) = Quarter total
+   - 7 (binary 111) = Grand total</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>GROUPING() returns 1 or 0:</strong> 1 means it's a subtotal, 0 means it's actual data</li>
+<li><strong>Essential for labeling:</strong> Use with CASE statements to add descriptive labels to subtotal rows</li>
+<li><strong>GROUPING_ID is more compact:</strong> Combines multiple GROUPING() calls into one binary number</li>
+<li><strong>Binary representation:</strong> Each bit in GROUPING_ID represents one column's aggregation status</li>
+<li><strong>Useful in WHERE clauses:</strong> Filter to show only certain aggregation levels</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Clear identification of which rows are detail data vs. various subtotal levels</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Similar to Excel's subtotal levels (Day 7) where you can expand/collapse different levels</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Create Labeled Summary Report with CASE and GROUPING()</strong></p>
+<p><strong>Goal:</strong> Combine GROUPING SETS with CASE statements to create professional, labeled summary reports.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Use the Sales table</strong> from Exercise 1</li>
+<li><strong>Goal:</strong> Create a report with descriptive labels instead of NULLs for subtotals</li>
+<li><strong>Write the enhanced query with labels:</strong>
+<pre><code>SELECT
+    CASE
+        WHEN GROUPING(Region) = 1 THEN '**ALL REGIONS**'
+        ELSE ISNULL(Region, 'Unknown')
+    END AS Region,
+    CASE
+        WHEN GROUPING(Category) = 1 THEN '**ALL CATEGORIES**'
+        ELSE ISNULL(Category, 'Unknown')
+    END AS Category,
+    SUM(Amount) AS TotalSales,
+    COUNT(*) AS TransactionCount,
+    AVG(Amount) AS AvgSale,
+    CASE
+        WHEN GROUPING(Region) = 1 AND GROUPING(Category) = 1 THEN 'Grand Total'
+        WHEN GROUPING(Region) = 1 THEN 'Region Subtotal'
+        WHEN GROUPING(Category) = 1 THEN 'Category Subtotal'
+        ELSE 'Detail'
+    END AS RowType
+FROM Sales
+GROUP BY ROLLUP (Region, Category)
+ORDER BY
+    GROUPING(Region),
+    Region,
+    GROUPING(Category),
+    Category;</code></pre></li>
+<li><strong>Run and review the report:</strong> Notice how subtotals are clearly labeled and easy to understand</li>
+<li><strong>Enhance further with formatting:</strong>
+<pre><code>SELECT
+    CASE
+        WHEN GROUPING(Region) = 1 THEN '**ALL REGIONS**'
+        ELSE Region
+    END AS Region,
+    CASE
+        WHEN GROUPING(Category) = 1 THEN '**ALL CATEGORIES**'
+        ELSE Category
+    END AS Category,
+    FORMAT(SUM(Amount), 'C') AS TotalSales,
+    COUNT(*) AS Transactions,
+    CASE GROUPING_ID(Region, Category)
+        WHEN 0 THEN '📊 Detail'
+        WHEN 1 THEN '📈 Category Total'
+        WHEN 2 THEN '📊 Region Total'
+        WHEN 3 THEN '🎯 GRAND TOTAL'
+    END AS Level
+FROM Sales
+GROUP BY ROLLUP (Region, Category)
+ORDER BY GROUPING(Region), Region, GROUPING(Category), Category;</code></pre></li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Always label subtotal rows:</strong> Makes reports much more readable for end users</li>
+<li><strong>Use bold markers for totals:</strong> Convention like '**ALL REGIONS**' or '**TOTAL**' helps them stand out</li>
+<li><strong>Combine multiple aggregates:</strong> Include SUM, COUNT, AVG for comprehensive insights</li>
+<li><strong>Use GROUPING_ID in CASE:</strong> Create different labels/formatting for each aggregation level</li>
+<li><strong>Format currency properly:</strong> Use FORMAT() function for currency, percentages, etc.</li>
+<li><strong>Order matters for readability:</strong> Sort by GROUPING() first to group detail and summary rows</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A professional, clearly labeled summary report with multiple aggregation levels and descriptive labels</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Combines SQL aggregation with report formatting, similar to Excel's subtotal feature with custom labels (Day 7)</p>
+</div>
 <h3 id="independent-practice-hour-3---60-min-22">Independent Practice (60 min):</h3>
 <div class="practice-note">
 <p><strong>💡 Hints for Independent Practice:</strong></p>

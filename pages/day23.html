@@ -1119,7 +1119,241 @@ Explain with practical scenarios.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<p><em>Create formula-based formatting rules, build dependent dropdowns, add custom validation</em></p>
+<div class="section-card">
+<p><strong>Exercise 1: Create Formula-Based Conditional Formatting</strong></p>
+<p><strong>Goal:</strong> Learn to use custom formulas in conditional formatting to highlight data based on complex conditions.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open Excel</strong> and create a sample sales data table:
+<pre><code>A1: Name    B1: Region   C1: Sales   D1: Target   E1: Quarter
+A2: John    B2: East     C2: 45000   D2: 40000    E2: Q1
+A3: Sarah   B3: West     C3: 38000   D3: 40000    E3: Q1
+A4: Mike    B4: East     C4: 52000   D4: 45000    E4: Q2
+A5: Lisa    B5: West     C5: 41000   D5: 40000    E5: Q2
+A6: Tom     B6: East     C6: 37000   D6: 40000    E6: Q1</code></pre></li>
+<li><strong>Goal:</strong> Highlight entire rows where Sales exceed Target</li>
+<li><strong>Select the entire data range</strong> (A2:E6)</li>
+<li><strong>Go to Home → Conditional Formatting → New Rule</strong></li>
+<li><strong>Choose "Use a formula to determine which cells to format"</strong></li>
+<li><strong>Enter the formula:</strong> <code>=$C2>$D2</code>
+   - The $ before column letter makes it absolute (always check column C and D)
+   - No $ before row number makes it relative (checks current row)</li>
+<li><strong>Click Format button</strong> → Choose green fill color → Click OK twice</li>
+<li><strong>Observe:</strong> Entire rows where sales exceed target are highlighted green!</li>
+<li><strong>Add another rule</strong> for underperformers (Sales < 90% of Target):
+   - Formula: <code>=$C2<($D2*0.9)</code>
+   - Format: Red fill</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Use $ carefully:</strong> Column letters should have $ (absolute), row numbers shouldn't (relative)</li>
+<li><strong>Formula applies to first row:</strong> Write formula for row 2, Excel adjusts for other rows automatically</li>
+<li><strong>Test your formula first:</strong> Write it in a cell to verify it works before using in conditional formatting</li>
+<li><strong>Manage rules:</strong> Use "Manage Rules" to edit, delete, or reorder multiple rules</li>
+<li><strong>Rule order matters:</strong> Rules are evaluated top to bottom; use "Stop If True" to prevent overlapping</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Rows automatically highlighted based on performance: green for overachievers, red for underperformers</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> More advanced than basic conditional formatting (Day 1), using formulas for complex logic</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Highlight Alternating Rows with Custom Patterns</strong></p>
+<p><strong>Goal:</strong> Use formulas to create alternating row colors and highlight specific patterns like weekends or specific text.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Create a calendar-style dataset:</strong>
+<pre><code>A1: Date        B1: Day        C1: Sales    D1: Notes
+A2: 1/1/2024    B2: Monday     C2: 5000     D2: Normal
+A3: 1/2/2024    B3: Tuesday    C3: 5200     D3: Normal
+A4: 1/3/2024    B4: Wednesday  C4: 4800     D4: Normal
+A5: 1/4/2024    B5: Thursday   C5: 5100     D5: Normal
+A6: 1/5/2024    B6: Friday     C6: 6200     D6: Peak
+A7: 1/6/2024    B7: Saturday   C7: 7500     D7: Weekend
+A8: 1/7/2024    B8: Sunday     C8: 7000     D8: Weekend</code></pre></li>
+<li><strong>Highlight alternating rows:</strong>
+   - Select A2:D20
+   - New Rule → Use formula: <code>=MOD(ROW(),2)=0</code>
+   - Format: Light gray fill
+   - This highlights all even rows</li>
+<li><strong>Highlight weekends (Saturday/Sunday):</strong>
+   - Select A2:D20
+   - New Rule → Use formula: <code>=OR(B2="Saturday",B2="Sunday")</code>
+   - Format: Light blue fill</li>
+<li><strong>Highlight cells containing "Peak" in Notes column:</strong>
+   - Select D2:D20
+   - New Rule → Use formula: <code>=ISNUMBER(SEARCH("Peak",$D2))</code>
+   - Format: Yellow fill with bold text</li>
+<li><strong>Manage rule priority:</strong> Go to Manage Rules and arrange so weekend rule is above alternating rows</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>MOD(ROW(),2):</strong> Returns 0 for even rows, 1 for odd rows - perfect for alternating patterns</li>
+<li><strong>SEARCH is case-insensitive:</strong> Use SEARCH for flexible text matching, FIND for exact case</li>
+<li><strong>ISNUMBER(SEARCH()):</strong> Common pattern to check if text contains a substring</li>
+<li><strong>Rule priority is crucial:</strong> More specific rules (weekends) should be above general rules (alternating)</li>
+<li><strong>Use named ranges:</strong> For complex formulas, name your columns for better readability</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Professional-looking table with alternating rows, weekends highlighted distinctly, and special notes emphasized</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Combines text functions (Day 3) with conditional formatting for visual data organization</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Create Data Validation with Custom Dropdowns</strong></p>
+<p><strong>Goal:</strong> Master data validation by creating dropdown lists with custom rules and error messages.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Set up reference lists</strong> on a separate sheet (or off to the side):
+<pre><code>Sheet2 (or columns G:J):
+G1: Regions     H1: Categories    I1: Status      J1: Priority
+G2: East        H2: Electronics   I2: Pending     J2: High
+G3: West        H3: Furniture     I3: Approved    J3: Medium
+G4: North       H4: Clothing      I4: Completed   J4: Low
+G5: South       H5: Food          I5: Cancelled</code></pre></li>
+<li><strong>Create dropdown for Region (B2:B20):</strong>
+   - Select cells B2:B20
+   - Go to Data → Data Validation
+   - Allow: List
+   - Source: =Sheet2!$G$2:$G$5 (or =G2:G5 if on same sheet)
+   - Input Message: "Select a region from the dropdown"
+   - Error Alert: "Invalid region. Please select from the list."
+   - Click OK</li>
+<li><strong>Create dropdown for Category (C2:C20):</strong>
+   - Select C2:C20
+   - Data Validation → List
+   - Source: =Sheet2!$H$2:$H$5
+   - Add custom input message and error alert</li>
+<li><strong>Create date validation (D2:D20):</strong>
+   - Select D2:D20
+   - Data Validation → Allow: Date
+   - Data: between
+   - Start date: =TODAY()
+   - End date: =TODAY()+365
+   - Error: "Date must be within the next year"</li>
+<li><strong>Create number validation for Sales Amount (E2:E20):</strong>
+   - Select E2:E20
+   - Allow: Decimal
+   - Data: between
+   - Minimum: 0
+   - Maximum: 100000
+   - Error: "Sales amount must be between $0 and $100,000"</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Always use absolute references ($):</strong> For source lists so they don't shift</li>
+<li><strong>Name your ranges:</strong> Name G2:G5 as "Regions" then use =Regions in validation</li>
+<li><strong>Customize messages:</strong> Input messages guide users; error alerts prevent bad data</li>
+<li><strong>Three error styles:</strong> Stop (blocks entry), Warning (allows override), Information (just notifies)</li>
+<li><strong>Circle invalid data:</strong> Use Data → Data Validation → Circle Invalid Data to find problems</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Professional data entry form with dropdown selections and validation preventing incorrect data</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Enhances basic data entry (Day 1) with validation and user-friendly dropdowns</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Build Dependent Dropdowns (Cascading Lists)</strong></p>
+<p><strong>Goal:</strong> Create dependent dropdown lists where the second dropdown options change based on the first dropdown selection.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Set up your category and product data:</strong>
+<pre><code>Sheet2:
+A1: Electronics    B1: Furniture     C1: Clothing
+A2: Laptop         B2: Desk          C2: Shirt
+A3: Phone          B3: Chair         C3: Pants
+A4: Tablet         B4: Cabinet       C4: Jacket
+A5: Monitor        B5: Shelf         C5: Shoes</code></pre></li>
+<li><strong>Create named ranges for each category:</strong>
+   - Select A2:A5 → Name Box (top left) → Type "Electronics" → Enter
+   - Select B2:B5 → Name as "Furniture"
+   - Select C2:C5 → Name as "Clothing"</li>
+<li><strong>Create the Category dropdown (A2 on main sheet):</strong>
+   - In main data sheet, cell A1: "Category", B1: "Product"
+   - Select A2
+   - Data Validation → List
+   - Source: Electronics,Furniture,Clothing
+   - Click OK</li>
+<li><strong>Create the dependent Product dropdown (B2):</strong>
+   - Select B2
+   - Data Validation → List
+   - Source: =INDIRECT($A2)
+   - Click OK</li>
+<li><strong>Test it:</strong>
+   - Select "Electronics" in A2 → B2 dropdown shows: Laptop, Phone, Tablet, Monitor
+   - Select "Furniture" in A2 → B2 dropdown changes to: Desk, Chair, Cabinet, Shelf</li>
+<li><strong>Copy validation down:</strong> Copy A2:B2 down to A3:B20 to create multiple entry rows</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>INDIRECT is the key:</strong> It converts text to a reference, linking to named ranges dynamically</li>
+<li><strong>Named ranges must match:</strong> Category values must exactly match named range names (case-sensitive)</li>
+<li><strong>No spaces in names:</strong> Use underscores (North_America) or camelCase (NorthAmerica) instead</li>
+<li><strong>Alternative method:</strong> Use tables and FILTER function for more dynamic approach</li>
+<li><strong>Three-level cascading:</strong> Can extend to Region → Country → City using same technique</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Dynamic dropdown where product options automatically update based on category selection</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Uses INDIRECT function concept and builds on named ranges from earlier days</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Prevent Duplicates with Custom Validation</strong></p>
+<p><strong>Goal:</strong> Create custom validation rules to prevent duplicate entries and ensure data uniqueness.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Create a sample order entry form:</strong>
+<pre><code>A1: Order ID    B1: Customer    C1: Product     D1: Amount
+A2: 1001        B2: ABC Corp    C2: Laptop      D2: 1200
+A3: 1002        B3: XYZ Inc     C3: Phone       D3: 800
+(Leave A4:D10 empty for new entries)</code></pre></li>
+<li><strong>Prevent duplicate Order IDs (A4:A20):</strong>
+   - Select A4:A20
+   - Data Validation → Allow: Custom
+   - Formula: =COUNTIF($A$2:$A$20,A4)<=1
+   - Error Alert: "This Order ID already exists. Please enter a unique ID."
+   - Click OK</li>
+<li><strong>Test it:</strong> Try entering "1001" in A4 → Should get error message</li>
+<li><strong>Prevent duplicate Customer-Product combinations (entire row):</strong>
+   - Select B4:B20
+   - Data Validation → Custom
+   - Formula: =COUNTIFS($B$2:$B$20,B4,$C$2:$C$20,C4)<=1
+   - Error: "This customer has already ordered this product. Use a different combination."</li>
+<li><strong>Add email validation (if you have email column E):</strong>
+   - Select E4:E20
+   - Data Validation → Custom
+   - Formula: =AND(ISNUMBER(FIND("@",E4)),ISNUMBER(FIND(".",E4)),LEN(E4)>5)
+   - Error: "Please enter a valid email address"</li>
+<li><strong>Highlight duplicates with conditional formatting:</strong>
+   - Select A2:A20
+   - Conditional Formatting → New Rule → Formula
+   - Formula: =COUNTIF($A$2:$A$20,A2)>1
+   - Format: Red fill
+   - This visually highlights any duplicates that slip through</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>COUNTIF for single column:</strong> Counts how many times value appears in range</li>
+<li><strong>COUNTIFS for multiple columns:</strong> Checks combinations across multiple columns</li>
+<li><strong><=1 allows current cell:</strong> The formula counts the current cell as 1, so <=1 means no other duplicates</li>
+<li><strong>Combine with formatting:</strong> Use both validation (prevention) and conditional formatting (detection)</li>
+<li><strong>Validation isn't bulletproof:</strong> Users can paste data to bypass validation; use formatting as backup</li>
+<li><strong>Clear validation:</strong> Data → Data Validation → Clear All to remove rules</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Robust data entry system that prevents duplicates and maintains data integrity</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Combines COUNTIF/COUNTIFS (Day 9) with data validation for data quality control</p>
+</div>
 <h3 id="independent-practice-hour-3---60-min-23">Independent Practice (60 min):</h3>
 <div class="practice-note">
 <p><strong>💡 Hints for Independent Practice:</strong></p>

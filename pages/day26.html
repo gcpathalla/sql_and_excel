@@ -1119,7 +1119,371 @@ Explain with simple code examples.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<p><em>Record macros for common tasks, create buttons, edit simple VBA code</em></p>
+<div class="section-card">
+<p><strong>Exercise 1: Record Your First Macro - Automated Data Formatting</strong></p>
+<p><strong>Goal:</strong> Learn to record macros that automate repetitive formatting tasks.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Enable Developer tab (if not visible):</strong>
+   - File → Options → Customize Ribbon
+   - Check "Developer" on the right → OK</li>
+<li><strong>Prepare sample data:</strong>
+<pre><code>Create unformatted table:
+A1: Name, B1: Sales, C1: Region, D1: Date
+A2-D10: Sample data (numbers without formatting, plain text)</code></pre></li>
+<li><strong>Start recording macro:</strong>
+   - Developer tab → Record Macro
+   - Name: FormatSalesReport (no spaces!)
+   - Shortcut key: Ctrl+Shift+F (optional)
+   - Store in: This Workbook
+   - Description: "Formats sales data with headers, borders, and number formatting"
+   - Click OK</li>
+<li><strong>Perform formatting actions (macro is recording!):</strong>
+   - Select header row (A1:D1)
+   - Format: Bold, background color (blue), white text
+   - Select data range (A2:D10)
+   - Apply borders: All Borders
+   - Format column B as Currency: Ctrl+Shift+$
+   - Format column D as Date: Ctrl+Shift+#
+   - Auto-fit all columns: Select all → Home → Format → AutoFit Column Width</li>
+<li><strong>Stop recording:</strong>
+   - Developer tab → Stop Recording (or click Stop icon in status bar)</li>
+<li><strong>Test your macro:</strong>
+   - Create new unformatted data on Sheet2
+   - Press Ctrl+Shift+F (your shortcut)
+   - Or: Developer → Macros → FormatSalesReport → Run
+   - Watch Excel automatically apply all formatting!</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Macro names can't have spaces:</strong> Use camelCase or underscores</li>
+<li><strong>Recording is literal:</strong> If you click cell B5, macro will always click B5 (not relative)</li>
+<li><strong>Use shortcuts while recording:</strong> They're faster and more reliable</li>
+<li><strong>Stop and restart:</strong> If you make a mistake, stop recording and start over</li>
+<li><strong>Macro security:</strong> Enable macros when opening workbooks (Developer → Macro Security → Enable)</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> One-click formatting that transforms raw data into professional tables instantly</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Automates manual formatting techniques from Day 1</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Create Buttons to Run Macros</strong></p>
+<p><strong>Goal:</strong> Add user-friendly buttons that execute macros with a single click.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Using the FormatSalesReport macro from Exercise 1</strong></li>
+<li><strong>Insert a button (Form Control):</strong>
+   - Developer tab → Insert → Button (Form Control) - first icon
+   - Draw the button on your worksheet (click and drag)
+   - "Assign Macro" dialog appears automatically</li>
+<li><strong>Assign your macro:</strong>
+   - Select "FormatSalesReport" from the list
+   - Click OK</li>
+<li><strong>Edit button text:</strong>
+   - Right-click button → Edit Text
+   - Change to: "Format Report"
+   - Click outside button to finish</li>
+<li><strong>Format the button:</strong>
+   - Right-click → Format Control
+   - Font tab: Change to Arial 12pt Bold
+   - Colors and Lines: Background color (matching your theme)
+   - Size: Make it appropriately sized (not too small)</li>
+<li><strong>Create more macro buttons:</strong>
+   - Create a "Clear Data" macro:
+     - Record macro: Select data range → Press Delete
+   - Create a "Refresh Report" button
+   - Arrange buttons in a control panel area</li>
+<li><strong>Alternative: ActiveX Command Button (more advanced):</strong>
+   - Developer → Insert → Command Button (ActiveX Control)
+   - Double-click button to open VBA editor
+   - Add code between `Private Sub` and `End Sub`:
+<pre><code>Private Sub CommandButton1_Click()
+    Call FormatSalesReport
+    MsgBox "Report formatted successfully!", vbInformation
+End Sub</code></pre></li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Form Controls vs ActiveX:</strong> Form Controls are simpler, ActiveX allows more customization</li>
+<li><strong>Design mode:</strong> Turn on Design Mode (Developer tab) to move/edit ActiveX buttons</li>
+<li><strong>Group buttons logically:</strong> Format buttons, Data buttons, Report buttons</li>
+<li><strong>Add icons:</strong> Insert shapes/icons near buttons for visual appeal</li>
+<li><strong>Button best practices:</strong> Clear labels, consistent sizing, logical placement</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> User-friendly interface where anyone can run complex macros by clicking buttons</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Creates user interfaces similar to Excel forms (Day 23)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: View and Edit Recorded Macro Code</strong></p>
+<p><strong>Goal:</strong> Learn to open the VBA editor, understand recorded code, and make simple modifications.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open the VBA Editor:</strong>
+   - Press Alt+F11 (or Developer → Visual Basic)</li>
+<li><strong>Find your macro:</strong>
+   - In Project Explorer (left pane): VBAProject → Modules → Module1
+   - Double-click Module1 to see your code</li>
+<li><strong>Understand the generated code:</strong>
+<pre><code>Sub FormatSalesReport()
+'
+' FormatSalesReport Macro
+' Formats sales data with headers, borders, and number formatting
+'
+    Range("A1:D1").Select
+    With Selection.Interior
+        .Color = 15773696
+        .Pattern = xlSolid
+    End With
+    Selection.Font.Bold = True
+    ' ... more code ...
+End Sub</code></pre></li>
+<li><strong>Common code elements:</strong>
+   - `Sub ... End Sub`: Defines macro start and end
+   - `'` = Comments (ignored by Excel)
+   - `Range("A1")` = Refers to cell A1
+   - `.Select` = Selects range
+   - `With ... End With` = Apply multiple properties to same object</li>
+<li><strong>Edit the macro to make it more flexible:</strong>
+   - Change from Select-then-format to direct formatting:
+<pre><code>Sub FormatSalesReport()
+    ' Format header row
+    With Range("A1:D1")
+        .Font.Bold = True
+        .Interior.Color = RGB(68, 114, 196) 'Blue
+        .Font.Color = RGB(255, 255, 255) 'White
+    End With
+
+    ' Format sales column as currency
+    Range("B2:B10").NumberFormat = "$#,##0.00"
+
+    ' Add borders
+    Range("A1:D10").Borders.LineStyle = xlContinuous
+
+    ' Auto-fit columns
+    Columns("A:D").AutoFit
+
+    MsgBox "Report formatted!", vbInformation
+End Sub</code></pre></li>
+<li><strong>Test your edited macro:</strong> Close VBA editor (Alt+Q), run macro again</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Recording creates verbose code:</strong> Manual coding is often more efficient</li>
+<li><strong>Remove .Select statements:</strong> Direct references are faster and cleaner</li>
+<li><strong>RGB for colors:</strong> RGB(255,0,0) = Red; easier than Excel's color numbers</li>
+<li><strong>Use variables for ranges:</strong> Makes code more flexible and readable</li>
+<li><strong>Comment your code:</strong> Add ' comments to explain what sections do</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Ability to read, understand, and modify VBA code for better macro performance</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Programming concepts apply logic to Excel automation</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Create Dynamic Macros with Variables</strong></p>
+<p><strong>Goal:</strong> Write macros that adapt to different data sizes using variables and loops.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open VBA Editor (Alt+F11)</strong></li>
+<li><strong>Create a new macro that finds the last row dynamically:</strong>
+   - Insert → Module (to create new module)
+   - Write this code:
+<pre><code>Sub FormatDynamicReport()
+    Dim lastRow As Long
+    Dim ws As Worksheet
+
+    ' Set worksheet reference
+    Set ws = ActiveSheet
+
+    ' Find last row with data in column A
+    lastRow = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row
+
+    ' Format header row
+    With ws.Range("A1:D1")
+        .Font.Bold = True
+        .Interior.Color = RGB(68, 114, 196)
+        .Font.Color = RGB(255, 255, 255)
+    End With
+
+    ' Format data range (dynamic!)
+    ws.Range("A2:D" & lastRow).Borders.LineStyle = xlContinuous
+    ws.Range("B2:B" & lastRow).NumberFormat = "$#,##0.00"
+
+    ' Auto-fit all columns
+    ws.Columns("A:D").AutoFit
+
+    MsgBox "Formatted " & lastRow - 1 & " rows of data!", vbInformation
+End Sub</code></pre></li>
+<li><strong>Understanding the key concepts:</strong>
+   - `Dim lastRow As Long`: Declares a variable to store row number
+   - `Set ws = ActiveSheet`: Reference to current worksheet
+   - `Cells(Rows.Count, "A").End(xlUp).Row`: Finds last used row (Ctrl+Up from bottom)
+   - `Range("B2:B" & lastRow)`: Concatenates string to create dynamic range</li>
+<li><strong>Test with different data sizes:</strong>
+   - Try with 5 rows of data → Run macro
+   - Add more rows (50 rows) → Run macro again
+   - Macro adapts automatically!</li>
+<li><strong>Add a loop to process each row:</strong>
+<pre><code>Sub ProcessEachRow()
+    Dim lastRow As Long, i As Long
+    Dim ws As Worksheet
+    Set ws = ActiveSheet
+
+    lastRow = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row
+
+    ' Loop through each row
+    For i = 2 To lastRow
+        ' Highlight high sales (>5000) in green
+        If ws.Cells(i, 2).Value > 5000 Then
+            ws.Cells(i, 2).Interior.Color = RGB(146, 208, 80) 'Green
+        End If
+    Next i
+
+    MsgBox "Processed " & lastRow - 1 & " rows!", vbInformation
+End Sub</code></pre></li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Always use variables for dynamic ranges:</strong> Never hardcode row numbers in production code</li>
+<li><strong>Dim declares variables:</strong> Specify type (Long, String, Double, Boolean)</li>
+<li><strong>For...Next loops:</strong> Execute code repeatedly for each row/column</li>
+<li><strong>If...Then...End If:</strong> Conditional logic in VBA</li>
+<li><strong>Use Cells(row, column):</strong> More flexible than Range for loops</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Intelligent macros that handle any data size and make decisions based on values</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Similar logic to SQL CASE statements (Day 18) and Excel IF functions (Day 3)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Add Error Handling and User Input</strong></p>
+<p><strong>Goal:</strong> Make macros robust with error handling and interactive with user prompts.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Create a macro with error handling:</strong>
+<pre><code>Sub SafeFormatReport()
+    On Error GoTo ErrorHandler
+
+    Dim lastRow As Long
+    Dim ws As Worksheet
+
+    ' Check if activesheet is a worksheet (not chart)
+    If TypeName(ActiveSheet) <> "Worksheet" Then
+        MsgBox "Please select a worksheet first!", vbExclamation
+        Exit Sub
+    End If
+
+    Set ws = ActiveSheet
+    lastRow = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row
+
+    ' Validate that there's data
+    If lastRow < 2 Then
+        MsgBox "No data found to format!", vbExclamation
+        Exit Sub
+    End If
+
+    ' Format report
+    With ws.Range("A1:D1")
+        .Font.Bold = True
+        .Interior.Color = RGB(68, 114, 196)
+        .Font.Color = RGB(255, 255, 255)
+    End With
+
+    ws.Range("A2:D" & lastRow).Borders.LineStyle = xlContinuous
+    ws.Columns("A:D").AutoFit
+
+    MsgBox "Report formatted successfully!", vbInformation
+    Exit Sub
+
+ErrorHandler:
+    MsgBox "Error: " & Err.Description, vbCritical
+End Sub</code></pre></li>
+<li><strong>Add user input with InputBox:</strong>
+<pre><code>Sub ColorByThreshold()
+    Dim threshold As Double
+    Dim lastRow As Long, i As Long
+    Dim ws As Worksheet
+
+    ' Ask user for threshold value
+    threshold = InputBox("Enter sales threshold:", "Set Threshold", 5000)
+
+    ' Validate input
+    If threshold = 0 Then Exit Sub ' User clicked Cancel
+
+    Set ws = ActiveSheet
+    lastRow = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row
+
+    ' Highlight rows based on user input
+    For i = 2 To lastRow
+        If ws.Cells(i, 2).Value > threshold Then
+            ws.Cells(i, 2).Interior.Color = RGB(146, 208, 80) 'Green
+        Else
+            ws.Cells(i, 2).Interior.Color = RGB(255, 192, 0) 'Orange
+        End If
+    Next i
+
+    MsgBox "Highlighted " & lastRow - 1 & " rows based on threshold $" & Format(threshold, "#,##0"), vbInformation
+End Sub</code></pre></li>
+<li><strong>Create confirmation dialogs:</strong>
+<pre><code>Sub ClearDataWithConfirmation()
+    Dim response As VbMsgBoxResult
+
+    ' Ask user to confirm
+    response = MsgBox("Are you sure you want to clear all data?" & vbCrLf & _
+                      "This action cannot be undone!", _
+                      vbYesNo + vbQuestion, "Confirm Clear")
+
+    If response = vbYes Then
+        Range("A2:D1000").ClearContents
+        MsgBox "Data cleared successfully!", vbInformation
+    Else
+        MsgBox "Action cancelled.", vbInformation
+    End If
+End Sub</code></pre></li>
+<li><strong>Add status updates for long processes:</strong>
+<pre><code>Sub ProcessLargeData()
+    Dim i As Long
+    Application.ScreenUpdating = False ' Speed up macro
+    Application.StatusBar = "Processing data..."
+
+    For i = 2 To 10000
+        ' Your processing code here
+        If i Mod 100 = 0 Then ' Update every 100 rows
+            Application.StatusBar = "Processing row " & i & " of 10000..."
+        End If
+    Next i
+
+    Application.StatusBar = False ' Reset status bar
+    Application.ScreenUpdating = True
+    MsgBox "Processing complete!", vbInformation
+End Sub</code></pre></li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>On Error GoTo:</strong> Catches errors and prevents crashes</li>
+<li><strong>Always validate user input:</strong> Check for empty, zero, or invalid values</li>
+<li><strong>Application.ScreenUpdating = False:</strong> Speeds up macros by not updating display</li>
+<li><strong>Exit Sub:</strong> Exits macro early (useful after validations)</li>
+<li><strong>vbCrLf:</strong> Line break in message boxes</li>
+<li><strong>Test error scenarios:</strong> Try running macro with no data, wrong sheet, etc.</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Professional, robust macros that handle errors gracefully and interact with users</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Similar to SQL error handling and validation (Days 20, 24)</p>
+</div>
 <h3 id="independent-practice-hour-3---60-min-26">Independent Practice (60 min):</h3>
 <div class="practice-note">
 <p><strong>💡 Hints for Independent Practice:</strong></p>

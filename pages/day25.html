@@ -1116,7 +1116,289 @@ Explain the complete workflow.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<p><em>Connect Excel to SQL database, import data with Power Query, create automated dashboard</em></p>
+<div class="section-card">
+<p><strong>Exercise 1: Connect Excel to SQL Database with Power Query</strong></p>
+<p><strong>Goal:</strong> Learn to establish a connection from Excel to a SQL Server database and import data using Power Query.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open Excel</strong> and go to the Data tab</li>
+<li><strong>Click "Get Data" → "From Database" → "From SQL Server Database"</strong></li>
+<li><strong>Enter connection details:</strong>
+   - Server: localhost (or your SQL Server address)
+   - Database: YourDatabaseName (optional, can select later)</li>
+<li><strong>Choose authentication method:</strong>
+   - Windows Authentication (default for local SQL Server)
+   - Or Database credentials (username/password)</li>
+<li><strong>Click OK</strong> and wait for the Navigator window to open</li>
+<li><strong>In Navigator, select your table:</strong>
+   - Expand the database tree
+   - Check the box next to "Customers" or "Orders" table
+   - You'll see a preview on the right</li>
+<li><strong>Choose how to load:</strong>
+   - Click "Load" to import directly to worksheet
+   - Or "Transform Data" to open Power Query Editor for cleaning</li>
+<li><strong>Alternative: Use SQL query directly:</strong>
+   - In Navigator, click "Advanced options"
+   - Enter custom SQL query:
+<pre><code>SELECT c.CustomerID, c.Name, c.Region,
+       SUM(o.Amount) AS TotalSales
+FROM Customers c
+LEFT JOIN Orders o ON c.CustomerID = o.CustomerID
+WHERE o.OrderDate >= '2024-01-01'
+GROUP BY c.CustomerID, c.Name, c.Region</code></pre></li>
+<li><strong>Click "Load"</strong> and the data appears in Excel!</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Power Query is non-destructive:</strong> Original database is never modified</li>
+<li><strong>Connection is live:</strong> Right-click table → Refresh to get latest data</li>
+<li><strong>Save connection for reuse:</strong> Connections appear in "Queries & Connections" pane</li>
+<li><strong>Transform before loading:</strong> Clean data in Power Query before bringing to Excel</li>
+<li><strong>Firewall issues:</strong> Ensure SQL Server allows remote connections (port 1433)</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Excel connected to SQL Server with data automatically imported and refreshable with one click</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Combines SQL queries (Days 2-24) with Excel analysis (Days 1-23)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Transform and Clean SQL Data in Power Query</strong></p>
+<p><strong>Goal:</strong> Master Power Query Editor to transform imported SQL data before loading into Excel.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Import data from SQL Server</strong> (using Exercise 1 steps)</li>
+<li><strong>Instead of "Load", click "Transform Data"</strong> to open Power Query Editor</li>
+<li><strong>Basic transformations you can perform:</strong>
+   - <strong>Filter rows:</strong> Click dropdown on column header → Filter values
+   - <strong>Remove columns:</strong> Right-click column → Remove
+   - <strong>Change data types:</strong> Click icon next to column name
+   - <strong>Split columns:</strong> Right-click → Split Column → By Delimiter</li>
+<li><strong>Add calculated columns:</strong>
+   - Go to "Add Column" tab
+   - Click "Custom Column"
+   - Name: "SalesCategory"
+   - Formula: <code>if [Sales] > 50000 then "High" else if [Sales] > 20000 then "Medium" else "Low"</code></li>
+<li><strong>Merge with another SQL table:</strong>
+   - In Power Query, go to Home → Merge Queries
+   - Select second table (e.g., Orders)
+   - Select matching column (CustomerID)
+   - Choose JOIN type (Left Outer, Inner, etc.)
+   - Click OK and expand the merged column</li>
+<li><strong>Group and aggregate:</strong>
+   - Go to Transform → Group By
+   - Group by: Region
+   - New column name: TotalSales
+   - Operation: Sum
+   - Column: Amount</li>
+<li><strong>Review all applied steps:</strong> See each transformation in "Applied Steps" pane on right</li>
+<li><strong>Click "Close & Load"</strong> to send clean data to Excel</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Every step is recorded:</strong> You can edit or delete any step in Applied Steps</li>
+<li><strong>M language behind scenes:</strong> Power Query uses M language (can view in Advanced Editor)</li>
+<li><strong>Refresh updates transformations:</strong> When you refresh, all transformations reapply automatically</li>
+<li><strong>Merge is like JOIN:</strong> Power Query merge = SQL JOIN operation</li>
+<li><strong>Append is like UNION:</strong> Use Append Queries to stack tables vertically</li>
+<li><strong>Parameters for dynamic queries:</strong> Create parameters for date ranges, regions, etc.</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Clean, transformed data automatically refreshed from SQL with all transformations reapplied</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Power Query operations mirror SQL transformations (GROUP BY, JOIN, WHERE)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Create Parameterized SQL Queries in Power Query</strong></p>
+<p><strong>Goal:</strong> Build dynamic SQL queries that accept parameters from Excel, allowing users to filter data without editing queries.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Create parameters in Power Query:</strong>
+   - Open Power Query Editor
+   - Go to Home → Manage Parameters → New Parameter
+   - Name: StartDate
+   - Type: Date/Time
+   - Current Value: 1/1/2024</li>
+<li><strong>Create second parameter:</strong>
+   - Name: SelectedRegion
+   - Type: Text
+   - Current Value: East</li>
+<li><strong>Create new query from SQL Server:</strong>
+   - Get Data → SQL Server
+   - Use Advanced options
+   - Enter parameterized SQL query:
+<pre><code>SELECT *
+FROM Orders
+WHERE OrderDate >= '@StartDate'
+  AND Region = '@SelectedRegion'</code></pre></li>
+<li><strong>Wait - this won't work directly! We need to use M code:</strong>
+   - In Power Query, go to Advanced Editor
+   - Replace the SQL query with:
+<pre><code>let
+    Source = Sql.Database("localhost", "YourDB"),
+    Query = "SELECT * FROM Orders WHERE OrderDate >= '" & Date.ToText(StartDate, "yyyy-MM-dd") & "' AND Region = '" & SelectedRegion & "'",
+    Result = Sql.Database("localhost", "YourDB"){[Schema="dbo",Item="Orders"]}[Data]
+in
+    Result</code></pre></li>
+<li><strong>Better approach - use native Power Query filtering:</strong>
+   - Import full table from SQL
+   - In Power Query, filter using parameters:
+     - Filter OrderDate: <code>= Table.SelectRows(Source, each [OrderDate] >= StartDate)</code>
+     - Filter Region: <code>= Table.SelectRows(Source, each [Region] = SelectedRegion)</code></li>
+<li><strong>Create Excel interface for parameters:</strong>
+   - In Excel, create cells: B1: StartDate, B2: Region
+   - Link Power Query parameters to these cells (requires VBA or manual parameter update)</li>
+<li><strong>Refresh to apply new parameters</strong></li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Parameters make queries dynamic:</strong> Users change values without editing queries</li>
+<li><strong>Use parameters for:</strong> Date ranges, regions, categories, thresholds</li>
+<li><strong>SQL injection risk:</strong> Never concatenate user input directly into SQL queries</li>
+<li><strong>Native Query folding:</strong> When possible, let Power Query push filters to SQL Server</li>
+<li><strong>Test parameter changes:</strong> Manage Parameters → Edit values → Refresh to test</li>
+<li><strong>List parameters for dropdowns:</strong> Create parameter with allowed values for user selection</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Dynamic Excel reports that update based on user-selected parameters (dates, regions, etc.)</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Parameterization similar to SQL stored procedures (Day 20) but accessible to Excel users</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Build Power Pivot Data Model with SQL Data</strong></p>
+<p><strong>Goal:</strong> Create a Power Pivot data model with relationships between multiple SQL tables for advanced analysis.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Enable Power Pivot (if not enabled):</strong>
+   - File → Options → Add-ins
+   - Manage: COM Add-ins → Go
+   - Check "Microsoft Power Pivot for Excel" → OK</li>
+<li><strong>Import multiple tables from SQL:</strong>
+   - Power Pivot tab → Manage → Get External Data → From Database → From SQL Server
+   - Enter server details
+   - Select multiple tables:
+     - Customers
+     - Orders
+     - Products
+     - OrderDetails</li>
+<li><strong>Click "Finish"</strong> to import all tables to Power Pivot</li>
+<li><strong>Create relationships:</strong>
+   - In Power Pivot window, go to Diagram View
+   - Drag CustomerID from Orders table to CustomerID in Customers table
+   - A relationship line appears
+   - Similarly:
+     - OrderID in OrderDetails → OrderID in Orders
+     - ProductID in OrderDetails → ProductID in Products</li>
+<li><strong>Create calculated columns:</strong>
+   - In Data View, go to OrderDetails table
+   - Add column: LineTotal = OrderDetails[Quantity] * OrderDetails[UnitPrice]</li>
+<li><strong>Create measures (DAX formulas):</strong>
+   - Click in empty cell below data
+   - <code>TotalRevenue:=SUM(OrderDetails[LineTotal])</code>
+   - <code>TotalOrders:=COUNTROWS(Orders)</code>
+   - <code>AverageOrderValue:=[TotalRevenue]/[TotalOrders]</code>
+   - <code>CustomerCount:=DISTINCTCOUNT(Orders[CustomerID])</code></li>
+<li><strong>Use model in PivotTable:</strong>
+   - Back in Excel: Insert → PivotTable
+   - Use "Data Model"
+   - Drag fields from multiple tables:
+     - Rows: Customers[Region]
+     - Values: [TotalRevenue], [CustomerCount]</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Power Pivot = Excel's database engine:</strong> Handles millions of rows efficiently</li>
+<li><strong>Relationships are like JOINs:</strong> But automatic in PivotTables once defined</li>
+<li><strong>DAX vs Excel formulas:</strong> DAX works on entire tables/columns, not individual cells</li>
+<li><strong>Measures vs Calculated Columns:</strong> Measures aggregate data, columns compute row-by-row</li>
+<li><strong>Data Model advantages:</strong> No VLOOKUP needed, relationships handle lookups automatically</li>
+<li><strong>Memory-based:</strong> Power Pivot compresses and stores data in memory for speed</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Powerful data model allowing complex analysis across multiple SQL tables without complex formulas</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Combines SQL relationships (Day 6 JOINs) with Excel Power Pivot (Day 17)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Create Automated Executive Dashboard with SQL Data</strong></p>
+<p><strong>Goal:</strong> Build a complete automated dashboard that pulls SQL data and updates with one click.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Set up data connections:</strong>
+   - Use Power Query to import:
+     - Sales data (with transformations from Exercise 2)
+     - Customer data
+     - Product data
+   - Load all to Power Pivot Data Model</li>
+<li><strong>Create dashboard layout on new sheet:</strong>
+<pre><code>Cell A1: "Executive Sales Dashboard"
+Cell A3: "Refresh Date: =TODAY()"
+Cell E3: "Total Revenue: =PowerPivotMeasure[TotalRevenue]"
+
+Layout zones:
+- Top row: KPIs (Total Revenue, Total Orders, Avg Order Value, Top Customer)
+- Middle: Charts (Sales by Region, Sales Trend, Top Products)
+- Bottom: Data table with slicers</code></pre></li>
+<li><strong>Create KPI cards using measures:</strong>
+   - Cell A5: "Total Revenue"
+   - Cell B5: <code>=CALCULATE([TotalRevenue])</code> (from Power Pivot)
+   - Format with currency, large font, colored background
+   - Repeat for: Total Orders, Customer Count, Average Order Value</li>
+<li><strong>Add charts connected to data model:</strong>
+   - <strong>Sales by Region (Column Chart):</strong>
+     - Insert → PivotChart → Use Data Model
+     - Axis: Customers[Region]
+     - Values: [TotalRevenue]
+   - <strong>Sales Trend (Line Chart):</strong>
+     - Axis: Orders[OrderDate] (grouped by Month)
+     - Values: [TotalRevenue]
+   - <strong>Top 10 Products (Bar Chart):</strong>
+     - Axis: Products[ProductName]
+     - Values: [TotalRevenue]
+     - Filter: Top 10 by value</li>
+<li><strong>Add slicers for interactivity:</strong>
+   - Click any PivotChart → PivotChart Analyze → Insert Slicer
+   - Select: Date (Year/Quarter), Region, Product Category
+   - Position slicers on right side of dashboard
+   - Connect slicers to all charts: Right-click slicer → Report Connections → Check all</li>
+<li><strong>Format dashboard professionally:</strong>
+   - Remove gridlines: View → uncheck Gridlines
+   - Use consistent colors (company brand colors)
+   - Add borders around KPI cards
+   - Align charts neatly
+   - Add company logo in top-right</li>
+<li><strong>Set up automatic refresh:</strong>
+   - Data tab → Queries & Connections
+   - Right-click query → Properties
+   - Check "Refresh data when opening the file"
+   - Or add refresh button: Insert → Shapes → Button → Assign macro to refresh all</li>
+<li><strong>Test the dashboard:</strong>
+   - Click slicers to filter
+   - All charts and KPIs should update instantly
+   - Click "Refresh All" to pull latest SQL data</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>One-click refresh:</strong> Users get latest data without knowing SQL or Power Query</li>
+<li><strong>Slicers drive interactivity:</strong> Users explore data by clicking, no formulas needed</li>
+<li><strong>Publish to SharePoint/Power BI:</strong> Share dashboard with entire team</li>
+<li><strong>Schedule refresh:</strong> Power BI Service can auto-refresh daily/hourly</li>
+<li><strong>Performance tip:</strong> Import only needed columns and date ranges from SQL</li>
+<li><strong>Version control:</strong> Save dashboard template, data refreshes but layout preserved</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Professional executive dashboard that automatically updates from SQL database with interactive filtering</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Culmination of all Excel skills (Days 1-23) combined with SQL data (Days 2-24)</p>
+</div>
 <h3 id="independent-practice-hour-3---60-min-25">Independent Practice (60 min):</h3>
 <div class="practice-note">
 <p><strong>💡 Hints for Independent Practice:</strong></p>

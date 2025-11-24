@@ -1119,7 +1119,345 @@ Provide beginner-friendly explanations.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<p><em>Analyze execution plans, add appropriate indexes, optimize slow queries</em></p>
+<div class="section-card">
+<p><strong>Exercise 1: Read and Analyze SQL Execution Plans</strong></p>
+<p><strong>Goal:</strong> Learn to read execution plans to identify performance bottlenecks like table scans, missing indexes, and expensive operations.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Create sample tables with data:</strong>
+<pre><code>CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Region VARCHAR(50),
+    Email VARCHAR(100)
+);
+
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    CustomerID INT,
+    OrderDate DATE,
+    Amount DECIMAL(10,2)
+);
+
+-- Insert sample data (1000+ rows for meaningful analysis)
+INSERT INTO Customers SELECT ROW_NUMBER() OVER (ORDER BY (SELECT NULL)),
+    'Customer' + CAST(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS VARCHAR),
+    CASE WHEN ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) % 4 = 0 THEN 'East'
+         WHEN ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) % 4 = 1 THEN 'West'
+         WHEN ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) % 4 = 2 THEN 'North'
+         ELSE 'South' END,
+    'customer' + CAST(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS VARCHAR) + '@email.com'
+FROM master..spt_values; -- Generates rows</code></pre></li>
+<li><strong>Run a slow query without viewing the plan first:</strong>
+<pre><code>SELECT c.Name, c.Region, SUM(o.Amount) AS TotalSales
+FROM Customers c
+JOIN Orders o ON c.CustomerID = o.CustomerID
+WHERE c.Region = 'East'
+GROUP BY c.Name, c.Region;</code></pre></li>
+<li><strong>Enable execution plan viewing:</strong>
+   - SQL Server: Ctrl+M or click "Display Estimated Execution Plan"
+   - Or add: <code>SET SHOWPLAN_TEXT ON;</code> before the query</li>
+<li><strong>Re-run the query and analyze the plan:</strong>
+   - Look for <strong>Table Scan</strong> (bad) vs <strong>Index Seek</strong> (good)
+   - Check the <strong>cost percentage</strong> of each operation
+   - Identify operations with highest cost (thickest arrows)</li>
+<li><strong>Key indicators to look for:</strong>
+   - Table Scan = Reading entire table (slow)
+   - Index Scan = Reading entire index (better than table scan)
+   - Index Seek = Using index efficiently (best)
+   - Sort operations = Can be expensive
+   - Nested Loops vs Hash Match vs Merge Join</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Read right to left:</strong> Execution plans show operations from right to left, bottom to top</li>
+<li><strong>Thicker arrows = more rows:</strong> Hover over arrows to see row counts</li>
+<li><strong>Look for warnings:</strong> Yellow exclamation marks indicate potential issues</li>
+<li><strong>Cost percentages matter:</strong> Focus optimization on operations with highest cost %</li>
+<li><strong>Actual vs Estimated:</strong> Use "Include Actual Execution Plan" (Ctrl+M) for real numbers</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Ability to read execution plans and identify the most expensive operations causing slow queries</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Builds on JOIN operations (Day 6) by showing how they execute under the hood</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Create and Use Indexes for Performance</strong></p>
+<p><strong>Goal:</strong> Master creating appropriate indexes to speed up queries and understanding when to use clustered vs non-clustered indexes.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Test query performance WITHOUT index:</strong>
+<pre><code>-- Turn on statistics
+SET STATISTICS TIME ON;
+SET STATISTICS IO ON;
+
+-- Run query without index
+SELECT * FROM Orders
+WHERE CustomerID = 500;
+
+-- Note the execution time and logical reads</code></pre></li>
+<li><strong>Create a non-clustered index on CustomerID:</strong>
+<pre><code>CREATE NONCLUSTERED INDEX IX_Orders_CustomerID
+ON Orders(CustomerID);</code></pre></li>
+<li><strong>Re-run the same query and compare:</strong>
+<pre><code>SELECT * FROM Orders
+WHERE CustomerID = 500;
+
+-- Compare execution time and logical reads - should be much faster!</code></pre></li>
+<li><strong>Create a covering index for better performance:</strong>
+<pre><code>-- Drop the previous index
+DROP INDEX IX_Orders_CustomerID ON Orders;
+
+-- Create covering index that includes columns we need
+CREATE NONCLUSTERED INDEX IX_Orders_CustomerID_Covering
+ON Orders(CustomerID)
+INCLUDE (OrderDate, Amount);</code></pre></li>
+<li><strong>Test a query that benefits from covering index:</strong>
+<pre><code>SELECT CustomerID, OrderDate, Amount
+FROM Orders
+WHERE CustomerID = 500;
+
+-- No need to access the table data - all columns in index!</code></pre></li>
+<li><strong>Create a composite index for multiple columns:</strong>
+<pre><code>CREATE NONCLUSTERED INDEX IX_Orders_CustomerID_Date
+ON Orders(CustomerID, OrderDate);</code></pre></li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Clustered vs Non-clustered:</strong> Clustered sorts the table itself (1 per table), Non-clustered creates separate structure</li>
+<li><strong>Covering indexes avoid lookups:</strong> Include frequently queried columns in INCLUDE clause</li>
+<li><strong>Index column order matters:</strong> Most selective column first, then less selective</li>
+<li><strong>Don't over-index:</strong> Indexes speed up reads but slow down writes (INSERT/UPDATE/DELETE)</li>
+<li><strong>WHERE and JOIN columns are candidates:</strong> Index columns frequently used in WHERE, JOIN, and ORDER BY</li>
+<li><strong>Monitor index usage:</strong> Use sys.dm_db_index_usage_stats to see which indexes are actually used</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Dramatic performance improvement (10x-100x faster) for queries using appropriate indexes</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Optimizes the filtering and joining concepts from Days 4 and 6</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Optimize JOIN Operations and Query Structure</strong></p>
+<p><strong>Goal:</strong> Learn to write efficient JOINs and restructure queries to minimize data processing.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Start with an inefficient query:</strong>
+<pre><code>-- BAD: Filtering after JOIN (processes all rows first)
+SELECT c.Name, o.OrderDate, o.Amount
+FROM Customers c
+JOIN Orders o ON c.CustomerID = o.CustomerID
+WHERE c.Region = 'East'
+  AND o.OrderDate >= '2024-01-01';</code></pre></li>
+<li><strong>Optimize by filtering early:</strong>
+<pre><code>-- BETTER: Filter before JOIN (fewer rows to join)
+SELECT c.Name, o.OrderDate, o.Amount
+FROM (SELECT CustomerID, Name FROM Customers WHERE Region = 'East') c
+JOIN (SELECT CustomerID, OrderDate, Amount FROM Orders WHERE OrderDate >= '2024-01-01') o
+ON c.CustomerID = o.CustomerID;</code></pre></li>
+<li><strong>Or use CTEs for readability:</strong>
+<pre><code>-- BEST: Clear intent, optimized by query engine
+WITH EastCustomers AS (
+    SELECT CustomerID, Name
+    FROM Customers
+    WHERE Region = 'East'
+),
+RecentOrders AS (
+    SELECT CustomerID, OrderDate, Amount
+    FROM Orders
+    WHERE OrderDate >= '2024-01-01'
+)
+SELECT c.Name, o.OrderDate, o.Amount
+FROM EastCustomers c
+JOIN RecentOrders o ON c.CustomerID = o.CustomerID;</code></pre></li>
+<li><strong>Avoid functions on indexed columns:</strong>
+<pre><code>-- BAD: Function prevents index usage
+SELECT * FROM Orders
+WHERE YEAR(OrderDate) = 2024;
+
+-- GOOD: Index can be used
+SELECT * FROM Orders
+WHERE OrderDate >= '2024-01-01' AND OrderDate < '2025-01-01';</code></pre></li>
+<li><strong>Use EXISTS instead of IN for large datasets:</strong>
+<pre><code>-- LESS EFFICIENT with large subquery results
+SELECT * FROM Customers
+WHERE CustomerID IN (SELECT CustomerID FROM Orders WHERE Amount > 1000);
+
+-- MORE EFFICIENT - stops at first match
+SELECT * FROM Customers c
+WHERE EXISTS (SELECT 1 FROM Orders o WHERE o.CustomerID = c.CustomerID AND o.Amount > 1000);</code></pre></li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Filter early, filter often:</strong> Reduce data volume before expensive operations like JOINs</li>
+<li><strong>Avoid SELECT *:</strong> Specify only needed columns to reduce I/O</li>
+<li><strong>No functions on WHERE columns:</strong> YEAR(date), UPPER(name) prevent index usage</li>
+<li><strong>EXISTS vs IN:</strong> EXISTS is faster for large subqueries (short-circuits on first match)</li>
+<li><strong>Use INNER JOIN over subqueries:</strong> Modern optimizers handle JOINs better than nested subqueries</li>
+<li><strong>Avoid OR in WHERE:</strong> Use UNION instead, or restructure with separate queries</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Queries that process minimal data and use indexes effectively, resulting in faster execution</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Applies optimization principles to CTEs (Day 16) and subqueries (Day 10)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Use Query Hints and Force Optimization</strong></p>
+<p><strong>Goal:</strong> Learn when and how to use query hints to force specific execution strategies when the optimizer makes poor choices.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Understand the problem:</strong> Sometimes the query optimizer chooses a suboptimal plan</li>
+<li><strong>Force an index usage with INDEX hint:</strong>
+<pre><code>-- Force use of specific index
+SELECT OrderID, CustomerID, Amount
+FROM Orders WITH (INDEX(IX_Orders_CustomerID))
+WHERE CustomerID = 500;</code></pre></li>
+<li><strong>Use FORCESEEK to force index seek:</strong>
+<pre><code>-- Prevent table/index scan, force seek
+SELECT OrderID, CustomerID, Amount
+FROM Orders WITH (FORCESEEK)
+WHERE CustomerID = 500;</code></pre></li>
+<li><strong>Control JOIN algorithm with hints:</strong>
+<pre><code>-- Force hash join for large datasets
+SELECT c.Name, SUM(o.Amount) AS Total
+FROM Customers c
+INNER HASH JOIN Orders o ON c.CustomerID = o.CustomerID
+GROUP BY c.Name;
+
+-- Force loop join for small datasets
+SELECT c.Name, o.Amount
+FROM Customers c
+INNER LOOP JOIN Orders o ON c.CustomerID = o.CustomerID
+WHERE c.Region = 'East';</code></pre></li>
+<li><strong>Use MAXDOP to control parallelism:</strong>
+<pre><code>-- Limit to single thread (useful for debugging)
+SELECT CustomerID, SUM(Amount) AS Total
+FROM Orders
+GROUP BY CustomerID
+OPTION (MAXDOP 1);
+
+-- Allow up to 4 parallel threads
+SELECT CustomerID, SUM(Amount) AS Total
+FROM Orders
+GROUP BY CustomerID
+OPTION (MAXDOP 4);</code></pre></li>
+<li><strong>Recompile for parameter-sensitive queries:</strong>
+<pre><code>-- Force recompile for accurate statistics
+SELECT * FROM Orders
+WHERE Amount > @threshold
+OPTION (RECOMPILE);</code></pre></li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Use hints sparingly:</strong> Let optimizer do its job; only hint when you know better</li>
+<li><strong>Document why you hint:</strong> Future maintainers need to know why you overrode the optimizer</li>
+<li><strong>Test with and without:</strong> Always compare performance with and without hints</li>
+<li><strong>Hints can become outdated:</strong> As data grows, hint assumptions may become invalid</li>
+<li><strong>NOLOCK for dirty reads:</strong> WITH (NOLOCK) allows reading uncommitted data (faster but risky)</li>
+<li><strong>Parameter sniffing:</strong> Use OPTION (RECOMPILE) or OPTIMIZE FOR when parameter values vary widely</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Understanding of when to override the optimizer and how to force specific execution strategies</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Advanced technique building on all previous SQL optimization concepts</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Monitor and Measure Query Performance</strong></p>
+<p><strong>Goal:</strong> Learn to measure query performance accurately and identify the actual bottlenecks using SQL Server tools.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Enable detailed statistics:</strong>
+<pre><code>SET STATISTICS TIME ON;  -- Show execution time
+SET STATISTICS IO ON;    -- Show I/O operations
+
+SELECT c.Name, COUNT(*) AS OrderCount, SUM(o.Amount) AS TotalSpent
+FROM Customers c
+JOIN Orders o ON c.CustomerID = o.CustomerID
+GROUP BY c.Name
+HAVING SUM(o.Amount) > 10000;
+
+-- Review output:
+-- SQL Server Execution Times:
+--   CPU time = 156 ms,  elapsed time = 234 ms.
+-- Table 'Orders'. Scan count 1, logical reads 2450</code></pre></li>
+<li><strong>Interpret the statistics:</strong>
+   - <strong>CPU time:</strong> Actual processing time
+   - <strong>Elapsed time:</strong> Total time including waits
+   - <strong>Logical reads:</strong> Pages read from memory (lower is better)
+   - <strong>Physical reads:</strong> Pages read from disk (should be 0 after first run)</li>
+<li><strong>Measure baseline before optimization:</strong>
+<pre><code>-- Create a performance test script
+DECLARE @StartTime DATETIME = GETDATE();
+
+-- Your query here
+SELECT ...
+
+DECLARE @EndTime DATETIME = GETDATE();
+SELECT DATEDIFF(MILLISECOND, @StartTime, @EndTime) AS ExecutionTimeMS;</code></pre></li>
+<li><strong>Use query store to track performance over time:</strong>
+<pre><code>-- Enable Query Store (SQL Server 2016+)
+ALTER DATABASE YourDatabase
+SET QUERY_STORE = ON;
+
+-- View top resource-consuming queries
+SELECT TOP 10
+    q.query_id,
+    qt.query_sql_text,
+    rs.avg_duration/1000 AS avg_duration_ms,
+    rs.avg_logical_io_reads
+FROM sys.query_store_query q
+JOIN sys.query_store_query_text qt ON q.query_text_id = qt.query_text_id
+JOIN sys.query_store_plan p ON q.query_id = p.query_id
+JOIN sys.query_store_runtime_stats rs ON p.plan_id = rs.plan_id
+ORDER BY rs.avg_duration DESC;</code></pre></li>
+<li><strong>Find missing indexes:</strong>
+<pre><code>-- SQL Server suggests missing indexes
+SELECT
+    migs.avg_user_impact,
+    migs.avg_total_user_cost,
+    migs.user_seeks,
+    mid.statement AS TableName,
+    mid.equality_columns,
+    mid.inequality_columns,
+    mid.included_columns
+FROM sys.dm_db_missing_index_groups mig
+JOIN sys.dm_db_missing_index_group_stats migs ON mig.index_group_handle = migs.group_handle
+JOIN sys.dm_db_missing_index_details mid ON mig.index_handle = mid.index_handle
+WHERE migs.avg_user_impact > 50
+ORDER BY migs.avg_user_impact DESC;</code></pre></li>
+<li><strong>Document before/after metrics:</strong>
+<pre><code>-- Before optimization
+-- Execution time: 2,340 ms
+-- Logical reads: 45,000
+-- CPU time: 1,890 ms
+
+-- After adding index and rewriting query
+-- Execution time: 187 ms (12.5x faster!)
+-- Logical reads: 1,200 (37.5x fewer reads!)
+-- CPU time: 156 ms (12x less CPU)</code></pre></li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Logical reads are key metric:</strong> Focus on reducing logical reads, not just execution time</li>
+<li><strong>Run queries multiple times:</strong> First run may be slower due to cold cache</li>
+<li><strong>Clear cache for testing:</strong> Use DBCC DROPCLEANBUFFERS (dev only!) for accurate testing</li>
+<li><strong>Production monitoring:</strong> Use Query Store or Extended Events for ongoing monitoring</li>
+<li><strong>Benchmark systematically:</strong> Always measure before and after each optimization</li>
+<li><strong>Set performance goals:</strong> "Query must complete in < 500ms" gives clear target</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Systematic approach to measuring and documenting query performance improvements</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Provides metrics to validate all previous optimization techniques</p>
+</div>
 <h3 id="independent-practice-hour-3---60-min-24">Independent Practice (60 min):</h3>
 <div class="practice-note">
 <p><strong>💡 Hints for Independent Practice:</strong></p>
