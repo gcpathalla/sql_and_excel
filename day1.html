@@ -103,16 +103,17 @@
       --toc-width: 20%; /* default TOC width */
       --base-font-size: 16px; /* default base font size */
     }
-    html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;font-size:var(--base-font-size);line-height:1.6;margin:0;padding:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;font-size:var(--base-font-size);line-height:1.6;margin:0;padding:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;scroll-behavior:smooth}
     /* make container fit viewport width */
     .page{width:calc(100% - 40px);max-width:none;margin:20px auto;display:flex;gap:20px;padding:0 18px;align-items:flex-start}
-    .content{flex:1;min-width:0;background:transparent}
+    .content{flex:1;min-width:0;background:transparent;transition:opacity 0.2s ease-in-out}
+    .content.loading{opacity:0.3}
     #title-block-header{background:transparent;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
     .header-row{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1200px;margin:0 auto;padding:0 18px}
     .title{margin:0;font-size:clamp(1.25rem,2.6vw,2.2rem);font-weight:700;color:var(--text)}
     .header-controls{display:flex;gap:8px;align-items:center}
     /* ChatGPT-like flat sidebar */
-    nav#TOC{width:var(--toc-width);min-width:160px;max-width:420px;padding:8px 0;background:var(--sidebar);border-right:1px solid var(--border);color:var(--muted);align-self:flex-start;position:sticky;top:20px;height:calc(100vh - 100px);overflow:auto;border-radius:0;box-shadow:none;font-size:0.92rem}
+    nav#TOC{width:var(--toc-width);min-width:160px;max-width:420px;padding:8px 0;background:var(--sidebar);border-right:1px solid var(--border);color:var(--muted);align-self:flex-start;position:sticky;top:20px;height:calc(100vh - 100px);overflow:auto;border-radius:0;box-shadow:none;font-size:0.92rem;scroll-behavior:smooth}
     nav#TOC ul{padding:8px 12px;margin:0}
     nav#TOC li{padding:6px 8px;border-radius:6px;margin:4px 6px}
     nav#TOC a{color:var(--muted);text-decoration:none;display:block;font-weight:600}
@@ -635,6 +636,100 @@ discount, total profit)</li>
     }
 
     if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ linkifyContent(); ensureAnchors(); }); else { linkifyContent(); ensureAnchors(); }
+  })();
+</script>
+<script>
+  // Smooth navigation without page jumps (like the reference dashboard)
+  (function(){
+    function initSmoothNav(){
+      const toc = document.getElementById('TOC');
+      const contentDiv = document.querySelector('.content');
+      const titleBlock = document.getElementById('title-block-header');
+
+      if(!toc || !contentDiv) return;
+
+      // Save TOC scroll position
+      let tocScrollPos = 0;
+      toc.addEventListener('scroll', function(){
+        tocScrollPos = toc.scrollTop;
+      });
+
+      // Intercept TOC link clicks
+      toc.addEventListener('click', function(e){
+        const link = e.target.closest('a[href]');
+        if(!link) return;
+
+        const href = link.getAttribute('href');
+        // Only handle same-origin HTML links
+        if(!href || href.startsWith('#') || href.startsWith('http') || !href.endsWith('.html')) return;
+
+        e.preventDefault();
+
+        // Add loading state
+        contentDiv.classList.add('loading');
+
+        // Fetch the new page
+        fetch(href)
+          .then(response => response.text())
+          .then(html => {
+            // Parse the HTML
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            // Extract new content
+            const newContent = doc.querySelector('.content');
+            const newTitle = doc.querySelector('.title');
+
+            if(newContent){
+              // Smooth transition
+              setTimeout(function(){
+                // Update content
+                contentDiv.innerHTML = newContent.innerHTML;
+
+                // Update title if exists
+                if(newTitle && titleBlock){
+                  const currentTitle = titleBlock.querySelector('.title');
+                  if(currentTitle) currentTitle.textContent = newTitle.textContent;
+                }
+
+                // Update URL without reload
+                history.pushState({href: href}, '', href);
+
+                // Restore TOC scroll position (this prevents the sidebar from jumping)
+                toc.scrollTop = tocScrollPos;
+
+                // Scroll content to top smoothly
+                window.scrollTo({top: 0, behavior: 'smooth'});
+
+                // Remove loading state
+                contentDiv.classList.remove('loading');
+
+                // Re-initialize scripts for new content
+                if(typeof createCopyButtons === 'function') createCopyButtons();
+                if(typeof linkifyContent === 'function') linkifyContent();
+              }, 150);
+            } else {
+              // Fallback to normal navigation
+              window.location.href = href;
+            }
+          })
+          .catch(err => {
+            console.error('Navigation error:', err);
+            contentDiv.classList.remove('loading');
+            // Fallback to normal navigation
+            window.location.href = href;
+          });
+      });
+
+      // Handle browser back/forward buttons
+      window.addEventListener('popstate', function(e){
+        if(e.state && e.state.href){
+          window.location.reload();
+        }
+      });
+    }
+
+    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initSmoothNav); else initSmoothNav();
   })();
 </script>
 </body>
