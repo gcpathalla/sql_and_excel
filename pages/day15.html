@@ -1118,7 +1118,268 @@ Explain with practical scenarios.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<p><em>Import CSV data, clean with Power Query, merge customer and order tables, create transformations</em></p>
+<div class="section-card">
+<p><strong>Exercise 1: Import and Clean CSV Data with Power Query</strong></p>
+<p><strong>Goal:</strong> Learn to import messy CSV data into Excel using Power Query and apply automated data cleaning transformations.</p>
+
+<p><strong>Setup:</strong> Download or create a sample CSV file with customer data that includes duplicates, extra spaces, inconsistent capitalization, and missing values.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open Excel</strong> and create a new blank workbook</li>
+<li><strong>Access Power Query:</strong> Navigate to the <strong>Data</strong> tab on the ribbon</li>
+<li><strong>Import CSV file:</strong> Click <strong>Get Data</strong> → <strong>From File</strong> → <strong>From Text/CSV</strong></li>
+<li><strong>Select your CSV file</strong> and click <strong>Import</strong>. Excel will show a preview of the data</li>
+<li><strong>Click "Transform Data"</strong> instead of "Load" - this opens the Power Query Editor (keyboard shortcut: <code>Alt → A → F → T</code> in sequence)</li>
+<li><strong>Observe the Power Query Editor interface:</strong> Notice the ribbon with transformation options, the query pane on the left, and the "Applied Steps" pane on the right showing each transformation</li>
+<li><strong>Remove duplicates:</strong> Select the CustomerID column, then click <strong>Home</strong> → <strong>Remove Rows</strong> → <strong>Remove Duplicates</strong></li>
+<li><strong>Trim extra spaces:</strong> Select the Name column, right-click column header → <strong>Transform</strong> → <strong>Trim</strong> (removes leading/trailing spaces)</li>
+<li><strong>Fix capitalization:</strong> While Name column is still selected, right-click → <strong>Transform</strong> → <strong>Capitalize Each Word</strong></li>
+<li><strong>Replace null values:</strong> Select the Phone column, click <strong>Transform</strong> tab → <strong>Replace Values</strong>, enter <code>null</code> in "Value To Find" and <code>Not Provided</code> in "Replace With"</li>
+<li><strong>Change data types:</strong> Select the CustomerID column, click the data type icon (ABC/123) in the column header → choose <strong>Whole Number</strong></li>
+<li><strong>Rename columns for clarity:</strong> Double-click the "CustomerID" column header and rename to "Customer ID" (with space)</li>
+<li><strong>Review Applied Steps:</strong> Look at the right pane to see each transformation listed - you can click any step to see the data at that point</li>
+<li><strong>Close and Load:</strong> Click <strong>Home</strong> → <strong>Close & Load</strong> (or <code>Alt → H → C → L</code>) to load the cleaned data into Excel</li>
+<li><strong>Verify the results:</strong> Check that your data is now clean with no duplicates, proper capitalization, and handled null values</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Non-destructive editing:</strong> Power Query doesn't change your source file - all transformations are stored as steps you can modify later</li>
+<li><strong>Refreshable transformations:</strong> If your source CSV updates, just right-click the table → <strong>Refresh</strong> to reapply all cleaning steps automatically</li>
+<li><strong>Applied Steps are editable:</strong> Click the gear icon next to any step in "Applied Steps" to modify or delete it</li>
+<li><strong>Keyboard shortcut:</strong> Press <code>Ctrl+Z</code> in Power Query Editor to undo the last transformation</li>
+<li><strong>Column operations shortcuts:</strong> Right-click any column header for quick access to common transformations</li>
+<li><strong>Formula bar:</strong> Advanced users can see and edit the M code (Power Query language) behind each step using the formula bar</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A clean Excel table with no duplicates, trimmed text, proper capitalization, handled null values, and correct data types. The table has a connection to the source CSV that can be refreshed anytime.</p>
+
+<p><strong>🔄 Connection to Day 13:</strong> Just like Day 13's What-If Analysis automated scenario testing, Power Query automates data cleaning. Instead of manually cleaning data repeatedly, you create a reusable transformation workflow that adapts to new data!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Transform and Reshape Data with Column Operations</strong></p>
+<p><strong>Goal:</strong> Master Power Query's column transformation features including splitting, merging, extracting, and creating custom columns.</p>
+
+<p><strong>Setup:</strong> Use a dataset with a "FullName" column (e.g., "John Smith") and an "OrderDate" column that needs to be split into components.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open Power Query Editor:</strong> From the Data tab, click <strong>Get Data</strong> → <strong>From File</strong> → <strong>From Excel Workbook</strong> (or use your existing query)</li>
+<li><strong>Click "Transform Data"</strong> to open the Power Query Editor</li>
+<li><strong>Split column by delimiter:</strong> Select the FullName column → <strong>Home</strong> → <strong>Split Column</strong> → <strong>By Delimiter</strong></li>
+<li><strong>Configure split:</strong> Choose "Space" as delimiter, select "At the leftmost delimiter", click OK</li>
+<li><strong>Rename split columns:</strong> Rename "FullName.1" to "First Name" and "FullName.2" to "Last Name"</li>
+<li><strong>Extract date components:</strong> Select the OrderDate column (ensure it's Date type) → click <strong>Add Column</strong> tab</li>
+<li><strong>Extract year:</strong> With OrderDate selected, click <strong>Date</strong> → <strong>Year</strong> (creates new column with year values)</li>
+<li><strong>Extract month name:</strong> Select OrderDate again → <strong>Add Column</strong> → <strong>Date</strong> → <strong>Month</strong> → <strong>Name of Month</strong></li>
+<li><strong>Extract day of week:</strong> Select OrderDate again → <strong>Add Column</strong> → <strong>Date</strong> → <strong>Day</strong> → <strong>Name of Day</strong></li>
+<li><strong>Create custom column with calculation:</strong> Click <strong>Add Column</strong> → <strong>Custom Column</strong></li>
+<li><strong>Configure custom column:</strong> Name it "Days Since Order", enter formula: <code>[OrderDate] - DateTime.LocalNow()</code>, change type to Duration</li>
+<li><strong>Merge columns:</strong> Select First Name and Last Name columns (hold Ctrl while clicking) → <strong>Transform</strong> → <strong>Merge Columns</strong></li>
+<li><strong>Configure merge:</strong> Choose "Space" as separator, name the new column "Full Name", click OK</li>
+<li><strong>Create conditional column:</strong> Click <strong>Add Column</strong> → <strong>Conditional Column</strong></li>
+<li><strong>Configure condition:</strong> Name: "Order Age Category", If "Year" equals current year, Output: "This Year", Else: "Previous Years"</li>
+<li><strong>Reorder columns:</strong> Drag column headers to arrange them logically (Customer ID, Full Name, OrderDate, Year, Month, etc.)</li>
+<li><strong>Close & Load:</strong> Click <strong>Home</strong> → <strong>Close & Load</strong> to see your transformed data</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Add vs Transform:</strong> <strong>Add Column</strong> creates new columns (keeps original), <strong>Transform</strong> modifies existing columns (replaces original)</li>
+<li><strong>Custom column power:</strong> Use M language in custom columns for complex calculations - similar to DAX formulas but for data transformation</li>
+<li><strong>Date intelligence:</strong> Power Query has extensive date functions - explore <strong>Add Column</strong> → <strong>Date</strong> for age, quarter, week number, etc.</li>
+<li><strong>Conditional logic:</strong> Conditional Column is great for simple IF logic; use Custom Column for complex nested conditions</li>
+<li><strong>Column selection:</strong> Hold <code>Ctrl</code> to select multiple non-adjacent columns, <code>Shift</code> to select a range</li>
+<li><strong>Keyboard shortcut:</strong> Use <code>Alt + A + M</code> to open the "Merge Columns" dialog quickly</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A transformed dataset with split name columns, extracted date components (Year, Month Name, Day Name), merged full names, calculated days since order, and conditional categorization - all created without formulas in the Excel grid!</p>
+
+<p><strong>🔄 Connection to Day 11:</strong> Day 11's date functions (TODAY, DATEDIFF, EOMONTH) work on individual cells. Power Query applies these transformations to entire columns at once during data import, creating a more efficient, automated workflow!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Merge Queries to Combine Customer and Order Data</strong></p>
+<p><strong>Goal:</strong> Master Power Query's Merge feature to combine data from multiple tables, similar to SQL JOINs.</p>
+
+<p><strong>Setup:</strong> You need two Excel tables or CSV files - one with customer information (CustomerID, Name, Email) and another with orders (OrderID, CustomerID, OrderDate, Amount).</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Import first table:</strong> Go to <strong>Data</strong> → <strong>Get Data</strong> → <strong>From File</strong> → select your Customers file</li>
+<li><strong>Load to Power Query:</strong> Click <strong>Transform Data</strong> to open in Power Query Editor</li>
+<li><strong>Rename the query:</strong> In the Query Settings pane (right side), change the name from "Sheet1" to "Customers"</li>
+<li><strong>Clean the data:</strong> Apply any necessary transformations (remove duplicates on CustomerID, trim spaces, etc.)</li>
+<li><strong>Click "Close & Load To":</strong> Click the dropdown arrow next to "Close & Load" → <strong>Close & Load To...</strong></li>
+<li><strong>Select "Only Create Connection":</strong> This loads the query but doesn't add it to a worksheet yet - click OK</li>
+<li><strong>Import second table:</strong> Go to <strong>Data</strong> → <strong>Get Data</strong> → <strong>From File</strong> → select your Orders file</li>
+<li><strong>Load and rename:</strong> Click <strong>Transform Data</strong>, rename the query to "Orders"</li>
+<li><strong>Start the merge:</strong> With Orders query open, click <strong>Home</strong> → <strong>Merge Queries</strong> (not "Merge Queries as New")</li>
+<li><strong>Configure the merge:</strong>
+   - Top dropdown: Select "Orders" (should already be selected)
+   - Click the CustomerID column in the Orders preview
+   - Bottom dropdown: Select "Customers"
+   - Click the CustomerID column in the Customers preview
+   - Join Kind: Select "Left Outer (all from first, matching from second)"
+   - Click OK
+</li>
+<li><strong>Expand the merged column:</strong> A new column appears named "Customers" with "Table" values. Click the expand icon (two arrows) in the column header</li>
+<li><strong>Select columns to expand:</strong> Uncheck "Use original column name as prefix", select "Name" and "Email", click OK</li>
+<li><strong>Review the results:</strong> You now have order data enriched with customer names and emails from the Customers table</li>
+<li><strong>Rename expanded columns:</strong> Rename "Name" to "Customer Name" and "Email" to "Customer Email" for clarity</li>
+<li><strong>Close & Load:</strong> Click <strong>Home</strong> → <strong>Close & Load</strong> to see the merged data in Excel</li>
+<li><strong>Test refresh:</strong> Try updating the source data and right-click the table → <strong>Refresh</strong> to see changes propagate</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Join types explained:</strong> Left Outer (all orders + matching customers), Inner (only orders with customers), Full Outer (all from both), Right Outer (all customers + matching orders)</li>
+<li><strong>Merge vs Append:</strong> Use Merge to add columns (like SQL JOIN), use Append to add rows (like UNION)</li>
+<li><strong>Multiple column merge:</strong> Hold <code>Ctrl</code> and select multiple columns in each table to merge on composite keys</li>
+<li><strong>Merge as New:</strong> Use "Merge Queries as New" to create a third query without modifying the original - great for creating multiple views</li>
+<li><strong>Performance tip:</strong> Merge queries load faster than VLOOKUP formulas for large datasets - Power Query is optimized for data operations</li>
+<li><strong>Fuzzy matching:</strong> Power Query can do fuzzy matching for approximate joins - useful when data isn't perfectly clean</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A single table showing all orders with enriched customer information (Name, Email) pulled from the Customers table, similar to a SQL LEFT JOIN. Changes to source data are reflected when you refresh the query.</p>
+
+<p><strong>🔄 Connection to Day 6:</strong> Day 6 taught SQL JOINs to combine tables in databases. Power Query's Merge does the same thing in Excel, letting you work with relational data without SQL - perfect for combining data from multiple sources!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Append Multiple Data Sources into One Table</strong></p>
+<p><strong>Goal:</strong> Learn to combine multiple tables with the same structure into a single consolidated table using Append.</p>
+
+<p><strong>Setup:</strong> Create or obtain three separate files with the same column structure - for example, sales data from Q1, Q2, and Q3 in separate CSV files or Excel sheets.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Import first dataset:</strong> Go to <strong>Data</strong> → <strong>Get Data</strong> → <strong>From File</strong> → select Q1_Sales.csv</li>
+<li><strong>Transform and rename:</strong> Click <strong>Transform Data</strong>, rename query to "Q1_Sales"</li>
+<li><strong>Add a source column:</strong> Click <strong>Add Column</strong> → <strong>Custom Column</strong>, name it "Quarter", value: <code>"Q1"</code>, click OK</li>
+<li><strong>Load as connection only:</strong> Click <strong>Close & Load To</strong> → <strong>Only Create Connection</strong></li>
+<li><strong>Import second dataset:</strong> <strong>Data</strong> → <strong>Get Data</strong> → <strong>From File</strong> → select Q2_Sales.csv</li>
+<li><strong>Transform and add identifier:</strong> Click <strong>Transform Data</strong>, rename to "Q2_Sales", add Custom Column "Quarter" with value <code>"Q2"</code></li>
+<li><strong>Load as connection only:</strong> <strong>Close & Load To</strong> → <strong>Only Create Connection</strong></li>
+<li><strong>Import third dataset:</strong> Repeat for Q3_Sales.csv, adding Quarter column with value <code>"Q3"</code></li>
+<li><strong>Create new Append query:</strong> Go to <strong>Data</strong> → <strong>Get Data</strong> → <strong>Combine Queries</strong> → <strong>Append</strong></li>
+<li><strong>Choose "Three or more tables":</strong> Select this option (even though we have exactly 3), click OK</li>
+<li><strong>Select tables to append:</strong> In "Available tables", select Q1_Sales, click <strong>Add</strong>, repeat for Q2_Sales and Q3_Sales</li>
+<li><strong>Review table order:</strong> The order in "Tables to append" determines row order in final result - reorder if needed using arrows</li>
+<li><strong>Click OK:</strong> Power Query creates a new query combining all three tables</li>
+<li><strong>Rename the combined query:</strong> Change name from "Append1" to "All_Sales_2024"</li>
+<li><strong>Add year column:</strong> Click <strong>Add Column</strong> → <strong>Custom Column</strong>, name: "Year", value: <code>2024</code></li>
+<li><strong>Sort by date:</strong> Select the Date column → <strong>Home</strong> → <strong>Sort Ascending</strong></li>
+<li><strong>Group by quarter:</strong> Click <strong>Transform</strong> → <strong>Group By</strong>, Group by: Quarter, New column name: "Total Sales", Operation: Sum, Column: Amount</li>
+<li><strong>Undo grouping to see details:</strong> Click the X next to "Grouped Rows" in Applied Steps (we just wanted to see how grouping works)</li>
+<li><strong>Close & Load:</strong> Click <strong>Home</strong> → <strong>Close & Load</strong> to load the consolidated data</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Append vs Merge reminder:</strong> Append stacks tables vertically (combines rows), Merge joins tables horizontally (combines columns)</li>
+<li><strong>Column matching:</strong> Append matches columns by name - ensure column headers are identical across all tables</li>
+<li><strong>Handling mismatched columns:</strong> If tables have different columns, Append includes all columns and fills missing values with null</li>
+<li><strong>Folder append:</strong> Use <strong>Get Data</strong> → <strong>From Folder</strong> to automatically append all files in a directory - great for monthly reports!</li>
+<li><strong>Append as New:</strong> Use "Append Queries as New" to create a separate combined query without modifying originals</li>
+<li><strong>Performance advantage:</strong> Appending in Power Query is much faster than copying/pasting data from multiple files manually</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A single consolidated table containing all sales records from Q1, Q2, and Q3, with each row tagged with its source quarter. The table automatically updates when source files change and you refresh the query.</p>
+
+<p><strong>🔄 Connection to Day 8:</strong> Day 8 used SQL GROUP BY to aggregate data. Power Query's Group By does the same thing, and when combined with Append, you can consolidate and analyze data from multiple sources in one operation!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Create Reusable Data Transformation Workflows</strong></p>
+<p><strong>Goal:</strong> Build a complete end-to-end Power Query workflow that imports, cleans, transforms, and combines data - creating a reusable, production-ready data pipeline.</p>
+
+<p><strong>Setup:</strong> Use multiple data sources - a CSV file with sales data (messy), an Excel file with product information, and another Excel file with customer data.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Import and clean sales data:</strong>
+   - <strong>Data</strong> → <strong>Get Data</strong> → <strong>From File</strong> → <strong>From Text/CSV</strong> → select sales file
+   - Click <strong>Transform Data</strong>, rename query to "Sales_Raw"
+   - Remove duplicates on OrderID column
+   - Trim and capitalize all text columns
+   - Change OrderDate to Date type, Amount to Currency type
+   - Filter out rows where Amount is null or zero
+   - <strong>Close & Load To</strong> → <strong>Only Create Connection</strong>
+</li>
+<li><strong>Import product reference data:</strong>
+   - <strong>Data</strong> → <strong>Get Data</strong> → <strong>From File</strong> → <strong>From Excel Workbook</strong> → select products file
+   - Click <strong>Transform Data</strong>, rename to "Products"
+   - Remove any unnecessary columns
+   - Ensure ProductID is Whole Number type
+   - <strong>Close & Load To</strong> → <strong>Only Create Connection</strong>
+</li>
+<li><strong>Import customer reference data:</strong>
+   - <strong>Data</strong> → <strong>Get Data</strong> → <strong>From File</strong> → <strong>From Excel Workbook</strong> → select customers file
+   - Click <strong>Transform Data</strong>, rename to "Customers"
+   - Remove duplicates on CustomerID
+   - Clean email addresses (trim, lowercase)
+   - <strong>Close & Load To</strong> → <strong>Only Create Connection</strong>
+</li>
+<li><strong>Create integrated sales report query:</strong>
+   - Right-click "Sales_Raw" in Queries pane → <strong>Reference</strong> (this creates a new query based on Sales_Raw)
+   - Rename the new query to "Sales_Report"
+</li>
+<li><strong>Merge with Products:</strong>
+   - Click <strong>Home</strong> → <strong>Merge Queries</strong>
+   - Select ProductID in Sales_Report, select Products table, select ProductID, use Left Outer join
+   - Expand to include Product Name and Category
+</li>
+<li><strong>Merge with Customers:</strong>
+   - Click <strong>Home</strong> → <strong>Merge Queries</strong> again
+   - Select CustomerID in current query, select Customers table, select CustomerID, use Left Outer join
+   - Expand to include Customer Name and Email
+</li>
+<li><strong>Add calculated columns:</strong>
+   - <strong>Add Column</strong> → <strong>Custom Column</strong>, name: "Year", formula: <code>Date.Year([OrderDate])</code>
+   - <strong>Add Column</strong> → <strong>Custom Column</strong>, name: "Month", formula: <code>Date.MonthName([OrderDate])</code>
+   - <strong>Add Column</strong> → <strong>Custom Column</strong>, name: "Quarter", formula: <code>"Q" & Text.From(Date.QuarterOfYear([OrderDate]))</code>
+</li>
+<li><strong>Add revenue category:</strong>
+   - <strong>Add Column</strong> → <strong>Conditional Column</strong>
+   - Name: "Revenue Category"
+   - If Amount is greater than or equal to 1000, Output: "High Value"
+   - Else if Amount is greater than or equal to 500, Output: "Medium Value"
+   - Else: "Low Value"
+</li>
+<li><strong>Reorder and clean up columns:</strong>
+   - Arrange columns logically: OrderID, OrderDate, Year, Month, Quarter, CustomerID, Customer Name, Email, ProductID, Product Name, Category, Amount, Revenue Category
+   - Remove any intermediate columns you don't need
+</li>
+<li><strong>Add documentation:</strong>
+   - Right-click the query → <strong>Properties</strong>
+   - Add description: "Integrated sales report combining sales, product, and customer data with enrichments"
+</li>
+<li><strong>Close & Load:</strong> Click <strong>Home</strong> → <strong>Close & Load</strong> to create the final report table</li>
+<li><strong>Test the workflow:</strong>
+   - Modify one of the source files (add a row, change a value)
+   - Right-click the Sales_Report table → <strong>Refresh</strong>
+   - Verify that changes propagate through the entire workflow
+</li>
+<li><strong>View query dependencies:</strong> Click <strong>Data</strong> → <strong>Queries & Connections</strong> → <strong>Query Dependencies</strong> to see how queries relate</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Reference vs Duplicate:</strong> "Reference" creates a query that depends on another (efficient), "Duplicate" creates an independent copy (flexible)</li>
+<li><strong>Query organization:</strong> Group related queries into folders in the Queries pane for better organization in complex workbooks</li>
+<li><strong>Parameter queries:</strong> Create parameter queries to make your workflow dynamic (e.g., date ranges, file paths) - accessible via <strong>Manage Parameters</strong></li>
+<li><strong>Error handling:</strong> Use <strong>Keep Errors</strong> or <strong>Remove Errors</strong> to handle data quality issues gracefully in production workflows</li>
+<li><strong>Performance optimization:</strong> Disable "Enable load" for intermediate queries (only load final results to Excel) to improve workbook performance</li>
+<li><strong>Sharing workflows:</strong> Power Query transformations are saved in the Excel file - when you share the workbook, others can refresh your queries automatically</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A comprehensive, production-ready sales report that automatically imports data from three sources, cleans and validates it, enriches it with product and customer information, adds calculated fields and categorizations, and can be refreshed with one click to reflect updated source data. This workflow is fully documented and reusable.</p>
+
+<p><strong>🔄 Connection to Day 10:</strong> Day 10 introduced SQL subqueries for complex data retrieval. Power Query workflows achieve similar complexity by chaining transformations and combining queries, but with a visual, user-friendly interface. Both approaches build layered data logic - SQL uses nested queries, Power Query uses referenced queries!</p>
+</div>
 <h3 id="independent-practice-hour-3---60-min-15">Independent Practice (60 min):</h3>
 <div class="practice-note">
 <p><strong>💡 Hints for Independent Practice:</strong></p>

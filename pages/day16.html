@@ -1117,7 +1117,871 @@ Provide step-by-step examples for beginners.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<p><em>Write CTEs to simplify queries, create recursive CTE for employee hierarchy, generate date series</em></p>
+<div class="section-card">
+<p><strong>Exercise 1: Simplify Complex Queries with Basic CTEs</strong></p>
+<p><strong>Goal:</strong> Learn to use Common Table Expressions (CTEs) to break down complex queries into readable, modular components.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open your SQL editor</strong> and connect to your database</li>
+<li><strong>Start with a complex nested query</strong> that's hard to read:
+<pre><code>-- Before: Complex nested subquery
+SELECT
+    c.CustomerID,
+    c.CustomerName,
+    o.TotalOrders,
+    o.TotalSpent
+FROM Customers c
+JOIN (
+    SELECT
+        CustomerID,
+        COUNT(*) AS TotalOrders,
+        SUM(Amount) AS TotalSpent
+    FROM Orders
+    WHERE OrderDate >= DATEADD(year, -1, GETDATE())
+    GROUP BY CustomerID
+    HAVING COUNT(*) > 5
+) o ON c.CustomerID = o.CustomerID
+WHERE o.TotalSpent > 1000;</code></pre>
+</li>
+<li><strong>Convert to CTE for clarity:</strong> Refactor using WITH clause to create a named result set:
+<pre><code>-- After: Using CTE for better readability
+WITH RecentCustomerOrders AS (
+    SELECT
+        CustomerID,
+        COUNT(*) AS TotalOrders,
+        SUM(Amount) AS TotalSpent
+    FROM Orders
+    WHERE OrderDate >= DATEADD(year, -1, GETDATE())
+    GROUP BY CustomerID
+    HAVING COUNT(*) > 5
+)
+SELECT
+    c.CustomerID,
+    c.CustomerName,
+    rco.TotalOrders,
+    rco.TotalSpent
+FROM Customers c
+JOIN RecentCustomerOrders rco ON c.CustomerID = rco.CustomerID
+WHERE rco.TotalSpent > 1000;</code></pre>
+</li>
+<li><strong>Execute the CTE query</strong> by pressing <code>F5</code> or <code>Ctrl+E</code></li>
+<li><strong>Observe the benefits:</strong> Notice how the CTE gives the subquery a meaningful name, making the main query easier to understand</li>
+<li><strong>Add comments to document:</strong>
+<pre><code>-- CTE to identify high-value customers from the past year
+WITH RecentCustomerOrders AS (
+    SELECT
+        CustomerID,
+        COUNT(*) AS TotalOrders,
+        SUM(Amount) AS TotalSpent
+    FROM Orders
+    WHERE OrderDate >= DATEADD(year, -1, GETDATE())  -- Last 12 months
+    GROUP BY CustomerID
+    HAVING COUNT(*) > 5  -- Minimum 6 orders to qualify
+)
+-- Main query: Get customer details for high spenders
+SELECT
+    c.CustomerID,
+    c.CustomerName,
+    rco.TotalOrders,
+    rco.TotalSpent
+FROM Customers c
+JOIN RecentCustomerOrders rco ON c.CustomerID = rco.CustomerID
+WHERE rco.TotalSpent > 1000  -- Spent more than $1000
+ORDER BY rco.TotalSpent DESC;</code></pre>
+</li>
+<li><strong>Create a CTE with column aliases:</strong> Specify column names explicitly in the CTE definition:
+<pre><code>WITH RecentCustomerOrders (CustomerID, OrderCount, TotalRevenue) AS (
+    SELECT
+        CustomerID,
+        COUNT(*),
+        SUM(Amount)
+    FROM Orders
+    WHERE OrderDate >= DATEADD(year, -1, GETDATE())
+    GROUP BY CustomerID
+    HAVING COUNT(*) > 5
+)
+SELECT
+    c.CustomerName,
+    rco.OrderCount,
+    rco.TotalRevenue
+FROM Customers c
+JOIN RecentCustomerOrders rco ON c.CustomerID = rco.CustomerID
+WHERE rco.TotalRevenue > 1000;</code></pre>
+</li>
+<li><strong>Test modifications:</strong> Try changing the date range or thresholds - notice how clear the query structure is</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>CTE syntax:</strong> Starts with <code>WITH cte_name AS ( SELECT ... )</code> followed immediately by the main query - no semicolon between them</li>
+<li><strong>Scope limitation:</strong> CTEs only exist for the duration of a single query - they're not permanent like views or temp tables</li>
+<li><strong>Readability first:</strong> Use CTEs primarily for code organization and readability, not performance (performance is usually similar to subqueries)</li>
+<li><strong>Naming convention:</strong> Choose descriptive CTE names that explain what the data represents (e.g., HighValueCustomers, RecentOrders)</li>
+<li><strong>Column naming:</strong> You can specify column names either in CTE definition <code>WITH cte (col1, col2)</code> or in the SELECT clause</li>
+<li><strong>Keyboard shortcut:</strong> Use <code>Ctrl+Shift+U</code> to uppercase SQL keywords for consistency</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A clean, readable query that identifies high-value customers from the past year. The CTE makes the logic transparent: first identify qualifying customers, then join with customer details. Results show CustomerName, OrderCount, and TotalRevenue for customers meeting the criteria.</p>
+
+<p><strong>🔄 Connection to Day 10:</strong> Day 10 taught subqueries which CTEs replace for better readability. Instead of nesting SELECT statements inside FROM clauses, CTEs let you define named result sets upfront - same functionality, much clearer code!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Chain Multiple CTEs for Complex Analysis</strong></p>
+<p><strong>Goal:</strong> Master using multiple CTEs in sequence to build complex queries step-by-step, where each CTE can reference previous ones.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open your SQL editor</strong> ready to work with order and product data</li>
+<li><strong>Understand the requirement:</strong> Find products that are top sellers but have declining sales trends</li>
+<li><strong>Create first CTE - Monthly Product Sales:</strong>
+<pre><code>WITH MonthlyProductSales AS (
+    SELECT
+        ProductID,
+        YEAR(OrderDate) AS OrderYear,
+        MONTH(OrderDate) AS OrderMonth,
+        SUM(Quantity) AS UnitsSold,
+        SUM(Amount) AS Revenue
+    FROM Orders
+    GROUP BY ProductID, YEAR(OrderDate), MONTH(OrderDate)
+)
+SELECT * FROM MonthlyProductSales
+ORDER BY ProductID, OrderYear, OrderMonth;</code></pre>
+</li>
+<li><strong>Execute and review</strong> the monthly breakdown by pressing <code>F5</code></li>
+<li><strong>Add second CTE - Calculate Trends:</strong> Build on the first CTE to compute month-over-month changes:
+<pre><code>WITH MonthlyProductSales AS (
+    SELECT
+        ProductID,
+        YEAR(OrderDate) AS OrderYear,
+        MONTH(OrderDate) AS OrderMonth,
+        SUM(Quantity) AS UnitsSold,
+        SUM(Amount) AS Revenue
+    FROM Orders
+    GROUP BY ProductID, YEAR(OrderDate), MONTH(OrderDate)
+),
+SalesTrends AS (
+    SELECT
+        ProductID,
+        OrderYear,
+        OrderMonth,
+        UnitsSold,
+        Revenue,
+        LAG(Revenue, 1) OVER (PARTITION BY ProductID ORDER BY OrderYear, OrderMonth) AS PrevMonthRevenue,
+        Revenue - LAG(Revenue, 1) OVER (PARTITION BY ProductID ORDER BY OrderYear, OrderMonth) AS RevenueChange
+    FROM MonthlyProductSales
+)
+SELECT * FROM SalesTrends
+ORDER BY ProductID, OrderYear, OrderMonth;</code></pre>
+</li>
+<li><strong>Add third CTE - Classify Products:</strong> Categorize products based on performance:
+<pre><code>WITH MonthlyProductSales AS (
+    SELECT
+        ProductID,
+        YEAR(OrderDate) AS OrderYear,
+        MONTH(OrderDate) AS OrderMonth,
+        SUM(Quantity) AS UnitsSold,
+        SUM(Amount) AS Revenue
+    FROM Orders
+    WHERE OrderDate >= DATEADD(month, -6, GETDATE())
+    GROUP BY ProductID, YEAR(OrderDate), MONTH(OrderDate)
+),
+SalesTrends AS (
+    SELECT
+        ProductID,
+        OrderYear,
+        OrderMonth,
+        UnitsSold,
+        Revenue,
+        LAG(Revenue, 1) OVER (PARTITION BY ProductID ORDER BY OrderYear, OrderMonth) AS PrevMonthRevenue,
+        Revenue - LAG(Revenue, 1) OVER (PARTITION BY ProductID ORDER BY OrderYear, OrderMonth) AS RevenueChange
+    FROM MonthlyProductSales
+),
+ProductPerformance AS (
+    SELECT
+        ProductID,
+        SUM(Revenue) AS TotalRevenue,
+        AVG(RevenueChange) AS AvgMonthlyChange,
+        CASE
+            WHEN AVG(RevenueChange) > 0 THEN 'Growing'
+            WHEN AVG(RevenueChange) < 0 THEN 'Declining'
+            ELSE 'Stable'
+        END AS TrendCategory
+    FROM SalesTrends
+    WHERE PrevMonthRevenue IS NOT NULL
+    GROUP BY ProductID
+)
+SELECT * FROM ProductPerformance
+ORDER BY TotalRevenue DESC;</code></pre>
+</li>
+<li><strong>Add final query - Join with Product Details:</strong>
+<pre><code>WITH MonthlyProductSales AS (
+    SELECT
+        ProductID,
+        YEAR(OrderDate) AS OrderYear,
+        MONTH(OrderDate) AS OrderMonth,
+        SUM(Quantity) AS UnitsSold,
+        SUM(Amount) AS Revenue
+    FROM Orders
+    WHERE OrderDate >= DATEADD(month, -6, GETDATE())
+    GROUP BY ProductID, YEAR(OrderDate), MONTH(OrderDate)
+),
+SalesTrends AS (
+    SELECT
+        ProductID,
+        OrderYear,
+        OrderMonth,
+        UnitsSold,
+        Revenue,
+        LAG(Revenue, 1) OVER (PARTITION BY ProductID ORDER BY OrderYear, OrderMonth) AS PrevMonthRevenue,
+        Revenue - LAG(Revenue, 1) OVER (PARTITION BY ProductID ORDER BY OrderYear, OrderMonth) AS RevenueChange
+    FROM MonthlyProductSales
+),
+ProductPerformance AS (
+    SELECT
+        ProductID,
+        SUM(Revenue) AS TotalRevenue,
+        AVG(RevenueChange) AS AvgMonthlyChange,
+        CASE
+            WHEN AVG(RevenueChange) > 0 THEN 'Growing'
+            WHEN AVG(RevenueChange) < 0 THEN 'Declining'
+            ELSE 'Stable'
+        END AS TrendCategory
+    FROM SalesTrends
+    WHERE PrevMonthRevenue IS NOT NULL
+    GROUP BY ProductID
+)
+SELECT
+    p.ProductName,
+    p.Category,
+    pp.TotalRevenue,
+    pp.AvgMonthlyChange,
+    pp.TrendCategory
+FROM ProductPerformance pp
+JOIN Products p ON pp.ProductID = p.ProductID
+WHERE pp.TotalRevenue > 10000  -- High revenue products only
+    AND pp.TrendCategory = 'Declining'  -- But trending down
+ORDER BY pp.TotalRevenue DESC;</code></pre>
+</li>
+<li><strong>Execute the complete query</strong> to find high-revenue products with declining sales - these need attention!</li>
+<li><strong>Analyze the structure:</strong> Notice how each CTE builds on previous ones, creating a clear data pipeline</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Multiple CTE syntax:</strong> Separate CTEs with commas: <code>WITH cte1 AS (...), cte2 AS (...), cte3 AS (...)</code></li>
+<li><strong>CTE referencing:</strong> Later CTEs can reference earlier ones (cte2 can use cte1), but not vice versa - order matters!</li>
+<li><strong>Step-by-step development:</strong> Build complex queries incrementally - test each CTE individually by selecting from it before adding the next</li>
+<li><strong>Pipeline thinking:</strong> Each CTE represents a stage in data transformation - raw → aggregated → analyzed → enriched</li>
+<li><strong>Debugging tip:</strong> Comment out the main query and SELECT from intermediate CTEs to inspect data at each stage</li>
+<li><strong>Performance note:</strong> SQL Server may optimize multiple CTEs differently than nested subqueries - check execution plans for large datasets</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A list of high-revenue products experiencing declining sales trends over the past 6 months. Each row shows ProductName, Category, TotalRevenue (last 6 months), AvgMonthlyChange (negative value), and TrendCategory ('Declining'). This actionable insight helps prioritize which products need marketing intervention.</p>
+
+<p><strong>🔄 Connection to Day 14:</strong> Day 14 introduced window functions like LAG for trend analysis. Multiple CTEs organize these complex calculations into logical steps - first aggregate monthly, then calculate trends with LAG, then classify performance, finally enrich with product details!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Build Recursive CTE for Employee Hierarchy</strong></p>
+<p><strong>Goal:</strong> Master recursive CTEs to query hierarchical data structures like organizational charts, showing all employees under a manager.</p>
+
+<p><strong>Setup:</strong> Ensure you have an Employees table with columns: EmployeeID, EmployeeName, ManagerID (references EmployeeID of their manager, NULL for CEO).</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Understand the data structure:</strong> Each employee has a ManagerID pointing to their boss - this creates a tree hierarchy</li>
+<li><strong>View the flat data:</strong>
+<pre><code>SELECT
+    EmployeeID,
+    EmployeeName,
+    ManagerID
+FROM Employees
+ORDER BY ManagerID, EmployeeID;</code></pre>
+</li>
+<li><strong>Create a basic recursive CTE - Anchor Member:</strong> Start with the top of the hierarchy (CEO):
+<pre><code>WITH EmployeeHierarchy AS (
+    -- Anchor member: Start with the CEO (ManagerID is NULL)
+    SELECT
+        EmployeeID,
+        EmployeeName,
+        ManagerID,
+        0 AS Level
+    FROM Employees
+    WHERE ManagerID IS NULL
+)
+SELECT * FROM EmployeeHierarchy;</code></pre>
+</li>
+<li><strong>Add the recursive member:</strong> Find all direct reports, then their reports, and so on:
+<pre><code>WITH EmployeeHierarchy AS (
+    -- Anchor member: Start with the CEO
+    SELECT
+        EmployeeID,
+        EmployeeName,
+        ManagerID,
+        0 AS Level
+    FROM Employees
+    WHERE ManagerID IS NULL
+
+    UNION ALL
+
+    -- Recursive member: Find employees whose manager is in the hierarchy
+    SELECT
+        e.EmployeeID,
+        e.EmployeeName,
+        e.ManagerID,
+        eh.Level + 1
+    FROM Employees e
+    INNER JOIN EmployeeHierarchy eh ON e.ManagerID = eh.EmployeeID
+)
+SELECT * FROM EmployeeHierarchy
+ORDER BY Level, EmployeeName;</code></pre>
+</li>
+<li><strong>Execute and observe:</strong> Press <code>F5</code> to see the entire organizational hierarchy with depth levels</li>
+<li><strong>Add visual indentation:</strong> Make the hierarchy more readable with indentation:
+<pre><code>WITH EmployeeHierarchy AS (
+    -- Anchor member
+    SELECT
+        EmployeeID,
+        EmployeeName,
+        ManagerID,
+        0 AS Level,
+        CAST(EmployeeName AS VARCHAR(255)) AS HierarchyPath
+    FROM Employees
+    WHERE ManagerID IS NULL
+
+    UNION ALL
+
+    -- Recursive member
+    SELECT
+        e.EmployeeID,
+        e.EmployeeName,
+        e.ManagerID,
+        eh.Level + 1,
+        CAST(eh.HierarchyPath + ' > ' + e.EmployeeName AS VARCHAR(255))
+    FROM Employees e
+    INNER JOIN EmployeeHierarchy eh ON e.ManagerID = eh.EmployeeID
+)
+SELECT
+    Level,
+    REPLICATE('  ', Level) + EmployeeName AS IndentedName,
+    EmployeeName,
+    ManagerID,
+    HierarchyPath
+FROM EmployeeHierarchy
+ORDER BY HierarchyPath;</code></pre>
+</li>
+<li><strong>Find all reports under a specific manager:</strong> Modify the anchor to start from a specific manager:
+<pre><code>DECLARE @ManagerID INT = 5;  -- Find all reports under EmployeeID 5
+
+WITH EmployeeHierarchy AS (
+    -- Anchor: Start with the specified manager
+    SELECT
+        EmployeeID,
+        EmployeeName,
+        ManagerID,
+        0 AS Level
+    FROM Employees
+    WHERE EmployeeID = @ManagerID
+
+    UNION ALL
+
+    -- Recursive: Find all subordinates
+    SELECT
+        e.EmployeeID,
+        e.EmployeeName,
+        e.ManagerID,
+        eh.Level + 1
+    FROM Employees e
+    INNER JOIN EmployeeHierarchy eh ON e.ManagerID = eh.EmployeeID
+)
+SELECT
+    Level,
+    REPLICATE('  ', Level) + EmployeeName AS OrgChart,
+    EmployeeID,
+    ManagerID
+FROM EmployeeHierarchy
+ORDER BY Level, EmployeeName;</code></pre>
+</li>
+<li><strong>Add aggregate information:</strong> Count total reports under each manager:
+<pre><code>WITH EmployeeHierarchy AS (
+    SELECT
+        EmployeeID,
+        EmployeeName,
+        ManagerID,
+        0 AS Level
+    FROM Employees
+    WHERE ManagerID IS NULL
+
+    UNION ALL
+
+    SELECT
+        e.EmployeeID,
+        e.EmployeeName,
+        e.ManagerID,
+        eh.Level + 1
+    FROM Employees e
+    INNER JOIN EmployeeHierarchy eh ON e.ManagerID = eh.EmployeeID
+)
+SELECT
+    eh.EmployeeID,
+    eh.EmployeeName,
+    eh.Level,
+    COUNT(subordinates.EmployeeID) AS TotalSubordinates
+FROM EmployeeHierarchy eh
+LEFT JOIN EmployeeHierarchy subordinates
+    ON subordinates.ManagerID = eh.EmployeeID
+GROUP BY eh.EmployeeID, eh.EmployeeName, eh.Level
+ORDER BY eh.Level, eh.EmployeeName;</code></pre>
+</li>
+<li><strong>Add MAXRECURSION option:</strong> Prevent infinite loops (default is 100 levels):
+<pre><code>WITH EmployeeHierarchy AS (
+    SELECT
+        EmployeeID,
+        EmployeeName,
+        ManagerID,
+        0 AS Level
+    FROM Employees
+    WHERE ManagerID IS NULL
+
+    UNION ALL
+
+    SELECT
+        e.EmployeeID,
+        e.EmployeeName,
+        e.ManagerID,
+        eh.Level + 1
+    FROM Employees e
+    INNER JOIN EmployeeHierarchy eh ON e.ManagerID = eh.EmployeeID
+    WHERE eh.Level < 10  -- Safety check
+)
+SELECT * FROM EmployeeHierarchy
+ORDER BY Level, EmployeeName
+OPTION (MAXRECURSION 10);</code></pre>
+</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Recursive structure:</strong> Anchor member (base case) + UNION ALL + Recursive member (references itself) - both parts are required</li>
+<li><strong>Join direction:</strong> Recursive member joins new data TO existing CTE results - think "find children of current level"</li>
+<li><strong>Termination:</strong> Recursion stops when recursive member returns no rows - ensure this happens or you'll get infinite loop</li>
+<li><strong>MAXRECURSION:</strong> Use <code>OPTION (MAXRECURSION n)</code> to set max depth - 0 means unlimited (use carefully!)</li>
+<li><strong>Performance consideration:</strong> Recursive CTEs can be slow on very large hierarchies - consider materialized views for frequently-queried hierarchies</li>
+<li><strong>Use cases:</strong> Organizational charts, bill of materials, folder structures, category trees, network graphs</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A complete organizational hierarchy showing every employee with their level in the organization, visual indentation, full hierarchy path from CEO down, and optionally the count of direct/indirect reports. When starting from a specific manager, shows only that subtree of the organization.</p>
+
+<p><strong>🔄 Connection to Day 6:</strong> Day 6 taught JOIN operations to combine related tables. Recursive CTEs use self-joins in a special way - each iteration joins the table to itself to traverse the hierarchy one level deeper, enabling tree traversal that's impossible with regular JOINs!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Generate Date Series with Recursive CTE</strong></p>
+<p><strong>Goal:</strong> Use recursive CTEs to generate sequences of dates, numbers, or other series - essential for filling gaps in data and creating reporting calendars.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open your SQL editor</strong> ready to generate a date series</li>
+<li><strong>Understand the use case:</strong> Generate all dates in a month to identify days with missing sales data</li>
+<li><strong>Create a simple date series - Current Month:</strong>
+<pre><code>WITH DateSeries AS (
+    -- Anchor: Start with first day of current month
+    SELECT DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1) AS DateValue
+
+    UNION ALL
+
+    -- Recursive: Add one day at a time
+    SELECT DATEADD(day, 1, DateValue)
+    FROM DateSeries
+    WHERE DATEADD(day, 1, DateValue) <= EOMONTH(GETDATE())
+)
+SELECT DateValue, DATENAME(weekday, DateValue) AS DayOfWeek
+FROM DateSeries
+ORDER BY DateValue;</code></pre>
+</li>
+<li><strong>Execute to see all dates in current month</strong> by pressing <code>F5</code></li>
+<li><strong>Generate a full year of dates:</strong>
+<pre><code>DECLARE @Year INT = 2024;
+
+WITH DateSeries AS (
+    -- Anchor: Start with January 1st
+    SELECT DATEFROMPARTS(@Year, 1, 1) AS DateValue
+
+    UNION ALL
+
+    -- Recursive: Add one day
+    SELECT DATEADD(day, 1, DateValue)
+    FROM DateSeries
+    WHERE DATEADD(day, 1, DateValue) <= DATEFROMPARTS(@Year, 12, 31)
+)
+SELECT
+    DateValue,
+    DATENAME(weekday, DateValue) AS DayName,
+    DATEPART(week, DateValue) AS WeekNumber,
+    DATEPART(quarter, DateValue) AS Quarter
+FROM DateSeries
+ORDER BY DateValue
+OPTION (MAXRECURSION 366);  -- Allow for leap years</code></pre>
+</li>
+<li><strong>Use date series to find missing data:</strong> Left join with actual sales data to identify gaps:
+<pre><code>DECLARE @StartDate DATE = '2024-01-01';
+DECLARE @EndDate DATE = '2024-12-31';
+
+WITH DateSeries AS (
+    SELECT @StartDate AS DateValue
+
+    UNION ALL
+
+    SELECT DATEADD(day, 1, DateValue)
+    FROM DateSeries
+    WHERE DateValue < @EndDate
+),
+DailySales AS (
+    SELECT
+        CAST(OrderDate AS DATE) AS SaleDate,
+        SUM(Amount) AS TotalSales,
+        COUNT(*) AS OrderCount
+    FROM Orders
+    WHERE YEAR(OrderDate) = 2024
+    GROUP BY CAST(OrderDate AS DATE)
+)
+SELECT
+    ds.DateValue,
+    DATENAME(weekday, ds.DateValue) AS DayOfWeek,
+    COALESCE(sal.TotalSales, 0) AS TotalSales,
+    COALESCE(sal.OrderCount, 0) AS OrderCount,
+    CASE
+        WHEN sal.SaleDate IS NULL THEN 'No Sales Data'
+        WHEN sal.TotalSales = 0 THEN 'Zero Sales'
+        ELSE 'Has Sales'
+    END AS DataStatus
+FROM DateSeries ds
+LEFT JOIN DailySales sal ON ds.DateValue = sal.SaleDate
+ORDER BY ds.DateValue
+OPTION (MAXRECURSION 366);</code></pre>
+</li>
+<li><strong>Generate business days only (exclude weekends):</strong>
+<pre><code>DECLARE @StartDate DATE = '2024-01-01';
+DECLARE @EndDate DATE = '2024-12-31';
+
+WITH DateSeries AS (
+    SELECT @StartDate AS DateValue
+
+    UNION ALL
+
+    SELECT DATEADD(day, 1, DateValue)
+    FROM DateSeries
+    WHERE DateValue < @EndDate
+)
+SELECT
+    DateValue,
+    DATENAME(weekday, DateValue) AS DayOfWeek
+FROM DateSeries
+WHERE DATEPART(weekday, DateValue) NOT IN (1, 7)  -- Exclude Sunday (1) and Saturday (7)
+ORDER BY DateValue
+OPTION (MAXRECURSION 366);</code></pre>
+</li>
+<li><strong>Create a fiscal calendar:</strong> Generate months with fiscal year numbering:
+<pre><code>DECLARE @FiscalYearStart DATE = '2023-07-01';  -- Fiscal year starts July 1st
+DECLARE @Periods INT = 12;  -- 12 fiscal months
+
+WITH FiscalPeriods AS (
+    -- Anchor: First fiscal month
+    SELECT
+        1 AS FiscalMonth,
+        @FiscalYearStart AS PeriodStart,
+        EOMONTH(@FiscalYearStart) AS PeriodEnd
+
+    UNION ALL
+
+    -- Recursive: Add subsequent months
+    SELECT
+        FiscalMonth + 1,
+        DATEADD(month, 1, PeriodStart),
+        EOMONTH(DATEADD(month, 1, PeriodStart))
+    FROM FiscalPeriods
+    WHERE FiscalMonth < @Periods
+)
+SELECT
+    FiscalMonth,
+    PeriodStart,
+    PeriodEnd,
+    DATEDIFF(day, PeriodStart, PeriodEnd) + 1 AS DaysInPeriod,
+    CASE
+        WHEN FiscalMonth <= 3 THEN 'Q1'
+        WHEN FiscalMonth <= 6 THEN 'Q2'
+        WHEN FiscalMonth <= 9 THEN 'Q3'
+        ELSE 'Q4'
+    END AS FiscalQuarter
+FROM FiscalPeriods
+ORDER BY FiscalMonth;</code></pre>
+</li>
+<li><strong>Generate number series for reporting:</strong> Create sequence 1 to N:
+<pre><code>WITH NumberSeries AS (
+    SELECT 1 AS Number
+
+    UNION ALL
+
+    SELECT Number + 1
+    FROM NumberSeries
+    WHERE Number < 100
+)
+SELECT
+    Number,
+    Number * Number AS Squared,
+    Number * Number * Number AS Cubed
+FROM NumberSeries
+ORDER BY Number
+OPTION (MAXRECURSION 100);</code></pre>
+</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Date series pattern:</strong> Anchor with start date, recursive adds DATEADD, terminate with WHERE condition checking end date</li>
+<li><strong>MAXRECURSION planning:</strong> For date series, set to max possible days (366 for year, 31 for month) to avoid errors</li>
+<li><strong>Performance note:</strong> For large date ranges, consider creating a permanent Calendar table instead of recursive CTE</li>
+<li><strong>Gap analysis:</strong> LEFT JOIN date series to actual data to find missing dates - crucial for time-series analysis</li>
+<li><strong>Business calendar:</strong> Use recursive CTEs to generate custom calendars (fiscal years, 4-4-5 retail calendar, etc.)</li>
+<li><strong>Alternative in SQL Server 2022+:</strong> Use GENERATE_SERIES function for simpler number/date generation when available</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A complete date series for the specified range with associated metadata (day name, week number, quarter). When joined with sales data, clearly shows which dates have data and which don't. For fiscal calendars, shows custom period numbering aligned to business needs rather than calendar months.</p>
+
+<p><strong>🔄 Connection to Day 12:</strong> Day 12 used DATEDIFF and date functions for calculations. Recursive date series extends this by creating complete date ranges for analysis, ensuring every date is represented even if there's no data - essential for accurate trend analysis and gap identification!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Solve Complex Business Problems with Combined CTEs</strong></p>
+<p><strong>Goal:</strong> Master combining multiple CTEs (both recursive and non-recursive) to solve real-world business scenarios that require hierarchical and analytical logic.</p>
+
+<p><strong>Scenario:</strong> Generate a comprehensive sales report showing daily sales for each product category, including running totals, percentage of monthly target, and identifying which products haven't been sold in the past 30 days.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Create a date dimension CTE:</strong> Generate last 30 days:
+<pre><code>DECLARE @EndDate DATE = CAST(GETDATE() AS DATE);
+DECLARE @StartDate DATE = DATEADD(day, -29, @EndDate);
+
+WITH DateDimension AS (
+    SELECT @StartDate AS ReportDate
+
+    UNION ALL
+
+    SELECT DATEADD(day, 1, ReportDate)
+    FROM DateDimension
+    WHERE ReportDate < @EndDate
+)
+SELECT * FROM DateDimension
+ORDER BY ReportDate
+OPTION (MAXRECURSION 30);</code></pre>
+</li>
+<li><strong>Add product category hierarchy CTE:</strong> Get all categories and subcategories:
+<pre><code>DECLARE @EndDate DATE = CAST(GETDATE() AS DATE);
+DECLARE @StartDate DATE = DATEADD(day, -29, @EndDate);
+
+WITH DateDimension AS (
+    SELECT @StartDate AS ReportDate
+    UNION ALL
+    SELECT DATEADD(day, 1, ReportDate)
+    FROM DateDimension
+    WHERE ReportDate < @EndDate
+),
+CategoryHierarchy AS (
+    -- Top-level categories
+    SELECT
+        CategoryID,
+        CategoryName,
+        ParentCategoryID,
+        0 AS Level,
+        CAST(CategoryName AS VARCHAR(255)) AS CategoryPath
+    FROM Categories
+    WHERE ParentCategoryID IS NULL
+
+    UNION ALL
+
+    -- Subcategories
+    SELECT
+        c.CategoryID,
+        c.CategoryName,
+        c.ParentCategoryID,
+        ch.Level + 1,
+        CAST(ch.CategoryPath + ' > ' + c.CategoryName AS VARCHAR(255))
+    FROM Categories c
+    INNER JOIN CategoryHierarchy ch ON c.ParentCategoryID = ch.CategoryID
+)
+SELECT * FROM CategoryHierarchy
+ORDER BY CategoryPath;</code></pre>
+</li>
+<li><strong>Add daily sales aggregation CTE:</strong>
+<pre><code>-- Previous CTEs...
+,
+DailySales AS (
+    SELECT
+        CAST(o.OrderDate AS DATE) AS SaleDate,
+        p.CategoryID,
+        SUM(o.Quantity) AS UnitsSold,
+        SUM(o.Amount) AS Revenue
+    FROM Orders o
+    JOIN Products p ON o.ProductID = p.ProductID
+    WHERE o.OrderDate >= @StartDate AND o.OrderDate <= @EndDate
+    GROUP BY CAST(o.OrderDate AS DATE), p.CategoryID
+)
+SELECT * FROM DailySales;</code></pre>
+</li>
+<li><strong>Create complete date-category matrix:</strong> Cross join to ensure all combinations:
+<pre><code>-- Previous CTEs...
+,
+DateCategoryMatrix AS (
+    SELECT
+        dd.ReportDate,
+        ch.CategoryID,
+        ch.CategoryName,
+        ch.CategoryPath,
+        ch.Level
+    FROM DateDimension dd
+    CROSS JOIN CategoryHierarchy ch
+    WHERE ch.Level = 0  -- Only top-level categories for this report
+)
+SELECT * FROM DateCategoryMatrix;</code></pre>
+</li>
+<li><strong>Add running totals and calculations:</strong>
+<pre><code>-- Previous CTEs...
+,
+EnrichedSales AS (
+    SELECT
+        dcm.ReportDate,
+        dcm.CategoryID,
+        dcm.CategoryName,
+        COALESCE(ds.UnitsSold, 0) AS UnitsSold,
+        COALESCE(ds.Revenue, 0) AS Revenue,
+        SUM(COALESCE(ds.Revenue, 0)) OVER (
+            PARTITION BY dcm.CategoryID, YEAR(dcm.ReportDate), MONTH(dcm.ReportDate)
+            ORDER BY dcm.ReportDate
+            ROWS UNBOUNDED PRECEDING
+        ) AS MonthToDateRevenue,
+        AVG(COALESCE(ds.Revenue, 0)) OVER (
+            PARTITION BY dcm.CategoryID
+            ORDER BY dcm.ReportDate
+            ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+        ) AS SevenDayAvgRevenue
+    FROM DateCategoryMatrix dcm
+    LEFT JOIN DailySales ds
+        ON dcm.ReportDate = ds.SaleDate
+        AND dcm.CategoryID = ds.CategoryID
+)
+SELECT * FROM EnrichedSales;</code></pre>
+</li>
+<li><strong>Add targets and performance metrics:</strong>
+<pre><code>-- Previous CTEs...
+,
+CategoryTargets AS (
+    SELECT
+        CategoryID,
+        MonthlyTarget
+    FROM CategoryGoals
+    WHERE YEAR(TargetMonth) = YEAR(@EndDate)
+        AND MONTH(TargetMonth) = MONTH(@EndDate)
+),
+FinalReport AS (
+    SELECT
+        es.ReportDate,
+        DATENAME(weekday, es.ReportDate) AS DayName,
+        es.CategoryName,
+        es.UnitsSold,
+        es.Revenue,
+        es.MonthToDateRevenue,
+        ct.MonthlyTarget,
+        CASE
+            WHEN ct.MonthlyTarget > 0
+            THEN ROUND((es.MonthToDateRevenue / ct.MonthlyTarget) * 100, 2)
+            ELSE NULL
+        END AS PercentOfTarget,
+        es.SevenDayAvgRevenue,
+        CASE
+            WHEN es.Revenue > es.SevenDayAvgRevenue THEN 'Above Average'
+            WHEN es.Revenue < es.SevenDayAvgRevenue THEN 'Below Average'
+            ELSE 'On Average'
+        END AS DailyPerformance,
+        CASE
+            WHEN es.Revenue = 0 THEN 'No Sales'
+            ELSE 'Active'
+        END AS SalesStatus
+    FROM EnrichedSales es
+    LEFT JOIN CategoryTargets ct ON es.CategoryID = ct.CategoryID
+)
+SELECT
+    ReportDate,
+    DayName,
+    CategoryName,
+    UnitsSold,
+    Revenue,
+    MonthToDateRevenue,
+    MonthlyTarget,
+    PercentOfTarget,
+    SevenDayAvgRevenue,
+    DailyPerformance,
+    SalesStatus
+FROM FinalReport
+ORDER BY CategoryName, ReportDate
+OPTION (MAXRECURSION 30);</code></pre>
+</li>
+<li><strong>Add summary analytics:</strong> Create a final summary section:
+<pre><code>-- All previous CTEs remain the same...
+
+-- Main detailed report
+SELECT * FROM FinalReport
+ORDER BY CategoryName, ReportDate;
+
+-- Summary by category
+WITH CategorySummary AS (
+    SELECT
+        CategoryName,
+        SUM(Revenue) AS TotalRevenue,
+        AVG(Revenue) AS AvgDailyRevenue,
+        MAX(Revenue) AS BestDay,
+        MIN(Revenue) AS WorstDay,
+        SUM(CASE WHEN Revenue = 0 THEN 1 ELSE 0 END) AS DaysWithNoSales,
+        MAX(PercentOfTarget) AS CurrentTargetProgress
+    FROM FinalReport
+    GROUP BY CategoryName
+)
+SELECT
+    CategoryName,
+    TotalRevenue,
+    AvgDailyRevenue,
+    BestDay,
+    WorstDay,
+    DaysWithNoSales,
+    CurrentTargetProgress,
+    CASE
+        WHEN CurrentTargetProgress >= 100 THEN 'Target Met'
+        WHEN CurrentTargetProgress >= 80 THEN 'On Track'
+        WHEN CurrentTargetProgress >= 50 THEN 'Behind'
+        ELSE 'Significantly Behind'
+    END AS TargetStatus
+FROM CategorySummary
+ORDER BY TotalRevenue DESC
+OPTION (MAXRECURSION 30);</code></pre>
+</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>CTE organization:</strong> Order CTEs logically - dimensions first (dates, hierarchies), then facts (sales), then calculations, finally output formatting</li>
+<li><strong>Mixing CTE types:</strong> You can combine recursive CTEs (for hierarchies, date series) with regular CTEs (for aggregations, joins) in one query</li>
+<li><strong>Testing strategy:</strong> Build incrementally - test each CTE by selecting from it before adding the next layer</li>
+<li><strong>Documentation:</strong> Add comments before each CTE explaining its purpose - crucial for maintaining complex queries</li>
+<li><strong>Performance monitoring:</strong> Check execution plans for complex CTE queries - consider breaking into temp tables if performance is poor</li>
+<li><strong>Reusability:</strong> Complex CTE-based reports can be wrapped in views or stored procedures for repeated use</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A comprehensive daily sales report showing 30 days of data for each category with: daily sales figures, running month-to-date totals, 7-day moving averages, percentage of monthly target achieved, performance indicators (above/below average), and sales status. Summary section shows overall category performance with target achievement status. This provides complete visibility into sales trends and target progress.</p>
+
+<p><strong>🔄 Connection to Day 15:</strong> Day 15's Power Query workflows transformed data through multiple steps. This exercise does the same in SQL using multiple CTEs - each CTE is a transformation step (like Power Query steps), building from raw data to final insights. Both approaches create reusable, documented data pipelines!</p>
+</div>
 <h3 id="independent-practice-hour-3---60-min-16">Independent Practice (60 min):</h3>
 <div class="practice-note">
 <p><strong>💡 Hints for Independent Practice:</strong></p>

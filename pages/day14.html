@@ -1115,7 +1115,581 @@ Provide practical examples for financial analysis.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<p><em>Calculate month-over-month sales changes, create running totals for revenue, compute 30-day moving averages</em></p>
+<div class="section-card">
+<p><strong>Exercise 1: Calculate Month-Over-Month Sales Change with LAG</strong></p>
+<p><strong>Goal:</strong> Learn to use the LAG function to compare current month sales with the previous month and calculate the percentage change.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open your SQL editor</strong> and connect to your sales database</li>
+<li><strong>Understand the requirement:</strong> For each month, we want to see current month sales, previous month sales, and the percentage change</li>
+<li><strong>Start with a basic monthly aggregation:</strong>
+<pre><code>SELECT
+    YEAR(OrderDate) AS OrderYear,
+    MONTH(OrderDate) AS OrderMonth,
+    SUM(TotalAmount) AS MonthlySales
+FROM Orders
+GROUP BY YEAR(OrderDate), MONTH(OrderDate)
+ORDER BY OrderYear, OrderMonth;</code></pre>
+</li>
+<li><strong>Add LAG function to get previous month's sales:</strong> Press <code>Ctrl+Home</code> to go to the start, modify the query to:
+<pre><code>SELECT
+    YEAR(OrderDate) AS OrderYear,
+    MONTH(OrderDate) AS OrderMonth,
+    SUM(TotalAmount) AS CurrentMonthSales,
+    LAG(SUM(TotalAmount), 1, 0) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS PreviousMonthSales
+FROM Orders
+GROUP BY YEAR(OrderDate), MONTH(OrderDate)
+ORDER BY OrderYear, OrderMonth;</code></pre>
+</li>
+<li><strong>Calculate the month-over-month change:</strong>
+<pre><code>SELECT
+    YEAR(OrderDate) AS OrderYear,
+    MONTH(OrderDate) AS OrderMonth,
+    SUM(TotalAmount) AS CurrentMonthSales,
+    LAG(SUM(TotalAmount), 1, 0) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS PreviousMonthSales,
+    SUM(TotalAmount) - LAG(SUM(TotalAmount), 1, 0) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS SalesChange
+FROM Orders
+GROUP BY YEAR(OrderDate), MONTH(OrderDate)
+ORDER BY OrderYear, OrderMonth;</code></pre>
+</li>
+<li><strong>Add percentage change calculation:</strong>
+<pre><code>SELECT
+    YEAR(OrderDate) AS OrderYear,
+    MONTH(OrderDate) AS OrderMonth,
+    SUM(TotalAmount) AS CurrentMonthSales,
+    LAG(SUM(TotalAmount), 1, 0) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS PreviousMonthSales,
+    SUM(TotalAmount) - LAG(SUM(TotalAmount), 1, 0) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS SalesChange,
+    CASE
+        WHEN LAG(SUM(TotalAmount), 1, 0) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) = 0 THEN NULL
+        ELSE ROUND(((SUM(TotalAmount) - LAG(SUM(TotalAmount), 1, 0) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)))
+                    / LAG(SUM(TotalAmount), 1, 0) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate))) * 100, 2)
+    END AS PercentChange
+FROM Orders
+GROUP BY YEAR(OrderDate), MONTH(OrderDate)
+ORDER BY OrderYear, OrderMonth;</code></pre>
+</li>
+<li><strong>Execute the query</strong> by pressing <code>F5</code> or <code>Ctrl+E</code> and review the month-over-month comparison</li>
+<li><strong>Verify the results:</strong> Check that each month shows its sales compared to the previous month with accurate percentage calculations</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>LAG syntax:</strong> <code>LAG(column, offset, default_value) OVER (ORDER BY ...)</code> - offset is how many rows back (1 = previous row)</li>
+<li><strong>Default value matters:</strong> The third parameter (0 in this case) handles the first row which has no previous month</li>
+<li><strong>OVER clause ordering:</strong> The ORDER BY in OVER determines which row is "previous" - always order by your time dimension</li>
+<li><strong>Avoid division by zero:</strong> Use CASE to check if previous month sales is 0 before calculating percentage</li>
+<li><strong>PARTITION BY for categories:</strong> Add <code>PARTITION BY ProductCategory</code> to compare within each category separately</li>
+<li><strong>Keyboard shortcut:</strong> Use <code>Ctrl+K, Ctrl+C</code> to comment out lines while testing different variations</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A table showing each month with columns: OrderYear, OrderMonth, CurrentMonthSales, PreviousMonthSales, SalesChange, PercentChange (e.g., 2024, 10, $50,000, $45,000, $5,000, 11.11%)</p>
+
+<p><strong>🔄 Connection to Day 12:</strong> Day 12 introduced basic window functions like ROW_NUMBER and RANK. LAG extends this by allowing you to reference specific previous rows, enabling powerful time-series comparisons without self-joins!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Use LEAD to Identify Future Order Trends</strong></p>
+<p><strong>Goal:</strong> Master the LEAD function to look ahead in your data and identify upcoming customer behavior patterns.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open your SQL editor</strong> with the customer orders dataset</li>
+<li><strong>Understand the scenario:</strong> For each customer order, we want to see when their next order will be and how many days between orders</li>
+<li><strong>Create a base query showing customer orders:</strong>
+<pre><code>SELECT
+    CustomerID,
+    OrderID,
+    OrderDate,
+    TotalAmount
+FROM Orders
+ORDER BY CustomerID, OrderDate;</code></pre>
+</li>
+<li><strong>Add LEAD to find next order date:</strong>
+<pre><code>SELECT
+    CustomerID,
+    OrderID,
+    OrderDate,
+    TotalAmount,
+    LEAD(OrderDate, 1) OVER (PARTITION BY CustomerID ORDER BY OrderDate) AS NextOrderDate
+FROM Orders
+ORDER BY CustomerID, OrderDate;</code></pre>
+</li>
+<li><strong>Calculate days until next order:</strong>
+<pre><code>SELECT
+    CustomerID,
+    OrderID,
+    OrderDate,
+    TotalAmount,
+    LEAD(OrderDate, 1) OVER (PARTITION BY CustomerID ORDER BY OrderDate) AS NextOrderDate,
+    DATEDIFF(day, OrderDate, LEAD(OrderDate, 1) OVER (PARTITION BY CustomerID ORDER BY OrderDate)) AS DaysUntilNextOrder
+FROM Orders
+ORDER BY CustomerID, OrderDate;</code></pre>
+</li>
+<li><strong>Add next order amount for comparison:</strong>
+<pre><code>SELECT
+    CustomerID,
+    OrderID,
+    OrderDate,
+    TotalAmount AS CurrentOrderAmount,
+    LEAD(OrderDate, 1) OVER (PARTITION BY CustomerID ORDER BY OrderDate) AS NextOrderDate,
+    LEAD(TotalAmount, 1) OVER (PARTITION BY CustomerID ORDER BY OrderDate) AS NextOrderAmount,
+    DATEDIFF(day, OrderDate, LEAD(OrderDate, 1) OVER (PARTITION BY CustomerID ORDER BY OrderDate)) AS DaysUntilNextOrder,
+    CASE
+        WHEN TotalAmount < LEAD(TotalAmount, 1) OVER (PARTITION BY CustomerID ORDER BY OrderDate) THEN 'Increasing'
+        WHEN TotalAmount > LEAD(TotalAmount, 1) OVER (PARTITION BY CustomerID ORDER BY OrderDate) THEN 'Decreasing'
+        ELSE 'Stable'
+    END AS OrderValueTrend
+FROM Orders
+ORDER BY CustomerID, OrderDate;</code></pre>
+</li>
+<li><strong>Filter to show customers with decreasing order frequency:</strong>
+<pre><code>WITH OrderTrends AS (
+    SELECT
+        CustomerID,
+        OrderID,
+        OrderDate,
+        DATEDIFF(day, OrderDate, LEAD(OrderDate, 1) OVER (PARTITION BY CustomerID ORDER BY OrderDate)) AS DaysUntilNextOrder
+    FROM Orders
+)
+SELECT
+    CustomerID,
+    AVG(DaysUntilNextOrder) AS AvgDaysBetweenOrders
+FROM OrderTrends
+WHERE DaysUntilNextOrder IS NOT NULL
+GROUP BY CustomerID
+HAVING AVG(DaysUntilNextOrder) > 30
+ORDER BY AvgDaysBetweenOrders DESC;</code></pre>
+</li>
+<li><strong>Execute and analyze:</strong> Press <code>F5</code> to identify customers who may be at risk of churning</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>LEAD vs LAG:</strong> LEAD looks forward, LAG looks backward - use LEAD for predictions and forecasting scenarios</li>
+<li><strong>PARTITION BY is crucial:</strong> Always partition by CustomerID when analyzing per-customer trends to avoid mixing data</li>
+<li><strong>NULL handling:</strong> The last order for each customer will have NULL for NextOrderDate - this is expected behavior</li>
+<li><strong>Multiple offsets:</strong> Use <code>LEAD(OrderDate, 2)</code> to look 2 orders ahead, <code>LEAD(OrderDate, 3)</code> for 3, etc.</li>
+<li><strong>Business insight:</strong> Increasing days between orders often indicates declining engagement - great for retention campaigns</li>
+<li><strong>CTE for clarity:</strong> Use Common Table Expressions (CTEs) with WITH to make complex LEAD queries more readable</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A table showing each order with its next order date and the gap in days (e.g., CustomerID: 101, OrderDate: 2024-01-15, NextOrderDate: 2024-02-20, DaysUntilNextOrder: 36, OrderValueTrend: 'Increasing')</p>
+
+<p><strong>🔄 Connection to Day 12:</strong> While Day 12 showed window functions for ranking, LEAD adds temporal analysis capabilities. Combined with DATEDIFF from Day 12, you can now perform sophisticated customer behavior analysis!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Create Running Totals for Year-to-Date Revenue</strong></p>
+<p><strong>Goal:</strong> Learn to calculate running totals and cumulative sums using window functions with frame specifications.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open your SQL editor</strong> and ensure you have access to daily sales data</li>
+<li><strong>Understand running totals:</strong> A running total accumulates values from the first row to the current row, essential for YTD calculations</li>
+<li><strong>Create a basic daily sales summary:</strong>
+<pre><code>SELECT
+    OrderDate,
+    SUM(TotalAmount) AS DailySales
+FROM Orders
+WHERE YEAR(OrderDate) = 2024
+GROUP BY OrderDate
+ORDER BY OrderDate;</code></pre>
+</li>
+<li><strong>Add a simple running total:</strong>
+<pre><code>SELECT
+    OrderDate,
+    SUM(TotalAmount) AS DailySales,
+    SUM(SUM(TotalAmount)) OVER (ORDER BY OrderDate) AS RunningTotal
+FROM Orders
+WHERE YEAR(OrderDate) = 2024
+GROUP BY OrderDate
+ORDER BY OrderDate;</code></pre>
+</li>
+<li><strong>Make it explicit with ROWS BETWEEN:</strong>
+<pre><code>SELECT
+    OrderDate,
+    SUM(TotalAmount) AS DailySales,
+    SUM(SUM(TotalAmount)) OVER (
+        ORDER BY OrderDate
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS RunningTotal
+FROM Orders
+WHERE YEAR(OrderDate) = 2024
+GROUP BY OrderDate
+ORDER BY OrderDate;</code></pre>
+</li>
+<li><strong>Add Year-to-Date sales by month:</strong>
+<pre><code>SELECT
+    YEAR(OrderDate) AS OrderYear,
+    MONTH(OrderDate) AS OrderMonth,
+    SUM(TotalAmount) AS MonthlySales,
+    SUM(SUM(TotalAmount)) OVER (
+        PARTITION BY YEAR(OrderDate)
+        ORDER BY MONTH(OrderDate)
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS YearToDateSales
+FROM Orders
+GROUP BY YEAR(OrderDate), MONTH(OrderDate)
+ORDER BY OrderYear, OrderMonth;</code></pre>
+</li>
+<li><strong>Add Quarter-to-Date calculations:</strong>
+<pre><code>SELECT
+    YEAR(OrderDate) AS OrderYear,
+    DATEPART(QUARTER, OrderDate) AS OrderQuarter,
+    MONTH(OrderDate) AS OrderMonth,
+    SUM(TotalAmount) AS MonthlySales,
+    SUM(SUM(TotalAmount)) OVER (
+        PARTITION BY YEAR(OrderDate), DATEPART(QUARTER, OrderDate)
+        ORDER BY MONTH(OrderDate)
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS QuarterToDateSales,
+    SUM(SUM(TotalAmount)) OVER (
+        PARTITION BY YEAR(OrderDate)
+        ORDER BY MONTH(OrderDate)
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS YearToDateSales
+FROM Orders
+GROUP BY YEAR(OrderDate), DATEPART(QUARTER, OrderDate), MONTH(OrderDate)
+ORDER BY OrderYear, OrderQuarter, OrderMonth;</code></pre>
+</li>
+<li><strong>Add percentage of annual target:</strong>
+<pre><code>DECLARE @AnnualTarget DECIMAL(12,2) = 1000000;
+
+SELECT
+    YEAR(OrderDate) AS OrderYear,
+    MONTH(OrderDate) AS OrderMonth,
+    SUM(TotalAmount) AS MonthlySales,
+    SUM(SUM(TotalAmount)) OVER (
+        PARTITION BY YEAR(OrderDate)
+        ORDER BY MONTH(OrderDate)
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS YearToDateSales,
+    ROUND((SUM(SUM(TotalAmount)) OVER (
+        PARTITION BY YEAR(OrderDate)
+        ORDER BY MONTH(OrderDate)
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) / @AnnualTarget) * 100, 2) AS PercentOfTarget
+FROM Orders
+WHERE YEAR(OrderDate) = 2024
+GROUP BY YEAR(OrderDate), MONTH(OrderDate)
+ORDER BY OrderYear, OrderMonth;</code></pre>
+</li>
+<li><strong>Execute the query</strong> with <code>F5</code> and verify running totals increase monotonically</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>ROWS BETWEEN syntax:</strong> <code>UNBOUNDED PRECEDING AND CURRENT ROW</code> means "from the start to current row" - this is the running total frame</li>
+<li><strong>PARTITION BY resets:</strong> Use PARTITION BY YEAR to restart running total each year, essential for YTD calculations</li>
+<li><strong>Performance consideration:</strong> Running totals on very large datasets can be slow - consider indexing on date columns</li>
+<li><strong>Default frame:</strong> When you omit ROWS BETWEEN with ORDER BY, SQL uses RANGE UNBOUNDED PRECEDING by default (slightly different behavior)</li>
+<li><strong>Nested aggregations:</strong> Notice <code>SUM(SUM(TotalAmount))</code> - outer SUM is window function, inner SUM is GROUP BY aggregate</li>
+<li><strong>Keyboard shortcut:</strong> Use <code>Ctrl+Shift+U</code> to uppercase SQL keywords for better readability</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A table showing each month with cumulative sales growing throughout the year (e.g., Jan: $50k, Feb: $105k, Mar: $165k, etc.) with YTD and QTD totals plus percentage of annual target</p>
+
+<p><strong>🔄 Connection to Day 12:</strong> Day 12 introduced window functions with OVER clause. Running totals extend this by using frame specifications (ROWS BETWEEN) to define exactly which rows participate in the calculation - a powerful analytical tool!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Calculate 7-Day Moving Average for Sales Trends</strong></p>
+<p><strong>Goal:</strong> Master moving averages to smooth out daily fluctuations and identify underlying sales trends.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open your SQL editor</strong> with daily sales data available</li>
+<li><strong>Understand moving averages:</strong> A 7-day moving average calculates the average of the current day plus the previous 6 days, creating a smoothed trend line</li>
+<li><strong>Start with daily sales data:</strong>
+<pre><code>SELECT
+    OrderDate,
+    SUM(TotalAmount) AS DailySales
+FROM Orders
+WHERE OrderDate >= DATEADD(day, -90, GETDATE())
+GROUP BY OrderDate
+ORDER BY OrderDate;</code></pre>
+</li>
+<li><strong>Add a 7-day moving average:</strong>
+<pre><code>SELECT
+    OrderDate,
+    SUM(TotalAmount) AS DailySales,
+    AVG(SUM(TotalAmount)) OVER (
+        ORDER BY OrderDate
+        ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+    ) AS SevenDayMovingAvg
+FROM Orders
+WHERE OrderDate >= DATEADD(day, -90, GETDATE())
+GROUP BY OrderDate
+ORDER BY OrderDate;</code></pre>
+</li>
+<li><strong>Add 30-day moving average for comparison:</strong>
+<pre><code>SELECT
+    OrderDate,
+    SUM(TotalAmount) AS DailySales,
+    AVG(SUM(TotalAmount)) OVER (
+        ORDER BY OrderDate
+        ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+    ) AS SevenDayMovingAvg,
+    AVG(SUM(TotalAmount)) OVER (
+        ORDER BY OrderDate
+        ROWS BETWEEN 29 PRECEDING AND CURRENT ROW
+    ) AS ThirtyDayMovingAvg
+FROM Orders
+WHERE OrderDate >= DATEADD(day, -90, GETDATE())
+GROUP BY OrderDate
+ORDER BY OrderDate;</code></pre>
+</li>
+<li><strong>Round the averages for readability:</strong>
+<pre><code>SELECT
+    OrderDate,
+    SUM(TotalAmount) AS DailySales,
+    ROUND(AVG(SUM(TotalAmount)) OVER (
+        ORDER BY OrderDate
+        ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+    ), 2) AS SevenDayMovingAvg,
+    ROUND(AVG(SUM(TotalAmount)) OVER (
+        ORDER BY OrderDate
+        ROWS BETWEEN 29 PRECEDING AND CURRENT ROW
+    ), 2) AS ThirtyDayMovingAvg
+FROM Orders
+WHERE OrderDate >= DATEADD(day, -90, GETDATE())
+GROUP BY OrderDate
+ORDER BY OrderDate;</code></pre>
+</li>
+<li><strong>Add trend indicators:</strong>
+<pre><code>SELECT
+    OrderDate,
+    SUM(TotalAmount) AS DailySales,
+    ROUND(AVG(SUM(TotalAmount)) OVER (
+        ORDER BY OrderDate
+        ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+    ), 2) AS SevenDayMovingAvg,
+    CASE
+        WHEN SUM(TotalAmount) > AVG(SUM(TotalAmount)) OVER (
+            ORDER BY OrderDate
+            ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+        ) THEN 'Above Average'
+        ELSE 'Below Average'
+    END AS TrendIndicator,
+    ROUND((SUM(TotalAmount) - AVG(SUM(TotalAmount)) OVER (
+        ORDER BY OrderDate
+        ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+    )) / AVG(SUM(TotalAmount)) OVER (
+        ORDER BY OrderDate
+        ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+    ) * 100, 2) AS PercentDeviation
+FROM Orders
+WHERE OrderDate >= DATEADD(day, -90, GETDATE())
+GROUP BY OrderDate
+ORDER BY OrderDate;</code></pre>
+</li>
+<li><strong>Create a product-specific moving average:</strong>
+<pre><code>SELECT
+    ProductCategory,
+    OrderDate,
+    SUM(TotalAmount) AS DailySales,
+    ROUND(AVG(SUM(TotalAmount)) OVER (
+        PARTITION BY ProductCategory
+        ORDER BY OrderDate
+        ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+    ), 2) AS SevenDayMovingAvg
+FROM Orders
+WHERE OrderDate >= DATEADD(day, -90, GETDATE())
+GROUP BY ProductCategory, OrderDate
+ORDER BY ProductCategory, OrderDate;</code></pre>
+</li>
+<li><strong>Execute the query</strong> using <code>F5</code> and observe how moving averages smooth daily volatility</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Frame specification:</strong> <code>ROWS BETWEEN 6 PRECEDING AND CURRENT ROW</code> creates a 7-day window (6 previous + current = 7 total days)</li>
+<li><strong>Edge cases:</strong> First 6 days will have fewer than 7 days in the average - this is normal and expected</li>
+<li><strong>Smoothing effect:</strong> Larger windows (30-day) are smoother but slower to react; smaller windows (7-day) are more responsive</li>
+<li><strong>Seasonal patterns:</strong> Moving averages are excellent for identifying seasonal trends in sales data</li>
+<li><strong>Multiple partitions:</strong> Add PARTITION BY to calculate separate moving averages for each product, region, or category</li>
+<li><strong>Comparison insight:</strong> When 7-day MA crosses above 30-day MA, it often signals an upward trend (and vice versa)</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A table showing daily sales with smoothed 7-day and 30-day moving averages (e.g., 2024-11-15, DailySales: $12,500, 7-Day Avg: $11,200, 30-Day Avg: $10,800, TrendIndicator: 'Above Average')</p>
+
+<p><strong>🔄 Connection to Day 12:</strong> Building on Day 12's window functions, moving averages use the same OVER clause but with specific frame specifications. This transforms basic aggregations into powerful trend analysis tools used in financial and sales forecasting!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Combine LAG, LEAD, and Running Totals for Comprehensive Analysis</strong></p>
+<p><strong>Goal:</strong> Master combining multiple window functions in a single query to create a comprehensive sales performance dashboard.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open your SQL editor</strong> ready to build a complex analytical query</li>
+<li><strong>Understand the goal:</strong> Create a single query showing month-over-month comparisons, running totals, moving averages, and forward-looking predictions</li>
+<li><strong>Start with monthly sales aggregation:</strong>
+<pre><code>SELECT
+    YEAR(OrderDate) AS OrderYear,
+    MONTH(OrderDate) AS OrderMonth,
+    SUM(TotalAmount) AS MonthlySales
+FROM Orders
+GROUP BY YEAR(OrderDate), MONTH(OrderDate)
+ORDER BY OrderYear, OrderMonth;</code></pre>
+</li>
+<li><strong>Add LAG for previous month comparison:</strong>
+<pre><code>SELECT
+    YEAR(OrderDate) AS OrderYear,
+    MONTH(OrderDate) AS OrderMonth,
+    SUM(TotalAmount) AS MonthlySales,
+    LAG(SUM(TotalAmount), 1) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS PrevMonthSales,
+    SUM(TotalAmount) - LAG(SUM(TotalAmount), 1) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS MonthOverMonthChange
+FROM Orders
+GROUP BY YEAR(OrderDate), MONTH(OrderDate)
+ORDER BY OrderYear, OrderMonth;</code></pre>
+</li>
+<li><strong>Add LEAD for next month forecast context:</strong>
+<pre><code>SELECT
+    YEAR(OrderDate) AS OrderYear,
+    MONTH(OrderDate) AS OrderMonth,
+    SUM(TotalAmount) AS MonthlySales,
+    LAG(SUM(TotalAmount), 1) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS PrevMonthSales,
+    LEAD(SUM(TotalAmount), 1) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS NextMonthSales,
+    SUM(TotalAmount) - LAG(SUM(TotalAmount), 1) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS MonthOverMonthChange
+FROM Orders
+GROUP BY YEAR(OrderDate), MONTH(OrderDate)
+ORDER BY OrderYear, OrderMonth;</code></pre>
+</li>
+<li><strong>Add running total for YTD:</strong>
+<pre><code>SELECT
+    YEAR(OrderDate) AS OrderYear,
+    MONTH(OrderDate) AS OrderMonth,
+    SUM(TotalAmount) AS MonthlySales,
+    LAG(SUM(TotalAmount), 1) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS PrevMonthSales,
+    LEAD(SUM(TotalAmount), 1) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS NextMonthSales,
+    SUM(SUM(TotalAmount)) OVER (
+        PARTITION BY YEAR(OrderDate)
+        ORDER BY MONTH(OrderDate)
+        ROWS UNBOUNDED PRECEDING
+    ) AS YearToDateSales,
+    SUM(TotalAmount) - LAG(SUM(TotalAmount), 1) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS MonthOverMonthChange
+FROM Orders
+GROUP BY YEAR(OrderDate), MONTH(OrderDate)
+ORDER BY OrderYear, OrderMonth;</code></pre>
+</li>
+<li><strong>Add 3-month moving average:</strong>
+<pre><code>SELECT
+    YEAR(OrderDate) AS OrderYear,
+    MONTH(OrderDate) AS OrderMonth,
+    SUM(TotalAmount) AS MonthlySales,
+    LAG(SUM(TotalAmount), 1) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS PrevMonthSales,
+    LEAD(SUM(TotalAmount), 1) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS NextMonthSales,
+    SUM(SUM(TotalAmount)) OVER (
+        PARTITION BY YEAR(OrderDate)
+        ORDER BY MONTH(OrderDate)
+        ROWS UNBOUNDED PRECEDING
+    ) AS YearToDateSales,
+    ROUND(AVG(SUM(TotalAmount)) OVER (
+        ORDER BY YEAR(OrderDate), MONTH(OrderDate)
+        ROWS BETWEEN 2 PRECEDING AND CURRENT ROW
+    ), 2) AS ThreeMonthMovingAvg,
+    SUM(TotalAmount) - LAG(SUM(TotalAmount), 1) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS MonthOverMonthChange
+FROM Orders
+GROUP BY YEAR(OrderDate), MONTH(OrderDate)
+ORDER BY OrderYear, OrderMonth;</code></pre>
+</li>
+<li><strong>Add performance indicators and percentages:</strong>
+<pre><code>SELECT
+    YEAR(OrderDate) AS OrderYear,
+    MONTH(OrderDate) AS OrderMonth,
+    SUM(TotalAmount) AS MonthlySales,
+    LAG(SUM(TotalAmount), 1) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS PrevMonthSales,
+    LEAD(SUM(TotalAmount), 1) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS NextMonthSales,
+    SUM(SUM(TotalAmount)) OVER (
+        PARTITION BY YEAR(OrderDate)
+        ORDER BY MONTH(OrderDate)
+        ROWS UNBOUNDED PRECEDING
+    ) AS YearToDateSales,
+    ROUND(AVG(SUM(TotalAmount)) OVER (
+        ORDER BY YEAR(OrderDate), MONTH(OrderDate)
+        ROWS BETWEEN 2 PRECEDING AND CURRENT ROW
+    ), 2) AS ThreeMonthMovingAvg,
+    SUM(TotalAmount) - LAG(SUM(TotalAmount), 1) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS MonthOverMonthChange,
+    CASE
+        WHEN LAG(SUM(TotalAmount), 1) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) IS NULL THEN NULL
+        ELSE ROUND(((SUM(TotalAmount) - LAG(SUM(TotalAmount), 1) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)))
+                    / LAG(SUM(TotalAmount), 1) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate))) * 100, 2)
+    END AS PercentChange,
+    CASE
+        WHEN SUM(TotalAmount) > AVG(SUM(TotalAmount)) OVER (
+            ORDER BY YEAR(OrderDate), MONTH(OrderDate)
+            ROWS BETWEEN 2 PRECEDING AND CURRENT ROW
+        ) THEN 'Above Trend'
+        WHEN SUM(TotalAmount) < AVG(SUM(TotalAmount)) OVER (
+            ORDER BY YEAR(OrderDate), MONTH(OrderDate)
+            ROWS BETWEEN 2 PRECEDING AND CURRENT ROW
+        ) THEN 'Below Trend'
+        ELSE 'On Trend'
+    END AS TrendStatus
+FROM Orders
+GROUP BY YEAR(OrderDate), MONTH(OrderDate)
+ORDER BY OrderYear, OrderMonth;</code></pre>
+</li>
+<li><strong>Wrap in a CTE for better readability:</strong>
+<pre><code>WITH MonthlySalesAnalysis AS (
+    SELECT
+        YEAR(OrderDate) AS OrderYear,
+        MONTH(OrderDate) AS OrderMonth,
+        SUM(TotalAmount) AS MonthlySales,
+        LAG(SUM(TotalAmount), 1) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS PrevMonthSales,
+        LEAD(SUM(TotalAmount), 1) OVER (ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS NextMonthSales,
+        SUM(SUM(TotalAmount)) OVER (
+            PARTITION BY YEAR(OrderDate)
+            ORDER BY MONTH(OrderDate)
+            ROWS UNBOUNDED PRECEDING
+        ) AS YearToDateSales,
+        ROUND(AVG(SUM(TotalAmount)) OVER (
+            ORDER BY YEAR(OrderDate), MONTH(OrderDate)
+            ROWS BETWEEN 2 PRECEDING AND CURRENT ROW
+        ), 2) AS ThreeMonthMovingAvg
+    FROM Orders
+    GROUP BY YEAR(OrderDate), MONTH(OrderDate)
+)
+SELECT
+    OrderYear,
+    OrderMonth,
+    MonthlySales,
+    PrevMonthSales,
+    MonthlySales - PrevMonthSales AS MonthOverMonthChange,
+    CASE
+        WHEN PrevMonthSales IS NULL OR PrevMonthSales = 0 THEN NULL
+        ELSE ROUND(((MonthlySales - PrevMonthSales) / PrevMonthSales) * 100, 2)
+    END AS PercentChange,
+    YearToDateSales,
+    ThreeMonthMovingAvg,
+    CASE
+        WHEN MonthlySales > ThreeMonthMovingAvg THEN 'Above Trend'
+        WHEN MonthlySales < ThreeMonthMovingAvg THEN 'Below Trend'
+        ELSE 'On Trend'
+    END AS TrendStatus,
+    NextMonthSales
+FROM MonthlySalesAnalysis
+ORDER BY OrderYear, OrderMonth;</code></pre>
+</li>
+<li><strong>Execute with <code>F5</code></strong> and analyze the comprehensive view of sales performance</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>CTE organization:</strong> Use CTEs to separate window function calculations from final formatting - improves readability and debugging</li>
+<li><strong>Reusing window specs:</strong> In SQL Server 2012+, use WINDOW clause to define window specifications once and reuse them (less verbose)</li>
+<li><strong>Performance optimization:</strong> Multiple window functions in one query are more efficient than multiple separate queries</li>
+<li><strong>NULL handling:</strong> First and last rows will have NULLs for LAG and LEAD respectively - handle these with CASE or COALESCE</li>
+<li><strong>Business value:</strong> This single query provides a complete time-series analysis dashboard that would require multiple complex self-joins in older SQL</li>
+<li><strong>Keyboard shortcut:</strong> Use <code>Alt+F1</code> to get quick table information while building your query</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A comprehensive monthly dashboard showing: MonthlySales, PrevMonthSales, NextMonthSales, MonthOverMonthChange, PercentChange, YearToDateSales, ThreeMonthMovingAvg, and TrendStatus for complete sales performance visibility</p>
+
+<p><strong>🔄 Connection to Day 12:</strong> This exercise synthesizes everything from Day 12 (basic window functions) and Day 14 (LAG, LEAD, running totals, moving averages) into a single powerful query. This demonstrates how window functions eliminate the need for complex self-joins and correlated subqueries, making sophisticated analytics accessible and maintainable!</p>
+</div>
 <h3 id="independent-practice-hour-3---60-min-14">Independent Practice (60 min):</h3>
 <div class="practice-note">
 <p><strong>💡 Hints for Independent Practice:</strong></p>

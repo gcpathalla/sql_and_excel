@@ -1115,7 +1115,391 @@ Explain with step-by-step examples.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-<p><em>Create customer segments with CASE, build sales matrix with PIVOT, normalize data with UNPIVOT</em></p>
+
+<div class="section-card">
+<p><strong>Exercise 1: Categorize Sales Using Simple CASE Statement</strong></p>
+<p><strong>Goal:</strong> Learn to use simple CASE expressions to categorize sales amounts into performance tiers.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open your SQL editor</strong> and connect to your database</li>
+<li><strong>Start with a basic query</strong> to see the sales data:
+<pre><code>SELECT OrderID, CustomerID, Sales, OrderDate
+FROM Orders
+ORDER BY Sales DESC;</code></pre>
+This shows your raw sales data</li>
+<li><strong>Add a CASE statement to categorize sales:</strong>
+<pre><code>SELECT
+    OrderID,
+    CustomerID,
+    Sales,
+    OrderDate,
+    CASE
+        WHEN Sales < 100 THEN 'Low'
+        WHEN Sales >= 100 AND Sales < 500 THEN 'Medium'
+        WHEN Sales >= 500 AND Sales < 1000 THEN 'High'
+        WHEN Sales >= 1000 THEN 'Premium'
+        ELSE 'Unknown'
+    END AS SalesCategory
+FROM Orders
+ORDER BY Sales DESC;</code></pre></li>
+<li><strong>Execute the query</strong> (press F5 or click Execute)</li>
+<li><strong>Analyze the results:</strong> Each order now has a category label based on sales amount</li>
+<li><strong>Add a count summary:</strong>
+<pre><code>SELECT
+    CASE
+        WHEN Sales < 100 THEN 'Low'
+        WHEN Sales >= 100 AND Sales < 500 THEN 'Medium'
+        WHEN Sales >= 500 AND Sales < 1000 THEN 'High'
+        WHEN Sales >= 1000 THEN 'Premium'
+    END AS SalesCategory,
+    COUNT(*) AS OrderCount,
+    SUM(Sales) AS TotalSales,
+    AVG(Sales) AS AvgSales
+FROM Orders
+GROUP BY
+    CASE
+        WHEN Sales < 100 THEN 'Low'
+        WHEN Sales >= 100 AND Sales < 500 THEN 'Medium'
+        WHEN Sales >= 500 AND Sales < 1000 THEN 'High'
+        WHEN Sales >= 1000 THEN 'Premium'
+    END
+ORDER BY TotalSales DESC;</code></pre>
+This groups orders by category and calculates metrics</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Order matters:</strong> CASE evaluates conditions top-to-bottom, stops at first TRUE condition</li>
+<li><strong>Always include ELSE:</strong> Catches any unexpected values (returns NULL if omitted)</li>
+<li><strong>Use meaningful names:</strong> Alias your CASE column with AS for clarity</li>
+<li><strong>Grouping with CASE:</strong> When using GROUP BY, repeat the entire CASE expression (or use a CTE)</li>
+<li><strong>Keyboard shortcut (SSMS):</strong> Ctrl+R toggles results pane</li>
+<li><strong>Business logic:</strong> Adjust thresholds (100, 500, 1000) based on your actual business tiers</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A result set with each order showing its sales category (Low/Medium/High/Premium), and a summary table showing count and totals per category</p>
+
+<p><strong>🔄 Connection to Previous Learning:</strong> This is similar to Excel's IF statements from Day 3, but more powerful with multiple conditions in one expression.</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Customer Segmentation with Searched CASE</strong></p>
+<p><strong>Goal:</strong> Learn to use searched CASE for complex multi-column conditions to segment customers.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Understand the goal:</strong> Segment customers as Active, VIP, At Risk, or Inactive based on multiple criteria</li>
+<li><strong>Create a customer segmentation query:</strong>
+<pre><code>SELECT
+    CustomerID,
+    CustomerName,
+    TotalOrders,
+    TotalSpent,
+    LastOrderDate,
+    CASE
+        WHEN TotalOrders >= 10 AND TotalSpent >= 5000 THEN 'VIP'
+        WHEN LastOrderDate >= DATEADD(DAY, -90, GETDATE()) THEN 'Active'
+        WHEN LastOrderDate >= DATEADD(DAY, -180, GETDATE())
+             AND LastOrderDate < DATEADD(DAY, -90, GETDATE()) THEN 'At Risk'
+        WHEN LastOrderDate < DATEADD(DAY, -180, GETDATE()) THEN 'Inactive'
+        ELSE 'New'
+    END AS CustomerSegment
+FROM (
+    SELECT
+        C.CustomerID,
+        C.CustomerName,
+        COUNT(O.OrderID) AS TotalOrders,
+        ISNULL(SUM(O.Sales), 0) AS TotalSpent,
+        MAX(O.OrderDate) AS LastOrderDate
+    FROM Customers C
+    LEFT JOIN Orders O ON C.CustomerID = O.CustomerID
+    GROUP BY C.CustomerID, C.CustomerName
+) AS CustomerMetrics
+ORDER BY TotalSpent DESC;</code></pre></li>
+<li><strong>Execute and analyze:</strong> See how customers are categorized</li>
+<li><strong>Create a segment summary:</strong>
+<pre><code>WITH CustomerSegments AS (
+    SELECT
+        C.CustomerID,
+        COUNT(O.OrderID) AS TotalOrders,
+        ISNULL(SUM(O.Sales), 0) AS TotalSpent,
+        MAX(O.OrderDate) AS LastOrderDate,
+        CASE
+            WHEN COUNT(O.OrderID) >= 10 AND ISNULL(SUM(O.Sales), 0) >= 5000 THEN 'VIP'
+            WHEN MAX(O.OrderDate) >= DATEADD(DAY, -90, GETDATE()) THEN 'Active'
+            WHEN MAX(O.OrderDate) >= DATEADD(DAY, -180, GETDATE()) THEN 'At Risk'
+            WHEN MAX(O.OrderDate) < DATEADD(DAY, -180, GETDATE()) THEN 'Inactive'
+            ELSE 'New'
+        END AS Segment
+    FROM Customers C
+    LEFT JOIN Orders O ON C.CustomerID = O.CustomerID
+    GROUP BY C.CustomerID
+)
+SELECT
+    Segment,
+    COUNT(*) AS CustomerCount,
+    SUM(TotalSpent) AS Revenue,
+    AVG(TotalSpent) AS AvgSpending
+FROM CustomerSegments
+GROUP BY Segment
+ORDER BY Revenue DESC;</code></pre></li>
+<li><strong>Verify the logic:</strong> Check that VIP customers have 10+ orders AND $5000+ spending</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Searched CASE vs Simple CASE:</strong> Searched CASE uses WHEN condition (more flexible), Simple CASE uses WHEN value</li>
+<li><strong>AND/OR operators:</strong> Combine multiple conditions in one WHEN clause</li>
+<li><strong>Date functions:</strong> DATEADD and GETDATE() make dynamic date-based segments</li>
+<li><strong>NULL handling:</strong> Use ISNULL() or COALESCE() to handle customers with no orders</li>
+<li><strong>CTE for clarity:</strong> Use WITH (CTE) to make complex queries more readable</li>
+<li><strong>Business application:</strong> Use this for targeted marketing campaigns by segment</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A customer list with segments (VIP, Active, At Risk, Inactive, New) and a summary showing count and revenue per segment</p>
+
+<p><strong>🔄 Connection to Previous Learning:</strong> Combines Day 12's date functions with conditional logic, similar to Excel's nested IFs from Day 3.</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: PIVOT Sales Data from Rows to Columns</strong></p>
+<p><strong>Goal:</strong> Learn to use PIVOT operator to transform row data into a matrix format with years as columns.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>First, see the data in row format:</strong>
+<pre><code>SELECT
+    Category,
+    YEAR(OrderDate) AS OrderYear,
+    SUM(Sales) AS TotalSales
+FROM Orders
+WHERE YEAR(OrderDate) BETWEEN 2021 AND 2024
+GROUP BY Category, YEAR(OrderDate)
+ORDER BY Category, OrderYear;</code></pre>
+This shows sales by category and year in rows</li>
+<li><strong>Now PIVOT to put years as columns:</strong>
+<pre><code>SELECT Category, [2021], [2022], [2023], [2024]
+FROM (
+    SELECT
+        Category,
+        YEAR(OrderDate) AS OrderYear,
+        Sales
+    FROM Orders
+    WHERE YEAR(OrderDate) BETWEEN 2021 AND 2024
+) AS SourceData
+PIVOT (
+    SUM(Sales)
+    FOR OrderYear IN ([2021], [2022], [2023], [2024])
+) AS PivotTable
+ORDER BY Category;</code></pre></li>
+<li><strong>Execute and compare:</strong> Notice how years are now column headers instead of rows</li>
+<li><strong>Add year-over-year growth calculation:</strong>
+<pre><code>WITH SalesPivot AS (
+    SELECT Category, [2021], [2022], [2023], [2024]
+    FROM (
+        SELECT Category, YEAR(OrderDate) AS OrderYear, Sales
+        FROM Orders
+        WHERE YEAR(OrderDate) BETWEEN 2021 AND 2024
+    ) AS SourceData
+    PIVOT (
+        SUM(Sales)
+        FOR OrderYear IN ([2021], [2022], [2023], [2024])
+    ) AS PivotTable
+)
+SELECT
+    Category,
+    [2021],
+    [2022],
+    [2023],
+    [2024],
+    CAST((([2024] - [2023]) / NULLIF([2023], 0) * 100) AS DECIMAL(5,2)) AS GrowthPercent_2024
+FROM SalesPivot
+ORDER BY [2024] DESC;</code></pre></li>
+<li><strong>Format results:</strong> Verify that categories are rows and years are columns</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>PIVOT syntax:</strong> PIVOT (aggregate_function(column) FOR pivot_column IN (value1, value2, ...))</li>
+<li><strong>Source query must have:</strong> (1) row labels, (2) pivot column, (3) values to aggregate</li>
+<li><strong>Square brackets required:</strong> Column names in IN clause need [brackets], especially for numbers</li>
+<li><strong>Aggregate function:</strong> Use SUM, AVG, COUNT, MIN, MAX - only one at a time</li>
+<li><strong>Static columns:</strong> You must specify column values explicitly (2021, 2022, etc.) - can't be dynamic in simple PIVOT</li>
+<li><strong>NULL values:</strong> PIVOT converts missing data to NULL; use ISNULL() to replace with 0</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A table with categories as rows and years (2021-2024) as columns, showing sales for each category-year combination</p>
+
+<p><strong>🔄 Connection to Previous Learning:</strong> Similar to Excel Pivot Tables from Day 7, but in SQL format for reporting databases.</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: UNPIVOT to Normalize Column Data into Rows</strong></p>
+<p><strong>Goal:</strong> Learn to use UNPIVOT to transform wide format data (columns) into long format (rows).</p>
+
+<p><strong>Setup:</strong> Assume you have quarterly sales data in columns: Q1_Sales, Q2_Sales, Q3_Sales, Q4_Sales</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>First, see the wide format data:</strong>
+<pre><code>-- Sample data in wide format
+SELECT
+    ProductID,
+    ProductName,
+    Q1_Sales,
+    Q2_Sales,
+    Q3_Sales,
+    Q4_Sales
+FROM QuarterlySales;</code></pre>
+This has separate columns for each quarter</li>
+<li><strong>UNPIVOT to convert columns to rows:</strong>
+<pre><code>SELECT
+    ProductID,
+    ProductName,
+    Quarter,
+    SalesAmount
+FROM QuarterlySales
+UNPIVOT (
+    SalesAmount
+    FOR Quarter IN (Q1_Sales, Q2_Sales, Q3_Sales, Q4_Sales)
+) AS UnpivotTable
+ORDER BY ProductID, Quarter;</code></pre></li>
+<li><strong>Clean up the quarter names:</strong>
+<pre><code>SELECT
+    ProductID,
+    ProductName,
+    REPLACE(Quarter, '_Sales', '') AS Quarter,
+    SalesAmount
+FROM QuarterlySales
+UNPIVOT (
+    SalesAmount
+    FOR Quarter IN (Q1_Sales, Q2_Sales, Q3_Sales, Q4_Sales)
+) AS UnpivotTable
+ORDER BY ProductID, Quarter;</code></pre></li>
+<li><strong>Use the unpivoted data for analysis:</strong>
+<pre><code>WITH UnpivotedData AS (
+    SELECT
+        ProductID,
+        ProductName,
+        REPLACE(Quarter, '_Sales', '') AS Quarter,
+        SalesAmount
+    FROM QuarterlySales
+    UNPIVOT (
+        SalesAmount
+        FOR Quarter IN (Q1_Sales, Q2_Sales, Q3_Sales, Q4_Sales)
+    ) AS UnpivotTable
+)
+SELECT
+    Quarter,
+    COUNT(DISTINCT ProductID) AS ProductCount,
+    SUM(SalesAmount) AS TotalSales,
+    AVG(SalesAmount) AS AvgSales,
+    MAX(SalesAmount) AS MaxSales
+FROM UnpivotedData
+GROUP BY Quarter
+ORDER BY Quarter;</code></pre></li>
+<li><strong>Alternative: Create from pivoted data (PIVOT then UNPIVOT):</strong>
+<pre><code>-- This demonstrates the inverse relationship
+WITH Pivoted AS (
+    SELECT ProductID, [Q1], [Q2], [Q3], [Q4]
+    FROM (
+        SELECT ProductID, Quarter, Sales FROM SalesData
+    ) AS Src
+    PIVOT (SUM(Sales) FOR Quarter IN ([Q1], [Q2], [Q3], [Q4])) AS Pvt
+)
+SELECT ProductID, Quarter, SalesAmount
+FROM Pivoted
+UNPIVOT (
+    SalesAmount FOR Quarter IN ([Q1], [Q2], [Q3], [Q4])
+) AS Unpvt;</code></pre></li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>UNPIVOT syntax:</strong> UNPIVOT (value_column FOR name_column IN (col1, col2, col3))</li>
+<li><strong>When to use:</strong> Converting Excel-style "wide" data to proper database "long" format</li>
+<li><strong>No brackets needed:</strong> Column names in IN clause don't need brackets (unlike PIVOT)</li>
+<li><strong>NULL values disappear:</strong> UNPIVOT automatically excludes rows where value is NULL</li>
+<li><strong>Data normalization:</strong> This is proper database design - one row per observation</li>
+<li><strong>Alternative approach:</strong> Can use UNION ALL instead: SELECT ProductID, 'Q1', Q1_Sales UNION ALL SELECT ProductID, 'Q2', Q2_Sales...</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Data transformed from wide format (one row per product, columns Q1-Q4) to long format (multiple rows per product, one per quarter)</p>
+
+<p><strong>🔄 Connection to Previous Learning:</strong> The inverse of Day 7's Pivot Tables - converting summary format back to detail format.</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Conditional Aggregation Using CASE</strong></p>
+<p><strong>Goal:</strong> Learn to use CASE within aggregate functions for conditional summaries without GROUP BY.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Basic conditional aggregation:</strong>
+<pre><code>SELECT
+    COUNT(*) AS TotalOrders,
+    COUNT(CASE WHEN Sales >= 1000 THEN 1 END) AS HighValueOrders,
+    COUNT(CASE WHEN Sales < 1000 THEN 1 END) AS LowValueOrders,
+    SUM(CASE WHEN Sales >= 1000 THEN Sales ELSE 0 END) AS HighValueRevenue,
+    SUM(CASE WHEN Sales < 1000 THEN Sales ELSE 0 END) AS LowValueRevenue
+FROM Orders;</code></pre>
+This creates multiple metrics in one query</li>
+<li><strong>Percentage calculations:</strong>
+<pre><code>SELECT
+    COUNT(*) AS TotalOrders,
+    COUNT(CASE WHEN Sales >= 1000 THEN 1 END) AS HighValueOrders,
+    CAST(COUNT(CASE WHEN Sales >= 1000 THEN 1 END) * 100.0 / COUNT(*) AS DECIMAL(5,2)) AS HighValuePercent,
+    SUM(Sales) AS TotalRevenue,
+    SUM(CASE WHEN Sales >= 1000 THEN Sales ELSE 0 END) AS HighValueRevenue,
+    CAST(SUM(CASE WHEN Sales >= 1000 THEN Sales ELSE 0 END) * 100.0 / SUM(Sales) AS DECIMAL(5,2)) AS HighValueRevenuePercent
+FROM Orders;</code></pre></li>
+<li><strong>By category conditional aggregation:</strong>
+<pre><code>SELECT
+    Category,
+    COUNT(*) AS TotalOrders,
+    SUM(CASE WHEN YEAR(OrderDate) = 2024 THEN Sales ELSE 0 END) AS Sales_2024,
+    SUM(CASE WHEN YEAR(OrderDate) = 2023 THEN Sales ELSE 0 END) AS Sales_2023,
+    SUM(CASE WHEN YEAR(OrderDate) = 2022 THEN Sales ELSE 0 END) AS Sales_2022,
+    AVG(CASE WHEN Sales >= 1000 THEN Sales END) AS AvgHighValue,
+    AVG(CASE WHEN Sales < 1000 THEN Sales END) AS AvgLowValue
+FROM Orders
+GROUP BY Category
+ORDER BY Sales_2024 DESC;</code></pre></li>
+<li><strong>Complex business logic:</strong>
+<pre><code>SELECT
+    YEAR(OrderDate) AS OrderYear,
+    COUNT(*) AS TotalOrders,
+    -- Count orders by category
+    COUNT(CASE WHEN Category = 'Electronics' THEN 1 END) AS Electronics_Count,
+    COUNT(CASE WHEN Category = 'Clothing' THEN 1 END) AS Clothing_Count,
+    COUNT(CASE WHEN Category = 'Books' THEN 1 END) AS Books_Count,
+    -- Sum sales by category
+    SUM(CASE WHEN Category = 'Electronics' THEN Sales ELSE 0 END) AS Electronics_Sales,
+    SUM(CASE WHEN Category = 'Clothing' THEN Sales ELSE 0 END) AS Clothing_Sales,
+    SUM(CASE WHEN Category = 'Books' THEN Sales ELSE 0 END) AS Books_Sales,
+    -- Calculate percentages
+    CAST(SUM(CASE WHEN Category = 'Electronics' THEN Sales ELSE 0 END) * 100.0 / SUM(Sales) AS DECIMAL(5,2)) AS Electronics_Percent
+FROM Orders
+GROUP BY YEAR(OrderDate)
+ORDER BY OrderYear;</code></pre></li>
+<li><strong>Compare with PIVOT approach:</strong> Notice how this is more flexible than PIVOT for complex calculations</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>CASE in aggregates:</strong> COUNT(CASE WHEN condition THEN 1 END) counts matching rows</li>
+<li><strong>SUM trick:</strong> SUM(CASE WHEN condition THEN value ELSE 0 END) sums conditionally</li>
+<li><strong>vs PIVOT:</strong> More flexible - can use different aggregates and complex conditions in one query</li>
+<li><strong>NULL vs 0:</strong> COUNT ignores NULL, SUM treats NULL as 0 - use appropriately</li>
+<li><strong>Performance:</strong> Usually faster than multiple queries or subqueries</li>
+<li><strong>Business dashboards:</strong> Perfect for creating summary reports with multiple metrics</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A single row (or one per group) showing multiple conditional aggregates like high-value order count, revenue by category, and percentages</p>
+
+<p><strong>🔄 Connection to Previous Learning:</strong> Similar to Excel's SUMIF and COUNTIF from Day 9, but more powerful with multiple conditions in one formula.</p>
+</div>
 <h3 id="independent-practice-hour-3---60-min-18">Independent Practice (60 min):</h3>
 <div class="practice-note">
 <p><strong>💡 Hints for Independent Practice:</strong></p>
