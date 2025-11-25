@@ -660,6 +660,11 @@ Products</li>
   // Smooth navigation without page jumps (like the reference dashboard)
   (function(){
     function initSmoothNav(){
+      // Disable smooth navigation for file:// protocol (CORS restrictions)
+      if(window.location.protocol === 'file:'){
+        return; // Let links work normally
+      }
+
       const toc = document.getElementById('TOC');
       const contentDiv = document.querySelector('.content');
       const titleBlock = document.getElementById('title-block-header');
