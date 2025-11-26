@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 
   <meta charset="utf-8" />
@@ -947,29 +947,422 @@
     }
   </style>
 
+  <!-- ADVANCED FEATURES STYLES -->
   <style>
-    /* Smooth transitions for section switching */
+    /* ================================================
+       LOADING & SKELETON SCREENS
+       ================================================ */
+    .app-loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--bg-primary);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    .app-loading.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid var(--border-subtle);
+      border-top-color: var(--accent-orange);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* ================================================
+       COMMAND PALETTE (Cmd/Ctrl + K)
+       ================================================ */
+    .command-palette {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 9998;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 15vh;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .command-palette.active {
+      display: flex;
+    }
+
+    .command-palette-content {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      width: 90%;
+      max-width: 600px;
+      max-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .command-search {
+      padding: 1.25rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .command-search input {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      font-size: 1rem;
+      border: 2px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .command-search input:focus {
+      border-color: var(--accent-orange);
+      box-shadow: 0 0 0 3px rgba(217, 119, 87, 0.1);
+    }
+
+    .command-results {
+      overflow-y: auto;
+      max-height: 400px;
+      padding: 0.5rem;
+    }
+
+    .command-item {
+      padding: 0.875rem 1rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: all 0.15s ease;
+      border: 2px solid transparent;
+    }
+
+    .command-item:hover,
+    .command-item.selected {
+      background: var(--bg-primary);
+      border-color: var(--accent-orange);
+    }
+
+    .command-item-icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .command-item-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .command-item-title {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+    }
+
+    .command-item-subtitle {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      margin-top: 0.125rem;
+    }
+
+    .command-item-kbd {
+      background: var(--bg-primary);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-family: monospace;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    /* ================================================
+       SEARCH RESULTS HIGHLIGHTING
+       ================================================ */
+    .search-highlight {
+      background: var(--accent-orange);
+      color: white;
+      padding: 0.125rem 0.25rem;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+
+    .no-results {
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.9375rem;
+    }
+
+    /* ================================================
+       READING PROGRESS BAR (per section)
+       ================================================ */
+    .reading-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--bg-primary);
+      z-index: 9997;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .reading-progress-bar.visible {
+      opacity: 1;
+    }
+
+    .reading-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-orange), var(--accent-brown));
+      width: 0%;
+      transition: width 0.1s ease;
+    }
+
+    /* ================================================
+       SECTION PREVIEW ON HOVER
+       ================================================ */
+    .section-preview {
+      position: absolute;
+      left: 100%;
+      top: 0;
+      margin-left: 1rem;
+      background: var(--bg-secondary);
+      border: 2px solid var(--accent-orange);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      width: 300px;
+      max-height: 400px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      pointer-events: none;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.2s ease;
+      z-index: 1000;
+    }
+
+    .toc-link:hover .section-preview {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .section-preview-title {
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .section-preview-content {
+      color: var(--text-secondary);
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      max-height: 350px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .section-preview-content::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(transparent, var(--bg-secondary));
+    }
+
+    /* ================================================
+       ENHANCED TRANSITIONS
+       ================================================ */
     .content-section {
       opacity: 0;
-      transition: opacity 0.4s ease-in-out;
-      will-change: opacity;
+      transition: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      will-change: transform, opacity;
     }
 
     .content-section.active {
       display: block !important;
+      position: relative;
       opacity: 1;
     }
 
-    .content-section.fade-in {
-      animation: fadeIn 0.4s ease-in-out;
+    /* Fade transition */
+    .transition-fade.content-section.entering {
+      animation: fadeIn 0.4s ease forwards;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .transition-fade.content-section.exiting {
+      animation: fadeOut 0.3s ease forwards;
     }
 
-    /* Progress Tracker */
+    /* Slide transition */
+    .transition-slide.content-section.entering {
+      animation: slideInRight 0.4s ease forwards;
+    }
+
+    .transition-slide.content-section.exiting {
+      animation: slideOutLeft 0.3s ease forwards;
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideOutLeft {
+      from {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+    }
+
+    /* Scale transition */
+    .transition-scale.content-section.entering {
+      animation: scaleIn 0.4s ease forwards;
+    }
+
+    .transition-scale.content-section.exiting {
+      animation: scaleOut 0.3s ease forwards;
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes scaleOut {
+      from {
+        opacity: 1;
+        transform: scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+    }
+
+    /* ================================================
+       KEYBOARD SHORTCUTS HINT
+       ================================================ */
+    .keyboard-hint {
+      position: fixed;
+      bottom: 9rem;
+      right: 2rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      box-shadow: var(--shadow-md);
+      z-index: 997;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+      max-width: 250px;
+    }
+
+    .keyboard-hint.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .keyboard-hint-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .keyboard-hint-list {
+      font-size: 0.6875rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .keyboard-hint kbd {
+      background: var(--bg-primary);
+      padding: 0.125rem 0.375rem;
+      border-radius: 3px;
+      font-family: monospace;
+      border: 1px solid var(--border-subtle);
+      font-size: 0.625rem;
+    }
+
+    /* ================================================
+       PROGRESS TRACKER ENHANCEMENTS
+       ================================================ */
     .progress-tracker {
       position: fixed;
       bottom: 6rem;
@@ -980,8 +1373,14 @@
       padding: 1rem 1.25rem;
       box-shadow: var(--shadow-lg);
       z-index: 998;
-      min-width: 200px;
+      min-width: 220px;
       max-width: 250px;
+      transition: all 0.3s ease;
+    }
+
+    .progress-tracker:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
     }
 
     .progress-header {
@@ -1001,25 +1400,57 @@
       border-radius: 4px;
       overflow: hidden;
       margin-bottom: 0.5rem;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
     }
 
     .progress-bar-fill {
       height: 100%;
       background: linear-gradient(90deg, var(--accent-orange), var(--accent-brown));
-      transition: width 0.3s ease;
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
       border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
     }
 
     .progress-stats {
       font-size: 0.75rem;
       color: var(--text-secondary);
       text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-time {
+      font-size: 0.6875rem;
+      color: var(--text-tertiary);
+      text-align: center;
+      font-style: italic;
     }
 
     .reset-progress {
-      margin-top: 0.5rem;
+      margin-top: 0.75rem;
       width: 100%;
-      padding: 0.4rem;
+      padding: 0.5rem;
       font-size: 0.75rem;
       background: var(--bg-primary);
       border: 1px solid var(--border-subtle);
@@ -1027,30 +1458,155 @@
       border-radius: var(--radius-sm);
       cursor: pointer;
       transition: all 0.2s ease;
+      font-weight: 500;
     }
 
     .reset-progress:hover {
       background: var(--accent-orange);
       color: white;
       border-color: var(--accent-orange);
+      transform: translateY(-1px);
     }
 
-    /* Completed indicator in TOC */
-    .toc-link.visited {
-      position: relative;
+    /* ================================================
+       MOBILE TOUCH GESTURES
+       ================================================ */
+    .swipe-indicator {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--accent-orange);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-lg);
+      font-size: 0.875rem;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 9996;
+      box-shadow: var(--shadow-lg);
     }
 
-    .toc-link.visited::before {
-      content: '✓';
-      position: absolute;
-      left: -0.5rem;
-      color: var(--accent-orange);
-      font-weight: bold;
-      font-size: 0.75rem;
+    .swipe-indicator.left {
+      left: 2rem;
+    }
+
+    .swipe-indicator.right {
+      right: 2rem;
+    }
+
+    .swipe-indicator.visible {
+      opacity: 1;
+    }
+
+    /* ================================================
+       SMOOTH SECTION ANIMATIONS
+       ================================================ */
+    @media (prefers-reduced-motion: no-preference) {
+      .content-section {
+        scroll-behavior: smooth;
+      }
+    }
+
+    /* ================================================
+       RESPONSIVE ADJUSTMENTS
+       ================================================ */
+    @media (max-width: 1024px) {
+      .section-preview {
+        display: none;
+      }
+
+      .keyboard-hint {
+        bottom: 7rem;
+        right: 1rem;
+        max-width: 200px;
+      }
+
+      .progress-tracker {
+        bottom: 5rem;
+        right: 1rem;
+        min-width: 180px;
+      }
+
+      .command-palette-content {
+        width: 95%;
+        max-width: 500px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .keyboard-hint {
+        display: none;
+      }
+
+      .command-palette {
+        padding-top: 10vh;
+      }
+
+      .command-palette-content {
+        width: 100%;
+        max-width: none;
+        border-radius: 0;
+        max-height: 85vh;
+      }
+
+      .progress-tracker {
+        bottom: 4rem;
+        right: 0.5rem;
+        left: 0.5rem;
+        min-width: 0;
+        max-width: none;
+      }
     }
   </style>
 </head>
 <body>
+
+<div class="app-loading" id="app-loading">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Loading your training program...</div>
+</div>
+
+<!-- Reading Progress Bar -->
+<div class="reading-progress-bar" id="reading-progress-bar">
+  <div class="reading-progress-fill" id="reading-progress-fill"></div>
+</div>
+
+<!-- Command Palette (Cmd/Ctrl + K) -->
+<div class="command-palette" id="command-palette">
+  <div class="command-palette-content">
+    <div class="command-search">
+      <input
+        type="text"
+        id="command-search-input"
+        placeholder="Search sections, navigate, or type a command..."
+        autocomplete="off"
+        spellcheck="false"
+      />
+    </div>
+    <div class="command-results" id="command-results">
+      <div class="no-results">Start typing to search...</div>
+    </div>
+  </div>
+</div>
+
+<!-- Swipe Indicators (Mobile) -->
+<div class="swipe-indicator left" id="swipe-left">← Previous</div>
+<div class="swipe-indicator right" id="swipe-right">Next →</div>
+
+<!-- Keyboard Shortcuts Hint -->
+<div class="keyboard-hint" id="keyboard-hint">
+  <div class="keyboard-hint-title">
+    ⌨️ Keyboard Shortcuts
+  </div>
+  <div class="keyboard-hint-list">
+    <kbd>Ctrl/Cmd</kbd>+<kbd>K</kbd> Search<br>
+    <kbd>←</kbd><kbd>→</kbd> Navigate<br>
+    <kbd>?</kbd> Show shortcuts<br>
+    <kbd>Esc</kbd> Close dialogs
+  </div>
+</div>
 <header id="title-block-header">
   <div class="header-row">
     <h1 class="title">30-Day Excel & SQL Training Plan</h1>
@@ -1087,63 +1643,57 @@
 <li><a href="#overview" data-section="overview" class="toc-link">📚 Training Overview</a></li>
 <li><a href="#week1" data-section="week1" class="toc-link">Week 1: Foundations</a>
 <ul>
-<li><a href="#day1" data-section="day1" class="toc-link">Day 1: Excel - Formulas & Basic Functions</a></li>
-<li><a href="#day2" data-section="day2" class="toc-link">Day 2: SQL - SELECT & Aggregates</a></li>
-<li><a href="#day3" data-section="day3" class="toc-link">Day 3: Excel - Filtering & Conditional Funct...</a></li>
-<li><a href="#day4" data-section="day4" class="toc-link">Day 4: SQL - WHERE Clause & Filtering</a></li>
-<li><a href="#day5" data-section="day5" class="toc-link">Day 5: Excel - VLOOKUP & XLOOKUP</a></li>
-</ul>
-</li>
+<li><a href="#day1" data-section="day1" class="toc-link">Day 1</a></li>
+<li><a href="#day2" data-section="day2" class="toc-link">Day 2</a></li>
+<li><a href="#day3" data-section="day3" class="toc-link">Day 3</a></li>
+<li><a href="#day4" data-section="day4" class="toc-link">Day 4</a></li>
+<li><a href="#day5" data-section="day5" class="toc-link">Day 5</a></li>
+</ul></li>
 <li><a href="#week2" data-section="week2" class="toc-link">Week 2: Data Analysis</a>
 <ul>
-<li><a href="#day6" data-section="day6" class="toc-link">Day 6: SQL - JOIN Operations</a></li>
-<li><a href="#day7" data-section="day7" class="toc-link">Day 7: Excel - Pivot Tables & Charts</a></li>
-<li><a href="#day8" data-section="day8" class="toc-link">Day 8: SQL - GROUP BY & HAVING</a></li>
-<li><a href="#day9" data-section="day9" class="toc-link">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
-<li><a href="#day10" data-section="day10" class="toc-link">Day 10: SQL - Subqueries</a></li>
-</ul>
-</li>
+<li><a href="#day6" data-section="day6" class="toc-link">Day 6</a></li>
+<li><a href="#day7" data-section="day7" class="toc-link">Day 7</a></li>
+<li><a href="#day8" data-section="day8" class="toc-link">Day 8</a></li>
+<li><a href="#day9" data-section="day9" class="toc-link">Day 9</a></li>
+<li><a href="#day10" data-section="day10" class="toc-link">Day 10</a></li>
+</ul></li>
 <li><a href="#week3" data-section="week3" class="toc-link">Week 3: Intermediate Concepts</a>
 <ul>
-<li><a href="#day11" data-section="day11" class="toc-link">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
-<li><a href="#day12" data-section="day12" class="toc-link">Day 12: SQL - Date Functions & Window Functio...</a></li>
-<li><a href="#day13" data-section="day13" class="toc-link">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
-<li><a href="#day14" data-section="day14" class="toc-link">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
-<li><a href="#day15" data-section="day15" class="toc-link">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
-</ul>
-</li>
+<li><a href="#day11" data-section="day11" class="toc-link">Day 11</a></li>
+<li><a href="#day12" data-section="day12" class="toc-link">Day 12</a></li>
+<li><a href="#day13" data-section="day13" class="toc-link">Day 13</a></li>
+<li><a href="#day14" data-section="day14" class="toc-link">Day 14</a></li>
+<li><a href="#day15" data-section="day15" class="toc-link">Day 15</a></li>
+</ul></li>
 <li><a href="#week4" data-section="week4" class="toc-link">Week 4: Advanced Concepts</a>
 <ul>
-<li><a href="#day16" data-section="day16" class="toc-link">Day 16: SQL - CTEs & Recursive Queries</a></li>
-<li><a href="#day17" data-section="day17" class="toc-link">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
-<li><a href="#day18" data-section="day18" class="toc-link">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
-<li><a href="#day19" data-section="day19" class="toc-link">Day 19: Excel - Advanced Charts & Dashboards</a></li>
-<li><a href="#day20" data-section="day20" class="toc-link">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
-</ul>
-</li>
+<li><a href="#day16" data-section="day16" class="toc-link">Day 16</a></li>
+<li><a href="#day17" data-section="day17" class="toc-link">Day 17</a></li>
+<li><a href="#day18" data-section="day18" class="toc-link">Day 18</a></li>
+<li><a href="#day19" data-section="day19" class="toc-link">Day 19</a></li>
+<li><a href="#day20" data-section="day20" class="toc-link">Day 20</a></li>
+</ul></li>
 <li><a href="#week5" data-section="week5" class="toc-link">Week 5: Analytics & Optimization</a>
 <ul>
-<li><a href="#day21" data-section="day21" class="toc-link">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
-<li><a href="#day22" data-section="day22" class="toc-link">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
-<li><a href="#day23" data-section="day23" class="toc-link">Day 23: Excel - Advanced Conditional Formatti...</a></li>
-<li><a href="#day24" data-section="day24" class="toc-link">Day 24: SQL - Query Optimization & Performanc...</a></li>
-<li><a href="#day25" data-section="day25" class="toc-link">Day 25: Integration Project: Excel + SQL + WE...</a></li>
-</ul>
-</li>
+<li><a href="#day21" data-section="day21" class="toc-link">Day 21</a></li>
+<li><a href="#day22" data-section="day22" class="toc-link">Day 22</a></li>
+<li><a href="#day23" data-section="day23" class="toc-link">Day 23</a></li>
+<li><a href="#day24" data-section="day24" class="toc-link">Day 24</a></li>
+<li><a href="#day25" data-section="day25" class="toc-link">Day 25</a></li>
+</ul></li>
 <li><a href="#week6" data-section="week6" class="toc-link">Week 6: Mastery & Projects</a>
 <ul>
-<li><a href="#day26" data-section="day26" class="toc-link">Day 26: Excel - Macros & Automation Basics</a></li>
-<li><a href="#day27" data-section="day27" class="toc-link">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
-<li><a href="#day28" data-section="day28" class="toc-link">Day 28: Excel - Executive Dashboard Creation</a></li>
-<li><a href="#day29" data-section="day29" class="toc-link">Day 29: SQL - Complex Business Scenarios</a></li>
-<li><a href="#day30" data-section="day30" class="toc-link">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
-</ul>
-</li>
+<li><a href="#day26" data-section="day26" class="toc-link">Day 26</a></li>
+<li><a href="#day27" data-section="day27" class="toc-link">Day 27</a></li>
+<li><a href="#day28" data-section="day28" class="toc-link">Day 28</a></li>
+<li><a href="#day29" data-section="day29" class="toc-link">Day 29</a></li>
+<li><a href="#day30" data-section="day30" class="toc-link">Day 30</a></li>
+</ul></li>
 </ul>
   </nav>
   <div class="content" id="main-content">
-    <section id="section-overview" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-overview" class="content-section" data-section-id="overview" style="display: none;">
+<div class="content">
 <h2 id="complete-training-with-video-resources-ai-learning-prompts">Complete
 Training with Video Resources &amp; AI Learning Prompts</h2>
 <p><strong>Duration:</strong> 30 Days (6 weeks, 5 days/week)<br/>
@@ -1191,71 +1741,64 @@ LibreOffice Calc - SQL: SQLite Browser (<a class="external-link" href="https://s
 SQL Server + SSMS</p>
 <hr/>
   </div>
-
     </section>
 
-    <section id="section-week1" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-week1" class="content-section" data-section-id="week1" style="display: none;">
+<div class="content">
 <div class="section-card">
 <h2>Week 1 Overview</h2>
 <p>This week establishes the foundation for both Excel and SQL. You'll learn core concepts that everything else builds upon.</p>
 <p><strong>Key Focus Areas:</strong> Basic formulas, functions, filtering, lookups, and SELECT queries</p>
 </div>
-
     </section>
 
-    <section id="section-week2" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-week2" class="content-section" data-section-id="week2" style="display: none;">
+<div class="content">
 <div class="section-card">
 <h2>Week 2 Overview</h2>
 <p>Week 2 focuses on data analysis fundamentals. Learn to combine data, summarize information, and create meaningful visualizations.</p>
 <p><strong>Key Focus Areas:</strong> JOINs, GROUP BY, pivot tables, charts, and aggregations</p>
 </div>
-
     </section>
 
-    <section id="section-week3" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-week3" class="content-section" data-section-id="week3" style="display: none;">
+<div class="content">
 <div class="section-card">
 <h2>Week 3 Overview</h2>
 <p>Move to intermediate concepts with date handling, window functions, and what-if analysis for more sophisticated data work.</p>
 <p><strong>Key Focus Areas:</strong> Date functions, window functions (ROW_NUMBER, RANK, LAG, LEAD), Power Query</p>
 </div>
-
     </section>
 
-    <section id="section-week4" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-week4" class="content-section" data-section-id="week4" style="display: none;">
+<div class="content">
 <div class="section-card">
 <h2>Week 4 Overview</h2>
 <p>Master advanced techniques including recursive queries, data modeling, and professional dashboard creation.</p>
 <p><strong>Key Focus Areas:</strong> CTEs, Power Pivot with DAX, CASE statements, PIVOT/UNPIVOT, advanced charts</p>
 </div>
-
     </section>
 
-    <section id="section-week5" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-week5" class="content-section" data-section-id="week5" style="display: none;">
+<div class="content">
 <div class="section-card">
 <h2>Week 5 Overview</h2>
 <p>Apply analytics and optimization techniques to real-world scenarios. Learn performance tuning and integration.</p>
 <p><strong>Key Focus Areas:</strong> Statistical analysis, query optimization, advanced aggregations, Excel-SQL integration</p>
 </div>
-
     </section>
 
-    <section id="section-week6" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-week6" class="content-section" data-section-id="week6" style="display: none;">
+<div class="content">
 <div class="section-card">
 <h2>Week 6 Overview</h2>
 <p>Final week focuses on mastery-level skills and creating portfolio-ready projects that showcase your abilities.</p>
 <p><strong>Key Focus Areas:</strong> Macros, advanced analytics (cohort, RFM), executive dashboards, final project</p>
 </div>
-
     </section>
 
-    <section id="section-day1" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day1" class="content-section" data-section-id="day1" style="display: none;">
+<div class="content">
 <h2 id="day-1-excel---formulas-basic-functions">DAY 1: Excel - Formulas
 &amp; Basic Functions</h2>
 <p><strong>Learning Objectives:</strong> - Understand Excel interface
@@ -1329,11 +1872,10 @@ min):</h3>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day2" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day2" class="content-section" data-section-id="day2" style="display: none;">
+<div class="content">
 <h2 id="day-2-sql---select-aggregates">DAY 2: SQL - SELECT &amp;
 Aggregates</h2>
 <p><strong>Learning Objectives:</strong> - Understand database structure
@@ -1425,11 +1967,10 @@ min):</h3>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day3" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day3" class="content-section" data-section-id="day3" style="display: none;">
+<div class="content">
 <h2 id="day-3-excel---filtering-conditional-functions">DAY 3: Excel -
 Filtering &amp; Conditional Functions</h2>
 <p><strong>Learning Objectives:</strong> - Master AutoFilter and
@@ -1510,11 +2051,10 @@ min):</h3>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day4" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day4" class="content-section" data-section-id="day4" style="display: none;">
+<div class="content">
 <h2 id="day-4-sql---where-clause-filtering">DAY 4: SQL - WHERE Clause
 &amp; Filtering</h2>
 <p><strong>Learning Objectives:</strong> - Master WHERE clause for
@@ -1608,11 +2148,10 @@ min):</h3>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day5" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day5" class="content-section" data-section-id="day5" style="display: none;">
+<div class="content">
 <h2 id="day-5-excel---vlookup-xlookup">DAY 5: Excel - VLOOKUP &amp;
 XLOOKUP</h2>
 <p><strong>Learning Objectives:</strong> - Master VLOOKUP for data
@@ -1705,11 +2244,10 @@ min):</h3>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day6" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day6" class="content-section" data-section-id="day6" style="display: none;">
+<div class="content">
 <h2 id="day-6-sql---join-operations">DAY 6: SQL - JOIN Operations</h2>
 <p><strong>Learning Objectives:</strong> - Master INNER JOIN - Learn
 LEFT JOIN and RIGHT JOIN - Understand JOIN relationships - Combine data
@@ -1799,11 +2337,10 @@ min):</h3>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day7" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day7" class="content-section" data-section-id="day7" style="display: none;">
+<div class="content">
 <h2 id="day-7-excel---pivot-tables-charts">DAY 7: Excel - Pivot Tables
 &amp; Charts</h2>
 <p><strong>Learning Objectives:</strong> - Create and configure Pivot
@@ -1889,11 +2426,10 @@ min):</h3>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day8" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day8" class="content-section" data-section-id="day8" style="display: none;">
+<div class="content">
 <h2 id="day-8-sql---group-by-having">DAY 8: SQL - GROUP BY &amp;
 HAVING</h2>
 <p><strong>Learning Objectives:</strong> - Master GROUP BY for data
@@ -1922,11 +2458,10 @@ aggregate functions</p>
 <span id="cb31-5"><a aria-hidden="true" href="#cb31-5" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="kw">columns</span></span>
 <span id="cb31-6"><a aria-hidden="true" href="#cb31-6" tabindex="-1"></a><span class="kw">HAVING</span> group_filter</span>
 <span id="cb31-7"><a aria-hidden="true" href="#cb31-7" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="kw">columns</span></span></code></pre></div>
-
     </section>
 
-    <section id="section-day9" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day9" class="content-section" data-section-id="day9" style="display: none;">
+<div class="content">
 <h2 id="day-9-excel---advanced-functions-sumifs-countifs-text-functions">DAY 9: Excel - Advanced Functions (SUMIFS, COUNTIFS, Text Functions)</h2>
 <p><strong>Learning Objectives:</strong>
 - Master multiple criteria functions (SUMIFS, COUNTIFS, AVERAGEIFS)
@@ -2013,11 +2548,10 @@ Use practical examples with formulas.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day10" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day10" class="content-section" data-section-id="day10" style="display: none;">
+<div class="content">
 <h2 id="day-10-sql---subqueries">DAY 10: SQL - Subqueries</h2>
 <p><strong>Learning Objectives:</strong> - Use subqueries in WHERE
 clause - Create subqueries in SELECT - Understand IN and EXISTS
@@ -2104,11 +2638,10 @@ min):</h3>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day11" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day11" class="content-section" data-section-id="day11" style="display: none;">
+<div class="content">
 <h2 id="day-11-excel---date-functions">DAY 11: Excel - Date Functions (TODAY, DATEDIF, NETWORKDAYS, EOMONTH)</h2>
 <p><strong>Learning Objectives:</strong>
 - Master Excel date and time functions
@@ -2175,11 +2708,10 @@ Use beginner-friendly language with practical examples.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day12" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day12" class="content-section" data-section-id="day12" style="display: none;">
+<div class="content">
 <h2 id="day-12-sql---date-functions-window-functions-part-1">DAY 12: SQL - Date Functions &amp; Window Functions Part 1 (ROW_NUMBER, RANK)</h2>
 <p><strong>Learning Objectives:</strong>
 - Master SQL date and time functions
@@ -2250,11 +2782,10 @@ Explain with simple examples suitable for beginners.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day13" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day13" class="content-section" data-section-id="day13" style="display: none;">
+<div class="content">
 <h2 id="day-13-day-13-excel---what-if-analysis-goal-seek-data-tables-scenarios">DAY 13: Excel - What-If Analysis (Goal Seek, Data Tables, Scenarios)</h2>
 <p><strong>Learning Objectives:</strong>
 - Master Excel What-If Analysis tools
@@ -2325,11 +2856,10 @@ Explain with practical examples.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day14" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day14" class="content-section" data-section-id="day14" style="display: none;">
+<div class="content">
 <h2 id="day-14-day-14-sql---window-functions-part-2-lag-lead-running-totals">DAY 14: SQL - Window Functions Part 2 (LAG, LEAD, Running Totals)</h2>
 <p><strong>Learning Objectives:</strong>
 - Use LAG and LEAD for accessing previous/next rows
@@ -2399,11 +2929,10 @@ Provide practical examples for financial analysis.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day15" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day15" class="content-section" data-section-id="day15" style="display: none;">
+<div class="content">
 <h2 id="day-15-day-15-excel---power-query-basics-+-week-3-test">DAY 15: Excel - Power Query Basics + WEEK 3 TEST</h2>
 <p><strong>Learning Objectives:</strong>
 - Introduction to Power Query Editor
@@ -2476,11 +3005,10 @@ Explain with practical scenarios.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day16" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day16" class="content-section" data-section-id="day16" style="display: none;">
+<div class="content">
 <h2 id="day-16-day-16-sql---ctes--recursive-queries">DAY 16: SQL - CTEs &amp; Recursive Queries</h2>
 <p><strong>Learning Objectives:</strong>
 - Master Common Table Expressions (CTEs)
@@ -2552,11 +3080,10 @@ Provide step-by-step examples for beginners.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day17" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day17" class="content-section" data-section-id="day17" style="display: none;">
+<div class="content">
 <h2 id="day-17-day-17-excel---power-pivot--data-modeling-dax-basics">DAY 17: Excel - Power Pivot &amp; Data Modeling (DAX basics)</h2>
 <p><strong>Learning Objectives:</strong>
 - Introduction to Power Pivot and data modeling
@@ -2629,11 +3156,10 @@ Explain with practical scenarios.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day18" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day18" class="content-section" data-section-id="day18" style="display: none;">
+<div class="content">
 <h2 id="day-18-day-18-sql---case-statements--pivot-unpivot">DAY 18: SQL - CASE Statements &amp; PIVOT/UNPIVOT</h2>
 <p><strong>Learning Objectives:</strong>
 - Master CASE expressions for conditional logic
@@ -2703,11 +3229,10 @@ Explain with step-by-step examples.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day19" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day19" class="content-section" data-section-id="day19" style="display: none;">
+<div class="content">
 <h2 id="day-19-day-19-excel---advanced-charts--dashboards">DAY 19: Excel - Advanced Charts &amp; Dashboards</h2>
 <p><strong>Learning Objectives:</strong>
 - Create advanced chart types
@@ -2780,11 +3305,10 @@ Explain design principles and practical implementation.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day20" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day20" class="content-section" data-section-id="day20" style="display: none;">
+<div class="content">
 <h2 id="day-20-day-20-sql---views-stored-procedures-optimization-+-week-4-test">DAY 20: SQL - Views, Stored Procedures, Optimization + WEEK 4 TEST</h2>
 <p><strong>Learning Objectives:</strong>
 - Create and manage Views
@@ -2858,11 +3382,10 @@ Explain with beginner-friendly examples.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day21" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day21" class="content-section" data-section-id="day21" style="display: none;">
+<div class="content">
 <h2 id="day-21-day-21-excel---statistical-analysis--forecasting">DAY 21: Excel - Statistical Analysis &amp; Forecasting</h2>
 <p><strong>Learning Objectives:</strong>
 - Perform statistical analysis in Excel
@@ -2934,11 +3457,10 @@ Provide practical examples with sales data.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day22" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day22" class="content-section" data-section-id="day22" style="display: none;">
+<div class="content">
 <h2 id="day-22-day-22-sql---advanced-aggregations-grouping-sets-cube-rollup">DAY 22: SQL - Advanced Aggregations (GROUPING SETS, CUBE, ROLLUP)</h2>
 <p><strong>Learning Objectives:</strong>
 - Use GROUPING SETS for multiple aggregations
@@ -3010,11 +3532,10 @@ Explain with step-by-step examples.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day23" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day23" class="content-section" data-section-id="day23" style="display: none;">
+<div class="content">
 <h2 id="day-23-day-23-excel---advanced-conditional-formatting--data-validation">DAY 23: Excel - Advanced Conditional Formatting &amp; Data Validation</h2>
 <p><strong>Learning Objectives:</strong>
 - Master advanced conditional formatting
@@ -3088,11 +3609,10 @@ Explain with practical scenarios.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day24" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day24" class="content-section" data-section-id="day24" style="display: none;">
+<div class="content">
 <h2 id="day-24-day-24-sql---query-optimization--performance-tuning">DAY 24: SQL - Query Optimization &amp; Performance Tuning</h2>
 <p><strong>Learning Objectives:</strong>
 - Analyze query execution plans
@@ -3166,11 +3686,10 @@ Provide beginner-friendly explanations.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day25" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day25" class="content-section" data-section-id="day25" style="display: none;">
+<div class="content">
 <h2 id="day-25-day-25-integration-project-excel-+-sql-+-week-5-test">DAY 25: Integration Project: Excel + SQL + WEEK 5 TEST</h2>
 <p><strong>Learning Objectives:</strong>
 - Integrate Excel and SQL workflows
@@ -3241,11 +3760,10 @@ Explain the complete workflow.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day26" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day26" class="content-section" data-section-id="day26" style="display: none;">
+<div class="content">
 <h2 id="day-26-day-26-excel---macros--automation-basics">DAY 26: Excel - Macros &amp; Automation Basics</h2>
 <p><strong>Learning Objectives:</strong>
 - Record and run macros
@@ -3319,11 +3837,10 @@ Explain with simple code examples.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day27" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day27" class="content-section" data-section-id="day27" style="display: none;">
+<div class="content">
 <h2 id="day-27-day-27-sql---advanced-analytics-cohort-retention-rfm-analysis">DAY 27: SQL - Advanced Analytics (Cohort, Retention, RFM Analysis)</h2>
 <p><strong>Learning Objectives:</strong>
 - Perform cohort analysis
@@ -3398,11 +3915,10 @@ Explain with step-by-step implementation.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day28" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day28" class="content-section" data-section-id="day28" style="display: none;">
+<div class="content">
 <h2 id="day-28-day-28-excel---executive-dashboard-creation">DAY 28: Excel - Executive Dashboard Creation</h2>
 <p><strong>Learning Objectives:</strong>
 - Design professional executive dashboards
@@ -3477,11 +3993,10 @@ Explain design thinking for dashboards.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day29" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day29" class="content-section" data-section-id="day29" style="display: none;">
+<div class="content">
 <h2 id="day-29-day-29-sql---complex-business-scenarios">DAY 29: SQL - Complex Business Scenarios</h2>
 <p><strong>Learning Objectives:</strong>
 - Solve multi-step business problems
@@ -3555,11 +4070,10 @@ Explain with real business scenarios.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
     </section>
 
-    <section id="section-day30" class="content-section" style="display: none;">
-  <div class="content">
+    <section id="section-day30" class="content-section" data-section-id="day30" style="display: none;">
+<div class="content">
 <h2 id="day-30-day-30-final-project--comprehensive-assessment">DAY 30: FINAL PROJECT &amp; COMPREHENSIVE ASSESSMENT</h2>
 <p><strong>Learning Objectives:</strong>
 - Complete end-to-end analytics project
@@ -3631,8 +4145,6 @@ Explain best practices for communication.</code></pre>
 <li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
 </div>
-
-
     </section>
   </div>
 </div>
@@ -3646,293 +4158,556 @@ Explain best practices for communication.</code></pre>
     <div class="progress-bar-fill" id="progress-bar-fill" style="width: 0%"></div>
   </div>
   <div class="progress-stats" id="progress-stats">0 of 37 pages visited</div>
+  <div class="progress-time" id="progress-time">Est. time remaining: 30 days</div>
   <button class="reset-progress" id="reset-progress">Reset Progress</button>
 </div>
 
 <div class="feedback-bar">
   <p>Have feedback or questions? <a href="mailto:gcpath@live.com?subject=30-Day Excel & SQL Training Feedback" class="feedback-link">Email us at gcpath@live.com</a></p>
 </div>
+
 <button class="back-to-top" id="back-to-top" aria-label="Back to top"></button>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // ===================================================================
-  // SECTION NAVIGATION WITH HASH ROUTING
-  // ===================================================================
+// ===================================================================
+// ULTRA-MODERN SINGLE-PAGE APPLICATION
+// Advanced JavaScript with ES6+ Features
+// ===================================================================
 
-  const sections = document.querySelectorAll('.content-section');
-  const tocLinks = document.querySelectorAll('.toc-link');
-  const mainContent = document.getElementById('main-content');
+class TrainingApp {
+  constructor() {
+    this.sections = Array.from(document.querySelectorAll('.content-section'));
+    this.tocLinks = Array.from(document.querySelectorAll('.toc-link'));
+    this.currentSection = null;
+    this.visitedPages = new Set(JSON.parse(localStorage.getItem('training-visited-pages') || '[]'));
+    this.readingPosition = JSON.parse(localStorage.getItem('training-reading-position') || '{}');
+    this.preferences = JSON.parse(localStorage.getItem('training-preferences') || '{"transition": "fade"}');
+    this.searchIndex = this.buildSearchIndex();
 
-  // Load visited pages from localStorage
-  let visitedPages = JSON.parse(localStorage.getItem('training-visited-pages') || '[]');
+    this.init();
+  }
 
-  function showSection(sectionId) {
-    // Hide all sections
-    sections.forEach(section => {
-      section.classList.remove('active', 'fade-in');
-      section.style.display = 'none';
-    });
+  init() {
+    this.setupRouter();
+    this.setupSearch();
+    this.setupKeyboardNav();
+    this.setupTouchGestures();
+    this.setupReadingProgress();
+    this.setupProgressTracker();
+    this.setupThemeControls();
+    this.setupIntersectionObserver();
+    this.restoreLastPosition();
 
-    // Show target section with animation
-    const targetSection = document.getElementById(`section-${sectionId}`);
-    if (targetSection) {
-      targetSection.style.display = 'block';
+    // Hide loading screen
+    setTimeout(() => {
+      document.getElementById('app-loading').classList.add('hidden');
+    }, 800);
+
+    // Show keyboard hint after 3 seconds
+    setTimeout(() => {
+      document.getElementById('keyboard-hint').classList.add('visible');
       setTimeout(() => {
-        targetSection.classList.add('active', 'fade-in');
-      }, 10);
-
-      // Mark as visited
-      if (!visitedPages.includes(sectionId)) {
-        visitedPages.push(sectionId);
-        localStorage.setItem('training-visited-pages', JSON.stringify(visitedPages));
-        updateProgress();
-      }
-
-      // Update TOC active state
-      tocLinks.forEach(link => link.classList.remove('active'));
-      const activeLink = document.querySelector(`a[data-section="${sectionId}"]`);
-      if (activeLink) {
-        activeLink.classList.add('active');
-
-        // Auto-scroll TOC to show active item
-        const nav = document.querySelector('nav#TOC');
-        const linkTop = activeLink.offsetTop;
-        const navHeight = nav.clientHeight;
-        nav.scrollTop = linkTop - (navHeight / 2);
-      }
-
-      // Scroll to top of content
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+        document.getElementById('keyboard-hint').classList.remove('visible');
+      }, 5000);
+    }, 3000);
   }
 
-  function updateProgress() {
-    const totalPages = 37;
-    const visitedCount = visitedPages.length;
-    const percentage = Math.round((visitedCount / totalPages) * 100);
-
-    document.getElementById('progress-percentage').textContent = percentage + '%';
-    document.getElementById('progress-bar-fill').style.width = percentage + '%';
-    document.getElementById('progress-stats').textContent = `${visitedCount} of ${totalPages} pages visited`;
-
-    // Update TOC with checkmarks
-    tocLinks.forEach(link => {
-      const sectionId = link.getAttribute('data-section');
-      if (visitedPages.includes(sectionId)) {
-        link.classList.add('visited');
-      } else {
-        link.classList.remove('visited');
-      }
-    });
+  // ===== ROUTER =====
+  setupRouter() {
+    window.addEventListener('hashchange', () => this.handleRoute());
+    this.handleRoute();
   }
 
-  // Handle hash change
-  function handleHashChange() {
+  handleRoute() {
     let hash = window.location.hash.slice(1);
     if (!hash) hash = 'overview';
-    showSection(hash);
+    this.navigateToSection(hash, false);
   }
 
-  // Listen for hash changes
-  window.addEventListener('hashchange', handleHashChange);
+  navigateToSection(sectionId, updateHash = true) {
+    const targetSection = this.sections.find(s => s.dataset.sectionId === sectionId);
+    if (!targetSection) return;
 
-  // Handle initial load
-  handleHashChange();
-  updateProgress();
+    const transition = this.preferences.transition || 'fade';
 
-  // Reset progress button
-  document.getElementById('reset-progress').addEventListener('click', function() {
-    if (confirm('Are you sure you want to reset your progress? This cannot be undone.')) {
-      visitedPages = [];
-      localStorage.setItem('training-visited-pages', '[]');
-      updateProgress();
+    // Exit current section
+    if (this.currentSection) {
+      this.currentSection.classList.add('exiting', `transition-${transition}`);
+      setTimeout(() => {
+        this.currentSection.classList.remove('active', 'exiting', `transition-${transition}`);
+        this.currentSection.style.display = 'none';
+      }, 300);
     }
-  });
 
-  // ===================================================================
-  // EXISTING FUNCTIONALITY (from original)
-  // ===================================================================
+    // Enter new section
+    setTimeout(() => {
+      targetSection.style.display = 'block';
+      targetSection.classList.add('entering', `transition-${transition}`);
 
-  // 1. Add copy buttons to all code blocks
+      setTimeout(() => {
+        targetSection.classList.add('active');
+        targetSection.classList.remove('entering', `transition-${transition}`);
+        this.currentSection = targetSection;
+
+        // Mark as visited
+        this.markAsVisited(sectionId);
+
+        // Update TOC
+        this.updateTOC(sectionId);
+
+        // Update URL
+        if (updateHash) {
+          history.pushState(null, '', `#${sectionId}`);
+        }
+
+        // Save position
+        this.saveReadingPosition(sectionId);
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 50);
+    }, this.currentSection ? 300 : 0);
+  }
+
+  // ===== SEARCH ENGINE =====
+  buildSearchIndex() {
+    const index = [];
+    this.sections.forEach(section => {
+      const id = section.dataset.sectionId;
+      const title = section.querySelector('h2')?.textContent || id;
+      const content = section.textContent;
+
+      index.push({
+        id,
+        title,
+        content: content.slice(0, 500),
+        searchText: `${title} ${content}`.toLowerCase()
+      });
+    });
+    return index;
+  }
+
+  setupSearch() {
+    const palette = document.getElementById('command-palette');
+    const input = document.getElementById('command-search-input');
+    const results = document.getElementById('command-results');
+    let selectedIndex = 0;
+
+    // Open command palette: Cmd/Ctrl + K
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        palette.classList.add('active');
+        input.focus();
+      }
+
+      if (e.key === 'Escape' && palette.classList.contains('active')) {
+        palette.classList.remove('active');
+        input.value = '';
+      }
+    });
+
+    // Close on backdrop click
+    palette.addEventListener('click', (e) => {
+      if (e.target === palette) {
+        palette.classList.remove('active');
+        input.value = '';
+      }
+    });
+
+    // Search functionality with fuzzy matching
+    input.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+
+      if (!query) {
+        results.innerHTML = '<div class="no-results">Start typing to search...</div>';
+        return;
+      }
+
+      // Fuzzy search
+      const matches = this.searchIndex
+        .map(item => {
+          const titleMatch = item.title.toLowerCase().includes(query);
+          const contentMatch = item.searchText.includes(query);
+          const score = (titleMatch ? 100 : 0) + (contentMatch ? 50 : 0);
+          return { ...item, score };
+        })
+        .filter(item => item.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 8);
+
+      if (matches.length === 0) {
+        results.innerHTML = '<div class="no-results">No results found</div>';
+        return;
+      }
+
+      // Render results
+      results.innerHTML = matches.map((item, index) => {
+        const icon = item.id.startsWith('week') ? '📚' :
+                     item.id.startsWith('day') ? '📅' : '📖';
+        return `
+          <div class="command-item ${index === 0 ? 'selected' : ''}" data-section="${item.id}" data-index="${index}">
+            <span class="command-item-icon">${icon}</span>
+            <div class="command-item-content">
+              <div class="command-item-title">${this.highlightMatch(item.title, query)}</div>
+              <div class="command-item-subtitle">${item.id}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      selectedIndex = 0;
+
+      // Click handler
+      results.querySelectorAll('.command-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const sectionId = item.dataset.section;
+          this.navigateToSection(sectionId, true);
+          palette.classList.remove('active');
+          input.value = '';
+        });
+      });
+    });
+
+    // Keyboard navigation in results
+    input.addEventListener('keydown', (e) => {
+      const items = results.querySelectorAll('.command-item');
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+        updateSelection();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        selectedIndex = Math.max(selectedIndex - 1, 0);
+        updateSelection();
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        const selected = items[selectedIndex];
+        if (selected) {
+          const sectionId = selected.dataset.section;
+          this.navigateToSection(sectionId, true);
+          palette.classList.remove('active');
+          input.value = '';
+        }
+      }
+
+      function updateSelection() {
+        items.forEach((item, index) => {
+          item.classList.toggle('selected', index === selectedIndex);
+        });
+        items[selectedIndex]?.scrollIntoView({ block: 'nearest' });
+      }
+    });
+  }
+
+  highlightMatch(text, query) {
+    const index = text.toLowerCase().indexOf(query);
+    if (index === -1) return text;
+
+    const before = text.slice(0, index);
+    const match = text.slice(index, index + query.length);
+    const after = text.slice(index + query.length);
+
+    return `${before}<span class="search-highlight">${match}</span>${after}`;
+  }
+
+  // ===== KEYBOARD NAVIGATION =====
+  setupKeyboardNav() {
+    const sectionOrder = ['overview', ...Array.from({length: 6}, (_, i) => `week${i+1}`), ...Array.from({length: 30}, (_, i) => `day${i+1}`)];
+
+    document.addEventListener('keydown', (e) => {
+      // Ignore if typing in input
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+      const currentId = this.currentSection?.dataset.sectionId;
+      const currentIndex = sectionOrder.indexOf(currentId);
+
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        if (currentIndex > 0) {
+          this.navigateToSection(sectionOrder[currentIndex - 1], true);
+        }
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        if (currentIndex < sectionOrder.length - 1) {
+          this.navigateToSection(sectionOrder[currentIndex + 1], true);
+        }
+      } else if (e.key === '?') {
+        const hint = document.getElementById('keyboard-hint');
+        hint.classList.toggle('visible');
+      }
+    });
+  }
+
+  // ===== TOUCH GESTURES (Mobile) =====
+  setupTouchGestures() {
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const threshold = 75;
+
+    const mainContent = document.getElementById('main-content');
+    const sectionOrder = ['overview', ...Array.from({length: 6}, (_, i) => `week${i+1}`), ...Array.from({length: 30}, (_, i) => `day${i+1}`)];
+
+    mainContent.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    mainContent.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+
+    const handleSwipe = () => {
+      const diff = touchStartX - touchEndX;
+
+      if (Math.abs(diff) < threshold) return;
+
+      const currentId = this.currentSection?.dataset.sectionId;
+      const currentIndex = sectionOrder.indexOf(currentId);
+
+      if (diff > 0) {
+        // Swipe left (next)
+        if (currentIndex < sectionOrder.length - 1) {
+          this.showSwipeIndicator('right');
+          this.navigateToSection(sectionOrder[currentIndex + 1], true);
+        }
+      } else {
+        // Swipe right (previous)
+        if (currentIndex > 0) {
+          this.showSwipeIndicator('left');
+          this.navigateToSection(sectionOrder[currentIndex - 1], true);
+        }
+      }
+    };
+  }
+
+  showSwipeIndicator(direction) {
+    const indicator = document.getElementById(`swipe-${direction}`);
+    indicator.classList.add('visible');
+    setTimeout(() => indicator.classList.remove('visible'), 500);
+  }
+
+  // ===== READING PROGRESS =====
+  setupReadingProgress() {
+    const progressBar = document.getElementById('reading-progress-bar');
+    const progressFill = document.getElementById('reading-progress-fill');
+
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+      progressBar.classList.add('visible');
+
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY;
+      const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
+
+      progressFill.style.width = `${Math.min(scrollPercent, 100)}%`;
+
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        progressBar.classList.remove('visible');
+      }, 1000);
+    });
+  }
+
+  // ===== PROGRESS TRACKER =====
+  setupProgressTracker() {
+    this.updateProgress();
+
+    document.getElementById('reset-progress').addEventListener('click', () => {
+      if (confirm('Reset all progress? This cannot be undone.')) {
+        this.visitedPages.clear();
+        localStorage.setItem('training-visited-pages', '[]');
+        this.updateProgress();
+      }
+    });
+  }
+
+  markAsVisited(sectionId) {
+    if (!this.visitedPages.has(sectionId)) {
+      this.visitedPages.add(sectionId);
+      localStorage.setItem('training-visited-pages', JSON.stringify([...this.visitedPages]));
+      this.updateProgress();
+    }
+  }
+
+  updateProgress() {
+    const total = 37;
+    const visited = this.visitedPages.size;
+    const percentage = Math.round((visited / total) * 100);
+
+    document.getElementById('progress-percentage').textContent = `${percentage}%`;
+    document.getElementById('progress-bar-fill').style.width = `${percentage}%`;
+    document.getElementById('progress-stats').textContent = `${visited} of ${total} pages visited`;
+
+    // Estimate time remaining (assume 1 page = 4 hours)
+    const remaining = total - visited;
+    const hours = remaining * 4;
+    const days = Math.ceil(hours / 8);
+    document.getElementById('progress-time').textContent =
+      `Est. time remaining: ${days} ${days === 1 ? 'day' : 'days'}`;
+
+    // Update TOC checkmarks
+    this.tocLinks.forEach(link => {
+      const sectionId = link.dataset.section;
+      link.classList.toggle('visited', this.visitedPages.has(sectionId));
+    });
+  }
+
+  updateTOC(sectionId) {
+    this.tocLinks.forEach(link => {
+      link.classList.toggle('active', link.dataset.section === sectionId);
+    });
+
+    // Auto-scroll TOC
+    const activeLink = this.tocLinks.find(l => l.dataset.section === sectionId);
+    if (activeLink) {
+      const nav = document.getElementById('TOC');
+      const linkTop = activeLink.offsetTop;
+      const navHeight = nav.clientHeight;
+      nav.scrollTo({
+        top: linkTop - navHeight / 2,
+        behavior: 'smooth'
+      });
+    }
+  }
+
+  // ===== THEME CONTROLS =====
+  setupThemeControls() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.querySelector('.theme-icon');
+    const themeText = document.querySelector('.theme-text');
+    const fontSelector = document.getElementById('font-selector');
+    const decreaseBtn = document.getElementById('decrease-font');
+    const increaseBtn = document.getElementById('increase-font');
+
+    // Theme
+    const savedTheme = localStorage.getItem('training-theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    this.updateThemeButton(savedTheme, themeIcon, themeText);
+
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const newTheme = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('training-theme', newTheme);
+      this.updateThemeButton(newTheme, themeIcon, themeText);
+    });
+
+    // Font
+    const savedFont = localStorage.getItem('training-font') || 'candara';
+    document.documentElement.setAttribute('data-font', savedFont);
+    fontSelector.value = savedFont;
+
+    fontSelector.addEventListener('change', (e) => {
+      document.documentElement.setAttribute('data-font', e.target.value);
+      localStorage.setItem('training-font', e.target.value);
+    });
+
+    // Font size
+    const fontSizes = ['small', 'medium', 'large', 'x-large'];
+    let currentIndex = fontSizes.indexOf(localStorage.getItem('training-font-size') || 'medium');
+    if (currentIndex === -1) currentIndex = 1;
+
+    const applySize = (index) => {
+      document.documentElement.setAttribute('data-font-size', fontSizes[index]);
+      localStorage.setItem('training-font-size', fontSizes[index]);
+      decreaseBtn.disabled = index === 0;
+      increaseBtn.disabled = index === fontSizes.length - 1;
+    };
+
+    applySize(currentIndex);
+
+    decreaseBtn.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        applySize(currentIndex);
+      }
+    });
+
+    increaseBtn.addEventListener('click', () => {
+      if (currentIndex < fontSizes.length - 1) {
+        currentIndex++;
+        applySize(currentIndex);
+      }
+    });
+  }
+
+  updateThemeButton(theme, icon, text) {
+    if (theme === 'dark') {
+      icon.textContent = '☀️';
+      text.textContent = 'Light';
+    } else {
+      icon.textContent = '🌙';
+      text.textContent = 'Dark';
+    }
+  }
+
+  // ===== INTERSECTION OBSERVER =====
+  setupIntersectionObserver() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-viewport');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    this.sections.forEach(section => observer.observe(section));
+  }
+
+  // ===== READING POSITION =====
+  saveReadingPosition(sectionId) {
+    this.readingPosition.lastSection = sectionId;
+    this.readingPosition.timestamp = Date.now();
+    localStorage.setItem('training-reading-position', JSON.stringify(this.readingPosition));
+  }
+
+  restoreLastPosition() {
+    const pos = this.readingPosition;
+    if (pos.lastSection && !window.location.hash) {
+      // Ask user if they want to continue
+      const timeSince = Date.now() - (pos.timestamp || 0);
+      if (timeSince < 24 * 60 * 60 * 1000) { // Within 24 hours
+        window.location.hash = pos.lastSection;
+      }
+    }
+  }
+}
+
+// ===== INITIALIZE APP =====
+document.addEventListener('DOMContentLoaded', () => {
+  const app = new TrainingApp();
+
+  // Additional features from original
+
+  // Copy buttons
   document.querySelectorAll('pre').forEach(pre => {
     const button = document.createElement('button');
     button.className = 'copy-btn';
-    button.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-    </svg>`;
-    button.setAttribute('aria-label', 'Copy code');
-    button.setAttribute('title', 'Copy to clipboard');
+    button.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
 
     button.addEventListener('click', async () => {
-      const code = pre.querySelector('code') || pre;
-      const text = code.textContent;
-
-      try {
-        await navigator.clipboard.writeText(text);
-        button.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>`;
-        button.classList.add('copied');
-        setTimeout(() => {
-          button.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-          </svg>`;
-          button.classList.remove('copied');
-        }, 2000);
-      } catch (err) {
-        button.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>`;
-        setTimeout(() => {
-          button.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2 2v1"></path>
-          </svg>`;
-        }, 2000);
-      }
+      const text = pre.textContent;
+      await navigator.clipboard.writeText(text);
+      button.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+      setTimeout(() => {
+        button.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
+      }, 2000);
     });
 
     pre.appendChild(button);
   });
 
-  // 1b. Add AI assistant buttons dynamically to AI prompt code blocks
-  const aiPromptHeadings = document.querySelectorAll('h3[id*="ai-learning-prompts"]');
-
-  aiPromptHeadings.forEach(heading => {
-    let currentElement = heading.nextElementSibling;
-    const codeBlocks = [];
-
-    while (currentElement) {
-      if (currentElement.tagName === 'H2' || currentElement.tagName === 'H3') {
-        break;
-      }
-      if (currentElement.tagName === 'PRE') {
-        codeBlocks.push(currentElement);
-      }
-      currentElement = currentElement.nextElementSibling;
-    }
-
-    codeBlocks.forEach(codeBlock => {
-      const code = codeBlock.querySelector('code') || codeBlock;
-      const promptText = code.textContent.trim();
-
-      const aiButtonsContainer = document.createElement('div');
-      aiButtonsContainer.className = 'ai-assistant-buttons';
-
-      const chatgptBtn = document.createElement('a');
-      chatgptBtn.href = 'https://chat.openai.com/?q=' + encodeURIComponent(promptText);
-      chatgptBtn.target = '_blank';
-      chatgptBtn.className = 'ai-quick-btn chatgpt-btn';
-      chatgptBtn.title = 'Open in ChatGPT';
-      chatgptBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"/></svg>';
-
-      const claudeBtn = document.createElement('a');
-      claudeBtn.href = 'https://claude.ai/new?q=' + encodeURIComponent(promptText);
-      claudeBtn.target = '_blank';
-      claudeBtn.className = 'ai-quick-btn claude-btn';
-      claudeBtn.title = 'Open in Claude';
-      claudeBtn.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Claude_AI_symbol.svg/1024px-Claude_AI_symbol.svg.png" width="14" height="14" style="display: block;" alt="Claude">';
-
-      const googleBtn = document.createElement('a');
-      googleBtn.href = 'https://www.google.com/search?q=' + encodeURIComponent(promptText);
-      googleBtn.target = '_blank';
-      googleBtn.className = 'ai-quick-btn google-btn';
-      googleBtn.title = 'Search in Google';
-      googleBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>';
-
-      aiButtonsContainer.appendChild(chatgptBtn);
-      aiButtonsContainer.appendChild(claudeBtn);
-      aiButtonsContainer.appendChild(googleBtn);
-
-      codeBlock.appendChild(aiButtonsContainer);
-    });
+  // Back to top
+  document.getElementById('back-to-top')?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  // 2. Theme toggle functionality
-  const themeToggle = document.getElementById('theme-toggle');
-  const themeIcon = document.querySelector('.theme-icon');
-  const themeText = document.querySelector('.theme-text');
-
-  const savedTheme = localStorage.getItem('training-theme') || 'light';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-  updateThemeButton(savedTheme);
-
-  function updateThemeButton(theme) {
-    if (theme === 'dark') {
-      themeIcon.textContent = '☀️';
-      themeText.textContent = 'Light';
-    } else {
-      themeIcon.textContent = '🌙';
-      themeText.textContent = 'Dark';
-    }
-  }
-
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('training-theme', newTheme);
-      updateThemeButton(newTheme);
-    });
-  }
-
-  // 2b. Font selector
-  const fontSelector = document.getElementById('font-selector');
-  const savedFont = localStorage.getItem('training-font') || 'candara';
-  document.documentElement.setAttribute('data-font', savedFont);
-  fontSelector.value = savedFont;
-
-  fontSelector.addEventListener('change', (e) => {
-    const selectedFont = e.target.value;
-    document.documentElement.setAttribute('data-font', selectedFont);
-    localStorage.setItem('training-font', selectedFont);
-  });
-
-  // 2c. Font size controls
-  const fontSizes = ['small', 'medium', 'large', 'x-large'];
-  const decreaseBtn = document.getElementById('decrease-font');
-  const increaseBtn = document.getElementById('increase-font');
-
-  let currentSizeIndex = fontSizes.indexOf(localStorage.getItem('training-font-size') || 'medium');
-  if (currentSizeIndex === -1) currentSizeIndex = 1;
-
-  function applyFontSize(index) {
-    document.documentElement.setAttribute('data-font-size', fontSizes[index]);
-    localStorage.setItem('training-font-size', fontSizes[index]);
-    decreaseBtn.disabled = index === 0;
-    increaseBtn.disabled = index === fontSizes.length - 1;
-  }
-
-  applyFontSize(currentSizeIndex);
-
-  decreaseBtn.addEventListener('click', () => {
-    if (currentSizeIndex > 0) {
-      currentSizeIndex--;
-      applyFontSize(currentSizeIndex);
-    }
-  });
-
-  increaseBtn.addEventListener('click', () => {
-    if (currentSizeIndex < fontSizes.length - 1) {
-      currentSizeIndex++;
-      applyFontSize(currentSizeIndex);
-    }
-  });
-
-  // 3. Back to top button
-  const backToTopBtn = document.getElementById('back-to-top');
-  if (backToTopBtn) {
-    backToTopBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
+  console.log('%c🚀 Training App Loaded!', 'color: #D97757; font-size: 16px; font-weight: bold;');
+  console.log('%cKeyboard shortcuts: Ctrl/Cmd+K (search), ←→ (navigate), ? (help)', 'color: #8B6B47;');
 });
 </script>
-
 </body>
 </html>
