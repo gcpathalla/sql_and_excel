@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>30-Day Excel & SQL Training Plan</title>
+  <title>DAY 11: Excel - Date Functions (TODAY, DATEDIF, NETWORKDAYS, EOMONTH)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -950,7 +950,7 @@
 <body>
 <header id="title-block-header">
   <div class="header-row">
-    <h1 class="title">30-Day Excel & SQL Training Plan</h1>
+    <h1 class="title">DAY 11: Excel - Date Functions (TODAY, DATEDIF, NETWORKDAYS, EOMONTH)</h1>
     <div class="header-author">
       <span class="author-name">Guru Charan Pathalla</span>
       <a href="https://github.com/gcpathalla/sql_and_excel" target="_blank" class="repo-link" title="View on GitHub">
@@ -982,116 +982,568 @@
   <nav id="TOC" role="navigation">
 <ul>
 <li><a href="../index.html" if "pages/" in current_page else "index.html">📚 Training Overview</a></li>
-<li><a href="pages/week1.html">Week 1: Foundations</a>
+<li><a href="week1.html">Week 1: Foundations</a>
 <ul>
-<li><a href="pages/day1.html">Day 1: Excel - Formulas
+<li><a href="day1.html">Day 1: Excel - Formulas
 & Basic Functions</a></li>
-<li><a href="pages/day2.html">Day 2: SQL - SELECT &
+<li><a href="day2.html">Day 2: SQL - SELECT &
 Aggregates</a></li>
-<li><a href="pages/day3.html">Day 3: Excel -
+<li><a href="day3.html">Day 3: Excel -
 Filtering & Conditional Funct...</a></li>
-<li><a href="pages/day4.html">Day 4: SQL - WHERE Clause
+<li><a href="day4.html">Day 4: SQL - WHERE Clause
 & Filtering</a></li>
-<li><a href="pages/day5.html">Day 5: Excel - VLOOKUP &
+<li><a href="day5.html">Day 5: Excel - VLOOKUP &
 XLOOKUP</a></li>
 </ul>
 </li>
-<li><a href="pages/week2.html">Week 2: Data Analysis</a>
+<li><a href="week2.html">Week 2: Data Analysis</a>
 <ul>
-<li><a href="pages/day6.html">Day 6: SQL - JOIN Operations</a></li>
-<li><a href="pages/day7.html">Day 7: Excel - Pivot Tables
+<li><a href="day6.html">Day 6: SQL - JOIN Operations</a></li>
+<li><a href="day7.html">Day 7: Excel - Pivot Tables
 & Charts</a></li>
-<li><a href="pages/day8.html">Day 8: SQL - GROUP BY &
+<li><a href="day8.html">Day 8: SQL - GROUP BY &
 HAVING</a></li>
-<li><a href="pages/day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
-<li><a href="pages/day10.html">Day 10: SQL - Subqueries</a></li>
+<li><a href="day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
+<li><a href="day10.html">Day 10: SQL - Subqueries</a></li>
 </ul>
 </li>
-<li><a href="pages/week3.html">Week 3: Intermediate Concepts</a>
+<li><a href="week3.html">Week 3: Intermediate Concepts</a>
 <ul>
-<li><a href="pages/day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
-<li><a href="pages/day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
-<li><a href="pages/day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
-<li><a href="pages/day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
-<li><a href="pages/day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
+<li><a href="day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
+<li><a href="day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
+<li><a href="day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
+<li><a href="day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
+<li><a href="day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
 </ul>
 </li>
-<li><a href="pages/week4.html">Week 4: Advanced Concepts</a>
+<li><a href="week4.html">Week 4: Advanced Concepts</a>
 <ul>
-<li><a href="pages/day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
-<li><a href="pages/day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
-<li><a href="pages/day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
-<li><a href="pages/day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
-<li><a href="pages/day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
+<li><a href="day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
+<li><a href="day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
+<li><a href="day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
+<li><a href="day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
+<li><a href="day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
 </ul>
 </li>
-<li><a href="pages/week5.html">Week 5: Analytics & Optimization</a>
+<li><a href="week5.html">Week 5: Analytics & Optimization</a>
 <ul>
-<li><a href="pages/day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
-<li><a href="pages/day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
-<li><a href="pages/day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
-<li><a href="pages/day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
-<li><a href="pages/day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
+<li><a href="day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
+<li><a href="day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
+<li><a href="day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
+<li><a href="day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
+<li><a href="day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
 </ul>
 </li>
-<li><a href="pages/week6.html">Week 6: Mastery & Projects</a>
+<li><a href="week6.html">Week 6: Mastery & Projects</a>
 <ul>
-<li><a href="pages/day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
-<li><a href="pages/day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
-<li><a href="pages/day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
-<li><a href="pages/day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
-<li><a href="pages/day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
+<li><a href="day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
+<li><a href="day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
+<li><a href="day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
+<li><a href="day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
+<li><a href="day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
 </ul>
 </li>
 </ul>
   </nav>
   <div class="content">
-<h2 id="complete-training-with-video-resources-ai-learning-prompts">Complete
-Training with Video Resources &amp; AI Learning Prompts</h2>
-<p><strong>Duration:</strong> 30 Days (6 weeks, 5 days/week)<br/>
-<strong>Daily Time:</strong> 4 hours<br/>
-<strong>Approach:</strong> Alternating Excel &amp; SQL with mirrored
-concepts<br/>
-<strong>Complexity:</strong> Gradual progression (beginner →
-intermediate → advanced)</p>
-<hr/>
-<h2 id="how-to-use-this-plan">📖 HOW TO USE THIS PLAN</h2>
-<h3 id="video-resources">Video Resources</h3>
-<p>Each day includes curated video tutorials to help you learn concepts
-visually.</p>
-<h3 id="ai-learning-prompts">AI Learning Prompts</h3>
-<p><strong>IMPORTANT:</strong> These prompts are for
-<strong>understanding concepts only</strong> - NOT for solving your
-assignments!</p>
+<h2 id="day-11-excel---date-functions">DAY 11: Excel - Date Functions (TODAY, DATEDIF, NETWORKDAYS, EOMONTH)</h2>
+<p><strong>Learning Objectives:</strong>
+- Master Excel date and time functions
+- Calculate date differences and working days
+- Use date functions for business analytics
+- Handle month-end calculations and aging reports</p>
+<h3 id="topics-covered-hour-1---60-min-11">Topics Covered (60 min):</h3>
+<p><strong>1. Understanding Excel Dates</strong>
+- Excel stores dates as serial numbers (1 = Jan 1, 1900)
+- Current date: <code>=TODAY()</code>
+- Current date &amp; time: <code>=NOW()</code>
+- Date formatting (Short Date, Long Date, Custom)</p>
+<p><strong>2. Date Difference Functions</strong>
+- <code>=DATEDIF(start_date, end_date, "unit")</code>
+- Units: "Y" (years), "M" (months), "D" (days), "YM" (months ignoring years)
+- Example: Age calculation = <code>=DATEDIF(birthdate, TODAY(), "Y")</code>
+- Example: Employment tenure = <code>=DATEDIF(hire_date, TODAY(), "Y") &amp; " years"</code></p>
+<p><strong>3. Business Day Calculations</strong>
+- <code>=NETWORKDAYS(start_date, end_date, [holidays])</code> - Working days between dates
+- <code>=WORKDAY(start_date, days, [holidays])</code> - Date after X working days
+- Exclude weekends and holidays for project timelines</p>
+<p><strong>4. Month-End Functions</strong>
+- <code>=EOMONTH(start_date, months)</code> - End of month calculation
+- <code>=EDATE(start_date, months)</code> - Date X months from start
+- Invoice due dates: <code>=EOMONTH(invoice_date, 0) + 30</code></p>
+<h3 id="video-resources-11">Video Resources:</h3>
+<ol type="1">
+<li><p><strong>Microsoft Excel - 7 Easy date and time functions</strong> (13:26)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=7d_3XY4kJS0" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=7d_3XY4kJS0</a></p></li>
+<li><p><strong>Date and Time Functions in Microsoft Excel</strong> (11:12)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=gksYY-QJj24" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=gksYY-QJj24</a></p></li>
+<li><p><strong>How To Use The Date And Time Functions In Microsoft Excel</strong> (9:05)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=UF9CijUBmAE" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=UF9CijUBmAE</a></p></li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-11">AI Learning Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding Date Functions:</strong></p>
+<pre><code>I'm learning Excel date functions. Please explain:
+
+1. How does Excel store dates internally as serial numbers?
+2. What is the difference between TODAY() and NOW()?
+3. Explain the DATEDIF function with all its unit options ("Y", "M", "D", "YM", "MD", "YD")
+4. Give me 3 real-world business scenarios for using NETWORKDAYS
+5. How do I create a dynamic aging report using date functions?
+
+Provide step-by-step examples for each concept.</code></pre>
+<p><strong>Understanding EOMONTH and Month Calculations:</strong></p>
+<pre><code>Help me understand month-end calculations in Excel:
+
+1. What is the difference between EOMONTH and EDATE?
+2. How do I calculate payment due dates (e.g., 30 days after month-end)?
+3. Show me how to create a fiscal quarter calculator
+4. How do I calculate "days outstanding" for invoices?
+5. Provide examples using invoice and payment tracking scenarios
+
+Use beginner-friendly language with practical examples.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-11">Guided Practice (60 min):</h3>
+<div class="practice-note">
+<p><strong>📝 How to approach Guided Practice:</strong></p>
 <ul>
-<li>✅ <strong>USE prompts to:</strong> Learn concepts, understand
-theory, see different examples</li>
-<li>❌ <strong>DON’T use prompts to:</strong> Solve practice problems,
-complete assignments, cheat</li>
+<li><strong>Follow step-by-step:</strong> Work through each exercise in order</li>
+<li><strong>Use provided resources:</strong> Reference the video tutorials and AI prompts if you get stuck</li>
+<li><strong>Verify your work:</strong> Check your results match expected outcomes</li>
+<li><strong>Take notes:</strong> Document key learnings and shortcuts you discover</li>
+<li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
-<p><strong>How to use:</strong> 1. Copy the prompt (including the
-backticks) 2. Paste into Claude or ChatGPT 3. Read and understand the
-explanation 4. Then solve YOUR practice problems yourself!</p>
-<hr/>
-<h2 id="program-overview">PROGRAM OVERVIEW</h2>
-<h3 id="pacing-strategy">Pacing Strategy:</h3>
+</div>
+
+<p><em>📊 Dataset: HR Employee Data with columns: EmployeeID, Name, Birthdate, HireDate, Department</em></p>
+
+<div class="section-card">
+<p><strong>Exercise 1: Calculate Employee Age Using TODAY and DATEDIF</strong></p>
+<p><strong>Goal:</strong> Learn to calculate age from birthdate using TODAY() and DATEDIF functions.</p>
+
+<p><strong>Setup:</strong></p>
 <ul>
-<li><strong>Days 1-10:</strong> Light (8-10 practice problems) - ONE
-major concept</li>
-<li><strong>Days 11-20:</strong> Medium (12-15 problems) - TWO related
-concepts</li>
-<li><strong>Days 21-30:</strong> Advanced (15-20 problems) - Complex
-integrated topics</li>
+<li>Ensure your dataset has a "Birthdate" column (format: date, e.g., 1/15/1985)</li>
+<li>Create a new column header "Age" in the next available column (e.g., column E)</li>
 </ul>
-<h3 id="resources">Resources:</h3>
-<p><strong>Datasets:</strong> - Superstore Sales:
-<a class="external-link" href="https://www.kaggle.com/datasets/vivek468/superstore-dataset-final" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.kaggle.com/datasets/vivek468/superstore-dataset-final</a>
-Employee:
-<a class="external-link" href="https://www.kaggle.com/datasets/rhuebner/human-resources-data-set" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.kaggle.com/datasets/rhuebner/human-resources-data-set</a></p>
-<p><strong>Software:</strong> - Excel: Microsoft Excel 2016+ or
-LibreOffice Calc - SQL: SQLite Browser (<a class="external-link" href="https://sqlitebrowser.org/" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://sqlitebrowser.org/</a> OR
-SQL Server + SSMS</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Click on the first cell under "Age"</strong> (e.g., E2 if your data starts in row 2)</li>
+<li><strong>Type the formula:</strong> <code>=DATEDIF(C2,TODAY(),"Y")</code>
+<ul>
+<li><code>C2</code> is the birthdate cell (adjust if your birthdate column is different)</li>
+<li><code>TODAY()</code> returns today's date</li>
+<li><code>"Y"</code> means calculate complete years</li>
+</ul>
+</li>
+<li><strong>Press Enter</strong> to execute the formula</li>
+<li><strong>Copy the formula down:</strong> Double-click the fill handle (small square at bottom-right of cell) or drag it down to copy to all employee rows</li>
+<li><strong>Verify the results:</strong> Check that ages make sense (e.g., someone born in 1985 should be around 38-40 years old in 2024/2025)</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>DATEDIF is hidden:</strong> Excel doesn't show DATEDIF in formula suggestions, but it works perfectly - just type it manually</li>
+<li><strong>Date format matters:</strong> Make sure your Birthdate column is formatted as Date, not text (use Ctrl+1 to check format)</li>
+<li><strong>TODAY() updates daily:</strong> This function automatically updates when you open the file, so ages will always be current</li>
+<li><strong>Unit codes:</strong> "Y" = years, "M" = months, "D" = days - you can use different units as needed</li>
+<li><strong>Keyboard shortcut:</strong> Ctrl+; inserts today's date as a static value (won't update)</li>
+<li><strong>Error check:</strong> If you see #NUM! error, check that the birthdate is before today's date</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A column showing each employee's current age in years (e.g., 35, 42, 28, etc.)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Calculate Years of Service from Hire Date</strong></p>
+<p><strong>Goal:</strong> Learn to calculate tenure (length of employment) using DATEDIF.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Create a new column header</strong> "Years of Service" (e.g., column F)</li>
+<li><strong>Click on cell F2</strong> (first data row)</li>
+<li><strong>Type the formula:</strong> <code>=DATEDIF(D2,TODAY(),"Y")</code>
+<ul>
+<li><code>D2</code> is the hire date cell (adjust to match your column)</li>
+<li>This calculates complete years from hire date to today</li>
+</ul>
+</li>
+<li><strong>Press Enter and copy down</strong> to all employees (double-click fill handle)</li>
+<li><strong>Verify:</strong> Someone hired in 2018 should show approximately 6-7 years of service</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Same function, different purpose:</strong> DATEDIF works for any date difference - age, tenure, project duration, etc.</li>
+<li><strong>Whole years only:</strong> Using "Y" gives complete years (5.8 years shows as 5)</li>
+<li><strong>Quick verification:</strong> Sort by Years of Service (descending) to see your longest-tenured employees first</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A column showing tenure in complete years (e.g., 5, 12, 2, etc.)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Create "Years.Months" Format for Precise Tenure</strong></p>
+<p><strong>Goal:</strong> Display tenure in a more precise format like "5.7 years" or "5 years 7 months".</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Create a new column header</strong> "Tenure (Detailed)" (e.g., column G)</li>
+<li><strong>Method 1 - Decimal format (5.7 years):</strong>
+<pre><code>=DATEDIF(D2,TODAY(),"Y") & "." & DATEDIF(D2,TODAY(),"YM") & " years"</code></pre>
+<ul>
+<li><code>DATEDIF(D2,TODAY(),"Y")</code> = complete years</li>
+<li><code>&</code> = concatenate (join text)</li>
+<li><code>DATEDIF(D2,TODAY(),"YM")</code> = remaining months after complete years</li>
+<li><code>&amp; " years"</code> = adds the word "years" at the end</li>
+</ul>
+</li>
+<li><strong>Press Enter and copy down</strong></li>
+<li><strong>Method 2 - Full text format (5 years 7 months):</strong>
+<pre><code>=DATEDIF(D2,TODAY(),"Y") & " years " & DATEDIF(D2,TODAY(),"YM") & " months"</code></pre>
+This creates more readable text like "5 years 7 months"</li>
+<li><strong>Method 3 - With IF for singular/plural (advanced):</strong>
+<pre><code>=DATEDIF(D2,TODAY(),"Y") & IF(DATEDIF(D2,TODAY(),"Y")=1," year "," years ") & DATEDIF(D2,TODAY(),"YM") & IF(DATEDIF(D2,TODAY(),"YM")=1," month"," months")</code></pre>
+This handles "1 year" vs "2 years" correctly</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>"YM" unit:</strong> Returns months between dates, ignoring years - perfect for the "remainder" months</li>
+<li><strong>Text concatenation:</strong> Use <code>&</code> to join text, numbers, and formula results</li>
+<li><strong>Formatting flexibility:</strong> Choose the format that best suits your report (decimal for calculations, text for readability)</li>
+<li><strong>Alternative approach:</strong> You could calculate total months and divide by 12: <code>=DATEDIF(D2,TODAY(),"M")/12</code> for decimal years</li>
+<li><strong>Professional tip:</strong> For HR reports, "5 years 7 months" is more professional than "5.7 years"</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Text like "5.7 years" or "5 years 7 months" showing precise tenure for each employee</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Identify Employees with 10+ Years Tenure</strong></p>
+<p><strong>Goal:</strong> Use IF function with date calculations to flag long-tenured employees.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Create a new column header</strong> "10+ Years?" (e.g., column H)</li>
+<li><strong>Type the formula:</strong>
+<pre><code>=IF(DATEDIF(D2,TODAY(),"Y")>=10,"Yes","No")</code></pre>
+<ul>
+<li>Checks if years of service is 10 or more</li>
+<li>Returns "Yes" if true, "No" if false</li>
+</ul>
+</li>
+<li><strong>Press Enter and copy down</strong> to all rows</li>
+<li><strong>Apply conditional formatting (optional but recommended):</strong>
+<ul>
+<li>Select the entire column of Yes/No values</li>
+<li>Home tab → Conditional Formatting → Highlight Cell Rules → Text that Contains</li>
+<li>Type "Yes" and choose green fill</li>
+</ul>
+</li>
+<li><strong>Count the total:</strong> In a cell below your data, type:
+<pre><code>=COUNTIF(H:H,"Yes")</code></pre>
+This counts how many employees have 10+ years tenure</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Combining functions:</strong> DATEDIF inside IF is a powerful combination for date-based decisions</li>
+<li><strong>Change the threshold:</strong> Easily adjust "10" to any other number (5, 15, 20) for different milestones</li>
+<li><strong>Alternative outputs:</strong> Instead of "Yes"/"No", you could use "Milestone" or leave blank: <code>=IF(DATEDIF(D2,TODAY(),"Y")>=10,"Milestone","")</code></li>
+<li><strong>Filter for analysis:</strong> Use AutoFilter (Ctrl+Shift+L) to quickly see only "Yes" employees</li>
+<li><strong>Advanced variation:</strong> Use IFS for multiple milestones: <code>=IFS(tenure>=20,"20yr", tenure>=10,"10yr", tenure>=5,"5yr", TRUE,"&lt;5yr")</code></li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A column with "Yes" or "No" for each employee, with "Yes" appearing for those with 10 or more years of service</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Calculate Average Employee Age by Department</strong></p>
+<p><strong>Goal:</strong> Learn to combine date calculations with AVERAGEIF for grouped analysis.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>First, ensure you have the Age column</strong> calculated from Exercise 1 (e.g., column E)</li>
+<li><strong>Create a summary table</strong> off to the side or below your data:
+<ul>
+<li>Column 1 header: "Department"</li>
+<li>Column 2 header: "Average Age"</li>
+<li>List your departments: Sales, Marketing, IT, HR, Finance, etc. (one per row)</li>
+</ul>
+</li>
+<li><strong>In the Average Age column</strong> (next to "Sales"), type:
+<pre><code>=AVERAGEIF($E$2:$E$100,$J2,$E$2:$E$100)</code></pre>
+Wait, that's wrong! Let me correct:
+<pre><code>=AVERAGEIF($F$2:$F$100,J2,$E$2:$E$100)</code></pre>
+<ul>
+<li><code>$F$2:$F$100</code> = Department column range (use $ for absolute reference)</li>
+<li><code>J2</code> = The department name you're checking (e.g., "Sales")</li>
+<li><code>$E$2:$E$100</code> = Age column range to average</li>
+<li>Adjust ranges to match your data size</li>
+</ul>
+</li>
+<li><strong>Press Enter and copy down</strong> to all department rows</li>
+<li><strong>Format the results:</strong> Select the average age cells → Right-click → Format Cells → Number → 1 decimal place</li>
+<li><strong>Add a grand average:</strong> Below your summary table:
+<pre><code>=AVERAGE(E2:E100)</code></pre>
+This shows the overall company average age</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Dollar signs matter:</strong> Use $F$2:$F$100 (absolute reference) so the range doesn't change when you copy down</li>
+<li><strong>Range size:</strong> Adjust "100" to match your actual data size, or use dynamic ranges like <code>$F:$F</code> (entire column)</li>
+<li><strong>Alternative approach:</strong> Use a Pivot Table (Day 7) - insert Pivot Table, Rows=Department, Values=Average of Age</li>
+<li><strong>Visualization:</strong> Create a bar chart to show average age by department visually</li>
+<li><strong>Advanced variation:</strong> Also calculate average tenure by department using the same technique</li>
+<li><strong>Data validation:</strong> If departments aren't consistent (e.g., "IT" vs "Information Technology"), use Find & Replace first</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A summary table showing each department with its average employee age (e.g., Sales: 37.5 years, Marketing: 32.8 years, etc.)</p>
+
+<p><strong>🔄 Connection to SQL:</strong> This Excel AVERAGEIF is similar to SQL's <code>SELECT Department, AVG(Age) FROM Employees GROUP BY Department</code> from Day 8!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Bonus Exercise: Project Timeline Calculator with WORKDAY</strong></p>
+<p><strong>Goal:</strong> Learn to calculate business days (excluding weekends) using WORKDAY and NETWORKDAYS functions.</p>
+
+<p><strong>Setup:</strong></p>
+<ul>
+<li>Create a small project tracker with columns: ProjectName, StartDate, TargetDays (e.g., 90)</li>
+<li>Optional: Create a holiday list in a separate area (dates of company holidays)</li>
+</ul>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Calculate project end date (90 working days later):</strong>
+<pre><code>=WORKDAY(B2,C2)</code></pre>
+<ul>
+<li><code>B2</code> = Start date</li>
+<li><code>C2</code> = Number of working days (e.g., 90)</li>
+<li>WORKDAY automatically skips weekends</li>
+</ul>
+</li>
+<li><strong>Include company holidays:</strong>
+<pre><code>=WORKDAY(B2,C2,$G$2:$G$10)</code></pre>
+<ul>
+<li>Third parameter = range of holiday dates</li>
+<li>WORKDAY now skips weekends AND holidays</li>
+</ul>
+</li>
+<li><strong>Calculate actual working days elapsed so far:</strong>
+<pre><code>=NETWORKDAYS(B2,TODAY(),$G$2:$G$10)</code></pre>
+<ul>
+<li>Returns number of working days from start date to today</li>
+<li>Also excludes weekends and holidays</li>
+</ul>
+</li>
+<li><strong>Determine if project is on schedule:</strong>
+<pre><code>=IF(NETWORKDAYS(B2,TODAY(),$G$2:$G$10)<=C2,"On Track","Review Needed")</code></pre>
+This checks if working days used is less than or equal to target</li>
+<li><strong>Calculate percentage complete:</strong>
+<pre><code>=NETWORKDAYS(B2,TODAY(),$G$2:$G$10)/C2</code></pre>
+Format as percentage (Ctrl+Shift+%)</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>WORKDAY vs NETWORKDAYS:</strong> WORKDAY calculates a future date; NETWORKDAYS counts days between two dates</li>
+<li><strong>International versions:</strong> Use WORKDAY.INTL to specify custom weekends (e.g., Friday-Saturday in some countries)</li>
+<li><strong>Holiday list:</strong> Put holidays in a separate sheet for cleaner organization</li>
+<li><strong>Common use cases:</strong> Project timelines, SLA tracking, delivery date calculations, working days until deadline</li>
+<li><strong>Error handling:</strong> If you get #VALUE! error, check that dates are formatted correctly</li>
+<li><strong>Real-world tip:</strong> Always account for holidays - projects that ignore holidays often miss deadlines</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A project end date that falls on a weekday (skipping weekends), working days elapsed count, and on-track status</p>
+</div>
+<h3 id="independent-practice-hour-3---60-min-11">Independent Practice (60 min):</h3>
+<div class="practice-note">
+<p><strong>💡 Hints for Independent Practice:</strong></p>
+<ul>
+<li><strong>Start simple:</strong> Begin with basic variations before attempting complex modifications</li>
+<li><strong>Break it down:</strong> Divide complex problems into smaller, manageable steps</li>
+<li><strong>Test incrementally:</strong> Verify each step works before moving to the next</li>
+<li><strong>Use documentation:</strong> Refer to official docs or tutorials when needed</li>
+<li><strong>Experiment:</strong> Try different approaches to find what works best</li>
+</ul>
+</div>
+<p><strong>Challenge 1: Invoice Aging Report</strong>
+- Create columns: Invoice Date, Due Date (30 days), Days Outstanding
+- Use TODAY() to calculate days overdue
+- Categorize invoices: Current, 30 Days, 60 Days, 90+ Days
+- Use COUNTIFS to count invoices in each aging bucket
+- Calculate total amount in each category</p>
+<p><strong>Challenge 2: Employee Anniversary Tracker</strong>
+- Calculate next anniversary date for each employee
+- Identify employees with anniversaries in current month
+- Calculate milestone years (5, 10, 15, 20, 25)
+- Create summary: "5 employees have 10-year anniversary this quarter"</p>
+<h3 id="daily-assignment-hour-4---60-min-11">Daily Assignment (60 min):</h3>
+<p><strong>Assignment: Complete HR Analytics Dashboard</strong></p>
+<p>Create a comprehensive HR dashboard with:</p>
+<ul>
+<li>Employee Metrics:</li>
+</ul>
+<p>- Average employee age by department</p>
+<p>- Average tenure in years</p>
+<p>- Retirement eligibility (age 65+ or 30+ years service)</p>
+<ul>
+<li>Upcoming Events:</li>
+</ul>
+<p>- Birthdays this month</p>
+<p>- Work anniversaries this quarter</p>
+<p>- Probation end dates (90 working days from hire)</p>
+<ul>
+<li>Turnover Analysis:</li>
+</ul>
+<p>- Calculate tenure for terminated employees</p>
+<p>- Average days between hire and termination</p>
+<p>- Turnover by department using date ranges</p>
+<p><strong>Requirements:</strong>
+- Use TODAY() for dynamic calculations
+- Use DATEDIF for all age/tenure calculations
+- Use NETWORKDAYS for working day calculations
+- Create at least 5 summary statistics
+- Format dates professionally</p>
+<h3 id="expected-outcomes-11">Expected Outcomes:</h3>
+<ul>
+<li>Confidently use TODAY(), DATEDIF, NETWORKDAYS, EOMONTH</li>
+<li>Calculate age, tenure, and date differences accurately</li>
+<li>Create aging reports and timeline calculators</li>
+<li>Handle business day calculations with holidays</li>
+<li>Build dynamic date-based analytics</li>
+</ul>
 <hr/>
+<h2 id="quick-quiz-day-11">📝 Day 11 Quick Quiz - Test Your Knowledge!</h2>
+<div class="quiz-container" data-day="11">
+<div class="quiz-question" data-correct="1" data-question="1">
+<p class="question-text"><strong>Q1.</strong> What does the TODAY() function return?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day11_q1" type="radio" value="0"/>
+<span class="option-text">Current date and time</span>
+</label>
+<label class="quiz-option">
+<input name="day11_q1" type="radio" value="1"/>
+<span class="option-text">Current date only</span>
+</label>
+<label class="quiz-option">
+<input name="day11_q1" type="radio" value="2"/>
+<span class="option-text">Yesterday's date</span>
+</label>
+<label class="quiz-option">
+<input name="day11_q1" type="radio" value="3"/>
+<span class="option-text">Tomorrow's date</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">TODAY() returns the current date without time component.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="2">
+<p class="question-text"><strong>Q2.</strong> What does DATEDIF calculate?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day11_q2" type="radio" value="0"/>
+<span class="option-text">Date format</span>
+</label>
+<label class="quiz-option">
+<input name="day11_q2" type="radio" value="1"/>
+<span class="option-text">Difference between two dates</span>
+</label>
+<label class="quiz-option">
+<input name="day11_q2" type="radio" value="2"/>
+<span class="option-text">Date plus days</span>
+</label>
+<label class="quiz-option">
+<input name="day11_q2" type="radio" value="3"/>
+<span class="option-text">Date validation</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">DATEDIF calculates the difference between two dates in days, months, or years.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="3">
+<p class="question-text"><strong>Q3.</strong> What does NETWORKDAYS count?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day11_q3" type="radio" value="0"/>
+<span class="option-text">All days</span>
+</label>
+<label class="quiz-option">
+<input name="day11_q3" type="radio" value="1"/>
+<span class="option-text">Working days excluding weekends</span>
+</label>
+<label class="quiz-option">
+<input name="day11_q3" type="radio" value="2"/>
+<span class="option-text">Only Mondays</span>
+</label>
+<label class="quiz-option">
+<input name="day11_q3" type="radio" value="3"/>
+<span class="option-text">Calendar days</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">NETWORKDAYS counts working days (Mon-Fri), excluding weekends and optional holidays.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="4">
+<p class="question-text"><strong>Q4.</strong> What does EOMONTH(date, 0) return?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day11_q4" type="radio" value="0"/>
+<span class="option-text">Start of current month</span>
+</label>
+<label class="quiz-option">
+<input name="day11_q4" type="radio" value="1"/>
+<span class="option-text">End of current month</span>
+</label>
+<label class="quiz-option">
+<input name="day11_q4" type="radio" value="2"/>
+<span class="option-text">Next month</span>
+</label>
+<label class="quiz-option">
+<input name="day11_q4" type="radio" value="3"/>
+<span class="option-text">Previous month</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">EOMONTH with 0 returns the last day of the same month as the date.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="0" data-question="5">
+<p class="question-text"><strong>Q5.</strong> How do you add 30 days to a date in cell A1?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day11_q5" type="radio" value="0"/>
+<span class="option-text">=A1+30</span>
+</label>
+<label class="quiz-option">
+<input name="day11_q5" type="radio" value="1"/>
+<span class="option-text">=ADD(A1,30)</span>
+</label>
+<label class="quiz-option">
+<input name="day11_q5" type="radio" value="2"/>
+<span class="option-text">=A1 PLUS 30</span>
+</label>
+<label class="quiz-option">
+<input name="day11_q5" type="radio" value="3"/>
+<span class="option-text">=DATEADD(A1,30)</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">In Excel, you can add days directly: date + number of days.</p>
+</div>
+</div>
+</div>
   </div>
 </div>
 <div class="feedback-bar">
@@ -1334,24 +1786,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // 3. Highlight active page in TOC and scroll to it
+  // 3. Highlight active page in TOC and scroll to it (improved)
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const tocLinks = document.querySelectorAll('nav#TOC a');
+  const tocLinksArray = Array.from(tocLinks);
 
-  tocLinks.forEach(link => {
+  tocLinks.forEach((link, index) => {
     const linkHref = link.getAttribute('href');
     if (linkHref === currentPage || linkHref === `../${currentPage}`) {
       link.classList.add('active');
 
-      // Auto-scroll TOC to show active item
+      // Smart TOC scrolling - center items unless near the end
       setTimeout(() => {
-        const nav = document.querySelector('nav#TOC');
-        const linkTop = link.offsetTop;
-        const navHeight = nav.clientHeight;
-        const linkHeight = link.clientHeight;
+        const totalLinks = tocLinksArray.length;
+        const isNearEnd = index > totalLinks * 0.8; // Last 20% of links
 
-        // Scroll so the active link is roughly in the middle
-        nav.scrollTop = linkTop - (navHeight / 2) + (linkHeight / 2);
+        // Use scrollIntoView for smooth, smart scrolling
+        link.scrollIntoView({
+          behavior: 'smooth',
+          block: isNearEnd ? 'nearest' : 'center',
+          inline: 'nearest'
+        });
       }, 100);
     }
   });

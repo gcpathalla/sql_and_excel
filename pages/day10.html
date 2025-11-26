@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>30-Day Excel & SQL Training Plan</title>
+  <title>DAY 10: SQL - Subqueries</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -950,7 +950,7 @@
 <body>
 <header id="title-block-header">
   <div class="header-row">
-    <h1 class="title">30-Day Excel & SQL Training Plan</h1>
+    <h1 class="title">DAY 10: SQL - Subqueries</h1>
     <div class="header-author">
       <span class="author-name">Guru Charan Pathalla</span>
       <a href="https://github.com/gcpathalla/sql_and_excel" target="_blank" class="repo-link" title="View on GitHub">
@@ -982,115 +982,588 @@
   <nav id="TOC" role="navigation">
 <ul>
 <li><a href="../index.html" if "pages/" in current_page else "index.html">📚 Training Overview</a></li>
-<li><a href="pages/week1.html">Week 1: Foundations</a>
+<li><a href="week1.html">Week 1: Foundations</a>
 <ul>
-<li><a href="pages/day1.html">Day 1: Excel - Formulas
+<li><a href="day1.html">Day 1: Excel - Formulas
 & Basic Functions</a></li>
-<li><a href="pages/day2.html">Day 2: SQL - SELECT &
+<li><a href="day2.html">Day 2: SQL - SELECT &
 Aggregates</a></li>
-<li><a href="pages/day3.html">Day 3: Excel -
+<li><a href="day3.html">Day 3: Excel -
 Filtering & Conditional Funct...</a></li>
-<li><a href="pages/day4.html">Day 4: SQL - WHERE Clause
+<li><a href="day4.html">Day 4: SQL - WHERE Clause
 & Filtering</a></li>
-<li><a href="pages/day5.html">Day 5: Excel - VLOOKUP &
+<li><a href="day5.html">Day 5: Excel - VLOOKUP &
 XLOOKUP</a></li>
 </ul>
 </li>
-<li><a href="pages/week2.html">Week 2: Data Analysis</a>
+<li><a href="week2.html">Week 2: Data Analysis</a>
 <ul>
-<li><a href="pages/day6.html">Day 6: SQL - JOIN Operations</a></li>
-<li><a href="pages/day7.html">Day 7: Excel - Pivot Tables
+<li><a href="day6.html">Day 6: SQL - JOIN Operations</a></li>
+<li><a href="day7.html">Day 7: Excel - Pivot Tables
 & Charts</a></li>
-<li><a href="pages/day8.html">Day 8: SQL - GROUP BY &
+<li><a href="day8.html">Day 8: SQL - GROUP BY &
 HAVING</a></li>
-<li><a href="pages/day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
-<li><a href="pages/day10.html">Day 10: SQL - Subqueries</a></li>
+<li><a href="day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
+<li><a href="day10.html">Day 10: SQL - Subqueries</a></li>
 </ul>
 </li>
-<li><a href="pages/week3.html">Week 3: Intermediate Concepts</a>
+<li><a href="week3.html">Week 3: Intermediate Concepts</a>
 <ul>
-<li><a href="pages/day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
-<li><a href="pages/day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
-<li><a href="pages/day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
-<li><a href="pages/day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
-<li><a href="pages/day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
+<li><a href="day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
+<li><a href="day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
+<li><a href="day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
+<li><a href="day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
+<li><a href="day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
 </ul>
 </li>
-<li><a href="pages/week4.html">Week 4: Advanced Concepts</a>
+<li><a href="week4.html">Week 4: Advanced Concepts</a>
 <ul>
-<li><a href="pages/day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
-<li><a href="pages/day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
-<li><a href="pages/day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
-<li><a href="pages/day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
-<li><a href="pages/day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
+<li><a href="day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
+<li><a href="day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
+<li><a href="day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
+<li><a href="day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
+<li><a href="day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
 </ul>
 </li>
-<li><a href="pages/week5.html">Week 5: Analytics & Optimization</a>
+<li><a href="week5.html">Week 5: Analytics & Optimization</a>
 <ul>
-<li><a href="pages/day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
-<li><a href="pages/day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
-<li><a href="pages/day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
-<li><a href="pages/day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
-<li><a href="pages/day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
+<li><a href="day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
+<li><a href="day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
+<li><a href="day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
+<li><a href="day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
+<li><a href="day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
 </ul>
 </li>
-<li><a href="pages/week6.html">Week 6: Mastery & Projects</a>
+<li><a href="week6.html">Week 6: Mastery & Projects</a>
 <ul>
-<li><a href="pages/day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
-<li><a href="pages/day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
-<li><a href="pages/day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
-<li><a href="pages/day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
-<li><a href="pages/day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
+<li><a href="day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
+<li><a href="day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
+<li><a href="day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
+<li><a href="day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
+<li><a href="day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
 </ul>
 </li>
 </ul>
   </nav>
   <div class="content">
-<h2 id="complete-training-with-video-resources-ai-learning-prompts">Complete
-Training with Video Resources &amp; AI Learning Prompts</h2>
-<p><strong>Duration:</strong> 30 Days (6 weeks, 5 days/week)<br/>
-<strong>Daily Time:</strong> 4 hours<br/>
-<strong>Approach:</strong> Alternating Excel &amp; SQL with mirrored
-concepts<br/>
-<strong>Complexity:</strong> Gradual progression (beginner →
-intermediate → advanced)</p>
-<hr/>
-<h2 id="how-to-use-this-plan">📖 HOW TO USE THIS PLAN</h2>
-<h3 id="video-resources">Video Resources</h3>
-<p>Each day includes curated video tutorials to help you learn concepts
-visually.</p>
-<h3 id="ai-learning-prompts">AI Learning Prompts</h3>
-<p><strong>IMPORTANT:</strong> These prompts are for
-<strong>understanding concepts only</strong> - NOT for solving your
-assignments!</p>
+<h2 id="day-10-sql---subqueries">DAY 10: SQL - Subqueries</h2>
+<p><strong>Learning Objectives:</strong> - Use subqueries in WHERE
+clause - Create subqueries in SELECT - Understand IN and EXISTS
+operators - Learn correlated vs non-correlated subqueries</p>
+<h3 id="topics-covered-hour-1---60-min-9">Topics Covered (60
+min):</h3>
+<p><strong>1. WHERE Subquery (Non-Correlated)</strong> -
+<code>SELECT * FROM Orders WHERE Sales &gt; (SELECT AVG(Sales) FROM Orders)</code>
+- Find records above/below aggregate - Inner query runs once</p>
+<p><strong>2. IN Operator</strong> -
+<code>WHERE CustomerID IN (SELECT ID FROM Customers WHERE State='CA')</code>
+- Tests if value is in subquery results - Returns multiple values</p>
+<p><strong>3. EXISTS Operator</strong> -
+<code>WHERE EXISTS (SELECT 1 FROM OrderDetails WHERE OrderID = Orders.ID)</code>
+- Tests if subquery returns ANY rows - Usually faster than IN for large
+datasets - Returns TRUE/FALSE</p>
+<p><strong>4. SELECT Subquery (Scalar)</strong> -
+<code>SELECT OrderID, (SELECT Name FROM Customers WHERE ID=Orders.CustomerID) AS Customer</code>
+- Must return single value - Adds calculated column</p>
+<p><strong>5. Correlated Subquery</strong> - References outer query -
+<code>WHERE Salary &gt; (SELECT AVG(Salary) FROM Employees E2 WHERE E2.Department = E1.Department)</code>
+- Runs for each row (slower)</p>
+<h3 id="video-resources-10">Video Resources:</h3>
+<ol type="1">
+<li><p><strong>CASE Statement and UNION SQL interview questions</strong> (10:00)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=F2JJWM40Dh4" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=F2JJWM40Dh4</a></p></li>
+<li><p><strong>How to Use SQL Case Statements</strong> (13:40)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=iq-geVaMOos" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=iq-geVaMOos</a></p></li>
+<li><p><strong>SQL Tutorial #36 - SQL UNION Operator</strong> (7:49)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=7QaIPZvu1NI" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=7QaIPZvu1NI</a></p></li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-9">AI Learning
+Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding Subqueries Basics:</strong></p>
+<pre><code>Explain SQL subqueries:
+
+1. What is a subquery and why use it?
+2. Where can subqueries be placed (WHERE, SELECT, FROM)?
+3. How do I write a subquery: SELECT ... WHERE col &gt; (SELECT ...)?
+4. Show me examples using Employee data (find employees with salary &gt; average)
+5. What's the difference between subquery and JOIN?
+6. When should I use subquery vs JOIN?
+
+Use HR or academic data for examples (not sales).</code></pre>
+<p><strong>Understanding IN and EXISTS:</strong></p>
+<pre><code>Explain IN and EXISTS with subqueries:
+
+1. How does IN operator work with subqueries?
+2. What's the syntax: WHERE column IN (SELECT ...)?
+3. How does EXISTS differ from IN?
+4. When is EXISTS more efficient than IN?
+5. Show me examples: Find students who are enrolled in at least one class
+6. What's the difference between NOT IN and NOT EXISTS?
+
+Use school enrollment or membership data for examples.</code></pre>
+<p><strong>Understanding Correlated Subqueries:</strong></p>
+<pre><code>Explain correlated subqueries:
+
+1. What makes a subquery "correlated"?
+2. How does it reference the outer query?
+3. Show me examples: Find employees earning more than average in their department
+4. Why are correlated subqueries slower?
+5. Can I rewrite correlated subqueries as JOINs?
+
+Use departmental or grouped data for examples.</code></pre>
+<p><strong>Understanding Subqueries in SELECT:</strong></p>
+<pre><code>Explain subqueries in the SELECT clause:
+
+1. How do I use subqueries to add calculated columns?
+2. What are scalar subqueries (returning single value)?
+3. Show me examples: Add "Department Average Salary" column to employee list
+4. When should I use subquery vs JOIN for this?
+
+Use organizational hierarchy examples.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-9">Guided Practice (60
+min):</h3>
+<div class="practice-note">
+<p><strong>📝 How to approach Guided Practice:</strong></p>
 <ul>
-<li>✅ <strong>USE prompts to:</strong> Learn concepts, understand
-theory, see different examples</li>
-<li>❌ <strong>DON’T use prompts to:</strong> Solve practice problems,
-complete assignments, cheat</li>
+<li><strong>Follow step-by-step:</strong> Work through each exercise in order</li>
+<li><strong>Use provided resources:</strong> Reference the video tutorials and AI prompts if you get stuck</li>
+<li><strong>Verify your work:</strong> Check your results match expected outcomes</li>
+<li><strong>Take notes:</strong> Document key learnings and shortcuts you discover</li>
+<li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
-<p><strong>How to use:</strong> 1. Copy the prompt (including the
-backticks) 2. Paste into Claude or ChatGPT 3. Read and understand the
-explanation 4. Then solve YOUR practice problems yourself!</p>
-<hr/>
-<h2 id="program-overview">PROGRAM OVERVIEW</h2>
-<h3 id="pacing-strategy">Pacing Strategy:</h3>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 1: Find Orders with Sales Above Average (Basic Subquery in WHERE)</strong></p>
+<p><strong>Goal:</strong> Learn to use subqueries in the WHERE clause to compare against aggregate values.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open your SQL editor</strong> (pgAdmin, MySQL Workbench, or online SQL environment)</li>
+<li><strong>Start with the inner subquery first</strong> to understand what value it returns:
+<pre><code>SELECT AVG(Sales) FROM Orders;</code></pre>
+This calculates the average sales across all orders (e.g., $500)</li>
+<li><strong>Now write the full query</strong> with the subquery in the WHERE clause:
+<pre><code>SELECT OrderID, CustomerID, Sales, OrderDate
+FROM Orders
+WHERE Sales > (SELECT AVG(Sales) FROM Orders)
+ORDER BY Sales DESC;</code></pre></li>
+<li><strong>Execute the query</strong> (press F5 or click Execute)</li>
+<li><strong>Analyze the results:</strong> Notice all returned orders have sales greater than the average</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
 <ul>
-<li><strong>Days 1-10:</strong> Light (8-10 practice problems) - ONE
-major concept</li>
-<li><strong>Days 11-20:</strong> Medium (12-15 problems) - TWO related
-concepts</li>
-<li><strong>Days 21-30:</strong> Advanced (15-20 problems) - Complex
-integrated topics</li>
+<li><strong>Test the subquery separately first</strong> - Run just the <code>SELECT AVG(Sales)...</code> to see what value it returns</li>
+<li><strong>Subquery runs once:</strong> Non-correlated subqueries execute only one time, then the result is used for comparison</li>
+<li><strong>Parentheses are required:</strong> Always wrap subqueries in parentheses <code>(SELECT ...)</code></li>
+<li><strong>ORDER BY helps verification:</strong> Sort by Sales DESC to easily verify all values are above average</li>
+<li><strong>Alternative approach:</strong> You could use a CTE or JOIN with a derived table, but subqueries are cleaner for this use case</li>
 </ul>
-<h3 id="resources">Resources:</h3>
-<p><strong>Datasets:</strong> - Superstore Sales:
-<a class="external-link" href="https://www.kaggle.com/datasets/vivek468/superstore-dataset-final" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.kaggle.com/datasets/vivek468/superstore-dataset-final</a>
-Employee:
-<a class="external-link" href="https://www.kaggle.com/datasets/rhuebner/human-resources-data-set" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.kaggle.com/datasets/rhuebner/human-resources-data-set</a></p>
-<p><strong>Software:</strong> - Excel: Microsoft Excel 2016+ or
-LibreOffice Calc - SQL: SQLite Browser (<a class="external-link" href="https://sqlitebrowser.org/" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://sqlitebrowser.org/</a> OR
-SQL Server + SSMS</p>
+
+<p><strong>✅ Expected Result:</strong> A list of orders where Sales value is higher than the average (e.g., if average is $500, you'll see only orders with $501+)</p>
+
+<p><strong>🔄 Connection to Previous Learning:</strong> This is similar to Excel's AVERAGEIF from Day 3, but more flexible - you're filtering based on a calculated aggregate.</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Select Customers Who Have Placed Orders (Using IN Subquery)</strong></p>
+<p><strong>Goal:</strong> Learn to use IN operator with subqueries to filter based on a list of values.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Understand the scenario:</strong> You have a Customers table and an Orders table. You want to find only customers who have placed at least one order</li>
+<li><strong>First, test the subquery alone</strong> to see what it returns:
+<pre><code>SELECT DISTINCT CustomerID FROM Orders;</code></pre>
+This returns a list of all customer IDs that appear in Orders (e.g., 101, 105, 108...)</li>
+<li><strong>Now write the full query</strong> using IN:
+<pre><code>SELECT CustomerID, CustomerName, State, City
+FROM Customers
+WHERE CustomerID IN (SELECT DISTINCT CustomerID FROM Orders)
+ORDER BY CustomerName;</code></pre></li>
+<li><strong>Execute and verify</strong> - All returned customers should have orders</li>
+<li><strong>Try the opposite (NOT IN)</strong> to find customers without orders:
+<pre><code>SELECT CustomerID, CustomerName, State, City
+FROM Customers
+WHERE CustomerID NOT IN (SELECT DISTINCT CustomerID FROM Orders);</code></pre></li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>IN vs JOIN:</strong> This could also be done with <code>INNER JOIN Orders ON Customers.CustomerID = Orders.CustomerID</code>, but IN is more intuitive for this use case</li>
+<li><strong>Use DISTINCT in subquery:</strong> Prevents duplicate customer IDs in the list (though IN handles duplicates fine)</li>
+<li><strong>NULL handling:</strong> Be careful with NOT IN if the subquery can return NULL - it can cause unexpected results. Use <code>WHERE CustomerID IS NOT NULL</code> in subquery</li>
+<li><strong>Performance:</strong> For large datasets, EXISTS might be faster than IN</li>
+<li><strong>Debugging tip:</strong> Run the subquery separately to verify it returns the expected list</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A list of customers from the Customers table who have at least one corresponding order in the Orders table</p>
+
+<p><strong>🔄 Connection to Previous Learning:</strong> Similar to Excel VLOOKUP filtering from Day 5, but here you're finding matching records across tables.</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Find Products That Have Been Sold (Using EXISTS)</strong></p>
+<p><strong>Goal:</strong> Learn to use EXISTS operator for existence checks - often more efficient than IN.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Understand EXISTS:</strong> Returns TRUE if the subquery returns any rows, FALSE if it returns zero rows</li>
+<li><strong>Write the EXISTS query</strong> to find products that have been sold:
+<pre><code>SELECT ProductID, ProductName, Category, Price
+FROM Products P
+WHERE EXISTS (
+    SELECT 1
+    FROM OrderDetails OD
+    WHERE OD.ProductID = P.ProductID
+)
+ORDER BY ProductName;</code></pre></li>
+<li><strong>Note the correlation:</strong> The subquery references <code>P.ProductID</code> from the outer query - this makes it a correlated subquery</li>
+<li><strong>Execute and analyze</strong> - You'll see only products that appear in OrderDetails</li>
+<li><strong>Try NOT EXISTS</strong> to find products that have never been sold:
+<pre><code>SELECT ProductID, ProductName, Category, Price
+FROM Products P
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM OrderDetails OD
+    WHERE OD.ProductID = P.ProductID
+);</code></pre></li>
+<li><strong>Compare with IN approach:</strong>
+<pre><code>-- Alternative using IN
+SELECT ProductID, ProductName, Category, Price
+FROM Products
+WHERE ProductID IN (SELECT ProductID FROM OrderDetails);</code></pre>
+Both return same results, but EXISTS is typically faster for large datasets</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>SELECT 1 vs SELECT *:</strong> In EXISTS, we use <code>SELECT 1</code> because we only care if rows exist, not their values - more efficient</li>
+<li><strong>Performance advantage:</strong> EXISTS stops searching after finding first match; IN evaluates entire subquery</li>
+<li><strong>Correlated subquery:</strong> Notice <code>OD.ProductID = P.ProductID</code> - the subquery references outer query, so it runs for each product</li>
+<li><strong>Readability:</strong> EXISTS is more readable for "does this record exist" questions</li>
+<li><strong>When to use:</strong> Prefer EXISTS over IN when checking existence in large tables or when subquery might return NULLs</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A list of products from the Products table that have at least one sale recorded in OrderDetails (or with NOT EXISTS, products with zero sales)</p>
+
+<p><strong>🔄 Connection to Previous Learning:</strong> This relates to Day 6 JOIN concepts - you're essentially checking for matching records between tables.</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Add Customer Name Using Subquery in SELECT (Scalar Subquery)</strong></p>
+<p><strong>Goal:</strong> Learn to use subqueries in the SELECT clause to add calculated columns.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Understand scalar subqueries:</strong> A subquery in SELECT must return exactly one value (one row, one column)</li>
+<li><strong>Start with a basic Orders query:</strong>
+<pre><code>SELECT OrderID, CustomerID, Sales, OrderDate
+FROM Orders;</code></pre>
+This shows orders but only CustomerID, not the name</li>
+<li><strong>Add customer name using a scalar subquery:</strong>
+<pre><code>SELECT
+    OrderID,
+    CustomerID,
+    (SELECT CustomerName
+     FROM Customers C
+     WHERE C.CustomerID = Orders.CustomerID) AS CustomerName,
+    Sales,
+    OrderDate
+FROM Orders
+ORDER BY OrderDate DESC
+LIMIT 10;</code></pre></li>
+<li><strong>Execute and verify</strong> - Each order now shows the customer name retrieved from Customers table</li>
+<li><strong>Add multiple scalar subqueries:</strong>
+<pre><code>SELECT
+    OrderID,
+    (SELECT CustomerName FROM Customers C WHERE C.CustomerID = Orders.CustomerID) AS CustomerName,
+    (SELECT State FROM Customers C WHERE C.CustomerID = Orders.CustomerID) AS CustomerState,
+    Sales,
+    OrderDate
+FROM Orders
+WHERE Sales > 1000
+ORDER BY Sales DESC;</code></pre></li>
+<li><strong>Compare with JOIN approach:</strong>
+<pre><code>-- Alternative using JOIN (usually more efficient)
+SELECT
+    O.OrderID,
+    C.CustomerName,
+    C.State AS CustomerState,
+    O.Sales,
+    O.OrderDate
+FROM Orders O
+INNER JOIN Customers C ON O.CustomerID = C.CustomerID
+WHERE O.Sales > 1000
+ORDER BY O.Sales DESC;</code></pre>
+Both approaches work, but JOIN is typically better for performance</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Must return single value:</strong> If subquery returns multiple rows or columns, you'll get an error</li>
+<li><strong>Correlated subquery:</strong> Notice <code>C.CustomerID = Orders.CustomerID</code> - runs once per order row</li>
+<li><strong>Performance consideration:</strong> This runs the subquery for every row in Orders - can be slow for large datasets</li>
+<li><strong>When to use:</strong> Use scalar subqueries when you need just one or two extra columns; use JOINs when you need multiple columns from related table</li>
+<li><strong>NULL handling:</strong> If no matching customer found, subquery returns NULL</li>
+<li><strong>Alternative approach:</strong> For better performance, use JOIN instead (shown in step 6)</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Orders list with CustomerName column added, showing the name from Customers table for each order</p>
+
+<p><strong>🔄 Connection to Previous Learning:</strong> This is the SQL equivalent of Excel's VLOOKUP from Day 5 - looking up related data from another table.</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Find Top 10% of Orders by Revenue (Advanced Subquery)</strong></p>
+<p><strong>Goal:</strong> Learn to use subqueries with percentiles and ranking logic for advanced filtering.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Understand the goal:</strong> Find orders in the top 10% by sales value (e.g., if you have 1000 orders, find the top 100)</li>
+<li><strong>Method 1 - Using LIMIT with subquery (for MySQL/PostgreSQL):</strong>
+<pre><code>SELECT OrderID, CustomerID, Sales, OrderDate
+FROM Orders
+WHERE Sales >= (
+    SELECT Sales
+    FROM Orders
+    ORDER BY Sales DESC
+    LIMIT 1 OFFSET (SELECT COUNT(*) * 0.1 FROM Orders)
+)
+ORDER BY Sales DESC;</code></pre>
+This finds the sales value at the 90th percentile, then returns all orders >= that value</li>
+<li><strong>Method 2 - Using PERCENT_RANK window function (more elegant):</strong>
+<pre><code>SELECT OrderID, CustomerID, Sales, OrderDate
+FROM (
+    SELECT
+        OrderID,
+        CustomerID,
+        Sales,
+        OrderDate,
+        PERCENT_RANK() OVER (ORDER BY Sales DESC) AS percentile
+    FROM Orders
+) AS RankedOrders
+WHERE percentile <= 0.10
+ORDER BY Sales DESC;</code></pre>
+This calculates the percentile for each order, then filters to top 10%</li>
+<li><strong>Method 3 - Using COUNT subquery (works in all SQL databases):</strong>
+<pre><code>SELECT OrderID, CustomerID, Sales, OrderDate
+FROM Orders O1
+WHERE (
+    SELECT COUNT(*)
+    FROM Orders O2
+    WHERE O2.Sales > O1.Sales
+) <= (SELECT COUNT(*) * 0.10 FROM Orders)
+ORDER BY Sales DESC;</code></pre>
+This counts how many orders have higher sales than current order, keeps those in top 10%</li>
+<li><strong>Execute your preferred method</strong> and analyze the results</li>
+<li><strong>Verify the percentage:</strong>
+<pre><code>-- Count total orders
+SELECT COUNT(*) AS TotalOrders FROM Orders;
+
+-- Count orders in your result
+SELECT COUNT(*) AS Top10PercentOrders
+FROM [your query here];</code></pre>
+The second count should be ~10% of the first</li>
+<li><strong>Extend to find bottom 10%:</strong>
+<pre><code>-- Using Method 2, just change the WHERE clause
+SELECT OrderID, CustomerID, Sales, OrderDate
+FROM (
+    SELECT
+        OrderID,
+        CustomerID,
+        Sales,
+        OrderDate,
+        PERCENT_RANK() OVER (ORDER BY Sales ASC) AS percentile
+    FROM Orders
+) AS RankedOrders
+WHERE percentile <= 0.10
+ORDER BY Sales ASC;</code></pre></li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Choose the right method:</strong> Method 2 (PERCENT_RANK) is most efficient for modern databases; Method 3 works everywhere but slower</li>
+<li><strong>Subquery in FROM:</strong> Method 2 uses a subquery in FROM clause (called derived table or inline view) - very powerful technique</li>
+<li><strong>Window functions:</strong> PERCENT_RANK is a window function (preview of Day 12) - provides percentile without grouping</li>
+<li><strong>Performance:</strong> Method 1 and 2 are fast; Method 3 with correlated subquery can be slow on large datasets</li>
+<li><strong>Exact vs approximate:</strong> Depending on ties in Sales values, you might get slightly more or less than exactly 10%</li>
+<li><strong>Database differences:</strong> LIMIT syntax varies (LIMIT for MySQL/PostgreSQL, TOP for SQL Server, FETCH FIRST for Oracle)</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A list of orders representing the top 10% by sales value - if you have 1000 orders, you should see approximately 100 orders with the highest sales values</p>
+
+<p><strong>🔄 Connection to Previous Learning:</strong> This combines concepts from Day 8 (aggregates) with subqueries to create sophisticated filtering - similar to Excel's top 10% filtering with AutoFilter from Day 3.</p>
+</div>
+<h3 id="independent-practice-hour-3---60-min-9">Independent Practice
+(60 min):</h3>
+<div class="practice-note">
+<p><strong>💡 Hints for Independent Practice:</strong></p>
+<ul>
+<li><strong>Start simple:</strong> Begin with basic variations before attempting complex modifications</li>
+<li><strong>Break it down:</strong> Divide complex problems into smaller, manageable steps</li>
+<li><strong>Test incrementally:</strong> Verify each step works before moving to the next</li>
+<li><strong>Use documentation:</strong> Refer to official docs or tutorials when needed</li>
+<li><strong>Experiment:</strong> Try different approaches to find what works best</li>
+</ul>
+</div>
+<ol type="1">
+<li>Customers with above-average order value</li>
+<li>Products in top 3 revenue categories (subquery)</li>
+<li>Orders from California customers (IN subquery)</li>
+<li>Customers with more than 5 orders (subquery + HAVING)</li>
+<li>Products never ordered (NOT EXISTS)</li>
+<li>Orders above category average (correlated)</li>
+<li>High-value customers (top 20% by total sales)</li>
+<li>Products with above-average profit margin</li>
+<li>Regions performing above company average</li>
+<li>Customers with orders in last 30 days (subquery + date)</li>
+<li>Products in profitable categories only</li>
+<li>Orders from best customers (defined by criteria)</li>
+</ol>
+<h3 id="daily-assignment-hour-4---60-min-9">Daily Assignment (60 min):</h3>
+<ul>
+<li>Create complex analysis using subqueries for comparisons</li>
+<li>Compare with Excel Day 9 multi-criteria formulas</li>
+<li>Find patterns using subqueries (above average, top performers,
+etc.)</li>
+<li><strong>Save as:</strong> Day10_SQL_Practice.sql</li>
+<li><strong>WEEK 2 TEST:</strong> Complete Week 2 assessment (provided
+separately by instructor)</li>
+</ul>
+<h3 id="expected-outcomes-9">Expected Outcomes:</h3>
+<p>✓ Write subqueries in various clauses<br/>
+✓ Use IN and EXISTS effectively<br/>
+✓ Understand when to use subqueries vs JOINs<br/>
+✓ Submit: Day10_SQL_Practice.sql</p>
+<h2 id="quick-quiz-day-10">📝 Day 10 Quick Quiz - Test Your Knowledge!</h2>
+<div class="quiz-container" data-day="10">
+<div class="quiz-question" data-correct="1" data-question="1">
+<p class="question-text"><strong>Q1.</strong> What is a subquery?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day10_q1" type="radio" value="0"/>
+<span class="option-text">A backup query</span>
+</label>
+<label class="quiz-option">
+<input name="day10_q1" type="radio" value="1"/>
+<span class="option-text">A query nested inside another query</span>
+</label>
+<label class="quiz-option">
+<input name="day10_q1" type="radio" value="2"/>
+<span class="option-text">A query that runs slowly</span>
+</label>
+<label class="quiz-option">
+<input name="day10_q1" type="radio" value="3"/>
+<span class="option-text">A secondary database</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">A subquery is a SELECT statement embedded within another SQL statement.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="2">
+<p class="question-text"><strong>Q2.</strong> Where can subqueries be used?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day10_q2" type="radio" value="0"/>
+<span class="option-text">Only in WHERE clause</span>
+</label>
+<label class="quiz-option">
+<input name="day10_q2" type="radio" value="1"/>
+<span class="option-text">In SELECT, FROM, WHERE, and HAVING clauses</span>
+</label>
+<label class="quiz-option">
+<input name="day10_q2" type="radio" value="2"/>
+<span class="option-text">Only in FROM clause</span>
+</label>
+<label class="quiz-option">
+<input name="day10_q2" type="radio" value="3"/>
+<span class="option-text">Only with JOINs</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Subqueries can appear in SELECT, FROM, WHERE, HAVING, and other clauses.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="3">
+<p class="question-text"><strong>Q3.</strong> What is a correlated subquery?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day10_q3" type="radio" value="0"/>
+<span class="option-text">Two related queries</span>
+</label>
+<label class="quiz-option">
+<input name="day10_q3" type="radio" value="1"/>
+<span class="option-text">Subquery that references columns from outer query</span>
+</label>
+<label class="quiz-option">
+<input name="day10_q3" type="radio" value="2"/>
+<span class="option-text">Subquery with JOIN</span>
+</label>
+<label class="quiz-option">
+<input name="day10_q3" type="radio" value="3"/>
+<span class="option-text">Subquery with GROUP BY</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Correlated subqueries reference columns from the outer query and execute once per row.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="0" data-question="4">
+<p class="question-text"><strong>Q4.</strong> What does the IN operator do with a subquery?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day10_q4" type="radio" value="0"/>
+<span class="option-text">Checks if value exists in subquery results</span>
+</label>
+<label class="quiz-option">
+<input name="day10_q4" type="radio" value="1"/>
+<span class="option-text">Counts subquery rows</span>
+</label>
+<label class="quiz-option">
+<input name="day10_q4" type="radio" value="2"/>
+<span class="option-text">Joins with subquery</span>
+</label>
+<label class="quiz-option">
+<input name="day10_q4" type="radio" value="3"/>
+<span class="option-text">Inserts into subquery</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">IN checks if a value matches any value in the subquery result set.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="5">
+<p class="question-text"><strong>Q5.</strong> Which is more efficient for checking existence?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day10_q5" type="radio" value="0"/>
+<span class="option-text">IN with subquery</span>
+</label>
+<label class="quiz-option">
+<input name="day10_q5" type="radio" value="1"/>
+<span class="option-text">EXISTS with correlated subquery</span>
+</label>
+<label class="quiz-option">
+<input name="day10_q5" type="radio" value="2"/>
+<span class="option-text">They're identical</span>
+</label>
+<label class="quiz-option">
+<input name="day10_q5" type="radio" value="3"/>
+<span class="option-text">Depends on NULL values</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">EXISTS often performs better as it stops at first match; IN evaluates all results.</p>
+</div>
+</div>
+</div>
 <hr/>
   </div>
 </div>
@@ -1334,24 +1807,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // 3. Highlight active page in TOC and scroll to it
+  // 3. Highlight active page in TOC and scroll to it (improved)
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const tocLinks = document.querySelectorAll('nav#TOC a');
+  const tocLinksArray = Array.from(tocLinks);
 
-  tocLinks.forEach(link => {
+  tocLinks.forEach((link, index) => {
     const linkHref = link.getAttribute('href');
     if (linkHref === currentPage || linkHref === `../${currentPage}`) {
       link.classList.add('active');
 
-      // Auto-scroll TOC to show active item
+      // Smart TOC scrolling - center items unless near the end
       setTimeout(() => {
-        const nav = document.querySelector('nav#TOC');
-        const linkTop = link.offsetTop;
-        const navHeight = nav.clientHeight;
-        const linkHeight = link.clientHeight;
+        const totalLinks = tocLinksArray.length;
+        const isNearEnd = index > totalLinks * 0.8; // Last 20% of links
 
-        // Scroll so the active link is roughly in the middle
-        nav.scrollTop = linkTop - (navHeight / 2) + (linkHeight / 2);
+        // Use scrollIntoView for smooth, smart scrolling
+        link.scrollIntoView({
+          behavior: 'smooth',
+          block: isNearEnd ? 'nearest' : 'center',
+          inline: 'nearest'
+        });
       }, 100);
     }
   });

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>30-Day Excel & SQL Training Plan</title>
+  <title>DAY 22: SQL - Advanced Aggregations (GROUPING SETS, CUBE, ROLLUP)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -950,7 +950,7 @@
 <body>
 <header id="title-block-header">
   <div class="header-row">
-    <h1 class="title">30-Day Excel & SQL Training Plan</h1>
+    <h1 class="title">DAY 22: SQL - Advanced Aggregations (GROUPING SETS, CUBE, ROLLUP)</h1>
     <div class="header-author">
       <span class="author-name">Guru Charan Pathalla</span>
       <a href="https://github.com/gcpathalla/sql_and_excel" target="_blank" class="repo-link" title="View on GitHub">
@@ -982,116 +982,572 @@
   <nav id="TOC" role="navigation">
 <ul>
 <li><a href="../index.html" if "pages/" in current_page else "index.html">📚 Training Overview</a></li>
-<li><a href="pages/week1.html">Week 1: Foundations</a>
+<li><a href="week1.html">Week 1: Foundations</a>
 <ul>
-<li><a href="pages/day1.html">Day 1: Excel - Formulas
+<li><a href="day1.html">Day 1: Excel - Formulas
 & Basic Functions</a></li>
-<li><a href="pages/day2.html">Day 2: SQL - SELECT &
+<li><a href="day2.html">Day 2: SQL - SELECT &
 Aggregates</a></li>
-<li><a href="pages/day3.html">Day 3: Excel -
+<li><a href="day3.html">Day 3: Excel -
 Filtering & Conditional Funct...</a></li>
-<li><a href="pages/day4.html">Day 4: SQL - WHERE Clause
+<li><a href="day4.html">Day 4: SQL - WHERE Clause
 & Filtering</a></li>
-<li><a href="pages/day5.html">Day 5: Excel - VLOOKUP &
+<li><a href="day5.html">Day 5: Excel - VLOOKUP &
 XLOOKUP</a></li>
 </ul>
 </li>
-<li><a href="pages/week2.html">Week 2: Data Analysis</a>
+<li><a href="week2.html">Week 2: Data Analysis</a>
 <ul>
-<li><a href="pages/day6.html">Day 6: SQL - JOIN Operations</a></li>
-<li><a href="pages/day7.html">Day 7: Excel - Pivot Tables
+<li><a href="day6.html">Day 6: SQL - JOIN Operations</a></li>
+<li><a href="day7.html">Day 7: Excel - Pivot Tables
 & Charts</a></li>
-<li><a href="pages/day8.html">Day 8: SQL - GROUP BY &
+<li><a href="day8.html">Day 8: SQL - GROUP BY &
 HAVING</a></li>
-<li><a href="pages/day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
-<li><a href="pages/day10.html">Day 10: SQL - Subqueries</a></li>
+<li><a href="day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
+<li><a href="day10.html">Day 10: SQL - Subqueries</a></li>
 </ul>
 </li>
-<li><a href="pages/week3.html">Week 3: Intermediate Concepts</a>
+<li><a href="week3.html">Week 3: Intermediate Concepts</a>
 <ul>
-<li><a href="pages/day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
-<li><a href="pages/day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
-<li><a href="pages/day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
-<li><a href="pages/day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
-<li><a href="pages/day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
+<li><a href="day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
+<li><a href="day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
+<li><a href="day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
+<li><a href="day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
+<li><a href="day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
 </ul>
 </li>
-<li><a href="pages/week4.html">Week 4: Advanced Concepts</a>
+<li><a href="week4.html">Week 4: Advanced Concepts</a>
 <ul>
-<li><a href="pages/day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
-<li><a href="pages/day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
-<li><a href="pages/day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
-<li><a href="pages/day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
-<li><a href="pages/day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
+<li><a href="day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
+<li><a href="day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
+<li><a href="day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
+<li><a href="day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
+<li><a href="day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
 </ul>
 </li>
-<li><a href="pages/week5.html">Week 5: Analytics & Optimization</a>
+<li><a href="week5.html">Week 5: Analytics & Optimization</a>
 <ul>
-<li><a href="pages/day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
-<li><a href="pages/day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
-<li><a href="pages/day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
-<li><a href="pages/day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
-<li><a href="pages/day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
+<li><a href="day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
+<li><a href="day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
+<li><a href="day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
+<li><a href="day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
+<li><a href="day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
 </ul>
 </li>
-<li><a href="pages/week6.html">Week 6: Mastery & Projects</a>
+<li><a href="week6.html">Week 6: Mastery & Projects</a>
 <ul>
-<li><a href="pages/day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
-<li><a href="pages/day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
-<li><a href="pages/day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
-<li><a href="pages/day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
-<li><a href="pages/day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
+<li><a href="day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
+<li><a href="day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
+<li><a href="day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
+<li><a href="day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
+<li><a href="day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
 </ul>
 </li>
 </ul>
   </nav>
   <div class="content">
-<h2 id="complete-training-with-video-resources-ai-learning-prompts">Complete
-Training with Video Resources &amp; AI Learning Prompts</h2>
-<p><strong>Duration:</strong> 30 Days (6 weeks, 5 days/week)<br/>
-<strong>Daily Time:</strong> 4 hours<br/>
-<strong>Approach:</strong> Alternating Excel &amp; SQL with mirrored
-concepts<br/>
-<strong>Complexity:</strong> Gradual progression (beginner →
-intermediate → advanced)</p>
-<hr/>
-<h2 id="how-to-use-this-plan">📖 HOW TO USE THIS PLAN</h2>
-<h3 id="video-resources">Video Resources</h3>
-<p>Each day includes curated video tutorials to help you learn concepts
-visually.</p>
-<h3 id="ai-learning-prompts">AI Learning Prompts</h3>
-<p><strong>IMPORTANT:</strong> These prompts are for
-<strong>understanding concepts only</strong> - NOT for solving your
-assignments!</p>
+<h2 id="day-22-day-22-sql---advanced-aggregations-grouping-sets-cube-rollup">DAY 22: SQL - Advanced Aggregations (GROUPING SETS, CUBE, ROLLUP)</h2>
+<p><strong>Learning Objectives:</strong>
+- Use GROUPING SETS for multiple aggregations
+- Create summary reports with ROLLUP
+- Generate cross-tabulations with CUBE
+- Understand subtotals and grand totals
+- Master multi-dimensional analysis</p>
+<h3 id="topics-covered-hour-1---60-min-22">Topics Covered (60 min):</h3>
+<p><strong>1. GROUPING SETS</strong>
+- Multiple GROUP BY in single query
+- Syntax: <code>GROUP BY GROUPING SETS ((col1), (col2), (col1, col2))</code>
+- Replaces multiple UNION ALL queries
+- Example: Sales by Region, by Product, by Both</p>
+<p><strong>2. ROLLUP</strong>
+- Hierarchical subtotals
+- Syntax: <code>GROUP BY ROLLUP (col1, col2)</code>
+- Creates hierarchy: (col1, col2), (col1), ()
+- Grand total row
+- Example: Sales by Region → City with subtotals</p>
+<p><strong>3. CUBE</strong>
+- All possible grouping combinations
+- Syntax: <code>GROUP BY CUBE (col1, col2)</code>
+- Creates: (col1, col2), (col1), (col2), ()
+- Cross-dimensional analysis
+- Example: Sales by Region AND Product (all combinations)</p>
+<p><strong>4. GROUPING and GROUPING_ID</strong>
+- Identify NULL vs subtotal rows
+- <code>GROUPING(column)</code> returns 1 for subtotal
+- <code>GROUPING_ID(col1, col2)</code> binary identifier
+- Use with CASE to label subtotals</p>
+<h3 id="video-resources-22">Video Resources:</h3>
+<ol type="1">
+<li><p><strong>SQL Stored Procedure and Functions - Basic to Advance</strong> (6:14)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=B8wNclO2cSU" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=B8wNclO2cSU</a></p></li>
+<li><p><strong>Simple Explanation with Examples for Beginners | 2025</strong> (0:00)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=FDX9ErnWRp8" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=FDX9ErnWRp8</a></p></li>
+<li><p><strong>SQL Stored Procedure (Visually Explained)</strong> (0:00)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=DX8I5SmB6jo" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=DX8I5SmB6jo</a></p></li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-22">AI Learning Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding GROUPING SETS:</strong></p>
+<pre><code>I'm learning SQL advanced aggregations. Please explain:
+
+1. What is GROUPING SETS and why use it instead of UNION ALL?
+2. Show me how to get sales by Category, by Region, and Total in one query
+3. What is the difference between GROUPING SETS, ROLLUP, and CUBE?
+4. Provide examples using sales data with multiple dimensions
+5. When should I use each method?
+
+Use SQL Server syntax with clear examples.</code></pre>
+<p><strong>Understanding ROLLUP and CUBE:</strong></p>
+<pre><code>Help me understand ROLLUP and CUBE:
+
+1. What does ROLLUP do and how does it create hierarchies?
+2. Show me ROLLUP with Region → State → City
+3. What is CUBE and when should I use it?
+4. How do I identify subtotal rows with GROUPING()?
+5. Provide practical examples for multi-dimensional sales reports
+
+Explain with step-by-step examples.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-22">Guided Practice (60 min):</h3>
+<div class="practice-note">
+<p><strong>📝 How to approach Guided Practice:</strong></p>
 <ul>
-<li>✅ <strong>USE prompts to:</strong> Learn concepts, understand
-theory, see different examples</li>
-<li>❌ <strong>DON’T use prompts to:</strong> Solve practice problems,
-complete assignments, cheat</li>
+<li><strong>Follow step-by-step:</strong> Work through each exercise in order</li>
+<li><strong>Use provided resources:</strong> Reference the video tutorials and AI prompts if you get stuck</li>
+<li><strong>Verify your work:</strong> Check your results match expected outcomes</li>
+<li><strong>Take notes:</strong> Document key learnings and shortcuts you discover</li>
+<li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
-<p><strong>How to use:</strong> 1. Copy the prompt (including the
-backticks) 2. Paste into Claude or ChatGPT 3. Read and understand the
-explanation 4. Then solve YOUR practice problems yourself!</p>
-<hr/>
-<h2 id="program-overview">PROGRAM OVERVIEW</h2>
-<h3 id="pacing-strategy">Pacing Strategy:</h3>
+</div>
+<div class="section-card">
+<p><strong>Exercise 1: Create Multi-Level Summary with GROUPING SETS</strong></p>
+<p><strong>Goal:</strong> Learn to use GROUPING SETS to create multiple aggregation levels in a single query without using UNION ALL.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open your SQL editor</strong> (SQL Server Management Studio, pgAdmin, or online SQL environment)</li>
+<li><strong>Create a sample Sales table</strong> with data to practice:
+<pre><code>CREATE TABLE Sales (
+    SaleID INT,
+    Region VARCHAR(50),
+    Category VARCHAR(50),
+    Amount DECIMAL(10,2)
+);
+
+INSERT INTO Sales VALUES
+(1, 'East', 'Electronics', 1500),
+(2, 'East', 'Furniture', 800),
+(3, 'West', 'Electronics', 2000),
+(4, 'West', 'Furniture', 1200),
+(5, 'East', 'Electronics', 1800),
+(6, 'West', 'Electronics', 2200);</code></pre></li>
+<li><strong>First, understand what we want:</strong> Sales totals by Region only, by Category only, and by both combined</li>
+<li><strong>Write the GROUPING SETS query:</strong>
+<pre><code>SELECT
+    Region,
+    Category,
+    SUM(Amount) AS TotalSales
+FROM Sales
+GROUP BY GROUPING SETS (
+    (Region),           -- Sales by Region only
+    (Category),         -- Sales by Category only
+    (Region, Category), -- Sales by both
+    ()                  -- Grand total
+)
+ORDER BY Region, Category;</code></pre></li>
+<li><strong>Run the query</strong> and observe how you get multiple aggregation levels in one result set</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
 <ul>
-<li><strong>Days 1-10:</strong> Light (8-10 practice problems) - ONE
-major concept</li>
-<li><strong>Days 11-20:</strong> Medium (12-15 problems) - TWO related
-concepts</li>
-<li><strong>Days 21-30:</strong> Advanced (15-20 problems) - Complex
-integrated topics</li>
+<li><strong>GROUPING SETS replaces multiple queries:</strong> One query instead of 3-4 separate GROUP BY queries with UNION ALL</li>
+<li><strong>NULL indicates aggregation level:</strong> NULL in a column means that column was aggregated out</li>
+<li><strong>Order matters in GROUPING SETS:</strong> List the most detailed grouping first for better readability</li>
+<li><strong>Performance benefit:</strong> Single table scan instead of multiple scans with UNION ALL</li>
+<li><strong>Use empty () for grand total:</strong> The empty set gives you the overall total</li>
 </ul>
-<h3 id="resources">Resources:</h3>
-<p><strong>Datasets:</strong> - Superstore Sales:
-<a class="external-link" href="https://www.kaggle.com/datasets/vivek468/superstore-dataset-final" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.kaggle.com/datasets/vivek468/superstore-dataset-final</a>
-Employee:
-<a class="external-link" href="https://www.kaggle.com/datasets/rhuebner/human-resources-data-set" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.kaggle.com/datasets/rhuebner/human-resources-data-set</a></p>
-<p><strong>Software:</strong> - Excel: Microsoft Excel 2016+ or
-LibreOffice Calc - SQL: SQLite Browser (<a class="external-link" href="https://sqlitebrowser.org/" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://sqlitebrowser.org/</a> OR
-SQL Server + SSMS</p>
+
+<p><strong>✅ Expected Result:</strong> A result set showing sales aggregated by Region, by Category, by both, and a grand total - all in one query</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Similar to creating multiple pivot tables in Excel (Day 7), but in SQL</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Build Hierarchical Totals with ROLLUP</strong></p>
+<p><strong>Goal:</strong> Master ROLLUP to create hierarchical subtotals automatically from left to right in the GROUP BY columns.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Expand the Sales table</strong> with more hierarchical data:
+<pre><code>CREATE TABLE SalesHierarchy (
+    SaleID INT,
+    Year INT,
+    Quarter INT,
+    Month INT,
+    Amount DECIMAL(10,2)
+);
+
+INSERT INTO SalesHierarchy VALUES
+(1, 2024, 1, 1, 5000),
+(2, 2024, 1, 2, 5500),
+(3, 2024, 1, 3, 6000),
+(4, 2024, 2, 4, 7000),
+(5, 2024, 2, 5, 7500),
+(6, 2024, 2, 6, 8000);</code></pre></li>
+<li><strong>Understand the hierarchy:</strong> Year → Quarter → Month (from general to specific)</li>
+<li><strong>Write the ROLLUP query:</strong>
+<pre><code>SELECT
+    Year,
+    Quarter,
+    Month,
+    SUM(Amount) AS TotalSales
+FROM SalesHierarchy
+GROUP BY ROLLUP (Year, Quarter, Month)
+ORDER BY Year, Quarter, Month;</code></pre></li>
+<li><strong>Analyze the results:</strong> You'll see:
+   - Individual months
+   - Subtotals for each quarter
+   - Subtotals for each year
+   - Grand total (all NULLs)</li>
+<li><strong>Compare with manual approach:</strong> This one query replaces 4 separate GROUP BY queries!</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>ROLLUP creates right-to-left hierarchy:</strong> It removes columns from right to left for aggregation</li>
+<li><strong>Column order is critical:</strong> Put the most general column first (Year), most specific last (Month)</li>
+<li><strong>Subtotal rows have NULLs:</strong> Quarter subtotals show NULL for Month, Year subtotals show NULL for Quarter and Month</li>
+<li><strong>Perfect for financial reports:</strong> Common in sales reports, budgets, and hierarchical data</li>
+<li><strong>ROLLUP is a shorthand:</strong> It's equivalent to specific GROUPING SETS but more concise</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A hierarchical report showing totals at each level: monthly, quarterly, yearly, and grand total</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Similar to Excel subtotals feature (Day 2), but more powerful and automated</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Generate Cross-Tabulations with CUBE</strong></p>
+<p><strong>Goal:</strong> Use CUBE to create all possible combinations of groupings for comprehensive multi-dimensional analysis.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Use the Sales table</strong> from Exercise 1 or create new data:
+<pre><code>-- Reuse Sales table from Exercise 1
+-- Or insert more diverse data</code></pre></li>
+<li><strong>Understand what CUBE does:</strong> It creates ALL possible combinations of the specified columns</li>
+<li><strong>Write the CUBE query:</strong>
+<pre><code>SELECT
+    Region,
+    Category,
+    SUM(Amount) AS TotalSales,
+    COUNT(*) AS SalesCount
+FROM Sales
+GROUP BY CUBE (Region, Category)
+ORDER BY
+    CASE WHEN Region IS NULL THEN 1 ELSE 0 END,
+    Region,
+    CASE WHEN Category IS NULL THEN 1 ELSE 0 END,
+    Category;</code></pre></li>
+<li><strong>Analyze the output - you'll get:</strong>
+   - Sales by Region AND Category (both specified)
+   - Sales by Region only (Category = NULL)
+   - Sales by Category only (Region = NULL)
+   - Grand total (both NULL)</li>
+<li><strong>Count the combinations:</strong> With 2 columns, CUBE creates 2² = 4 grouping combinations</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>CUBE creates all combinations:</strong> For N columns, you get 2^N combinations (including grand total)</li>
+<li><strong>More powerful than ROLLUP:</strong> ROLLUP is hierarchical, CUBE is comprehensive across all dimensions</li>
+<li><strong>Perfect for pivot-style reports:</strong> When you need to analyze data from multiple angles</li>
+<li><strong>Can be expensive:</strong> With many columns (5+), CUBE generates many rows and can impact performance</li>
+<li><strong>Use with caution:</strong> For 3+ columns, consider if you need ALL combinations or just specific GROUPING SETS</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> All possible aggregate combinations showing sales from every analytical angle</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Similar to Excel's multi-dimensional pivot tables (Day 7) showing row and column totals</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Identify Subtotal Rows with GROUPING() Function</strong></p>
+<p><strong>Goal:</strong> Learn to use the GROUPING() function to distinguish between NULL values from data and NULL values from aggregation.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Start with a ROLLUP query</strong> from Exercise 2</li>
+<li><strong>Understand the problem:</strong> How do we know if a NULL is a subtotal or actual NULL data?</li>
+<li><strong>Add GROUPING() to identify aggregation NULLs:</strong>
+<pre><code>SELECT
+    Year,
+    Quarter,
+    Month,
+    SUM(Amount) AS TotalSales,
+    GROUPING(Year) AS IsYearTotal,
+    GROUPING(Quarter) AS IsQuarterTotal,
+    GROUPING(Month) AS IsMonthTotal
+FROM SalesHierarchy
+GROUP BY ROLLUP (Year, Quarter, Month)
+ORDER BY Year, Quarter, Month;</code></pre></li>
+<li><strong>Interpret the GROUPING() results:</strong>
+   - Returns 1 if the column is aggregated out (subtotal row)
+   - Returns 0 if the column has an actual value</li>
+<li><strong>Use GROUPING_ID for combined identifier:</strong>
+<pre><code>SELECT
+    Year,
+    Quarter,
+    Month,
+    SUM(Amount) AS TotalSales,
+    GROUPING_ID(Year, Quarter, Month) AS GroupLevel
+FROM SalesHierarchy
+GROUP BY ROLLUP (Year, Quarter, Month)
+ORDER BY Year, Quarter, Month;</code></pre>
+The GroupLevel will be:
+   - 0 (binary 000) = Detail row
+   - 1 (binary 001) = Month total
+   - 3 (binary 011) = Quarter total
+   - 7 (binary 111) = Grand total</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>GROUPING() returns 1 or 0:</strong> 1 means it's a subtotal, 0 means it's actual data</li>
+<li><strong>Essential for labeling:</strong> Use with CASE statements to add descriptive labels to subtotal rows</li>
+<li><strong>GROUPING_ID is more compact:</strong> Combines multiple GROUPING() calls into one binary number</li>
+<li><strong>Binary representation:</strong> Each bit in GROUPING_ID represents one column's aggregation status</li>
+<li><strong>Useful in WHERE clauses:</strong> Filter to show only certain aggregation levels</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Clear identification of which rows are detail data vs. various subtotal levels</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Similar to Excel's subtotal levels (Day 7) where you can expand/collapse different levels</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Create Labeled Summary Report with CASE and GROUPING()</strong></p>
+<p><strong>Goal:</strong> Combine GROUPING SETS with CASE statements to create professional, labeled summary reports.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Use the Sales table</strong> from Exercise 1</li>
+<li><strong>Goal:</strong> Create a report with descriptive labels instead of NULLs for subtotals</li>
+<li><strong>Write the enhanced query with labels:</strong>
+<pre><code>SELECT
+    CASE
+        WHEN GROUPING(Region) = 1 THEN '**ALL REGIONS**'
+        ELSE ISNULL(Region, 'Unknown')
+    END AS Region,
+    CASE
+        WHEN GROUPING(Category) = 1 THEN '**ALL CATEGORIES**'
+        ELSE ISNULL(Category, 'Unknown')
+    END AS Category,
+    SUM(Amount) AS TotalSales,
+    COUNT(*) AS TransactionCount,
+    AVG(Amount) AS AvgSale,
+    CASE
+        WHEN GROUPING(Region) = 1 AND GROUPING(Category) = 1 THEN 'Grand Total'
+        WHEN GROUPING(Region) = 1 THEN 'Region Subtotal'
+        WHEN GROUPING(Category) = 1 THEN 'Category Subtotal'
+        ELSE 'Detail'
+    END AS RowType
+FROM Sales
+GROUP BY ROLLUP (Region, Category)
+ORDER BY
+    GROUPING(Region),
+    Region,
+    GROUPING(Category),
+    Category;</code></pre></li>
+<li><strong>Run and review the report:</strong> Notice how subtotals are clearly labeled and easy to understand</li>
+<li><strong>Enhance further with formatting:</strong>
+<pre><code>SELECT
+    CASE
+        WHEN GROUPING(Region) = 1 THEN '**ALL REGIONS**'
+        ELSE Region
+    END AS Region,
+    CASE
+        WHEN GROUPING(Category) = 1 THEN '**ALL CATEGORIES**'
+        ELSE Category
+    END AS Category,
+    FORMAT(SUM(Amount), 'C') AS TotalSales,
+    COUNT(*) AS Transactions,
+    CASE GROUPING_ID(Region, Category)
+        WHEN 0 THEN '📊 Detail'
+        WHEN 1 THEN '📈 Category Total'
+        WHEN 2 THEN '📊 Region Total'
+        WHEN 3 THEN '🎯 GRAND TOTAL'
+    END AS Level
+FROM Sales
+GROUP BY ROLLUP (Region, Category)
+ORDER BY GROUPING(Region), Region, GROUPING(Category), Category;</code></pre></li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Always label subtotal rows:</strong> Makes reports much more readable for end users</li>
+<li><strong>Use bold markers for totals:</strong> Convention like '**ALL REGIONS**' or '**TOTAL**' helps them stand out</li>
+<li><strong>Combine multiple aggregates:</strong> Include SUM, COUNT, AVG for comprehensive insights</li>
+<li><strong>Use GROUPING_ID in CASE:</strong> Create different labels/formatting for each aggregation level</li>
+<li><strong>Format currency properly:</strong> Use FORMAT() function for currency, percentages, etc.</li>
+<li><strong>Order matters for readability:</strong> Sort by GROUPING() first to group detail and summary rows</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A professional, clearly labeled summary report with multiple aggregation levels and descriptive labels</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Combines SQL aggregation with report formatting, similar to Excel's subtotal feature with custom labels (Day 7)</p>
+</div>
+<h3 id="independent-practice-hour-3---60-min-22">Independent Practice (60 min):</h3>
+<div class="practice-note">
+<p><strong>💡 Hints for Independent Practice:</strong></p>
+<ul>
+<li><strong>Start simple:</strong> Begin with basic variations before attempting complex modifications</li>
+<li><strong>Break it down:</strong> Divide complex problems into smaller, manageable steps</li>
+<li><strong>Test incrementally:</strong> Verify each step works before moving to the next</li>
+<li><strong>Use documentation:</strong> Refer to official docs or tutorials when needed</li>
+<li><strong>Experiment:</strong> Try different approaches to find what works best</li>
+</ul>
+</div>
+<p>Apply the concepts learned to different datasets and scenarios.</p>
+<h3 id="daily-assignment-hour-4---60-min-22">Daily Assignment (60 min):</h3>
+<p><strong>Assignment:</strong></p>
+<ul>
+<li><strong>GROUPING SETS:</strong>Create report showing sales by (Category), (Region), (Category + Region), (Total)</li>
+<li><strong>ROLLUP:</strong>Hierarchical summary by Year → Quarter → Month with subtotals</li>
+<li><strong>CUBE:</strong>Cross-tabulation of sales by Region and Product Category (all combinations)</li>
+<li><strong>Labeled Subtotals:</strong>Use GROUPING() with CASE to label rows as 'Category Total', 'Region Total', 'Grand Total'</li>
+<li><strong>Performance Analysis:</strong>Compare performance of GROUPING SETS vs multiple queries</li>
+</ul>
+<h3 id="expected-outcomes-22">Expected Outcomes:</h3>
+<ul>
+<li>Use GROUPING SETS for multiple aggregations</li>
+<li>Create summary reports with ROLLUP</li>
+<li>Generate cross-tabulations with CUBE</li>
+<li>Understand subtotals and grand totals</li>
+<li>Master multi-dimensional analysis</li>
+</ul>
 <hr/>
+<h2 id="quick-quiz-day-22">📝 Day 22 Quick Quiz - Test Your Knowledge!</h2>
+<div class="quiz-container" data-day="22">
+<div class="quiz-question" data-correct="1" data-question="1">
+<p class="question-text"><strong>Q1.</strong> What advanced concept is introduced in Day 22?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day22_q1" type="radio" value="0"/>
+<span class="option-text">Basic Excel</span>
+</label>
+<label class="quiz-option">
+<input name="day22_q1" type="radio" value="1"/>
+<span class="option-text">Sophisticated analytical techniques</span>
+</label>
+<label class="quiz-option">
+<input name="day22_q1" type="radio" value="2"/>
+<span class="option-text">Simple formulas</span>
+</label>
+<label class="quiz-option">
+<input name="day22_q1" type="radio" value="3"/>
+<span class="option-text">Copy-paste</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Day 22 introduces professional-level data analysis methods.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="2">
+<p class="question-text"><strong>Q2.</strong> How can Day 22 skills improve your workflow?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day22_q2" type="radio" value="0"/>
+<span class="option-text">They can't</span>
+</label>
+<label class="quiz-option">
+<input name="day22_q2" type="radio" value="1"/>
+<span class="option-text">Automate and enhance complex data tasks</span>
+</label>
+<label class="quiz-option">
+<input name="day22_q2" type="radio" value="2"/>
+<span class="option-text">Make things slower</span>
+</label>
+<label class="quiz-option">
+<input name="day22_q2" type="radio" value="3"/>
+<span class="option-text">Just for practice</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Day 22 techniques streamline and elevate your analytical capabilities.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="3">
+<p class="question-text"><strong>Q3.</strong> What prerequisite knowledge does Day 22 assume?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day22_q3" type="radio" value="0"/>
+<span class="option-text">None</span>
+</label>
+<label class="quiz-option">
+<input name="day22_q3" type="radio" value="1"/>
+<span class="option-text">Understanding of previous days' concepts</span>
+</label>
+<label class="quiz-option">
+<input name="day22_q3" type="radio" value="2"/>
+<span class="option-text">PhD in statistics</span>
+</label>
+<label class="quiz-option">
+<input name="day22_q3" type="radio" value="3"/>
+<span class="option-text">Programming experience</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Day 22 builds incrementally on the 30-day curriculum.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="4">
+<p class="question-text"><strong>Q4.</strong> What's a real-world application of Day 22 content?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day22_q4" type="radio" value="0"/>
+<span class="option-text">No applications</span>
+</label>
+<label class="quiz-option">
+<input name="day22_q4" type="radio" value="1"/>
+<span class="option-text">Business intelligence and data-driven decision making</span>
+</label>
+<label class="quiz-option">
+<input name="day22_q4" type="radio" value="2"/>
+<span class="option-text">Gaming</span>
+</label>
+<label class="quiz-option">
+<input name="day22_q4" type="radio" value="3"/>
+<span class="option-text">Social media</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Day 22 skills are essential for modern data professionals.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="5">
+<p class="question-text"><strong>Q5.</strong> What distinguishes Day 22 from earlier lessons?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day22_q5" type="radio" value="0"/>
+<span class="option-text">Nothing</span>
+</label>
+<label class="quiz-option">
+<input name="day22_q5" type="radio" value="1"/>
+<span class="option-text">Increased complexity and integration of multiple techniques</span>
+</label>
+<label class="quiz-option">
+<input name="day22_q5" type="radio" value="2"/>
+<span class="option-text">Easier content</span>
+</label>
+<label class="quiz-option">
+<input name="day22_q5" type="radio" value="3"/>
+<span class="option-text">Different software</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Day 22 represents more advanced, integrated analytical workflows.</p>
+</div>
+</div>
+</div>
   </div>
 </div>
 <div class="feedback-bar">
@@ -1334,24 +1790,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // 3. Highlight active page in TOC and scroll to it
+  // 3. Highlight active page in TOC and scroll to it (improved)
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const tocLinks = document.querySelectorAll('nav#TOC a');
+  const tocLinksArray = Array.from(tocLinks);
 
-  tocLinks.forEach(link => {
+  tocLinks.forEach((link, index) => {
     const linkHref = link.getAttribute('href');
     if (linkHref === currentPage || linkHref === `../${currentPage}`) {
       link.classList.add('active');
 
-      // Auto-scroll TOC to show active item
+      // Smart TOC scrolling - center items unless near the end
       setTimeout(() => {
-        const nav = document.querySelector('nav#TOC');
-        const linkTop = link.offsetTop;
-        const navHeight = nav.clientHeight;
-        const linkHeight = link.clientHeight;
+        const totalLinks = tocLinksArray.length;
+        const isNearEnd = index > totalLinks * 0.8; // Last 20% of links
 
-        // Scroll so the active link is roughly in the middle
-        nav.scrollTop = linkTop - (navHeight / 2) + (linkHeight / 2);
+        // Use scrollIntoView for smooth, smart scrolling
+        link.scrollIntoView({
+          behavior: 'smooth',
+          block: isNearEnd ? 'nearest' : 'center',
+          inline: 'nearest'
+        });
       }, 100);
     }
   });

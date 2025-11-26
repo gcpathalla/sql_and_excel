@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>30-Day Excel & SQL Training Plan</title>
+  <title>DAY 17: Excel - Power Pivot & Data Modeling (DAX basics)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -950,7 +950,7 @@
 <body>
 <header id="title-block-header">
   <div class="header-row">
-    <h1 class="title">30-Day Excel & SQL Training Plan</h1>
+    <h1 class="title">DAY 17: Excel - Power Pivot & Data Modeling (DAX basics)</h1>
     <div class="header-author">
       <span class="author-name">Guru Charan Pathalla</span>
       <a href="https://github.com/gcpathalla/sql_and_excel" target="_blank" class="repo-link" title="View on GitHub">
@@ -982,116 +982,434 @@
   <nav id="TOC" role="navigation">
 <ul>
 <li><a href="../index.html" if "pages/" in current_page else "index.html">📚 Training Overview</a></li>
-<li><a href="pages/week1.html">Week 1: Foundations</a>
+<li><a href="week1.html">Week 1: Foundations</a>
 <ul>
-<li><a href="pages/day1.html">Day 1: Excel - Formulas
+<li><a href="day1.html">Day 1: Excel - Formulas
 & Basic Functions</a></li>
-<li><a href="pages/day2.html">Day 2: SQL - SELECT &
+<li><a href="day2.html">Day 2: SQL - SELECT &
 Aggregates</a></li>
-<li><a href="pages/day3.html">Day 3: Excel -
+<li><a href="day3.html">Day 3: Excel -
 Filtering & Conditional Funct...</a></li>
-<li><a href="pages/day4.html">Day 4: SQL - WHERE Clause
+<li><a href="day4.html">Day 4: SQL - WHERE Clause
 & Filtering</a></li>
-<li><a href="pages/day5.html">Day 5: Excel - VLOOKUP &
+<li><a href="day5.html">Day 5: Excel - VLOOKUP &
 XLOOKUP</a></li>
 </ul>
 </li>
-<li><a href="pages/week2.html">Week 2: Data Analysis</a>
+<li><a href="week2.html">Week 2: Data Analysis</a>
 <ul>
-<li><a href="pages/day6.html">Day 6: SQL - JOIN Operations</a></li>
-<li><a href="pages/day7.html">Day 7: Excel - Pivot Tables
+<li><a href="day6.html">Day 6: SQL - JOIN Operations</a></li>
+<li><a href="day7.html">Day 7: Excel - Pivot Tables
 & Charts</a></li>
-<li><a href="pages/day8.html">Day 8: SQL - GROUP BY &
+<li><a href="day8.html">Day 8: SQL - GROUP BY &
 HAVING</a></li>
-<li><a href="pages/day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
-<li><a href="pages/day10.html">Day 10: SQL - Subqueries</a></li>
+<li><a href="day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
+<li><a href="day10.html">Day 10: SQL - Subqueries</a></li>
 </ul>
 </li>
-<li><a href="pages/week3.html">Week 3: Intermediate Concepts</a>
+<li><a href="week3.html">Week 3: Intermediate Concepts</a>
 <ul>
-<li><a href="pages/day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
-<li><a href="pages/day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
-<li><a href="pages/day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
-<li><a href="pages/day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
-<li><a href="pages/day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
+<li><a href="day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
+<li><a href="day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
+<li><a href="day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
+<li><a href="day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
+<li><a href="day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
 </ul>
 </li>
-<li><a href="pages/week4.html">Week 4: Advanced Concepts</a>
+<li><a href="week4.html">Week 4: Advanced Concepts</a>
 <ul>
-<li><a href="pages/day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
-<li><a href="pages/day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
-<li><a href="pages/day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
-<li><a href="pages/day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
-<li><a href="pages/day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
+<li><a href="day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
+<li><a href="day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
+<li><a href="day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
+<li><a href="day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
+<li><a href="day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
 </ul>
 </li>
-<li><a href="pages/week5.html">Week 5: Analytics & Optimization</a>
+<li><a href="week5.html">Week 5: Analytics & Optimization</a>
 <ul>
-<li><a href="pages/day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
-<li><a href="pages/day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
-<li><a href="pages/day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
-<li><a href="pages/day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
-<li><a href="pages/day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
+<li><a href="day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
+<li><a href="day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
+<li><a href="day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
+<li><a href="day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
+<li><a href="day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
 </ul>
 </li>
-<li><a href="pages/week6.html">Week 6: Mastery & Projects</a>
+<li><a href="week6.html">Week 6: Mastery & Projects</a>
 <ul>
-<li><a href="pages/day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
-<li><a href="pages/day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
-<li><a href="pages/day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
-<li><a href="pages/day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
-<li><a href="pages/day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
+<li><a href="day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
+<li><a href="day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
+<li><a href="day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
+<li><a href="day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
+<li><a href="day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
 </ul>
 </li>
 </ul>
   </nav>
   <div class="content">
-<h2 id="complete-training-with-video-resources-ai-learning-prompts">Complete
-Training with Video Resources &amp; AI Learning Prompts</h2>
-<p><strong>Duration:</strong> 30 Days (6 weeks, 5 days/week)<br/>
-<strong>Daily Time:</strong> 4 hours<br/>
-<strong>Approach:</strong> Alternating Excel &amp; SQL with mirrored
-concepts<br/>
-<strong>Complexity:</strong> Gradual progression (beginner →
-intermediate → advanced)</p>
-<hr/>
-<h2 id="how-to-use-this-plan">📖 HOW TO USE THIS PLAN</h2>
-<h3 id="video-resources">Video Resources</h3>
-<p>Each day includes curated video tutorials to help you learn concepts
-visually.</p>
-<h3 id="ai-learning-prompts">AI Learning Prompts</h3>
-<p><strong>IMPORTANT:</strong> These prompts are for
-<strong>understanding concepts only</strong> - NOT for solving your
-assignments!</p>
+<h2 id="day-17-day-17-excel---power-pivot--data-modeling-dax-basics">DAY 17: Excel - Power Pivot &amp; Data Modeling (DAX basics)</h2>
+<p><strong>Learning Objectives:</strong>
+- Introduction to Power Pivot and data modeling
+- Create relationships between tables
+- Understand star schema design
+- Write basic DAX formulas
+- Build calculated columns and measures</p>
+<h3 id="topics-covered-hour-1---60-min-17">Topics Covered (60 min):</h3>
+<p><strong>1. Power Pivot Introduction</strong>
+- Enable Power Pivot add-in
+- Import multiple tables
+- Data Model vs regular worksheets
+- Benefits: handle millions of rows, relate tables</p>
+<p><strong>2. Table Relationships</strong>
+- One-to-many relationships
+- Primary key and foreign key
+- Create relationships in diagram view
+- Star schema: Fact table + Dimension tables
+- Example: Orders (Fact) → Customers, Products, Dates (Dimensions)</p>
+<p><strong>3. DAX Basics - Calculated Columns</strong>
+- DAX = Data Analysis Expressions
+- Similar to Excel formulas but for tables
+- Example: <code>Profit = [Revenue] - [Cost]</code>
+- Calculated once when data refreshes
+- Table[Column] reference syntax</p>
+<p><strong>4. DAX Measures</strong>
+- Dynamic calculations (recalculate based on filters)
+- Aggregation functions: SUM, AVERAGE, COUNT, etc.
+- Example: <code>Total Sales = SUM(Orders[Sales])</code>
+- Use in PivotTables with slicers
+- Measures vs Calculated Columns</p>
+<h3 id="video-resources-17">Video Resources:</h3>
+<ol type="1">
+<li><p><strong>Learn Excel What-If Analysis</strong> (17:39)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=mQceaaPuQe8" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=mQceaaPuQe8</a></p></li>
+<li><p><strong>What-If Analysis (Goal Seek, Scenario Manager, Data Table)</strong> (13:37)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=V4STN2DPVc8" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=V4STN2DPVc8</a></p></li>
+<li><p><strong>Excel What-If Analysis Data Table</strong> (14:20)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=4VuO1lO6USo" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=4VuO1lO6USo</a></p></li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-17">AI Learning Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding Power Pivot:</strong></p>
+<pre><code>I'm learning Power Pivot and data modeling. Please explain:
+
+1. What is Power Pivot and how is it different from regular Excel?
+2. What is a data model and why create relationships between tables?
+3. Explain star schema design (fact and dimension tables)
+4. How do I create a relationship between Orders and Customers tables?
+5. Provide a beginner-friendly example using sales data
+
+Use simple examples to explain the concepts.</code></pre>
+<p><strong>Understanding DAX:</strong></p>
+<pre><code>Help me understand DAX formulas:
+
+1. What is DAX and how is it different from Excel formulas?
+2. What is the difference between calculated columns and measures?
+3. Show me basic DAX formulas: SUM, AVERAGE, COUNT
+4. How do I reference columns from different tables?
+5. Provide examples creating Total Sales, Average Price, Profit measures
+
+Explain with practical scenarios.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-17">Guided Practice (60 min):</h3>
+<div class="practice-note">
+<p><strong>📝 How to approach Guided Practice:</strong></p>
 <ul>
-<li>✅ <strong>USE prompts to:</strong> Learn concepts, understand
-theory, see different examples</li>
-<li>❌ <strong>DON’T use prompts to:</strong> Solve practice problems,
-complete assignments, cheat</li>
+<li><strong>Follow step-by-step:</strong> Work through each exercise in order</li>
+<li><strong>Use provided resources:</strong> Reference the video tutorials and AI prompts if you get stuck</li>
+<li><strong>Verify your work:</strong> Check your results match expected outcomes</li>
+<li><strong>Take notes:</strong> Document key learnings and shortcuts you discover</li>
+<li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
-<p><strong>How to use:</strong> 1. Copy the prompt (including the
-backticks) 2. Paste into Claude or ChatGPT 3. Read and understand the
-explanation 4. Then solve YOUR practice problems yourself!</p>
-<hr/>
-<h2 id="program-overview">PROGRAM OVERVIEW</h2>
-<h3 id="pacing-strategy">Pacing Strategy:</h3>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 1: Enable Power Pivot and Load Data into Data Model</strong></p>
+<p><strong>Goal:</strong> Learn to activate Power Pivot and import tables into the Excel Data Model.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Enable Power Pivot:</strong> File → Options → Add-ins → Manage: COM Add-ins → Go → Check "Microsoft Power Pivot" → OK</li>
+<li><strong>Verify Power Pivot tab:</strong> You should see a new "Power Pivot" tab in the ribbon</li>
+<li><strong>Prepare your data:</strong> Have 3 worksheets ready - Orders (OrderID, CustomerID, ProductID, Sales, OrderDate), Customers (CustomerID, Name, City), Products (ProductID, Name, Category)</li>
+<li><strong>Load Orders table:</strong> Select any cell in Orders data → Power Pivot tab → Add to Data Model</li>
+<li><strong>Repeat for other tables:</strong> Load Customers and Products tables to Data Model</li>
+<li><strong>View in Power Pivot window:</strong> Power Pivot → Manage → You'll see all three tables loaded</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
 <ul>
-<li><strong>Days 1-10:</strong> Light (8-10 practice problems) - ONE
-major concept</li>
-<li><strong>Days 11-20:</strong> Medium (12-15 problems) - TWO related
-concepts</li>
-<li><strong>Days 21-30:</strong> Advanced (15-20 problems) - Complex
-integrated topics</li>
+<li><strong>Power Pivot vs regular Excel:</strong> Power Pivot handles millions of rows, regular Excel limited to ~1M rows</li>
+<li><strong>Table names:</strong> Excel converts ranges to proper tables automatically when loading to Data Model</li>
+<li><strong>Data Model is in-memory:</strong> Faster than worksheet calculations for large datasets</li>
+<li><strong>No duplicate checking:</strong> Power Pivot doesn't prevent duplicate IDs - ensure data quality first</li>
+<li><strong>Keyboard shortcut:</strong> Alt+B+M opens Manage Data Model</li>
 </ul>
-<h3 id="resources">Resources:</h3>
-<p><strong>Datasets:</strong> - Superstore Sales:
-<a class="external-link" href="https://www.kaggle.com/datasets/vivek468/superstore-dataset-final" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.kaggle.com/datasets/vivek468/superstore-dataset-final</a>
-Employee:
-<a class="external-link" href="https://www.kaggle.com/datasets/rhuebner/human-resources-data-set" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.kaggle.com/datasets/rhuebner/human-resources-data-set</a></p>
-<p><strong>Software:</strong> - Excel: Microsoft Excel 2016+ or
-LibreOffice Calc - SQL: SQLite Browser (<a class="external-link" href="https://sqlitebrowser.org/" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://sqlitebrowser.org/</a> OR
-SQL Server + SSMS</p>
+
+<p><strong>✅ Expected Result:</strong> Three tables visible in Power Pivot window, ready for relationships</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Create Relationships Between Tables (Star Schema)</strong></p>
+<p><strong>Goal:</strong> Build a star schema by creating relationships between fact (Orders) and dimension tables (Customers, Products).</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>In Power Pivot window:</strong> Click Home → Diagram View (or click diagram icon)</li>
+<li><strong>Understand the layout:</strong> Orders is your fact table (center), Customers and Products are dimension tables</li>
+<li><strong>Create Orders-Customers relationship:</strong> Drag CustomerID from Orders table to CustomerID in Customers table</li>
+<li><strong>Create Orders-Products relationship:</strong> Drag ProductID from Orders to ProductID in Products</li>
+<li><strong>Verify relationships:</strong> You'll see lines connecting tables with "1" (one) and "*" (many) indicators</li>
+<li><strong>Check relationship details:</strong> Double-click any relationship line to see properties (should be 1-to-many)</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>One-to-many relationships:</strong> One customer → many orders, one product → many orders</li>
+<li><strong>Primary/Foreign keys:</strong> Dimension table IDs are primary keys (unique), fact table IDs are foreign keys</li>
+<li><strong>Auto-detect:</strong> Power Pivot sometimes auto-detects relationships based on column names</li>
+<li><strong>Relationship direction:</strong> Filters flow from dimension to fact table (one-way by default)</li>
+<li><strong>Star schema benefits:</strong> Organized, performant, matches how business thinks about data</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Diagram showing Orders in center connected to Customers and Products, with 1:* relationships</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Create Calculated Columns with DAX</strong></p>
+<p><strong>Goal:</strong> Add calculated columns to your tables using DAX formulas.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>In Power Pivot window:</strong> Switch to Data View (grid icon)</li>
+<li><strong>Click Orders table</strong></li>
+<li><strong>Add Profit column:</strong> Click in "Add Column" header → Type: <code>=Orders[Sales] - Orders[Cost]</code> → Enter</li>
+<li><strong>Rename the column:</strong> Right-click column header → Rename → Type "Profit"</li>
+<li><strong>Add Profit Margin %:</strong> New column → <code>=Orders[Profit] / Orders[Sales]</code> → Format as Percentage</li>
+<li><strong>Add Year column:</strong> <code>=YEAR(Orders[OrderDate])</code> → Rename to "OrderYear"</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>DAX vs Excel formulas:</strong> DAX is column-based (operates on entire columns), Excel is cell-based</li>
+<li><strong>Table[Column] syntax:</strong> Always reference columns as TableName[ColumnName]</li>
+<li><strong>Calculated columns vs measures:</strong> Calculated columns store values in model, measures calculate on-the-fly</li>
+<li><strong>When to use calculated columns:</strong> When you need to filter or slice by the calculated value</li>
+<li><strong>Performance:</strong> Calculated columns increase model size, use sparingly for large datasets</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Orders table has three new columns: Profit, Profit Margin %, OrderYear with calculated values</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Create DAX Measures for Analysis</strong></p>
+<p><strong>Goal:</strong> Write DAX measures for dynamic calculations in Pivot Tables.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>In Power Pivot:</strong> Click Orders table → Home → New Measure (or click in measure grid at bottom)</li>
+<li><strong>Create Total Sales measure:</strong> Measure Name: "Total Sales" | Formula: <code>=SUM(Orders[Sales])</code> → OK</li>
+<li><strong>Create Total Profit:</strong> New Measure → Name: "Total Profit" | Formula: <code>=SUM(Orders[Profit])</code></li>
+<li><strong>Create Average Order Value:</strong> <code>=AVERAGE(Orders[Sales])</code></li>
+<li><strong>Create Customer Count:</strong> <code>=DISTINCTCOUNT(Orders[CustomerID])</code></li>
+<li><strong>Create Profit Margin %:</strong> <code>=[Total Profit] / [Total Sales]</code> (references other measures!)</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Measures vs Calculated Columns:</strong> Measures don't store data, calculate based on pivot table context</li>
+<li><strong>Measure syntax:</strong> No table prefix needed: <code>=SUM(Orders[Sales])</code> or <code>=[Total Sales]</code> for measure references</li>
+<li><strong>Context matters:</strong> Same measure shows different values based on rows/columns in pivot table</li>
+<li><strong>Best practice:</strong> Use measures for aggregations (SUM, AVG, COUNT), calculated columns for row-level logic</li>
+<li><strong>Format measures:</strong> Right-click measure → Format → Choose currency, percentage, etc.</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Five measures visible in field list, ready to drag into pivot tables</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Build Pivot Table Using Data Model and Measures</strong></p>
+<p><strong>Goal:</strong> Create a pivot table that uses your relationships and measures for analysis.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Return to Excel worksheet:</strong> Close Power Pivot window</li>
+<li><strong>Insert Pivot Table:</strong> Insert tab → PivotTable → Use this workbook's Data Model → OK</li>
+<li><strong>In PivotTable Fields:</strong> You'll see all tables with expand arrows</li>
+<li><strong>Add rows:</strong> Drag Products[Category] to Rows area</li>
+<li><strong>Add measures:</strong> Drag "Total Sales", "Total Profit", "Profit Margin %" to Values area</li>
+<li><strong>Add slicer for Year:</strong> Expand Orders table → Right-click OrderYear → Add as Slicer</li>
+<li><strong>Add slicer for City:</strong> From Customers table → Right-click City → Add as Slicer</li>
+<li><strong>Test interactivity:</strong> Click different years/cities and watch measures update</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Data Model pivot tables are different:</strong> Can use fields from multiple tables due to relationships</li>
+<li><strong>Measures vs regular fields:</strong> Measures show ∑ icon, regular fields show different icons</li>
+<li><strong>Slicers filter all:</strong> Slicers work across all tables when relationships are correct</li>
+<li><strong>Cannot change values:</strong> Data Model pivot tables are read-only (can't double-click to drill to detail)</li>
+<li><strong>Advanced features:</strong> Use Analyze tab → Fields, Items, & Sets for advanced layouts</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Interactive pivot table showing sales/profit by category, filterable by year and city using slicers</p>
+
+<p><strong>🔄 Connection to SQL:</strong> Power Pivot relationships are like SQL JOINs, and DAX measures are like SQL aggregate functions with GROUP BY!</p>
+</div>
+<h3 id="independent-practice-hour-3---60-min-17">Independent Practice (60 min):</h3>
+<div class="practice-note">
+<p><strong>💡 Hints for Independent Practice:</strong></p>
+<ul>
+<li><strong>Start simple:</strong> Begin with basic variations before attempting complex modifications</li>
+<li><strong>Break it down:</strong> Divide complex problems into smaller, manageable steps</li>
+<li><strong>Test incrementally:</strong> Verify each step works before moving to the next</li>
+<li><strong>Use documentation:</strong> Refer to official docs or tutorials when needed</li>
+<li><strong>Experiment:</strong> Try different approaches to find what works best</li>
+</ul>
+</div>
+<p>Apply the concepts learned to different datasets and scenarios.</p>
+<h3 id="daily-assignment-hour-4---60-min-17">Daily Assignment (60 min):</h3>
+<p><strong>Assignment:</strong></p>
+<ul>
+<li><strong>Import Tables:</strong>Load Orders, Customers, Products, Dates tables</li>
+<li><strong>Create Relationships:</strong>Build star schema (Orders as fact table)</li>
+<li><strong>Calculated Columns:</strong>Add Profit, Margin%, Days to Ship columns using DAX</li>
+<li><strong>DAX Measures:</strong>Create Total Sales, Total Profit, Avg Order Value, Customer Count measures</li>
+<li><strong>PivotTable:</strong>Build dashboard using measures with slicers for Category, Region, Year</li>
+</ul>
+<h3 id="expected-outcomes-17">Expected Outcomes:</h3>
+<ul>
+<li>Introduction to Power Pivot and data modeling</li>
+<li>Create relationships between tables</li>
+<li>Understand star schema design</li>
+<li>Write basic DAX formulas</li>
+<li>Build calculated columns and measures</li>
+</ul>
 <hr/>
+<h2 id="quick-quiz-day-17">📝 Day 17 Quick Quiz - Test Your Knowledge!</h2>
+<div class="quiz-container" data-day="17">
+<div class="quiz-question" data-correct="1" data-question="1">
+<p class="question-text"><strong>Q1.</strong> What is the primary focus of Day 17?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day17_q1" type="radio" value="0"/>
+<span class="option-text">Basic formulas</span>
+</label>
+<label class="quiz-option">
+<input name="day17_q1" type="radio" value="1"/>
+<span class="option-text">Advanced data analysis techniques</span>
+</label>
+<label class="quiz-option">
+<input name="day17_q1" type="radio" value="2"/>
+<span class="option-text">Simple formatting</span>
+</label>
+<label class="quiz-option">
+<input name="day17_q1" type="radio" value="3"/>
+<span class="option-text">Data entry</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Day 17 covers advanced analytical methods building on earlier concepts.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="2">
+<p class="question-text"><strong>Q2.</strong> Which skill from Day 17 is most valuable for business analysis?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day17_q2" type="radio" value="0"/>
+<span class="option-text">Copy-paste</span>
+</label>
+<label class="quiz-option">
+<input name="day17_q2" type="radio" value="1"/>
+<span class="option-text">The core technique taught today</span>
+</label>
+<label class="quiz-option">
+<input name="day17_q2" type="radio" value="2"/>
+<span class="option-text">Font selection</span>
+</label>
+<label class="quiz-option">
+<input name="day17_q2" type="radio" value="3"/>
+<span class="option-text">Print settings</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Day 17 focuses on practical, business-critical skills.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="3">
+<p class="question-text"><strong>Q3.</strong> How does Day 17 build on previous lessons?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day17_q3" type="radio" value="0"/>
+<span class="option-text">It doesn't</span>
+</label>
+<label class="quiz-option">
+<input name="day17_q3" type="radio" value="1"/>
+<span class="option-text">Combines earlier concepts with new advanced techniques</span>
+</label>
+<label class="quiz-option">
+<input name="day17_q3" type="radio" value="2"/>
+<span class="option-text">Repeats Day 1</span>
+</label>
+<label class="quiz-option">
+<input name="day17_q3" type="radio" value="3"/>
+<span class="option-text">Unrelated content</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Day 17 integrates foundational skills with more sophisticated approaches.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="4">
+<p class="question-text"><strong>Q4.</strong> What type of problems does Day 17 help solve?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day17_q4" type="radio" value="0"/>
+<span class="option-text">Simple calculations</span>
+</label>
+<label class="quiz-option">
+<input name="day17_q4" type="radio" value="1"/>
+<span class="option-text">Complex real-world data challenges</span>
+</label>
+<label class="quiz-option">
+<input name="day17_q4" type="radio" value="2"/>
+<span class="option-text">Basic addition</span>
+</label>
+<label class="quiz-option">
+<input name="day17_q4" type="radio" value="3"/>
+<span class="option-text">None</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Day 17 prepares you for complex analytical scenarios.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="5">
+<p class="question-text"><strong>Q5.</strong> What's the best way to practice Day 17 skills?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day17_q5" type="radio" value="0"/>
+<span class="option-text">Just read about it</span>
+</label>
+<label class="quiz-option">
+<input name="day17_q5" type="radio" value="1"/>
+<span class="option-text">Apply to real datasets using the examples provided</span>
+</label>
+<label class="quiz-option">
+<input name="day17_q5" type="radio" value="2"/>
+<span class="option-text">Memorize formulas</span>
+</label>
+<label class="quiz-option">
+<input name="day17_q5" type="radio" value="3"/>
+<span class="option-text">Skip exercises</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Hands-on practice with realistic data builds true competency.</p>
+</div>
+</div>
+</div>
   </div>
 </div>
 <div class="feedback-bar">
@@ -1334,24 +1652,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // 3. Highlight active page in TOC and scroll to it
+  // 3. Highlight active page in TOC and scroll to it (improved)
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const tocLinks = document.querySelectorAll('nav#TOC a');
+  const tocLinksArray = Array.from(tocLinks);
 
-  tocLinks.forEach(link => {
+  tocLinks.forEach((link, index) => {
     const linkHref = link.getAttribute('href');
     if (linkHref === currentPage || linkHref === `../${currentPage}`) {
       link.classList.add('active');
 
-      // Auto-scroll TOC to show active item
+      // Smart TOC scrolling - center items unless near the end
       setTimeout(() => {
-        const nav = document.querySelector('nav#TOC');
-        const linkTop = link.offsetTop;
-        const navHeight = nav.clientHeight;
-        const linkHeight = link.clientHeight;
+        const totalLinks = tocLinksArray.length;
+        const isNearEnd = index > totalLinks * 0.8; // Last 20% of links
 
-        // Scroll so the active link is roughly in the middle
-        nav.scrollTop = linkTop - (navHeight / 2) + (linkHeight / 2);
+        // Use scrollIntoView for smooth, smart scrolling
+        link.scrollIntoView({
+          behavior: 'smooth',
+          block: isNearEnd ? 'nearest' : 'center',
+          inline: 'nearest'
+        });
       }, 100);
     }
   });

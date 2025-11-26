@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>30-Day Excel & SQL Training Plan</title>
+  <title>DAY 27: SQL - Advanced Analytics (Cohort, Retention, RFM Analysis)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -950,7 +950,7 @@
 <body>
 <header id="title-block-header">
   <div class="header-row">
-    <h1 class="title">30-Day Excel & SQL Training Plan</h1>
+    <h1 class="title">DAY 27: SQL - Advanced Analytics (Cohort, Retention, RFM Analysis)</h1>
     <div class="header-author">
       <span class="author-name">Guru Charan Pathalla</span>
       <a href="https://github.com/gcpathalla/sql_and_excel" target="_blank" class="repo-link" title="View on GitHub">
@@ -982,116 +982,694 @@
   <nav id="TOC" role="navigation">
 <ul>
 <li><a href="../index.html" if "pages/" in current_page else "index.html">📚 Training Overview</a></li>
-<li><a href="pages/week1.html">Week 1: Foundations</a>
+<li><a href="week1.html">Week 1: Foundations</a>
 <ul>
-<li><a href="pages/day1.html">Day 1: Excel - Formulas
+<li><a href="day1.html">Day 1: Excel - Formulas
 & Basic Functions</a></li>
-<li><a href="pages/day2.html">Day 2: SQL - SELECT &
+<li><a href="day2.html">Day 2: SQL - SELECT &
 Aggregates</a></li>
-<li><a href="pages/day3.html">Day 3: Excel -
+<li><a href="day3.html">Day 3: Excel -
 Filtering & Conditional Funct...</a></li>
-<li><a href="pages/day4.html">Day 4: SQL - WHERE Clause
+<li><a href="day4.html">Day 4: SQL - WHERE Clause
 & Filtering</a></li>
-<li><a href="pages/day5.html">Day 5: Excel - VLOOKUP &
+<li><a href="day5.html">Day 5: Excel - VLOOKUP &
 XLOOKUP</a></li>
 </ul>
 </li>
-<li><a href="pages/week2.html">Week 2: Data Analysis</a>
+<li><a href="week2.html">Week 2: Data Analysis</a>
 <ul>
-<li><a href="pages/day6.html">Day 6: SQL - JOIN Operations</a></li>
-<li><a href="pages/day7.html">Day 7: Excel - Pivot Tables
+<li><a href="day6.html">Day 6: SQL - JOIN Operations</a></li>
+<li><a href="day7.html">Day 7: Excel - Pivot Tables
 & Charts</a></li>
-<li><a href="pages/day8.html">Day 8: SQL - GROUP BY &
+<li><a href="day8.html">Day 8: SQL - GROUP BY &
 HAVING</a></li>
-<li><a href="pages/day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
-<li><a href="pages/day10.html">Day 10: SQL - Subqueries</a></li>
+<li><a href="day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
+<li><a href="day10.html">Day 10: SQL - Subqueries</a></li>
 </ul>
 </li>
-<li><a href="pages/week3.html">Week 3: Intermediate Concepts</a>
+<li><a href="week3.html">Week 3: Intermediate Concepts</a>
 <ul>
-<li><a href="pages/day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
-<li><a href="pages/day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
-<li><a href="pages/day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
-<li><a href="pages/day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
-<li><a href="pages/day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
+<li><a href="day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
+<li><a href="day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
+<li><a href="day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
+<li><a href="day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
+<li><a href="day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
 </ul>
 </li>
-<li><a href="pages/week4.html">Week 4: Advanced Concepts</a>
+<li><a href="week4.html">Week 4: Advanced Concepts</a>
 <ul>
-<li><a href="pages/day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
-<li><a href="pages/day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
-<li><a href="pages/day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
-<li><a href="pages/day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
-<li><a href="pages/day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
+<li><a href="day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
+<li><a href="day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
+<li><a href="day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
+<li><a href="day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
+<li><a href="day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
 </ul>
 </li>
-<li><a href="pages/week5.html">Week 5: Analytics & Optimization</a>
+<li><a href="week5.html">Week 5: Analytics & Optimization</a>
 <ul>
-<li><a href="pages/day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
-<li><a href="pages/day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
-<li><a href="pages/day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
-<li><a href="pages/day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
-<li><a href="pages/day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
+<li><a href="day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
+<li><a href="day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
+<li><a href="day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
+<li><a href="day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
+<li><a href="day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
 </ul>
 </li>
-<li><a href="pages/week6.html">Week 6: Mastery & Projects</a>
+<li><a href="week6.html">Week 6: Mastery & Projects</a>
 <ul>
-<li><a href="pages/day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
-<li><a href="pages/day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
-<li><a href="pages/day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
-<li><a href="pages/day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
-<li><a href="pages/day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
+<li><a href="day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
+<li><a href="day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
+<li><a href="day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
+<li><a href="day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
+<li><a href="day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
 </ul>
 </li>
 </ul>
   </nav>
   <div class="content">
-<h2 id="complete-training-with-video-resources-ai-learning-prompts">Complete
-Training with Video Resources &amp; AI Learning Prompts</h2>
-<p><strong>Duration:</strong> 30 Days (6 weeks, 5 days/week)<br/>
-<strong>Daily Time:</strong> 4 hours<br/>
-<strong>Approach:</strong> Alternating Excel &amp; SQL with mirrored
-concepts<br/>
-<strong>Complexity:</strong> Gradual progression (beginner →
-intermediate → advanced)</p>
-<hr/>
-<h2 id="how-to-use-this-plan">📖 HOW TO USE THIS PLAN</h2>
-<h3 id="video-resources">Video Resources</h3>
-<p>Each day includes curated video tutorials to help you learn concepts
-visually.</p>
-<h3 id="ai-learning-prompts">AI Learning Prompts</h3>
-<p><strong>IMPORTANT:</strong> These prompts are for
-<strong>understanding concepts only</strong> - NOT for solving your
-assignments!</p>
+<h2 id="day-27-day-27-sql---advanced-analytics-cohort-retention-rfm-analysis">DAY 27: SQL - Advanced Analytics (Cohort, Retention, RFM Analysis)</h2>
+<p><strong>Learning Objectives:</strong>
+- Perform cohort analysis
+- Calculate retention rates
+- Conduct RFM analysis
+- Build customer segmentation
+- Apply advanced analytical techniques</p>
+<h3 id="topics-covered-hour-1---60-min-27">Topics Covered (60 min):</h3>
+<p><strong>1. Cohort Analysis</strong>
+- Group customers by acquisition date
+- Track behavior over time by cohort
+- Example: Month 0, Month 1, Month 2 retention
+- Use DATEDIFF and CASE for cohort buckets
+- Pivot results for cohort matrix</p>
+<p><strong>2. Retention Analysis</strong>
+- Calculate repeat purchase rate
+- Monthly/quarterly retention cohorts
+- Churn rate calculation
+- Retention curve visualization
+- Identify patterns in customer lifecycle</p>
+<p><strong>3. RFM Analysis</strong>
+- Recency: Days since last purchase
+- Frequency: Number of purchases
+- Monetary: Total spending
+- Score each dimension (1-5 scale)
+- Combine for customer segments
+- Example: 555 = Champions, 111 = Lost</p>
+<p><strong>4. Customer Segmentation</strong>
+- Use NTILE for percentile-based scoring
+- Create meaningful segments
+- Action strategies per segment
+- Lifetime value estimation
+- Predictive scoring</p>
+<h3 id="video-resources-27">Video Resources:</h3>
+<ol type="1">
+<li><p><strong>Excel Macros &amp; VBA for Beginners</strong> (1:14)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=m_FgV7i7X3I" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=m_FgV7i7X3I</a></p></li>
+<li><p><strong>Excel Macros &amp; VBA - Tutorial for Beginners</strong> (0:29)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=IJQHMFLXk_c" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=IJQHMFLXk_c</a></p></li>
+<li><p><strong>Excel VBA Macros - Beginner to PRO Masterclass</strong> (3:05)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=7hd1Nn4cNyI" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=7hd1Nn4cNyI</a></p></li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-27">AI Learning Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding Cohort Analysis:</strong></p>
+<pre><code>I'm learning cohort and retention analysis. Please explain:
+
+1. What is cohort analysis and why is it useful?
+2. How do I group customers by signup month and track retention?
+3. Show me how to calculate month-over-month retention
+4. What is churn rate and how do I calculate it?
+5. Provide SQL examples using customer order data
+
+Use SQL Server syntax with clear examples.</code></pre>
+<p><strong>Understanding RFM Analysis:</strong></p>
+<pre><code>Help me understand RFM analysis:
+
+1. What is RFM and what do Recency, Frequency, Monetary mean?
+2. How do I calculate RFM scores (1-5 for each)?
+3. Show me how to segment customers based on RFM
+4. What actions should I take for each segment?
+5. Provide complete SQL example with customer data
+
+Explain with step-by-step implementation.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-27">Guided Practice (60 min):</h3>
+<div class="practice-note">
+<p><strong>📝 How to approach Guided Practice:</strong></p>
 <ul>
-<li>✅ <strong>USE prompts to:</strong> Learn concepts, understand
-theory, see different examples</li>
-<li>❌ <strong>DON’T use prompts to:</strong> Solve practice problems,
-complete assignments, cheat</li>
+<li><strong>Follow step-by-step:</strong> Work through each exercise in order</li>
+<li><strong>Use provided resources:</strong> Reference the video tutorials and AI prompts if you get stuck</li>
+<li><strong>Verify your work:</strong> Check your results match expected outcomes</li>
+<li><strong>Take notes:</strong> Document key learnings and shortcuts you discover</li>
+<li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
-<p><strong>How to use:</strong> 1. Copy the prompt (including the
-backticks) 2. Paste into Claude or ChatGPT 3. Read and understand the
-explanation 4. Then solve YOUR practice problems yourself!</p>
-<hr/>
-<h2 id="program-overview">PROGRAM OVERVIEW</h2>
-<h3 id="pacing-strategy">Pacing Strategy:</h3>
+</div>
+<div class="section-card">
+<p><strong>Exercise 1: Build Cohort Analysis for Customer Retention</strong></p>
+<p><strong>Goal:</strong> Create a cohort retention matrix showing what percentage of customers return in subsequent months.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Create sample customer orders data:</strong>
+<pre><code>CREATE TABLE CustomerOrders (
+    OrderID INT,
+    CustomerID INT,
+    OrderDate DATE,
+    Amount DECIMAL(10,2)
+);
+
+-- Insert sample data spanning multiple months
+INSERT INTO CustomerOrders VALUES
+(1, 101, '2024-01-15', 100),
+(2, 102, '2024-01-20', 150),
+(3, 101, '2024-02-10', 120), -- Customer 101 returns
+(4, 103, '2024-02-05', 200),
+(5, 102, '2024-03-15', 130), -- Customer 102 returns
+-- Add more data...</code></pre></li>
+<li><strong>Identify each customer's first purchase month (cohort):</strong>
+<pre><code>WITH FirstPurchase AS (
+    SELECT
+        CustomerID,
+        MIN(OrderDate) AS FirstOrderDate,
+        DATE_TRUNC('month', MIN(OrderDate)) AS CohortMonth
+    FROM CustomerOrders
+    GROUP BY CustomerID
+)</code></pre></li>
+<li><strong>Calculate months since first purchase for each order:</strong>
+<pre><code>WITH FirstPurchase AS (
+    SELECT CustomerID, MIN(OrderDate) AS FirstOrderDate,
+           DATE_TRUNC('month', MIN(OrderDate)) AS CohortMonth
+    FROM CustomerOrders
+    GROUP BY CustomerID
+),
+CohortData AS (
+    SELECT
+        fp.CohortMonth,
+        co.CustomerID,
+        DATE_TRUNC('month', co.OrderDate) AS OrderMonth,
+        DATEDIFF(month, fp.CohortMonth, DATE_TRUNC('month', co.OrderDate)) AS MonthNumber
+    FROM CustomerOrders co
+    JOIN FirstPurchase fp ON co.CustomerID = fp.CustomerID
+)</code></pre></li>
+<li><strong>Create retention matrix:</strong>
+<pre><code>SELECT
+    CohortMonth,
+    COUNT(DISTINCT CASE WHEN MonthNumber = 0 THEN CustomerID END) AS Month_0,
+    COUNT(DISTINCT CASE WHEN MonthNumber = 1 THEN CustomerID END) AS Month_1,
+    COUNT(DISTINCT CASE WHEN MonthNumber = 2 THEN CustomerID END) AS Month_2,
+    COUNT(DISTINCT CASE WHEN MonthNumber = 3 THEN CustomerID END) AS Month_3,
+    COUNT(DISTINCT CASE WHEN MonthNumber = 4 THEN CustomerID END) AS Month_4
+FROM CohortData
+GROUP BY CohortMonth
+ORDER BY CohortMonth;</code></pre></li>
+<li><strong>Calculate retention percentages:</strong>
+<pre><code>SELECT
+    CohortMonth,
+    Month_0 AS Cohort_Size,
+    ROUND(100.0 * Month_1 / Month_0, 1) AS Month_1_Pct,
+    ROUND(100.0 * Month_2 / Month_0, 1) AS Month_2_Pct,
+    ROUND(100.0 * Month_3 / Month_0, 1) AS Month_3_Pct
+FROM (previous query) AS CohortCounts;</code></pre></li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
 <ul>
-<li><strong>Days 1-10:</strong> Light (8-10 practice problems) - ONE
-major concept</li>
-<li><strong>Days 11-20:</strong> Medium (12-15 problems) - TWO related
-concepts</li>
-<li><strong>Days 21-30:</strong> Advanced (15-20 problems) - Complex
-integrated topics</li>
+<li><strong>Cohort = acquisition month:</strong> Groups customers by when they first purchased</li>
+<li><strong>DATEDIFF calculates month gaps:</strong> How many months since first purchase</li>
+<li><strong>CASE WHEN for pivoting:</strong> Creates columns for each month</li>
+<li><strong>Visualize in Excel:</strong> Export to Excel, create heat map with conditional formatting</li>
+<li><strong>Look for patterns:</strong> Does retention improve over time? Which cohorts are strongest?</li>
 </ul>
-<h3 id="resources">Resources:</h3>
-<p><strong>Datasets:</strong> - Superstore Sales:
-<a class="external-link" href="https://www.kaggle.com/datasets/vivek468/superstore-dataset-final" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.kaggle.com/datasets/vivek468/superstore-dataset-final</a>
-Employee:
-<a class="external-link" href="https://www.kaggle.com/datasets/rhuebner/human-resources-data-set" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.kaggle.com/datasets/rhuebner/human-resources-data-set</a></p>
-<p><strong>Software:</strong> - Excel: Microsoft Excel 2016+ or
-LibreOffice Calc - SQL: SQLite Browser (<a class="external-link" href="https://sqlitebrowser.org/" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://sqlitebrowser.org/</a> OR
-SQL Server + SSMS</p>
+
+<p><strong>✅ Expected Result:</strong> Cohort retention matrix showing customer return rates by month, revealing retention patterns</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Uses CTEs (Day 16), date functions (Day 12), and CASE statements (Day 18)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Calculate RFM (Recency, Frequency, Monetary) Scores</strong></p>
+<p><strong>Goal:</strong> Score customers based on how recently they purchased, how often, and how much they spend.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Calculate RFM metrics for each customer:</strong>
+<pre><code>WITH RFM_Calc AS (
+    SELECT
+        CustomerID,
+        DATEDIFF(day, MAX(OrderDate), GETDATE()) AS Recency_Days,
+        COUNT(DISTINCT OrderID) AS Frequency,
+        SUM(Amount) AS Monetary_Value
+    FROM CustomerOrders
+    GROUP BY CustomerID
+)</code></pre></li>
+<li><strong>Score customers using NTILE (divide into 5 quintiles):</strong>
+<pre><code>WITH RFM_Calc AS (
+    -- Previous query
+),
+RFM_Scores AS (
+    SELECT
+        CustomerID,
+        Recency_Days,
+        Frequency,
+        Monetary_Value,
+        NTILE(5) OVER (ORDER BY Recency_Days ASC) AS R_Score,  -- Lower recency = better
+        NTILE(5) OVER (ORDER BY Frequency DESC) AS F_Score,    -- Higher frequency = better
+        NTILE(5) OVER (ORDER BY Monetary_Value DESC) AS M_Score -- Higher monetary = better
+    FROM RFM_Calc
+)</code></pre></li>
+<li><strong>Create combined RFM score:</strong>
+<pre><code>SELECT
+    CustomerID,
+    Recency_Days,
+    Frequency,
+    Monetary_Value,
+    R_Score,
+    F_Score,
+    M_Score,
+    CAST(R_Score AS VARCHAR) + CAST(F_Score AS VARCHAR) + CAST(M_Score AS VARCHAR) AS RFM_Score,
+    (R_Score + F_Score + M_Score) AS Total_Score
+FROM RFM_Scores
+ORDER BY Total_Score DESC;</code></pre></li>
+<li><strong>Interpret scores:</strong>
+   - RFM Score "555" = Best customers (recent, frequent, high-value)
+   - RFM Score "111" = At-risk customers (not recent, infrequent, low-value)
+   - RFM Score "511" = Recent buyers but low frequency/value (growth potential)</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>NTILE(5) creates quintiles:</strong> Divides customers into 5 equal groups (1=worst, 5=best)</li>
+<li><strong>Recency inverted:</strong> Lower days = more recent = better score</li>
+<li><strong>Adjust scoring:</strong> Use NTILE(10) for deciles, or manual CASE for custom ranges</li>
+<li><strong>Focus on high-value segments:</strong> RFM 4-5-5, 5-4-5, 5-5-4 are your VIP customers</li>
+<li><strong>Automate campaigns:</strong> Use RFM scores to trigger targeted marketing</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Each customer scored 1-5 on Recency, Frequency, and Monetary value for targeted marketing</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Uses window functions NTILE (Day 12) and aggregations (Day 8)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Create Customer Segments Based on RFM</strong></p>
+<p><strong>Goal:</strong> Classify customers into actionable segments like Champions, Loyal, At Risk, and Lost.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Build on RFM scores from Exercise 2</strong></li>
+<li><strong>Create segment classifications using CASE:</strong>
+<pre><code>WITH RFM_Scores AS (
+    -- Use query from Exercise 2
+),
+CustomerSegments AS (
+    SELECT
+        CustomerID,
+        R_Score,
+        F_Score,
+        M_Score,
+        CASE
+            WHEN R_Score >= 4 AND F_Score >= 4 AND M_Score >= 4 THEN 'Champions'
+            WHEN R_Score >= 3 AND F_Score >= 3 AND M_Score >= 3 THEN 'Loyal Customers'
+            WHEN R_Score >= 4 AND F_Score <= 2 THEN 'New Customers'
+            WHEN R_Score >= 3 AND F_Score <= 2 AND M_Score <= 2 THEN 'Promising'
+            WHEN R_Score <= 2 AND F_Score >= 3 THEN 'At Risk'
+            WHEN R_Score <= 2 AND F_Score <= 2 AND M_Score >= 3 THEN 'Can't Lose Them'
+            WHEN R_Score <= 2 AND F_Score <= 2 THEN 'Lost Customers'
+            ELSE 'Others'
+        END AS Customer_Segment,
+        Recency_Days,
+        Frequency,
+        Monetary_Value
+    FROM RFM_Scores
+)</code></pre></li>
+<li><strong>Analyze segment distribution:</strong>
+<pre><code>SELECT
+    Customer_Segment,
+    COUNT(*) AS Customer_Count,
+    ROUND(AVG(Recency_Days), 0) AS Avg_Recency,
+    ROUND(AVG(Frequency), 1) AS Avg_Frequency,
+    ROUND(AVG(Monetary_Value), 2) AS Avg_Monetary,
+    SUM(Monetary_Value) AS Total_Revenue,
+    ROUND(100.0 * COUNT(*) / SUM(COUNT(*)) OVER(), 1) AS Pct_of_Customers,
+    ROUND(100.0 * SUM(Monetary_Value) / SUM(SUM(Monetary_Value)) OVER(), 1) AS Pct_of_Revenue
+FROM CustomerSegments
+GROUP BY Customer_Segment
+ORDER BY Total_Revenue DESC;</code></pre></li>
+<li><strong>Create actionable recommendations:</strong>
+<pre><code>SELECT
+    Customer_Segment,
+    COUNT(*) AS Customer_Count,
+    CASE Customer_Segment
+        WHEN 'Champions' THEN 'Reward with VIP benefits, early access to new products'
+        WHEN 'Loyal Customers' THEN 'Upsell premium products, loyalty program'
+        WHEN 'At Risk' THEN 'Win-back campaign with personalized offers'
+        WHEN 'Lost Customers' THEN 'Re-engagement campaign, survey for feedback'
+        WHEN 'New Customers' THEN 'Onboarding series, educate about product range'
+        ELSE 'Standard marketing'
+    END AS Recommended_Action
+FROM CustomerSegments
+GROUP BY Customer_Segment;</code></pre></li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Customize segments:</strong> Adjust thresholds based on your business model</li>
+<li><strong>Champions are gold:</strong> Focus retention efforts here - they drive revenue</li>
+<li><strong>"Can't Lose Them":</strong> High spenders who haven't bought recently - urgent action needed</li>
+<li><strong>Automate tagging:</strong> Save segment as customer attribute for marketing automation</li>
+<li><strong>Track segment movement:</strong> Monitor customers moving between segments monthly</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Clear customer segments with specific marketing actions for each group</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Uses complex CASE logic (Day 18) and window functions for percentages</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Calculate Customer Lifetime Value (CLV)</strong></p>
+<p><strong>Goal:</strong> Estimate the total value a customer will bring over their entire relationship with your business.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Calculate average order metrics:</strong>
+<pre><code>WITH CustomerMetrics AS (
+    SELECT
+        CustomerID,
+        COUNT(DISTINCT OrderID) AS Total_Orders,
+        SUM(Amount) AS Total_Revenue,
+        AVG(Amount) AS Avg_Order_Value,
+        DATEDIFF(day, MIN(OrderDate), MAX(OrderDate)) AS Customer_Lifespan_Days,
+        DATEDIFF(day, MIN(OrderDate), MAX(OrderDate)) * 1.0 / NULLIF(COUNT(DISTINCT OrderID) - 1, 0) AS Avg_Days_Between_Orders
+    FROM CustomerOrders
+    GROUP BY CustomerID
+    HAVING COUNT(DISTINCT OrderID) >= 2  -- Need at least 2 orders to calculate frequency
+)</code></pre></li>
+<li><strong>Calculate purchase frequency per year:</strong>
+<pre><code>SELECT
+    CustomerID,
+    Total_Orders,
+    Total_Revenue,
+    Avg_Order_Value,
+    Customer_Lifespan_Days,
+    Avg_Days_Between_Orders,
+    365.0 / Avg_Days_Between_Orders AS Purchases_Per_Year
+FROM CustomerMetrics;</code></pre></li>
+<li><strong>Estimate Customer Lifetime Value:</strong>
+<pre><code>WITH CustomerMetrics AS (
+    -- Previous query
+),
+CLV_Calculation AS (
+    SELECT
+        CustomerID,
+        Avg_Order_Value,
+        365.0 / Avg_Days_Between_Orders AS Purchases_Per_Year,
+        3.0 AS Estimated_Lifetime_Years,  -- Assumption: average customer stays 3 years
+        0.20 AS Profit_Margin,            -- Assumption: 20% profit margin
+
+        -- CLV Formula: AOV × Purchase Frequency × Lifetime × Profit Margin
+        Avg_Order_Value *
+        (365.0 / Avg_Days_Between_Orders) *
+        3.0 *
+        0.20 AS Customer_Lifetime_Value
+    FROM CustomerMetrics
+)
+SELECT
+    CustomerID,
+    ROUND(Customer_Lifetime_Value, 2) AS CLV,
+    CASE
+        WHEN Customer_Lifetime_Value > 1000 THEN 'High Value'
+        WHEN Customer_Lifetime_Value > 500 THEN 'Medium Value'
+        ELSE 'Low Value'
+    END AS Value_Segment
+FROM CLV_Calculation
+ORDER BY Customer_Lifetime_Value DESC;</code></pre></li>
+<li><strong>Compare CLV to acquisition cost:</strong>
+<pre><code>SELECT
+    Value_Segment,
+    COUNT(*) AS Customer_Count,
+    ROUND(AVG(CLV), 2) AS Avg_CLV,
+    50.00 AS Avg_Acquisition_Cost,  -- Your actual CAC
+    ROUND(AVG(CLV) / 50.00, 2) AS CLV_to_CAC_Ratio
+FROM (previous query)
+GROUP BY Value_Segment;</code></pre>
+Ideal ratio: CLV should be 3x+ acquisition cost</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>CLV is an estimate:</strong> Based on historical behavior, not guaranteed future</li>
+<li><strong>Adjust assumptions:</strong> Lifetime years and profit margin vary by industry</li>
+<li><strong>Focus acquisition on high-CLV segments:</strong> Know which customer types are most valuable</li>
+<li><strong>Monitor CLV trends:</strong> Track monthly to see if value is increasing or decreasing</li>
+<li><strong>Use in budgeting:</strong> Set max acquisition cost based on CLV (aim for 1:3 ratio)</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Estimated lifetime value for each customer, guiding acquisition and retention budgets</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Complex calculations building on aggregations and date functions</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Build Complete Retention Dashboard Query</strong></p>
+<p><strong>Goal:</strong> Create one comprehensive query that provides all key retention metrics for executive reporting.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Combine all metrics into one dashboard query:</strong>
+<pre><code>-- Overall Retention Metrics Dashboard
+WITH CustomerStats AS (
+    SELECT
+        COUNT(DISTINCT CustomerID) AS Total_Customers,
+        COUNT(DISTINCT CASE WHEN OrderDate >= DATEADD(month, -3, GETDATE()) THEN CustomerID END) AS Active_Last_3_Months,
+        COUNT(DISTINCT CASE WHEN OrderDate >= DATEADD(month, -1, GETDATE()) THEN CustomerID END) AS Active_Last_Month
+    FROM CustomerOrders
+),
+ChurnMetrics AS (
+    SELECT
+        COUNT(DISTINCT CustomerID) AS Churned_Customers
+    FROM CustomerOrders
+    WHERE CustomerID NOT IN (
+        SELECT DISTINCT CustomerID
+        FROM CustomerOrders
+        WHERE OrderDate >= DATEADD(month, -6, GETDATE())
+    )
+),
+RFM_Summary AS (
+    SELECT
+        COUNT(DISTINCT CASE WHEN R_Score >= 4 AND F_Score >= 4 THEN CustomerID END) AS Champions_Count,
+        COUNT(DISTINCT CASE WHEN R_Score <= 2 AND F_Score <= 2 THEN CustomerID END) AS At_Risk_Count
+    FROM (
+        SELECT
+            CustomerID,
+            NTILE(5) OVER (ORDER BY MAX(OrderDate) DESC) AS R_Score,
+            NTILE(5) OVER (ORDER BY COUNT(*) DESC) AS F_Score
+        FROM CustomerOrders
+        GROUP BY CustomerID
+    ) rfm
+),
+RevenueMetrics AS (
+    SELECT
+        AVG(Amount) AS Avg_Order_Value,
+        SUM(Amount) AS Total_Revenue,
+        SUM(CASE WHEN OrderDate >= DATEADD(month, -1, GETDATE()) THEN Amount END) AS Revenue_Last_Month
+    FROM CustomerOrders
+)
+
+-- Final Dashboard
+SELECT
+    'Customer Metrics' AS Category,
+    cs.Total_Customers,
+    cs.Active_Last_3_Months,
+    ROUND(100.0 * cs.Active_Last_3_Months / cs.Total_Customers, 1) AS Active_Rate_Pct,
+    cm.Churned_Customers,
+    ROUND(100.0 * cm.Churned_Customers / cs.Total_Customers, 1) AS Churn_Rate_Pct,
+    rfm.Champions_Count,
+    rfm.At_Risk_Count,
+    ROUND(rm.Avg_Order_Value, 2) AS Avg_Order_Value,
+    ROUND(rm.Total_Revenue, 2) AS Total_Revenue,
+    ROUND(rm.Revenue_Last_Month, 2) AS Revenue_Last_Month
+FROM CustomerStats cs
+CROSS JOIN ChurnMetrics cm
+CROSS JOIN RFM_Summary rfm
+CROSS JOIN RevenueMetrics rm;</code></pre></li>
+<li><strong>Create monthly trend view:</strong>
+<pre><code>SELECT
+    DATE_TRUNC('month', OrderDate) AS Month,
+    COUNT(DISTINCT CustomerID) AS Active_Customers,
+    COUNT(DISTINCT OrderID) AS Total_Orders,
+    SUM(Amount) AS Revenue,
+    ROUND(AVG(Amount), 2) AS Avg_Order_Value
+FROM CustomerOrders
+WHERE OrderDate >= DATEADD(month, -12, GETDATE())
+GROUP BY DATE_TRUNC('month', OrderDate)
+ORDER BY Month;</code></pre></li>
+<li><strong>Export to Excel and visualize:</strong>
+   - Import both queries into Excel Power Query
+   - Create KPI cards for key metrics
+   - Line chart for monthly trends
+   - Bar chart comparing segments</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>CROSS JOIN for single-row summary:</strong> Combines metrics from different CTEs</li>
+<li><strong>Dashboard queries are expensive:</strong> Consider creating materialized view or caching</li>
+<li><strong>Schedule daily refresh:</strong> Automate this query to run daily for up-to-date metrics</li>
+<li><strong>Add year-over-year comparisons:</strong> Include same metrics from last year for trend analysis</li>
+<li><strong>Alert on thresholds:</strong> Set up alerts when churn rate exceeds acceptable level</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Single comprehensive query providing all key retention and engagement metrics for leadership</p>
+<p><strong>🔄 Connection to Previous Learning:</strong> Culmination of all advanced SQL techniques (CTEs, window functions, aggregations)</p>
+</div>
+<h3 id="independent-practice-hour-3---60-min-27">Independent Practice (60 min):</h3>
+<div class="practice-note">
+<p><strong>💡 Hints for Independent Practice:</strong></p>
+<ul>
+<li><strong>Start simple:</strong> Begin with basic variations before attempting complex modifications</li>
+<li><strong>Break it down:</strong> Divide complex problems into smaller, manageable steps</li>
+<li><strong>Test incrementally:</strong> Verify each step works before moving to the next</li>
+<li><strong>Use documentation:</strong> Refer to official docs or tutorials when needed</li>
+<li><strong>Experiment:</strong> Try different approaches to find what works best</li>
+</ul>
+</div>
+<p>Apply the concepts learned to different datasets and scenarios.</p>
+<h3 id="daily-assignment-hour-4---60-min-27">Daily Assignment (60 min):</h3>
+<p><strong>Assignment:</strong></p>
+<ul>
+<li><strong>Retention Metrics:</strong>Calculate overall retention rate, churn rate, average customer lifetime</li>
+<li><strong>Segmentation:</strong>Create segments (Champions, Loyal, At Risk, Lost) based on RFM scores</li>
+<li><strong>Recommendations:</strong>Provide action plan for each customer segment</li>
+</ul>
+<h3 id="expected-outcomes-27">Expected Outcomes:</h3>
+<ul>
+<li>Perform cohort analysis</li>
+<li>Calculate retention rates</li>
+<li>Conduct RFM analysis</li>
+<li>Build customer segmentation</li>
+<li>Apply advanced analytical techniques</li>
+</ul>
 <hr/>
+<h2 id="quick-quiz-day-27">📝 Day 27 Quick Quiz - Test Your Knowledge!</h2>
+<div class="quiz-container" data-day="27">
+<div class="quiz-question" data-correct="1" data-question="1">
+<p class="question-text"><strong>Q1.</strong> As you near the end of the program, what does Day 27 emphasize?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day27_q1" type="radio" value="0"/>
+<span class="option-text">Starting over</span>
+</label>
+<label class="quiz-option">
+<input name="day27_q1" type="radio" value="1"/>
+<span class="option-text">Advanced integration and real-world application</span>
+</label>
+<label class="quiz-option">
+<input name="day27_q1" type="radio" value="2"/>
+<span class="option-text">Basic concepts</span>
+</label>
+<label class="quiz-option">
+<input name="day27_q1" type="radio" value="3"/>
+<span class="option-text">Unrelated topics</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Day 27 focuses on applying your comprehensive skillset to complex scenarios.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="2">
+<p class="question-text"><strong>Q2.</strong> How should you approach Day 27 exercises?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day27_q2" type="radio" value="0"/>
+<span class="option-text">Skip them</span>
+</label>
+<label class="quiz-option">
+<input name="day27_q2" type="radio" value="1"/>
+<span class="option-text">Apply all accumulated knowledge from Days 1-{day}</span>
+</label>
+<label class="quiz-option">
+<input name="day27_q2" type="radio" value="2"/>
+<span class="option-text">Only use today's concepts</span>
+</label>
+<label class="quiz-option">
+<input name="day27_q2" type="radio" value="3"/>
+<span class="option-text">Guess randomly</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Day 27 exercises integrate the full 30-day curriculum.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="3">
+<p class="question-text"><strong>Q3.</strong> What makes Day 27 content valuable for your career?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day27_q3" type="radio" value="0"/>
+<span class="option-text">It's not valuable</span>
+</label>
+<label class="quiz-option">
+<input name="day27_q3" type="radio" value="1"/>
+<span class="option-text">Demonstrates mastery of professional data analysis tools</span>
+</label>
+<label class="quiz-option">
+<input name="day27_q3" type="radio" value="2"/>
+<span class="option-text">Just for certification</span>
+</label>
+<label class="quiz-option">
+<input name="day27_q3" type="radio" value="3"/>
+<span class="option-text">No practical use</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Day 27 skills showcase your comprehensive data analysis capabilities to employers.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="4">
+<p class="question-text"><strong>Q4.</strong> By Day 27, what should you be comfortable with?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day27_q4" type="radio" value="0"/>
+<span class="option-text">Nothing yet</span>
+</label>
+<label class="quiz-option">
+<input name="day27_q4" type="radio" value="1"/>
+<span class="option-text">Using Excel and SQL together for complex analysis</span>
+</label>
+<label class="quiz-option">
+<input name="day27_q4" type="radio" value="2"/>
+<span class="option-text">Only basic formulas</span>
+</label>
+<label class="quiz-option">
+<input name="day27_q4" type="radio" value="3"/>
+<span class="option-text">Just theory</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">By Day 27, you should confidently combine Excel and SQL for end-to-end solutions.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="5">
+<p class="question-text"><strong>Q5.</strong> What's the best mindset for Day 27?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day27_q5" type="radio" value="0"/>
+<span class="option-text">Give up</span>
+</label>
+<label class="quiz-option">
+<input name="day27_q5" type="radio" value="1"/>
+<span class="option-text">Synthesize all learning to solve comprehensive problems</span>
+</label>
+<label class="quiz-option">
+<input name="day27_q5" type="radio" value="2"/>
+<span class="option-text">Start fresh</span>
+</label>
+<label class="quiz-option">
+<input name="day27_q5" type="radio" value="3"/>
+<span class="option-text">Ignore previous days</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Day 27 is about integration and mastery of the complete skillset.</p>
+</div>
+</div>
+</div>
   </div>
 </div>
 <div class="feedback-bar">
@@ -1334,24 +1912,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // 3. Highlight active page in TOC and scroll to it
+  // 3. Highlight active page in TOC and scroll to it (improved)
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const tocLinks = document.querySelectorAll('nav#TOC a');
+  const tocLinksArray = Array.from(tocLinks);
 
-  tocLinks.forEach(link => {
+  tocLinks.forEach((link, index) => {
     const linkHref = link.getAttribute('href');
     if (linkHref === currentPage || linkHref === `../${currentPage}`) {
       link.classList.add('active');
 
-      // Auto-scroll TOC to show active item
+      // Smart TOC scrolling - center items unless near the end
       setTimeout(() => {
-        const nav = document.querySelector('nav#TOC');
-        const linkTop = link.offsetTop;
-        const navHeight = nav.clientHeight;
-        const linkHeight = link.clientHeight;
+        const totalLinks = tocLinksArray.length;
+        const isNearEnd = index > totalLinks * 0.8; // Last 20% of links
 
-        // Scroll so the active link is roughly in the middle
-        nav.scrollTop = linkTop - (navHeight / 2) + (linkHeight / 2);
+        // Use scrollIntoView for smooth, smart scrolling
+        link.scrollIntoView({
+          behavior: 'smooth',
+          block: isNearEnd ? 'nearest' : 'center',
+          inline: 'nearest'
+        });
       }, 100);
     }
   });

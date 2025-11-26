@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>30-Day Excel & SQL Training Plan</title>
+  <title>DAY 13: Excel - What-If Analysis (Goal Seek, Data Tables, Scenarios)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -950,7 +950,7 @@
 <body>
 <header id="title-block-header">
   <div class="header-row">
-    <h1 class="title">30-Day Excel & SQL Training Plan</h1>
+    <h1 class="title">DAY 13: Excel - What-If Analysis (Goal Seek, Data Tables, Scenarios)</h1>
     <div class="header-author">
       <span class="author-name">Guru Charan Pathalla</span>
       <a href="https://github.com/gcpathalla/sql_and_excel" target="_blank" class="repo-link" title="View on GitHub">
@@ -982,116 +982,527 @@
   <nav id="TOC" role="navigation">
 <ul>
 <li><a href="../index.html" if "pages/" in current_page else "index.html">📚 Training Overview</a></li>
-<li><a href="pages/week1.html">Week 1: Foundations</a>
+<li><a href="week1.html">Week 1: Foundations</a>
 <ul>
-<li><a href="pages/day1.html">Day 1: Excel - Formulas
+<li><a href="day1.html">Day 1: Excel - Formulas
 & Basic Functions</a></li>
-<li><a href="pages/day2.html">Day 2: SQL - SELECT &
+<li><a href="day2.html">Day 2: SQL - SELECT &
 Aggregates</a></li>
-<li><a href="pages/day3.html">Day 3: Excel -
+<li><a href="day3.html">Day 3: Excel -
 Filtering & Conditional Funct...</a></li>
-<li><a href="pages/day4.html">Day 4: SQL - WHERE Clause
+<li><a href="day4.html">Day 4: SQL - WHERE Clause
 & Filtering</a></li>
-<li><a href="pages/day5.html">Day 5: Excel - VLOOKUP &
+<li><a href="day5.html">Day 5: Excel - VLOOKUP &
 XLOOKUP</a></li>
 </ul>
 </li>
-<li><a href="pages/week2.html">Week 2: Data Analysis</a>
+<li><a href="week2.html">Week 2: Data Analysis</a>
 <ul>
-<li><a href="pages/day6.html">Day 6: SQL - JOIN Operations</a></li>
-<li><a href="pages/day7.html">Day 7: Excel - Pivot Tables
+<li><a href="day6.html">Day 6: SQL - JOIN Operations</a></li>
+<li><a href="day7.html">Day 7: Excel - Pivot Tables
 & Charts</a></li>
-<li><a href="pages/day8.html">Day 8: SQL - GROUP BY &
+<li><a href="day8.html">Day 8: SQL - GROUP BY &
 HAVING</a></li>
-<li><a href="pages/day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
-<li><a href="pages/day10.html">Day 10: SQL - Subqueries</a></li>
+<li><a href="day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
+<li><a href="day10.html">Day 10: SQL - Subqueries</a></li>
 </ul>
 </li>
-<li><a href="pages/week3.html">Week 3: Intermediate Concepts</a>
+<li><a href="week3.html">Week 3: Intermediate Concepts</a>
 <ul>
-<li><a href="pages/day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
-<li><a href="pages/day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
-<li><a href="pages/day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
-<li><a href="pages/day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
-<li><a href="pages/day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
+<li><a href="day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
+<li><a href="day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
+<li><a href="day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
+<li><a href="day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
+<li><a href="day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
 </ul>
 </li>
-<li><a href="pages/week4.html">Week 4: Advanced Concepts</a>
+<li><a href="week4.html">Week 4: Advanced Concepts</a>
 <ul>
-<li><a href="pages/day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
-<li><a href="pages/day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
-<li><a href="pages/day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
-<li><a href="pages/day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
-<li><a href="pages/day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
+<li><a href="day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
+<li><a href="day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
+<li><a href="day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
+<li><a href="day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
+<li><a href="day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
 </ul>
 </li>
-<li><a href="pages/week5.html">Week 5: Analytics & Optimization</a>
+<li><a href="week5.html">Week 5: Analytics & Optimization</a>
 <ul>
-<li><a href="pages/day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
-<li><a href="pages/day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
-<li><a href="pages/day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
-<li><a href="pages/day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
-<li><a href="pages/day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
+<li><a href="day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
+<li><a href="day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
+<li><a href="day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
+<li><a href="day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
+<li><a href="day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
 </ul>
 </li>
-<li><a href="pages/week6.html">Week 6: Mastery & Projects</a>
+<li><a href="week6.html">Week 6: Mastery & Projects</a>
 <ul>
-<li><a href="pages/day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
-<li><a href="pages/day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
-<li><a href="pages/day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
-<li><a href="pages/day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
-<li><a href="pages/day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
+<li><a href="day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
+<li><a href="day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
+<li><a href="day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
+<li><a href="day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
+<li><a href="day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
 </ul>
 </li>
 </ul>
   </nav>
   <div class="content">
-<h2 id="complete-training-with-video-resources-ai-learning-prompts">Complete
-Training with Video Resources &amp; AI Learning Prompts</h2>
-<p><strong>Duration:</strong> 30 Days (6 weeks, 5 days/week)<br/>
-<strong>Daily Time:</strong> 4 hours<br/>
-<strong>Approach:</strong> Alternating Excel &amp; SQL with mirrored
-concepts<br/>
-<strong>Complexity:</strong> Gradual progression (beginner →
-intermediate → advanced)</p>
-<hr/>
-<h2 id="how-to-use-this-plan">📖 HOW TO USE THIS PLAN</h2>
-<h3 id="video-resources">Video Resources</h3>
-<p>Each day includes curated video tutorials to help you learn concepts
-visually.</p>
-<h3 id="ai-learning-prompts">AI Learning Prompts</h3>
-<p><strong>IMPORTANT:</strong> These prompts are for
-<strong>understanding concepts only</strong> - NOT for solving your
-assignments!</p>
+<h2 id="day-13-day-13-excel---what-if-analysis-goal-seek-data-tables-scenarios">DAY 13: Excel - What-If Analysis (Goal Seek, Data Tables, Scenarios)</h2>
+<p><strong>Learning Objectives:</strong>
+- Master Excel What-If Analysis tools
+- Use Goal Seek to find target values
+- Create one-variable and two-variable Data Tables
+- Build and compare Scenarios for forecasting
+- Apply sensitivity analysis techniques</p>
+<h3 id="topics-covered-hour-1---60-min-13">Topics Covered (60 min):</h3>
+<p><strong>1. Goal Seek</strong>
+- Find input value to achieve desired output
+- Data → What-If Analysis → Goal Seek
+- Example: Find sales needed to reach profit target
+- Set cell (formula), To value (target), By changing cell (input)</p>
+<p><strong>2. Data Tables - One Variable</strong>
+- Test multiple values for one input
+- Row or column input format
+- Example: Loan payment with different interest rates
+- Creates automatic result table</p>
+<p><strong>3. Data Tables - Two Variable</strong>
+- Test combinations of two inputs
+- Row input and column input
+- Example: Payment varies by rate AND loan term
+- Creates matrix of results</p>
+<p><strong>4. Scenario Manager</strong>
+- Create named scenarios (Best Case, Worst Case, Most Likely)
+- Save multiple sets of input values
+- Compare scenarios side-by-side
+- Generate Scenario Summary reports
+- Use for budget forecasting and planning</p>
+<h3 id="video-resources-13">Video Resources:</h3>
+<ol type="1">
+<li><p><strong>Transform Excel Data in Minutes (2025 Tutorial Part I)</strong> (21:50)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=QXzopqpHlSs" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=QXzopqpHlSs</a></p></li>
+<li><p><strong>Excel Power Query Tutorial for Beginners</strong> (11:30)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=s-_h63HM2ZY" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=s-_h63HM2ZY</a></p></li>
+<li><p><strong>Power Query - Beginner to PRO Masterclass</strong> (30:00)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=MMdcczmULrU" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=MMdcczmULrU</a></p></li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-13">AI Learning Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding What-If Analysis:</strong></p>
+<pre><code>I'm learning Excel What-If Analysis tools. Please explain:
+
+1. What is the difference between Goal Seek, Data Tables, and Scenarios?
+2. When should I use each tool?
+3. Show me how to use Goal Seek to find break-even point
+4. How do one-variable and two-variable Data Tables differ?
+5. Provide a practical example using loan calculations
+
+Use step-by-step examples for beginners.</code></pre>
+<p><strong>Understanding Scenario Analysis:</strong></p>
+<pre><code>Help me understand Scenario Manager in Excel:
+
+1. What are scenarios and why use them?
+2. How do I create Best Case, Worst Case, and Most Likely scenarios?
+3. Show me how to compare scenarios side-by-side
+4. How do I create a Scenario Summary report?
+5. Provide examples using business forecasting (revenue/cost projections)
+
+Explain with practical examples.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-13">Guided Practice (60 min):</h3>
+<div class="practice-note">
+<p><strong>📝 How to approach Guided Practice:</strong></p>
 <ul>
-<li>✅ <strong>USE prompts to:</strong> Learn concepts, understand
-theory, see different examples</li>
-<li>❌ <strong>DON’T use prompts to:</strong> Solve practice problems,
-complete assignments, cheat</li>
+<li><strong>Follow step-by-step:</strong> Work through each exercise in order</li>
+<li><strong>Use provided resources:</strong> Reference the video tutorials and AI prompts if you get stuck</li>
+<li><strong>Verify your work:</strong> Check your results match expected outcomes</li>
+<li><strong>Take notes:</strong> Document key learnings and shortcuts you discover</li>
+<li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
-<p><strong>How to use:</strong> 1. Copy the prompt (including the
-backticks) 2. Paste into Claude or ChatGPT 3. Read and understand the
-explanation 4. Then solve YOUR practice problems yourself!</p>
-<hr/>
-<h2 id="program-overview">PROGRAM OVERVIEW</h2>
-<h3 id="pacing-strategy">Pacing Strategy:</h3>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 1: Use Goal Seek to Find Break-Even Point</strong></p>
+<p><strong>Goal:</strong> Learn to use Goal Seek to find the input value needed to achieve a target result.</p>
+
+<p><strong>Setup - Create a simple profit model:</strong></p>
+<ol>
+<li>Cell A1: "Units Sold" | B1: 1000</li>
+<li>Cell A2: "Price per Unit" | B2: 50</li>
+<li>Cell A3: "Cost per Unit" | B3: 30</li>
+<li>Cell A4: "Fixed Costs" | B4: 15000</li>
+<li>Cell A5: "Profit" | B5: <code>=B1*(B2-B3)-B4</code></li>
+</ol>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Verify your formula works:</strong> B5 should show 5000 (profit with current inputs)</li>
+<li><strong>Open Goal Seek:</strong> Data tab → What-If Analysis → Goal Seek</li>
+<li><strong>In the Goal Seek dialog:</strong>
 <ul>
-<li><strong>Days 1-10:</strong> Light (8-10 practice problems) - ONE
-major concept</li>
-<li><strong>Days 11-20:</strong> Medium (12-15 problems) - TWO related
-concepts</li>
-<li><strong>Days 21-30:</strong> Advanced (15-20 problems) - Complex
-integrated topics</li>
+<li>Set cell: B5 (the profit formula cell)</li>
+<li>To value: 0 (we want to break even, zero profit)</li>
+<li>By changing cell: B1 (units sold)</li>
 </ul>
-<h3 id="resources">Resources:</h3>
-<p><strong>Datasets:</strong> - Superstore Sales:
-<a class="external-link" href="https://www.kaggle.com/datasets/vivek468/superstore-dataset-final" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.kaggle.com/datasets/vivek468/superstore-dataset-final</a>
-Employee:
-<a class="external-link" href="https://www.kaggle.com/datasets/rhuebner/human-resources-data-set" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.kaggle.com/datasets/rhuebner/human-resources-data-set</a></p>
-<p><strong>Software:</strong> - Excel: Microsoft Excel 2016+ or
-LibreOffice Calc - SQL: SQLite Browser (<a class="external-link" href="https://sqlitebrowser.org/" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://sqlitebrowser.org/</a> OR
-SQL Server + SSMS</p>
+</li>
+<li><strong>Click OK</strong> - Goal Seek will calculate the result</li>
+<li><strong>Review the solution:</strong> B1 should now show 750 units - that's your break-even point</li>
+<li><strong>Click OK to accept</strong> or Cancel to revert</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Set cell must contain a formula</strong> - Goal Seek adjusts inputs to make the formula reach target</li>
+<li><strong>By changing cell must be a value cell</strong> - cannot be a formula</li>
+<li><strong>Goal Seek finds one solution</strong> - there might be other solutions, but it finds the first one</li>
+<li><strong>Undo available:</strong> Press Ctrl+Z if you want to revert after accepting</li>
+<li><strong>Iterative calculation:</strong> Goal Seek tries different values until it finds the answer (may take a few seconds)</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Goal Seek finds that you need to sell 750 units to break even (Profit = $0)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Create One-Variable Data Table for Loan Payments</strong></p>
+<p><strong>Goal:</strong> Use Data Tables to test multiple scenarios simultaneously.</p>
+
+<p><strong>Setup - Create a loan calculator:</strong></p>
+<ol>
+<li>Cell A1: "Loan Amount" | B1: 200000</li>
+<li>Cell A2: "Interest Rate" | B2: 5%</li>
+<li>Cell A3: "Loan Term (years)" | B3: 30</li>
+<li>Cell A4: "Monthly Payment" | B4: <code>=PMT(B2/12,B3*12,-B1)</code></li>
+</ol>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Create the Data Table structure:</strong>
+<ul>
+<li>In cell D1, type: =B4 (reference to monthly payment)</li>
+<li>In cells D2:D12, type different interest rates: 3%, 3.5%, 4%, 4.5%, 5%, 5.5%, 6%, 6.5%, 7%, 7.5%, 8%</li>
+</ul>
+</li>
+<li><strong>Select the Data Table range:</strong> Select D1:E12 (formula cell + rates + empty column for results)</li>
+<li><strong>Go to Data tab → What-If Analysis → Data Table</strong></li>
+<li><strong>In the Data Table dialog:</strong>
+<ul>
+<li>Row input cell: (leave blank)</li>
+<li>Column input cell: B2 (the interest rate cell)</li>
+<li>This tells Excel: "Test each value in column D by putting it in B2"</li>
+</ul>
+</li>
+<li><strong>Click OK</strong> - Excel fills column E with monthly payments for each rate</li>
+<li><strong>Format the results:</strong> Select E2:E12 → Format as Currency</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Data Table creates array formulas</strong> - you can't edit individual cells, must edit the whole table</li>
+<li><strong>Column input = variable in column:</strong> Use column input when your test values are in a column</li>
+<li><strong>Don't delete the reference formula (D1):</strong> Data Table needs it to know what to calculate</li>
+<li><strong>Updates automatically:</strong> Change B1 (loan amount) and watch all payments recalculate</li>
+<li><strong>Can add more formulas:</strong> Put more references in F1, G1, etc. for multiple outputs</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A table showing monthly payments at different interest rates (e.g., 3%: $843, 4%: $955, 5%: $1,074, etc.)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Create Two-Variable Data Table for Sensitivity Analysis</strong></p>
+<p><strong>Goal:</strong> Analyze how two variables interact using a two-variable Data Table.</p>
+
+<p><strong>Using the same loan calculator from Exercise 2:</strong></p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Create the table structure:</strong>
+<ul>
+<li>Cell G1: =B4 (reference to monthly payment formula)</li>
+<li>Column G2:G12: Interest rates 3%, 3.5%, 4%...8% (one variable)</li>
+<li>Row H1:L1: Loan terms 15, 20, 25, 30, 35 years (second variable)</li>
+</ul>
+</li>
+<li><strong>Select the entire range:</strong> G1:L12 (includes formula, row headers, column headers, and empty grid)</li>
+<li><strong>Data → What-If Analysis → Data Table</strong></li>
+<li><strong>In the dialog:</strong>
+<ul>
+<li>Row input cell: B3 (loan term - because terms are in the row)</li>
+<li>Column input cell: B2 (interest rate - because rates are in the column)</li>
+</ul>
+</li>
+<li><strong>Click OK</strong> - Excel fills the entire grid with monthly payments for each combination</li>
+<li><strong>Format and analyze:</strong> Use Conditional Formatting to highlight high/low payments</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Two-variable = matrix of results:</strong> Shows all combinations of your two inputs</li>
+<li><strong>Corner cell (G1) must be formula:</strong> This is what gets calculated for each combination</li>
+<li><strong>Row input = horizontal values, Column input = vertical values</strong></li>
+<li><strong>Powerful for sensitivity analysis:</strong> Quickly see how two factors interact</li>
+<li><strong>Add conditional formatting:</strong> Home → Conditional Formatting → Color Scales to visualize the data</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A matrix showing monthly payments for all combinations of interest rates and loan terms</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Create Business Scenarios with Scenario Manager</strong></p>
+<p><strong>Goal:</strong> Use Scenario Manager to save and compare different sets of assumptions.</p>
+
+<p><strong>Setup - Create a simple revenue model:</strong></p>
+<ol>
+<li>Cell A1: "Units Sold" | B1: 10000</li>
+<li>Cell A2: "Price" | B2: 50</li>
+<li>Cell A3: "Cost" | B3: 30</li>
+<li>Cell A4: "Revenue" | B4: =B1*B2</li>
+<li>Cell A5: "Total Cost" | B5: =B1*B3</li>
+<li>Cell A6: "Profit" | B6: =B4-B5</li>
+</ol>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open Scenario Manager:</strong> Data → What-If Analysis → Scenario Manager</li>
+<li><strong>Click "Add" to create first scenario:</strong>
+<ul>
+<li>Scenario name: "Best Case"</li>
+<li>Changing cells: B1:B3 (select all three input cells)</li>
+<li>Click OK</li>
+<li>Enter values: Units: 15000, Price: 55, Cost: 28</li>
+<li>Click OK</li>
+</ul>
+</li>
+<li><strong>Click "Add" again for second scenario:</strong>
+<ul>
+<li>Scenario name: "Worst Case"</li>
+<li>Changing cells: B1:B3</li>
+<li>Enter values: Units: 7000, Price: 45, Cost: 33</li>
+<li>Click OK</li>
+</ul>
+</li>
+<li><strong>Create third scenario:</strong>
+<ul>
+<li>Scenario name: "Most Likely"</li>
+<li>Changing cells: B1:B3</li>
+<li>Enter values: Units: 10000, Price: 50, Cost: 30</li>
+<li>Click OK</li>
+</ul>
+</li>
+<li><strong>Click "Summary" button</strong> in Scenario Manager</li>
+<li><strong>Choose "Scenario Summary"</strong></li>
+<li><strong>Result cells:</strong> Select B4:B6 (Revenue, Cost, Profit)</li>
+<li><strong>Click OK</strong> - Excel creates a new sheet with scenario comparison</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Scenarios are named sets of inputs:</strong> Save multiple "what-if" assumptions</li>
+<li><strong>Easily switch between scenarios:</strong> Select a scenario and click "Show" to apply those values</li>
+<li><strong>Scenario Summary is a report:</strong> Creates a formatted table comparing all scenarios</li>
+<li><strong>Can have up to 32 changing cells:</strong> Complex models supported</li>
+<li><strong>Protection available:</strong> Lock scenarios to prevent accidental changes</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> A scenario summary report showing Best Case profit, Worst Case profit, and Most Likely profit side-by-side</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Advanced - Combining Goal Seek with Scenarios</strong></p>
+<p><strong>Goal:</strong> Use multiple What-If tools together for comprehensive analysis.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Using the revenue model from Exercise 4:</strong> Ensure you have Best Case, Worst Case, Most Likely scenarios saved</li>
+<li><strong>Show the "Most Likely" scenario:</strong> Data → What-If Analysis → Scenario Manager → Select "Most Likely" → Show</li>
+<li><strong>Use Goal Seek to find target units:</strong>
+<ul>
+<li>Set cell: B6 (Profit)</li>
+<li>To value: 250000 (target profit)</li>
+<li>By changing cell: B1 (Units)</li>
+<li>Note the result (e.g., 12500 units needed)</li>
+<li>Click Cancel (don't save yet)</li>
+</ul>
+</li>
+<li><strong>Now try with "Best Case" scenario:</strong>
+<ul>
+<li>Show Best Case scenario</li>
+<li>Run Goal Seek again with same target ($250K profit)</li>
+<li>Compare: Fewer units needed in Best Case due to better margins</li>
+</ul>
+</li>
+<li><strong>Create a summary table:</strong>
+<ul>
+<li>In a new area, create columns: Scenario | Units Needed for $250K Profit</li>
+<li>Manually record the Goal Seek results for each scenario</li>
+<li>This shows how your scenarios affect the path to your goal</li>
+</ul>
+</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Combine tools for deeper insights:</strong> Scenarios set the environment, Goal Seek finds the path</li>
+<li><strong>Document your analysis:</strong> Create summary tables to show management</li>
+<li><strong>What-if questions answered:</strong> "How many units do we need to sell in each scenario to hit our profit target?"</li>
+<li><strong>Real-world application:</strong> Budget planning, sales forecasting, resource allocation</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Understanding of how different scenarios require different actions to achieve the same goal</p>
+
+<p><strong>🔄 Connection to SQL:</strong> What-If Analysis is like SQL CASE statements and hypothetical queries - testing different conditions!</p>
+</div>
+<h3 id="independent-practice-hour-3---60-min-13">Independent Practice (60 min):</h3>
+<div class="practice-note">
+<p><strong>💡 Hints for Independent Practice:</strong></p>
+<ul>
+<li><strong>Start simple:</strong> Begin with basic variations before attempting complex modifications</li>
+<li><strong>Break it down:</strong> Divide complex problems into smaller, manageable steps</li>
+<li><strong>Test incrementally:</strong> Verify each step works before moving to the next</li>
+<li><strong>Use documentation:</strong> Refer to official docs or tutorials when needed</li>
+<li><strong>Experiment:</strong> Try different approaches to find what works best</li>
+</ul>
+</div>
+<p>Apply the concepts learned to different datasets and scenarios.</p>
+<h3 id="daily-assignment-hour-4---60-min-13">Daily Assignment (60 min):</h3>
+<p><strong>Assignment:</strong></p>
+<ul>
+<li><strong>Revenue Model:</strong>Input variables (price, units, growth rate), use Goal Seek to find units needed for revenue target</li>
+<li><strong>Sensitivity Analysis:</strong>Two-variable Data Table showing revenue at different price/volume combinations</li>
+<li><strong>Break-Even Analysis:</strong>Use Goal Seek to find sales volume needed to break even</li>
+</ul>
+<h3 id="expected-outcomes-13">Expected Outcomes:</h3>
+<ul>
+<li>Master Excel What-If Analysis tools</li>
+<li>Use Goal Seek to find target values</li>
+<li>Create one-variable and two-variable Data Tables</li>
+<li>Build and compare Scenarios for forecasting</li>
+<li>Apply sensitivity analysis techniques</li>
+</ul>
 <hr/>
+<h2 id="quick-quiz-day-13">📝 Day 13 Quick Quiz - Test Your Knowledge!</h2>
+<div class="quiz-container" data-day="13">
+<div class="quiz-question" data-correct="1" data-question="1">
+<p class="question-text"><strong>Q1.</strong> What is Goal Seek used for in Excel?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day13_q1" type="radio" value="0"/>
+<span class="option-text">Creating goals</span>
+</label>
+<label class="quiz-option">
+<input name="day13_q1" type="radio" value="1"/>
+<span class="option-text">Finding input value needed to achieve a desired result</span>
+</label>
+<label class="quiz-option">
+<input name="day13_q1" type="radio" value="2"/>
+<span class="option-text">Setting cell goals</span>
+</label>
+<label class="quiz-option">
+<input name="day13_q1" type="radio" value="3"/>
+<span class="option-text">Validating data</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Goal Seek works backward - you specify desired result, it finds required input value.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="2">
+<p class="question-text"><strong>Q2.</strong> What are Data Tables in Excel used for?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day13_q2" type="radio" value="0"/>
+<span class="option-text">Storing data</span>
+</label>
+<label class="quiz-option">
+<input name="day13_q2" type="radio" value="1"/>
+<span class="option-text">Testing how changes to variables affect formula results</span>
+</label>
+<label class="quiz-option">
+<input name="day13_q2" type="radio" value="2"/>
+<span class="option-text">Creating tables</span>
+</label>
+<label class="quiz-option">
+<input name="day13_q2" type="radio" value="3"/>
+<span class="option-text">Formatting data</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Data Tables show multiple results by changing one or two input variables.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="3">
+<p class="question-text"><strong>Q3.</strong> What's the difference between one-variable and two-variable Data Tables?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day13_q3" type="radio" value="0"/>
+<span class="option-text">Speed</span>
+</label>
+<label class="quiz-option">
+<input name="day13_q3" type="radio" value="1"/>
+<span class="option-text">One varies 1 input, two varies 2 inputs simultaneously</span>
+</label>
+<label class="quiz-option">
+<input name="day13_q3" type="radio" value="2"/>
+<span class="option-text">Table size</span>
+</label>
+<label class="quiz-option">
+<input name="day13_q3" type="radio" value="3"/>
+<span class="option-text">Formula complexity</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">One-variable tables change one input; two-variable tables change two inputs at once.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="4">
+<p class="question-text"><strong>Q4.</strong> What are Scenarios in Excel?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day13_q4" type="radio" value="0"/>
+<span class="option-text">Chart types</span>
+</label>
+<label class="quiz-option">
+<input name="day13_q4" type="radio" value="1"/>
+<span class="option-text">Named sets of input values you can save and switch between</span>
+</label>
+<label class="quiz-option">
+<input name="day13_q4" type="radio" value="2"/>
+<span class="option-text">Data types</span>
+</label>
+<label class="quiz-option">
+<input name="day13_q4" type="radio" value="3"/>
+<span class="option-text">Formula errors</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Scenarios let you save different sets of input values and compare results.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="5">
+<p class="question-text"><strong>Q5.</strong> When would you use Scenario Manager?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day13_q5" type="radio" value="0"/>
+<span class="option-text">To delete scenarios</span>
+</label>
+<label class="quiz-option">
+<input name="day13_q5" type="radio" value="1"/>
+<span class="option-text">To compare multiple 'what-if' cases with different assumptions</span>
+</label>
+<label class="quiz-option">
+<input name="day13_q5" type="radio" value="2"/>
+<span class="option-text">To create charts</span>
+</label>
+<label class="quiz-option">
+<input name="day13_q5" type="radio" value="3"/>
+<span class="option-text">To format cells</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">Scenario Manager lets you create, save, and compare different sets of assumptions.</p>
+</div>
+</div>
+</div>
   </div>
 </div>
 <div class="feedback-bar">
@@ -1334,24 +1745,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // 3. Highlight active page in TOC and scroll to it
+  // 3. Highlight active page in TOC and scroll to it (improved)
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const tocLinks = document.querySelectorAll('nav#TOC a');
+  const tocLinksArray = Array.from(tocLinks);
 
-  tocLinks.forEach(link => {
+  tocLinks.forEach((link, index) => {
     const linkHref = link.getAttribute('href');
     if (linkHref === currentPage || linkHref === `../${currentPage}`) {
       link.classList.add('active');
 
-      // Auto-scroll TOC to show active item
+      // Smart TOC scrolling - center items unless near the end
       setTimeout(() => {
-        const nav = document.querySelector('nav#TOC');
-        const linkTop = link.offsetTop;
-        const navHeight = nav.clientHeight;
-        const linkHeight = link.clientHeight;
+        const totalLinks = tocLinksArray.length;
+        const isNearEnd = index > totalLinks * 0.8; // Last 20% of links
 
-        // Scroll so the active link is roughly in the middle
-        nav.scrollTop = linkTop - (navHeight / 2) + (linkHeight / 2);
+        // Use scrollIntoView for smooth, smart scrolling
+        link.scrollIntoView({
+          behavior: 'smooth',
+          block: isNearEnd ? 'nearest' : 'center',
+          inline: 'nearest'
+        });
       }, 100);
     }
   });

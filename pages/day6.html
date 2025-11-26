@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>30-Day Excel & SQL Training Plan</title>
+  <title>DAY 6: SQL - JOIN Operations</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -950,7 +950,7 @@
 <body>
 <header id="title-block-header">
   <div class="header-row">
-    <h1 class="title">30-Day Excel & SQL Training Plan</h1>
+    <h1 class="title">DAY 6: SQL - JOIN Operations</h1>
     <div class="header-author">
       <span class="author-name">Guru Charan Pathalla</span>
       <a href="https://github.com/gcpathalla/sql_and_excel" target="_blank" class="repo-link" title="View on GitHub">
@@ -982,116 +982,539 @@
   <nav id="TOC" role="navigation">
 <ul>
 <li><a href="../index.html" if "pages/" in current_page else "index.html">📚 Training Overview</a></li>
-<li><a href="pages/week1.html">Week 1: Foundations</a>
+<li><a href="week1.html">Week 1: Foundations</a>
 <ul>
-<li><a href="pages/day1.html">Day 1: Excel - Formulas
+<li><a href="day1.html">Day 1: Excel - Formulas
 & Basic Functions</a></li>
-<li><a href="pages/day2.html">Day 2: SQL - SELECT &
+<li><a href="day2.html">Day 2: SQL - SELECT &
 Aggregates</a></li>
-<li><a href="pages/day3.html">Day 3: Excel -
+<li><a href="day3.html">Day 3: Excel -
 Filtering & Conditional Funct...</a></li>
-<li><a href="pages/day4.html">Day 4: SQL - WHERE Clause
+<li><a href="day4.html">Day 4: SQL - WHERE Clause
 & Filtering</a></li>
-<li><a href="pages/day5.html">Day 5: Excel - VLOOKUP &
+<li><a href="day5.html">Day 5: Excel - VLOOKUP &
 XLOOKUP</a></li>
 </ul>
 </li>
-<li><a href="pages/week2.html">Week 2: Data Analysis</a>
+<li><a href="week2.html">Week 2: Data Analysis</a>
 <ul>
-<li><a href="pages/day6.html">Day 6: SQL - JOIN Operations</a></li>
-<li><a href="pages/day7.html">Day 7: Excel - Pivot Tables
+<li><a href="day6.html">Day 6: SQL - JOIN Operations</a></li>
+<li><a href="day7.html">Day 7: Excel - Pivot Tables
 & Charts</a></li>
-<li><a href="pages/day8.html">Day 8: SQL - GROUP BY &
+<li><a href="day8.html">Day 8: SQL - GROUP BY &
 HAVING</a></li>
-<li><a href="pages/day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
-<li><a href="pages/day10.html">Day 10: SQL - Subqueries</a></li>
+<li><a href="day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
+<li><a href="day10.html">Day 10: SQL - Subqueries</a></li>
 </ul>
 </li>
-<li><a href="pages/week3.html">Week 3: Intermediate Concepts</a>
+<li><a href="week3.html">Week 3: Intermediate Concepts</a>
 <ul>
-<li><a href="pages/day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
-<li><a href="pages/day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
-<li><a href="pages/day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
-<li><a href="pages/day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
-<li><a href="pages/day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
+<li><a href="day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
+<li><a href="day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
+<li><a href="day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
+<li><a href="day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
+<li><a href="day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
 </ul>
 </li>
-<li><a href="pages/week4.html">Week 4: Advanced Concepts</a>
+<li><a href="week4.html">Week 4: Advanced Concepts</a>
 <ul>
-<li><a href="pages/day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
-<li><a href="pages/day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
-<li><a href="pages/day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
-<li><a href="pages/day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
-<li><a href="pages/day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
+<li><a href="day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
+<li><a href="day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
+<li><a href="day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
+<li><a href="day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
+<li><a href="day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
 </ul>
 </li>
-<li><a href="pages/week5.html">Week 5: Analytics & Optimization</a>
+<li><a href="week5.html">Week 5: Analytics & Optimization</a>
 <ul>
-<li><a href="pages/day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
-<li><a href="pages/day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
-<li><a href="pages/day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
-<li><a href="pages/day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
-<li><a href="pages/day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
+<li><a href="day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
+<li><a href="day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
+<li><a href="day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
+<li><a href="day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
+<li><a href="day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
 </ul>
 </li>
-<li><a href="pages/week6.html">Week 6: Mastery & Projects</a>
+<li><a href="week6.html">Week 6: Mastery & Projects</a>
 <ul>
-<li><a href="pages/day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
-<li><a href="pages/day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
-<li><a href="pages/day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
-<li><a href="pages/day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
-<li><a href="pages/day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
+<li><a href="day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
+<li><a href="day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
+<li><a href="day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
+<li><a href="day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
+<li><a href="day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
 </ul>
 </li>
 </ul>
   </nav>
   <div class="content">
-<h2 id="complete-training-with-video-resources-ai-learning-prompts">Complete
-Training with Video Resources &amp; AI Learning Prompts</h2>
-<p><strong>Duration:</strong> 30 Days (6 weeks, 5 days/week)<br/>
-<strong>Daily Time:</strong> 4 hours<br/>
-<strong>Approach:</strong> Alternating Excel &amp; SQL with mirrored
-concepts<br/>
-<strong>Complexity:</strong> Gradual progression (beginner →
-intermediate → advanced)</p>
-<hr/>
-<h2 id="how-to-use-this-plan">📖 HOW TO USE THIS PLAN</h2>
-<h3 id="video-resources">Video Resources</h3>
-<p>Each day includes curated video tutorials to help you learn concepts
-visually.</p>
-<h3 id="ai-learning-prompts">AI Learning Prompts</h3>
-<p><strong>IMPORTANT:</strong> These prompts are for
-<strong>understanding concepts only</strong> - NOT for solving your
-assignments!</p>
+<h2 id="day-6-sql---join-operations">DAY 6: SQL - JOIN Operations</h2>
+<p><strong>Learning Objectives:</strong> - Master INNER JOIN - Learn
+LEFT JOIN and RIGHT JOIN - Understand JOIN relationships - Combine data
+from multiple tables (Mirror Excel VLOOKUP)</p>
+<h3 id="topics-covered-hour-1---60-min-5">Topics Covered (60
+min):</h3>
+<p><strong>1. INNER JOIN (Mirror Excel VLOOKUP)</strong> - Returns only
+matching records from both tables - Syntax:
+<code>SELECT * FROM Orders INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID</code>
+- Example: Orders with matching customers only - Most common JOIN
+type</p>
+<p><strong>2. LEFT JOIN</strong> - Returns ALL from left table +
+matching from right - NULL for non-matching right table rows - Syntax:
+<code>SELECT * FROM Customers LEFT JOIN Orders ON Customers.ID = Orders.CustomerID</code>
+- Use case: Find customers with NO orders (WHERE Orders.ID IS NULL)</p>
+<p><strong>3. RIGHT JOIN</strong> - Returns ALL from right table +
+matching from left - Less common (can be rewritten as LEFT JOIN) -
+Usually avoid for consistency</p>
+<p><strong>4. Multi-Table JOINs</strong> - Chain JOINs:
+<code>Orders JOIN Customers ON ... JOIN Products ON ...</code> - Use
+aliases for readability:
+<code>FROM Orders O JOIN Customers C ON O.CustomerID = C.ID</code> - Get
+comprehensive data from 3+ tables</p>
+<h3 id="video-resources-6">Video Resources:</h3>
+<ol type="1">
+<li><p><strong>SQL GROUP BY Explained for Beginners</strong> (8:41)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=MXK83I9bTrU" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=MXK83I9bTrU</a></p></li>
+<li><p><strong>SQL Aggregate Functions &amp; GROUP BY</strong> (12:58)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=5IuU8mxC3iE" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=5IuU8mxC3iE</a></p></li>
+<li><p><strong>SQL GROUP BY: Visual Guide &amp; Examples</strong> (14:29)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=Fud1Rfsl9dE" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=Fud1Rfsl9dE</a></p></li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-5">AI Learning
+Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding JOINs (Mirror VLOOKUP):</strong></p>
+<pre><code>Yesterday I learned VLOOKUP in Excel. Help me understand SQL JOINs:
+
+1. How are SQL JOINs similar to Excel VLOOKUP?
+2. What's the fundamental concept of joining tables?
+3. Explain INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL OUTER JOIN
+4. When should I use each type of JOIN?
+5. Show me Venn diagrams or visual representations for each JOIN
+6. Give examples using Authors and Books tables (not sales data)
+
+Explain the parallel between VLOOKUP and JOINs clearly.</code></pre>
+<p><strong>Understanding INNER JOIN:</strong></p>
+<pre><code>Explain SQL INNER JOIN in detail:
+
+1. What does INNER JOIN return?
+2. What's the syntax: SELECT ... FROM Table1 INNER JOIN Table2 ON condition?
+3. What is the ON clause and how does it work?
+4. Show me examples using Students and Enrollments tables
+5. What happens to rows that don't have matches?
+6. Can I join on multiple columns?
+
+Use school or library data for examples (not orders).</code></pre>
+<p><strong>Understanding LEFT JOIN:</strong></p>
+<pre><code>Explain LEFT JOIN and its use cases:
+
+1. How does LEFT JOIN differ from INNER JOIN?
+2. What does "all records from left table" mean?
+3. What are NULL values in the result?
+4. When would I use LEFT JOIN vs INNER JOIN?
+5. Show me examples: find customers who haven't made purchases using Customers LEFT JOIN Orders
+6. How do I find records that DON'T have matches (WHERE column IS NULL)?
+
+Use customer or membership data for examples.</code></pre>
+<p><strong>Understanding Multi-Table JOINs:</strong></p>
+<pre><code>Explain joining more than 2 tables:
+
+1. How do I chain multiple JOINs?
+2. Does the order of JOINs matter?
+3. What are table aliases and why use them (AS)?
+4. Show me how to JOIN 3 tables: Authors, Books, Publishers
+5. How do I keep track of which columns come from which table?
+
+Use publishing or university data for examples (not sales).</code></pre>
+<h3 id="guided-practice-hour-2---60-min-5">Guided Practice (60
+min):</h3>
+<div class="practice-note">
+<p><strong>📝 How to approach Guided Practice:</strong></p>
 <ul>
-<li>✅ <strong>USE prompts to:</strong> Learn concepts, understand
-theory, see different examples</li>
-<li>❌ <strong>DON’T use prompts to:</strong> Solve practice problems,
-complete assignments, cheat</li>
+<li><strong>Follow step-by-step:</strong> Work through each exercise in order</li>
+<li><strong>Use provided resources:</strong> Reference the video tutorials and AI prompts if you get stuck</li>
+<li><strong>Verify your work:</strong> Check your results match expected outcomes</li>
+<li><strong>Take notes:</strong> Document key learnings and shortcuts you discover</li>
+<li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
-<p><strong>How to use:</strong> 1. Copy the prompt (including the
-backticks) 2. Paste into Claude or ChatGPT 3. Read and understand the
-explanation 4. Then solve YOUR practice problems yourself!</p>
-<hr/>
-<h2 id="program-overview">PROGRAM OVERVIEW</h2>
-<h3 id="pacing-strategy">Pacing Strategy:</h3>
+</div>
+<p><em>Using Superstore Sales with separate tables - SQL Practice</em></p>
+<div class="section-card">
+<p><strong>📝 Setup Instructions:</strong></p>
+<ol>
+<li>Open SQLite Browser with your database</li>
+<li>You should have 3 tables: Orders, Customers, Products</li>
+<li><strong>Orders table:</strong> OrderID, CustomerID, ProductID, Quantity, OrderDate</li>
+<li><strong>Customers table:</strong> CustomerID, CustomerName, Region, Email</li>
+<li><strong>Products table:</strong> ProductID, ProductName, Category, Price</li>
+</ol>
+<p><strong>💡 JOINs = SQL's VLOOKUP:</strong> Remember Day 5 (Excel VLOOKUP)? SQL JOINs do the same thing - combine related data from multiple tables! But JOINs are more powerful and flexible.</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 1: Your First INNER JOIN - Add Customer Names</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Type this query to join Orders with Customers:
+<pre><code>SELECT
+    Orders.OrderID,
+    Orders.CustomerID,
+    Customers.CustomerName,
+    Customers.Region,
+    Orders.Quantity
+FROM Orders
+INNER JOIN Customers
+    ON Orders.CustomerID = Customers.CustomerID
+LIMIT 20;</code></pre>
+</li>
+<li>Click Execute (▶️)</li>
+<li>You'll see order data WITH customer details!</li>
+</ol>
+<p><strong>🔍 Understanding the Syntax:</strong></p>
 <ul>
-<li><strong>Days 1-10:</strong> Light (8-10 practice problems) - ONE
-major concept</li>
-<li><strong>Days 11-20:</strong> Medium (12-15 problems) - TWO related
-concepts</li>
-<li><strong>Days 21-30:</strong> Advanced (15-20 problems) - Complex
-integrated topics</li>
+<li><code>FROM Orders</code> = Start with Orders table (left table)</li>
+<li><code>INNER JOIN Customers</code> = Connect to Customers table (right table)</li>
+<li><code>ON Orders.CustomerID = Customers.CustomerID</code> = Matching condition (like VLOOKUP lookup value)</li>
+<li><code>Orders.OrderID</code> = Specify which table each column comes from</li>
 </ul>
-<h3 id="resources">Resources:</h3>
-<p><strong>Datasets:</strong> - Superstore Sales:
-<a class="external-link" href="https://www.kaggle.com/datasets/vivek468/superstore-dataset-final" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.kaggle.com/datasets/vivek468/superstore-dataset-final</a>
-Employee:
-<a class="external-link" href="https://www.kaggle.com/datasets/rhuebner/human-resources-data-set" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.kaggle.com/datasets/rhuebner/human-resources-data-set</a></p>
-<p><strong>Software:</strong> - Excel: Microsoft Excel 2016+ or
-LibreOffice Calc - SQL: SQLite Browser (<a class="external-link" href="https://sqlitebrowser.org/" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://sqlitebrowser.org/</a> OR
-SQL Server + SSMS</p>
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li>INNER JOIN returns only rows where match exists in BOTH tables</li>
+<li>Always specify table name for columns: <code>Orders.CustomerID</code></li>
+<li>The ON clause is like the VLOOKUP match - it connects related records</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Orders with customer names and regions added</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: JOIN to Add Product Information</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Now join Orders with Products to get product details:
+<pre><code>SELECT
+    Orders.OrderID,
+    Orders.ProductID,
+    Products.ProductName,
+    Products.Category,
+    Products.Price,
+    Orders.Quantity,
+    (Products.Price * Orders.Quantity) AS TotalPrice
+FROM Orders
+INNER JOIN Products
+    ON Orders.ProductID = Products.ProductID
+ORDER BY TotalPrice DESC
+LIMIT 20;</code></pre>
+</li>
+<li>Notice we calculated TotalPrice directly in the query!</li>
+<li>This is the SQL equivalent of Day 5's VLOOKUP + multiplication</li>
+</ol>
+<p><strong>💡 JOIN vs VLOOKUP Comparison:</strong></p>
+<ul>
+<li><strong>Excel Day 5:</strong> <code>=VLOOKUP(C2, Products!A:D, 4, FALSE)</code></li>
+<li><strong>SQL Day 6:</strong> <code>INNER JOIN Products ON Orders.ProductID = Products.ProductID</code></li>
+<li>Same concept, different syntax!</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Orders with product names, categories, prices, and calculated totals</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: LEFT JOIN - Include ALL Orders (Even Without Matches)</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>LEFT JOIN keeps ALL rows from the left table, even if no match exists:
+<pre><code>SELECT
+    Orders.OrderID,
+    Orders.CustomerID,
+    Customers.CustomerName,
+    Customers.Region
+FROM Orders
+LEFT JOIN Customers
+    ON Orders.CustomerID = Customers.CustomerID;</code></pre>
+</li>
+<li>If an OrderID has a CustomerID not in the Customers table, it still shows (with NULL for customer fields)</li>
+<li>Try finding orders with missing customers:
+<pre><code>SELECT
+    Orders.OrderID,
+    Orders.CustomerID,
+    Customers.CustomerName
+FROM Orders
+LEFT JOIN Customers
+    ON Orders.CustomerID = Customers.CustomerID
+WHERE Customers.CustomerName IS NULL;</code></pre>
+This finds "orphaned" orders - orders without matching customers!
+</li>
+</ol>
+<p><strong>🎯 JOIN Types Comparison:</strong></p>
+<ul>
+<li><strong>INNER JOIN:</strong> Only rows with matches in BOTH tables (most common)</li>
+<li><strong>LEFT JOIN:</strong> ALL rows from left table + matching rows from right (right can be NULL)</li>
+<li><strong>RIGHT JOIN:</strong> ALL rows from right table + matching rows from left (left can be NULL)</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> All orders, including those without matching customers (if any)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Three-Table JOIN - Complete Order View</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Join all three tables for a comprehensive view:
+<pre><code>SELECT
+    Orders.OrderID,
+    Customers.CustomerName,
+    Customers.Region,
+    Products.ProductName,
+    Products.Category,
+    Products.Price,
+    Orders.Quantity,
+    (Products.Price * Orders.Quantity) AS TotalPrice
+FROM Orders
+INNER JOIN Customers
+    ON Orders.CustomerID = Customers.CustomerID
+INNER JOIN Products
+    ON Orders.ProductID = Products.ProductID
+ORDER BY TotalPrice DESC
+LIMIT 30;</code></pre>
+</li>
+<li>This single query combines data from 3 tables!</li>
+<li>You can add WHERE clauses too:
+<pre><code>WHERE Customers.Region = 'West' AND Products.Category = 'Technology'</code></pre>
+</li>
+</ol>
+<p><strong>💡 Multiple JOINs:</strong></p>
+<ul>
+<li>Stack JOINs one after another</li>
+<li>Each JOIN connects to the previous result</li>
+<li>You can join as many tables as needed</li>
+<li>This is database normalization in action!</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Complete order information with customer and product details in one query</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: JOIN + GROUP BY - Aggregate Across Tables</strong></p>
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li>Calculate total sales per customer using JOIN + GROUP BY:
+<pre><code>SELECT
+    Customers.CustomerName,
+    Customers.Region,
+    COUNT(Orders.OrderID) AS TotalOrders,
+    SUM(Products.Price * Orders.Quantity) AS TotalSales
+FROM Orders
+INNER JOIN Customers
+    ON Orders.CustomerID = Customers.CustomerID
+INNER JOIN Products
+    ON Orders.ProductID = Products.ProductID
+GROUP BY Customers.CustomerName, Customers.Region
+ORDER BY TotalSales DESC
+LIMIT 10;</code></pre>
+</li>
+<li>This finds your top 10 customers by total sales!</li>
+<li><strong>Try these variations:</strong>
+<ul>
+<li>Total sales by Region: <code>GROUP BY Customers.Region</code></li>
+<li>Total sales by Category: <code>GROUP BY Products.Category</code></li>
+<li>Top products: <code>GROUP BY Products.ProductName</code></li>
+</ul>
+</li>
+</ol>
+<p><strong>🎯 Combining Concepts:</strong></p>
+<p>This exercise combines:</p>
+<ul>
+<li>Day 2: SELECT, aggregate functions (SUM, COUNT)</li>
+<li>Day 4: WHERE clause (can add filters)</li>
+<li>Day 6: JOINs (connecting tables)</li>
+<li>Plus: GROUP BY (we'll cover more in Day 8)</li>
+</ul>
+<p><strong>✅ Expected Result:</strong> Customer ranking by total sales value</p>
+</div>
+
+<div class="section-card">
+<p><strong>🎯 Practice Goal Checkpoint:</strong></p>
+<p>By completing these 5 exercises, you should now be able to:</p>
+<ul>
+<li>Use INNER JOIN to combine data from multiple tables</li>
+<li>Understand the ON clause (matching condition)</li>
+<li>Use LEFT JOIN to include all rows from one table</li>
+<li>Join three or more tables in a single query</li>
+<li>Combine JOINs with WHERE, GROUP BY, and aggregates</li>
+<li>See the parallel between SQL JOINs and Excel VLOOKUPs</li>
+</ul>
+<p><strong>Key Insight:</strong> JOINs are how databases connect related data. Instead of storing everything in one giant table (like Excel), we normalize data into separate tables and JOIN them when needed. This is more efficient and reduces data duplication!</p>
+<p><strong>Excel vs SQL Data Combination:</strong></p>
+<ul>
+<li><strong>Excel (Day 5):</strong> VLOOKUP pulls one value at a time</li>
+<li><strong>SQL (Day 6):</strong> JOIN combines entire tables at once</li>
+<li>Same goal, but SQL is more powerful for large datasets!</li>
+</ul>
+<p><strong>Take a 5-minute break, then move on to Independent Practice!</strong></p>
+</div>
+<h3 id="independent-practice-hour-3---60-min-5">Independent Practice
+(60 min):</h3>
+<div class="practice-note">
+<p><strong>💡 Hints for Independent Practice:</strong></p>
+<ul>
+<li><strong>Start simple:</strong> Begin with basic variations before attempting complex modifications</li>
+<li><strong>Break it down:</strong> Divide complex problems into smaller, manageable steps</li>
+<li><strong>Test incrementally:</strong> Verify each step works before moving to the next</li>
+<li><strong>Use documentation:</strong> Refer to official docs or tutorials when needed</li>
+<li><strong>Experiment:</strong> Try different approaches to find what works best</li>
+</ul>
+</div>
+<ol type="1">
+<li>List all orders with customer and product details (3-table
+JOIN)</li>
+<li>Find products that were never ordered (LEFT JOIN Products and
+Orders)</li>
+<li>Show orders with customer region information</li>
+<li>Calculate total revenue per product category (JOIN + SUM + GROUP
+BY)</li>
+<li>List customers with their order count (JOIN + COUNT + GROUP BY)</li>
+<li>Find high-value customers (total orders &gt; $10,000)</li>
+<li>Show which products were sold in each region</li>
+<li>Display orders with customer state and product category</li>
+<li>Calculate average sales per customer</li>
+<li>Find top 5 products by total revenue</li>
+</ol>
+<h3 id="daily-assignment-hour-4---60-min-5">Daily Assignment (60 min):</h3>
+<ul>
+<li>Create comprehensive sales report: Orders + Customers +
+Products</li>
+<li>This mirrors your Excel Day 5 VLOOKUP assignment!</li>
+<li>Include: Customer names, regions, product details, totals</li>
+<li><strong>Save as:</strong> Day06_SQL_Practice.sql</li>
+</ul>
+<h3 id="expected-outcomes-5">Expected Outcomes:</h3>
+<p>✓ JOIN tables to combine related data<br/>
+✓ Understand different JOIN types and when to use each<br/>
+✓ Combine data from 3+ tables<br/>
+✓ Submit: Day06_SQL_Practice.sql</p>
 <hr/>
+<h2 id="quick-quiz-day-6">📝 Day 6 Quick Quiz - Test Your Knowledge!</h2>
+<div class="quiz-container" data-day="6">
+<div class="quiz-question" data-correct="1" data-question="1">
+<p class="question-text"><strong>Q1.</strong> What does INNER JOIN return?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day6_q1" type="radio" value="0"/>
+<span class="option-text">All rows from both tables</span>
+</label>
+<label class="quiz-option">
+<input name="day6_q1" type="radio" value="1"/>
+<span class="option-text">Only matching rows from both tables</span>
+</label>
+<label class="quiz-option">
+<input name="day6_q1" type="radio" value="2"/>
+<span class="option-text">All rows from left table only</span>
+</label>
+<label class="quiz-option">
+<input name="day6_q1" type="radio" value="3"/>
+<span class="option-text">All rows from right table only</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">INNER JOIN returns only rows where the join condition is met in BOTH tables.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="2">
+<p class="question-text"><strong>Q2.</strong> What's the difference between LEFT JOIN and RIGHT JOIN?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day6_q2" type="radio" value="0"/>
+<span class="option-text">No difference, just syntax</span>
+</label>
+<label class="quiz-option">
+<input name="day6_q2" type="radio" value="1"/>
+<span class="option-text">LEFT keeps all left table rows, RIGHT keeps all right table rows</span>
+</label>
+<label class="quiz-option">
+<input name="day6_q2" type="radio" value="2"/>
+<span class="option-text">LEFT is faster</span>
+</label>
+<label class="quiz-option">
+<input name="day6_q2" type="radio" value="3"/>
+<span class="option-text">RIGHT allows NULL values</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">LEFT JOIN keeps all rows from left table; RIGHT JOIN keeps all rows from right table.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="3">
+<p class="question-text"><strong>Q3.</strong> What keyword specifies the join condition?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day6_q3" type="radio" value="0"/>
+<span class="option-text">WHERE</span>
+</label>
+<label class="quiz-option">
+<input name="day6_q3" type="radio" value="1"/>
+<span class="option-text">ON</span>
+</label>
+<label class="quiz-option">
+<input name="day6_q3" type="radio" value="2"/>
+<span class="option-text">USING</span>
+</label>
+<label class="quiz-option">
+<input name="day6_q3" type="radio" value="3"/>
+<span class="option-text">WITH</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">ON specifies which columns to match when joining tables.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="4">
+<p class="question-text"><strong>Q4.</strong> What does a CROSS JOIN produce?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day6_q4" type="radio" value="0"/>
+<span class="option-text">Inner join</span>
+</label>
+<label class="quiz-option">
+<input name="day6_q4" type="radio" value="1"/>
+<span class="option-text">Cartesian product of both tables</span>
+</label>
+<label class="quiz-option">
+<input name="day6_q4" type="radio" value="2"/>
+<span class="option-text">Only matching rows</span>
+</label>
+<label class="quiz-option">
+<input name="day6_q4" type="radio" value="3"/>
+<span class="option-text">Error</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">CROSS JOIN creates every possible combination of rows from both tables.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="5">
+<p class="question-text"><strong>Q5.</strong> If Table A has 5 rows and Table B has 3 rows, how many rows does LEFT JOIN produce (all rows match)?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day6_q5" type="radio" value="0"/>
+<span class="option-text">3 rows</span>
+</label>
+<label class="quiz-option">
+<input name="day6_q5" type="radio" value="1"/>
+<span class="option-text">5 rows</span>
+</label>
+<label class="quiz-option">
+<input name="day6_q5" type="radio" value="2"/>
+<span class="option-text">8 rows</span>
+</label>
+<label class="quiz-option">
+<input name="day6_q5" type="radio" value="3"/>
+<span class="option-text">15 rows</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">LEFT JOIN keeps all 5 rows from the left table (Table A).</p>
+</div>
+</div>
+</div>
   </div>
 </div>
 <div class="feedback-bar">
@@ -1334,24 +1757,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // 3. Highlight active page in TOC and scroll to it
+  // 3. Highlight active page in TOC and scroll to it (improved)
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const tocLinks = document.querySelectorAll('nav#TOC a');
+  const tocLinksArray = Array.from(tocLinks);
 
-  tocLinks.forEach(link => {
+  tocLinks.forEach((link, index) => {
     const linkHref = link.getAttribute('href');
     if (linkHref === currentPage || linkHref === `../${currentPage}`) {
       link.classList.add('active');
 
-      // Auto-scroll TOC to show active item
+      // Smart TOC scrolling - center items unless near the end
       setTimeout(() => {
-        const nav = document.querySelector('nav#TOC');
-        const linkTop = link.offsetTop;
-        const navHeight = nav.clientHeight;
-        const linkHeight = link.clientHeight;
+        const totalLinks = tocLinksArray.length;
+        const isNearEnd = index > totalLinks * 0.8; // Last 20% of links
 
-        // Scroll so the active link is roughly in the middle
-        nav.scrollTop = linkTop - (navHeight / 2) + (linkHeight / 2);
+        // Use scrollIntoView for smooth, smart scrolling
+        link.scrollIntoView({
+          behavior: 'smooth',
+          block: isNearEnd ? 'nearest' : 'center',
+          inline: 'nearest'
+        });
       }, 100);
     }
   });

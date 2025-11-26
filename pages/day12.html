@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>30-Day Excel & SQL Training Plan</title>
+  <title>DAY 12: SQL - Date Functions & Window Functions Part 1 (ROW_NUMBER, RANK)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -950,7 +950,7 @@
 <body>
 <header id="title-block-header">
   <div class="header-row">
-    <h1 class="title">30-Day Excel & SQL Training Plan</h1>
+    <h1 class="title">DAY 12: SQL - Date Functions & Window Functions Part 1 (ROW_NUMBER, RANK)</h1>
     <div class="header-author">
       <span class="author-name">Guru Charan Pathalla</span>
       <a href="https://github.com/gcpathalla/sql_and_excel" target="_blank" class="repo-link" title="View on GitHub">
@@ -982,116 +982,652 @@
   <nav id="TOC" role="navigation">
 <ul>
 <li><a href="../index.html" if "pages/" in current_page else "index.html">📚 Training Overview</a></li>
-<li><a href="pages/week1.html">Week 1: Foundations</a>
+<li><a href="week1.html">Week 1: Foundations</a>
 <ul>
-<li><a href="pages/day1.html">Day 1: Excel - Formulas
+<li><a href="day1.html">Day 1: Excel - Formulas
 & Basic Functions</a></li>
-<li><a href="pages/day2.html">Day 2: SQL - SELECT &
+<li><a href="day2.html">Day 2: SQL - SELECT &
 Aggregates</a></li>
-<li><a href="pages/day3.html">Day 3: Excel -
+<li><a href="day3.html">Day 3: Excel -
 Filtering & Conditional Funct...</a></li>
-<li><a href="pages/day4.html">Day 4: SQL - WHERE Clause
+<li><a href="day4.html">Day 4: SQL - WHERE Clause
 & Filtering</a></li>
-<li><a href="pages/day5.html">Day 5: Excel - VLOOKUP &
+<li><a href="day5.html">Day 5: Excel - VLOOKUP &
 XLOOKUP</a></li>
 </ul>
 </li>
-<li><a href="pages/week2.html">Week 2: Data Analysis</a>
+<li><a href="week2.html">Week 2: Data Analysis</a>
 <ul>
-<li><a href="pages/day6.html">Day 6: SQL - JOIN Operations</a></li>
-<li><a href="pages/day7.html">Day 7: Excel - Pivot Tables
+<li><a href="day6.html">Day 6: SQL - JOIN Operations</a></li>
+<li><a href="day7.html">Day 7: Excel - Pivot Tables
 & Charts</a></li>
-<li><a href="pages/day8.html">Day 8: SQL - GROUP BY &
+<li><a href="day8.html">Day 8: SQL - GROUP BY &
 HAVING</a></li>
-<li><a href="pages/day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
-<li><a href="pages/day10.html">Day 10: SQL - Subqueries</a></li>
+<li><a href="day9.html">Day 9: Excel - Advanced Functions (SUMIFS, C...</a></li>
+<li><a href="day10.html">Day 10: SQL - Subqueries</a></li>
 </ul>
 </li>
-<li><a href="pages/week3.html">Week 3: Intermediate Concepts</a>
+<li><a href="week3.html">Week 3: Intermediate Concepts</a>
 <ul>
-<li><a href="pages/day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
-<li><a href="pages/day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
-<li><a href="pages/day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
-<li><a href="pages/day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
-<li><a href="pages/day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
+<li><a href="day11.html">Day 11: Excel - Date Functions (TODAY, DATEDI...</a></li>
+<li><a href="day12.html">Day 12: SQL - Date Functions & Window Functio...</a></li>
+<li><a href="day13.html">Day 13: Excel - What-If Analysis (Goal Seek, ...</a></li>
+<li><a href="day14.html">Day 14: SQL - Window Functions Part 2 (LAG, L...</a></li>
+<li><a href="day15.html">Day 15: Excel - Power Query Basics + WEEK 3 TEST</a></li>
 </ul>
 </li>
-<li><a href="pages/week4.html">Week 4: Advanced Concepts</a>
+<li><a href="week4.html">Week 4: Advanced Concepts</a>
 <ul>
-<li><a href="pages/day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
-<li><a href="pages/day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
-<li><a href="pages/day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
-<li><a href="pages/day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
-<li><a href="pages/day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
+<li><a href="day16.html">Day 16: SQL - CTEs & Recursive Queries</a></li>
+<li><a href="day17.html">Day 17: Excel - Power Pivot & Data Modeling (...</a></li>
+<li><a href="day18.html">Day 18: SQL - CASE Statements & PIVOT/UNPIVOT</a></li>
+<li><a href="day19.html">Day 19: Excel - Advanced Charts & Dashboards</a></li>
+<li><a href="day20.html">Day 20: SQL - Views, Stored Procedures, Optim...</a></li>
 </ul>
 </li>
-<li><a href="pages/week5.html">Week 5: Analytics & Optimization</a>
+<li><a href="week5.html">Week 5: Analytics & Optimization</a>
 <ul>
-<li><a href="pages/day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
-<li><a href="pages/day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
-<li><a href="pages/day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
-<li><a href="pages/day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
-<li><a href="pages/day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
+<li><a href="day21.html">Day 21: Excel - Statistical Analysis & Foreca...</a></li>
+<li><a href="day22.html">Day 22: SQL - Advanced Aggregations (GROUPING...</a></li>
+<li><a href="day23.html">Day 23: Excel - Advanced Conditional Formatti...</a></li>
+<li><a href="day24.html">Day 24: SQL - Query Optimization & Performanc...</a></li>
+<li><a href="day25.html">Day 25: Integration Project: Excel + SQL + WE...</a></li>
 </ul>
 </li>
-<li><a href="pages/week6.html">Week 6: Mastery & Projects</a>
+<li><a href="week6.html">Week 6: Mastery & Projects</a>
 <ul>
-<li><a href="pages/day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
-<li><a href="pages/day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
-<li><a href="pages/day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
-<li><a href="pages/day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
-<li><a href="pages/day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
+<li><a href="day26.html">Day 26: Excel - Macros & Automation Basics</a></li>
+<li><a href="day27.html">Day 27: SQL - Advanced Analytics (Cohort, Ret...</a></li>
+<li><a href="day28.html">Day 28: Excel - Executive Dashboard Creation</a></li>
+<li><a href="day29.html">Day 29: SQL - Complex Business Scenarios</a></li>
+<li><a href="day30.html">Day 30: FINAL PROJECT & COMPREHENSIVE ASSESSMENT</a></li>
 </ul>
 </li>
 </ul>
   </nav>
   <div class="content">
-<h2 id="complete-training-with-video-resources-ai-learning-prompts">Complete
-Training with Video Resources &amp; AI Learning Prompts</h2>
-<p><strong>Duration:</strong> 30 Days (6 weeks, 5 days/week)<br/>
-<strong>Daily Time:</strong> 4 hours<br/>
-<strong>Approach:</strong> Alternating Excel &amp; SQL with mirrored
-concepts<br/>
-<strong>Complexity:</strong> Gradual progression (beginner →
-intermediate → advanced)</p>
-<hr/>
-<h2 id="how-to-use-this-plan">📖 HOW TO USE THIS PLAN</h2>
-<h3 id="video-resources">Video Resources</h3>
-<p>Each day includes curated video tutorials to help you learn concepts
-visually.</p>
-<h3 id="ai-learning-prompts">AI Learning Prompts</h3>
-<p><strong>IMPORTANT:</strong> These prompts are for
-<strong>understanding concepts only</strong> - NOT for solving your
-assignments!</p>
+<h2 id="day-12-sql---date-functions-window-functions-part-1">DAY 12: SQL - Date Functions &amp; Window Functions Part 1 (ROW_NUMBER, RANK)</h2>
+<p><strong>Learning Objectives:</strong>
+- Master SQL date and time functions
+- Understand window functions and OVER clause
+- Use ROW_NUMBER for ranking and pagination
+- Apply RANK and DENSE_RANK for competitive ranking</p>
+<h3 id="topics-covered-hour-1---60-min-12">Topics Covered (60 min):</h3>
+<p><strong>1. SQL Date Functions</strong>
+- <code>GETDATE()</code> / <code>CURRENT_DATE</code> - Current date/time
+- <code>DATEADD(interval, number, date)</code> - Add/subtract dates
+- <code>DATEDIFF(interval, start_date, end_date)</code> - Date difference
+- <code>DATEPART(part, date)</code> - Extract year, month, day, etc.
+- <code>EOMONTH(date, months)</code> - End of month calculation</p>
+<p><strong>2. Date Formatting &amp; Extraction</strong>
+- <code>YEAR(date)</code>, <code>MONTH(date)</code>, <code>DAY(date)</code>
+- <code>DATENAME(part, date)</code> - Get month/day names
+- <code>FORMAT(date, 'format')</code> - Custom date formatting
+- Example: <code>WHERE YEAR(OrderDate) = 2023 AND MONTH(OrderDate) = 12</code></p>
+<p><strong>3. Window Functions - ROW_NUMBER</strong>
+- Syntax: <code>ROW_NUMBER() OVER (PARTITION BY col ORDER BY col)</code>
+- Assigns unique sequential numbers within partitions
+- Use for: pagination, top N per group, duplicate detection
+- Example: Number orders per customer</p>
+<p><strong>4. Window Functions - RANK &amp; DENSE_RANK</strong>
+- <code>RANK()</code> - Leaves gaps after ties (1, 2, 2, 4)
+- <code>DENSE_RANK()</code> - No gaps (1, 2, 2, 3)
+- Use PARTITION BY to rank within groups
+- Example: Rank salespeople by revenue per region</p>
+<h3 id="video-resources-12">Video Resources:</h3>
+<ol type="1">
+<li><p><strong>SQL Window Functions | Clearly Explained</strong> (7:16)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=rIcB4zMYMas" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=rIcB4zMYMas</a></p></li>
+<li><p><strong>SQL Window Functions Basics (Visually Explained)</strong> (18:47)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=o666k19mZwE" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=o666k19mZwE</a></p></li>
+<li><p><strong>SQL Window Function | RANK, ROW_NUMBER, LAG, LEAD</strong> (24:54)<br/>
+<a class="external-link" href="https://www.youtube.com/watch?v=Ww71knvhQ-s" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.youtube.com/watch?v=Ww71knvhQ-s</a></p></li>
+</ol>
+<h3 id="ai-learning-prompts-concept-understanding-only-12">AI Learning Prompts (Concept Understanding Only):</h3>
+<p><strong>Understanding SQL Date Functions:</strong></p>
+<pre><code>I'm learning SQL date functions. Please explain:
+
+1. What is the difference between DATEADD and DATEDIFF?
+2. How do I calculate "days since last order" for each customer?
+3. Show me how to extract year, quarter, month from dates
+4. How do I filter for "last 30 days" or "current month"?
+5. Provide examples for calculating customer age from birthdate
+
+Use SQL Server syntax with clear examples.</code></pre>
+<p><strong>Understanding Window Functions:</strong></p>
+<pre><code>Help me understand SQL window functions:
+
+1. What does the OVER clause do?
+2. Explain the difference between ROW_NUMBER(), RANK(), and DENSE_RANK()
+3. What is PARTITION BY and how does it work?
+4. Show me how to find "top 3 products per category by sales"
+5. How do I use ROW_NUMBER for pagination?
+6. Provide examples using sales and customer data
+
+Explain with simple examples suitable for beginners.</code></pre>
+<h3 id="guided-practice-hour-2---60-min-12">Guided Practice (60 min):</h3>
+<div class="practice-note">
+<p><strong>📝 How to approach Guided Practice:</strong></p>
 <ul>
-<li>✅ <strong>USE prompts to:</strong> Learn concepts, understand
-theory, see different examples</li>
-<li>❌ <strong>DON’T use prompts to:</strong> Solve practice problems,
-complete assignments, cheat</li>
+<li><strong>Follow step-by-step:</strong> Work through each exercise in order</li>
+<li><strong>Use provided resources:</strong> Reference the video tutorials and AI prompts if you get stuck</li>
+<li><strong>Verify your work:</strong> Check your results match expected outcomes</li>
+<li><strong>Take notes:</strong> Document key learnings and shortcuts you discover</li>
+<li><strong>Ask for help:</strong> Use AI assistants to clarify concepts you don't understand</li>
 </ul>
-<p><strong>How to use:</strong> 1. Copy the prompt (including the
-backticks) 2. Paste into Claude or ChatGPT 3. Read and understand the
-explanation 4. Then solve YOUR practice problems yourself!</p>
-<hr/>
-<h2 id="program-overview">PROGRAM OVERVIEW</h2>
-<h3 id="pacing-strategy">Pacing Strategy:</h3>
+</div>
+
+<p><em>📊 Dataset: Superstore Sales with columns: OrderID, OrderDate, CustomerID, CustomerName, Region, Category, ProductName, Sales</em></p>
+
+<div class="section-card">
+<p><strong>Exercise 1: Calculate Days Since Last Order (DATEDIFF and MAX)</strong></p>
+<p><strong>Goal:</strong> Learn to use DATEDIFF function with aggregates to calculate customer recency.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Open your SQL editor</strong> and connect to your database</li>
+<li><strong>Understand the requirement:</strong> For each customer, find their most recent order date and calculate how many days ago that was</li>
+<li><strong>Start with finding the last order date per customer:</strong>
+<pre><code>SELECT CustomerID,
+       MAX(OrderDate) AS LastOrderDate
+FROM Orders
+GROUP BY CustomerID;</code></pre>
+Execute this to verify it shows the most recent order for each customer</li>
+<li><strong>Now add the days calculation using DATEDIFF:</strong>
+<pre><code>SELECT CustomerID,
+       MAX(OrderDate) AS LastOrderDate,
+       DATEDIFF(day, MAX(OrderDate), GETDATE()) AS DaysSinceLastOrder
+FROM Orders
+GROUP BY CustomerID
+ORDER BY DaysSinceLastOrder DESC;</code></pre></li>
+<li><strong>Analyze the results:</strong> Sort by DaysSinceLastOrder DESC to see customers who haven't ordered in the longest time</li>
+<li><strong>Add customer names for readability:</strong>
+<pre><code>SELECT CustomerID,
+       MAX(CustomerName) AS CustomerName,
+       MAX(OrderDate) AS LastOrderDate,
+       DATEDIFF(day, MAX(OrderDate), GETDATE()) AS DaysSinceLastOrder
+FROM Orders
+GROUP BY CustomerID
+ORDER BY DaysSinceLastOrder DESC
+LIMIT 20;</code></pre></li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
 <ul>
-<li><strong>Days 1-10:</strong> Light (8-10 practice problems) - ONE
-major concept</li>
-<li><strong>Days 11-20:</strong> Medium (12-15 problems) - TWO related
-concepts</li>
-<li><strong>Days 21-30:</strong> Advanced (15-20 problems) - Complex
-integrated topics</li>
+<li><strong>DATEDIFF syntax:</strong> <code>DATEDIFF(unit, start_date, end_date)</code> - unit can be day, month, year, hour, etc.</li>
+<li><strong>GETDATE() vs CURRENT_DATE:</strong> Use GETDATE() for SQL Server, CURRENT_DATE for PostgreSQL, NOW() for MySQL</li>
+<li><strong>MAX with GROUP BY:</strong> MAX(OrderDate) finds the most recent date for each CustomerID group</li>
+<li><strong>Why MAX(CustomerName)?:</strong> Since CustomerName is same for all orders of a customer, MAX just picks that value</li>
+<li><strong>Database differences:</strong> PostgreSQL uses <code>CURRENT_DATE - MAX(OrderDate)</code>, MySQL uses <code>DATEDIFF(CURDATE(), MAX(OrderDate))</code></li>
+<li><strong>Business use case:</strong> This query identifies "at-risk" customers who haven't ordered recently</li>
 </ul>
-<h3 id="resources">Resources:</h3>
-<p><strong>Datasets:</strong> - Superstore Sales:
-<a class="external-link" href="https://www.kaggle.com/datasets/vivek468/superstore-dataset-final" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.kaggle.com/datasets/vivek468/superstore-dataset-final</a>
-Employee:
-<a class="external-link" href="https://www.kaggle.com/datasets/rhuebner/human-resources-data-set" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://www.kaggle.com/datasets/rhuebner/human-resources-data-set</a></p>
-<p><strong>Software:</strong> - Excel: Microsoft Excel 2016+ or
-LibreOffice Calc - SQL: SQLite Browser (<a class="external-link" href="https://sqlitebrowser.org/" target="_blank" title="Open link"><svg class="link-icon" fill="currentColor" height="14" viewbox="0 0 16 16" width="14"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path></svg> https://sqlitebrowser.org/</a> OR
-SQL Server + SSMS</p>
+
+<p><strong>✅ Expected Result:</strong> A list of customers with their last order date and the number of days since that order (e.g., CustomerID: 101, LastOrder: 2024-10-15, DaysSince: 45)</p>
+
+<p><strong>🔄 Connection to Excel:</strong> Similar to Excel's TODAY()-MAX(dates) calculation from Day 11, but applied across groups!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 2: Extract Year, Quarter, Month from Dates (Date Part Functions)</strong></p>
+<p><strong>Goal:</strong> Learn to extract date components for time-series analysis and reporting.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Start with extracting the year from OrderDate:</strong>
+<pre><code>SELECT OrderID,
+       OrderDate,
+       YEAR(OrderDate) AS OrderYear
+FROM Orders
+LIMIT 10;</code></pre>
+This shows how YEAR() extracts just the year part</li>
+<li><strong>Extract multiple date parts:</strong>
+<pre><code>SELECT OrderID,
+       OrderDate,
+       YEAR(OrderDate) AS OrderYear,
+       DATEPART(quarter, OrderDate) AS OrderQuarter,
+       MONTH(OrderDate) AS OrderMonth,
+       DAY(OrderDate) AS OrderDay
+FROM Orders
+LIMIT 10;</code></pre></li>
+<li><strong>Now aggregate sales by year and quarter:</strong>
+<pre><code>SELECT YEAR(OrderDate) AS OrderYear,
+       DATEPART(quarter, OrderDate) AS OrderQuarter,
+       SUM(Sales) AS TotalSales,
+       COUNT(*) AS OrderCount
+FROM Orders
+GROUP BY YEAR(OrderDate), DATEPART(quarter, OrderDate)
+ORDER BY OrderYear, OrderQuarter;</code></pre></li>
+<li><strong>Add formatted quarter labels (Q1, Q2, Q3, Q4):</strong>
+<pre><code>SELECT YEAR(OrderDate) AS OrderYear,
+       DATEPART(quarter, OrderDate) AS OrderQuarter,
+       CONCAT('Q', DATEPART(quarter, OrderDate), ' ', YEAR(OrderDate)) AS QuarterLabel,
+       SUM(Sales) AS TotalSales,
+       COUNT(*) AS OrderCount
+FROM Orders
+GROUP BY YEAR(OrderDate), DATEPART(quarter, OrderDate)
+ORDER BY OrderYear, OrderQuarter;</code></pre>
+This creates labels like "Q1 2023", "Q2 2023", etc.</li>
+<li><strong>Create a monthly sales summary:</strong>
+<pre><code>SELECT YEAR(OrderDate) AS OrderYear,
+       MONTH(OrderDate) AS OrderMonth,
+       DATENAME(month, OrderDate) AS MonthName,
+       SUM(Sales) AS TotalSales
+FROM Orders
+GROUP BY YEAR(OrderDate), MONTH(OrderDate), DATENAME(month, OrderDate)
+ORDER BY OrderYear, OrderMonth;</code></pre></li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>YEAR vs DATEPART:</strong> <code>YEAR(date)</code> is shorthand for <code>DATEPART(year, date)</code> - both work the same</li>
+<li><strong>Quarter calculation:</strong> Q1 = Jan-Mar (1-3), Q2 = Apr-Jun (4-6), Q3 = Jul-Sep (7-9), Q4 = Oct-Dec (10-12)</li>
+<li><strong>DATENAME vs DATEPART:</strong> DATENAME returns text ("January"), DATEPART returns numbers (1)</li>
+<li><strong>GROUP BY requirement:</strong> In GROUP BY, you must repeat the date function - can't just use the alias</li>
+<li><strong>Database differences:</strong> MySQL uses EXTRACT(YEAR FROM date), PostgreSQL supports both syntaxes</li>
+<li><strong>Fiscal quarters:</strong> If your fiscal year starts in July, add CASE logic to adjust quarters</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Sales totals grouped by year and quarter (e.g., 2023 Q1: $45,230, 2023 Q2: $52,180, etc.)</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 3: Filter for Recent Orders (Last 30/60/90 Days)</strong></p>
+<p><strong>Goal:</strong> Learn to filter data using date ranges with DATEADD or INTERVAL.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>Find orders from the last 30 days:</strong>
+<pre><code>-- SQL Server syntax
+SELECT OrderID, OrderDate, CustomerName, Sales
+FROM Orders
+WHERE OrderDate >= DATEADD(day, -30, GETDATE())
+ORDER BY OrderDate DESC;</code></pre></li>
+<li><strong>Alternative PostgreSQL/MySQL syntax:</strong>
+<pre><code>-- PostgreSQL
+SELECT OrderID, OrderDate, CustomerName, Sales
+FROM Orders
+WHERE OrderDate >= CURRENT_DATE - INTERVAL '30 days'
+ORDER BY OrderDate DESC;
+
+-- MySQL
+SELECT OrderID, OrderDate, CustomerName, Sales
+FROM Orders
+WHERE OrderDate >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+ORDER BY OrderDate DESC;</code></pre></li>
+<li><strong>Compare different time periods (30, 60, 90 days):</strong>
+<pre><code>SELECT
+    SUM(CASE WHEN OrderDate >= DATEADD(day, -30, GETDATE()) THEN Sales ELSE 0 END) AS Last30Days,
+    SUM(CASE WHEN OrderDate >= DATEADD(day, -60, GETDATE()) THEN Sales ELSE 0 END) AS Last60Days,
+    SUM(CASE WHEN OrderDate >= DATEADD(day, -90, GETDATE()) THEN Sales ELSE 0 END) AS Last90Days
+FROM Orders;</code></pre>
+This shows sales totals for each time period</li>
+<li><strong>Find orders in the current month:</strong>
+<pre><code>SELECT OrderID, OrderDate, CustomerName, Sales
+FROM Orders
+WHERE YEAR(OrderDate) = YEAR(GETDATE())
+  AND MONTH(OrderDate) = MONTH(GETDATE())
+ORDER BY OrderDate DESC;</code></pre></li>
+<li><strong>Filter for a specific quarter:</strong>
+<pre><code>SELECT OrderID, OrderDate, Sales
+FROM Orders
+WHERE YEAR(OrderDate) = 2024
+  AND DATEPART(quarter, OrderDate) = 1  -- Q1 only
+ORDER BY OrderDate;</code></pre></li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>DATEADD parameters:</strong> <code>DATEADD(unit, number, date)</code> - use negative numbers to go back in time</li>
+<li><strong>Performance tip:</strong> Date filtering on indexed columns is fast - avoid wrapping column in functions like YEAR(OrderDate) = 2024</li>
+<li><strong>Better performance:</strong> Use <code>WHERE OrderDate >= '2024-01-01' AND OrderDate < '2025-01-01'</code> instead of <code>WHERE YEAR(OrderDate) = 2024</code></li>
+<li><strong>Current month start:</strong> Use <code>DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)</code> for the first day of current month</li>
+<li><strong>Inclusive ranges:</strong> Be careful with date ranges - decide if you want &gt;= or &gt;, &lt;= or &lt;</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Orders filtered to specific date ranges, showing only recent activity</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 4: Ranking Products with ROW_NUMBER (Introduction to Window Functions)</strong></p>
+<p><strong>Goal:</strong> Learn your first window function - ROW_NUMBER() to rank products within categories.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>First, calculate total sales per product (without ranking):</strong>
+<pre><code>SELECT Category,
+       ProductName,
+       SUM(Sales) AS TotalSales
+FROM Orders
+GROUP BY Category, ProductName
+ORDER BY Category, TotalSales DESC;</code></pre>
+This shows products grouped by category, sorted by sales</li>
+<li><strong>Now add ROW_NUMBER to rank products within each category:</strong>
+<pre><code>SELECT Category,
+       ProductName,
+       SUM(Sales) AS TotalSales,
+       ROW_NUMBER() OVER (PARTITION BY Category ORDER BY SUM(Sales) DESC) AS ProductRank
+FROM Orders
+GROUP BY Category, ProductName
+ORDER BY Category, ProductRank;</code></pre></li>
+<li><strong>Understand the OVER clause:</strong>
+<ul>
+<li><code>PARTITION BY Category</code> - Creates separate ranking "groups" for each category</li>
+<li><code>ORDER BY SUM(Sales) DESC</code> - Within each category, rank by sales (highest first)</li>
+<li>Result: #1, #2, #3... restarts for each category</li>
+</ul>
+</li>
+<li><strong>Filter to show only top 3 products per category:</strong>
+<pre><code>WITH RankedProducts AS (
+    SELECT Category,
+           ProductName,
+           SUM(Sales) AS TotalSales,
+           ROW_NUMBER() OVER (PARTITION BY Category ORDER BY SUM(Sales) DESC) AS ProductRank
+    FROM Orders
+    GROUP BY Category, ProductName
+)
+SELECT Category, ProductName, TotalSales, ProductRank
+FROM RankedProducts
+WHERE ProductRank <= 3
+ORDER BY Category, ProductRank;</code></pre>
+This uses a CTE (Common Table Expression) from Day 16 preview</li>
+<li><strong>Alternative without CTE (using subquery):</strong>
+<pre><code>SELECT *
+FROM (
+    SELECT Category,
+           ProductName,
+           SUM(Sales) AS TotalSales,
+           ROW_NUMBER() OVER (PARTITION BY Category ORDER BY SUM(Sales) DESC) AS ProductRank
+    FROM Orders
+    GROUP BY Category, ProductName
+) AS RankedProducts
+WHERE ProductRank <= 3
+ORDER BY Category, ProductRank;</code></pre></li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>Window functions don't reduce rows:</strong> Unlike GROUP BY alone, window functions add calculations without collapsing rows</li>
+<li><strong>PARTITION BY is optional:</strong> Without it, ranking applies to entire result set (no groups)</li>
+<li><strong>ORDER BY is required:</strong> Window functions need to know how to order data for ranking/numbering</li>
+<li><strong>Can't use WHERE with window functions:</strong> That's why we need CTE or subquery to filter by rank</li>
+<li><strong>ROW_NUMBER vs RANK:</strong> ROW_NUMBER always gives unique ranks (1, 2, 3, 4...), RANK allows ties (1, 2, 2, 4...)</li>
+<li><strong>Performance:</strong> Window functions are powerful but can be slower on very large datasets</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Products ranked 1-3 within each category (e.g., Electronics: #1 Laptop, #2 Tablet, #3 Phone; Furniture: #1 Chair, #2 Desk, #3 Table)</p>
+
+<p><strong>🔄 Connection to Excel:</strong> This is like adding a rank column in Excel Pivot Tables from Day 7!</p>
+</div>
+
+<div class="section-card">
+<p><strong>Exercise 5: Top 3 Customers Per Region (Complex Window Function with CTE)</strong></p>
+<p><strong>Goal:</strong> Apply window functions to find top performers in each group using CTE pattern.</p>
+
+<p><strong>Step-by-Step Instructions:</strong></p>
+<ol>
+<li><strong>First, calculate total sales per customer by region:</strong>
+<pre><code>SELECT Region,
+       CustomerName,
+       SUM(Sales) AS TotalSales
+FROM Orders
+GROUP BY Region, CustomerName
+ORDER BY Region, TotalSales DESC;</code></pre></li>
+<li><strong>Add ROW_NUMBER to rank customers within each region:</strong>
+<pre><code>SELECT Region,
+       CustomerName,
+       SUM(Sales) AS TotalSales,
+       ROW_NUMBER() OVER (PARTITION BY Region ORDER BY SUM(Sales) DESC) AS CustomerRank
+FROM Orders
+GROUP BY Region, CustomerName
+ORDER BY Region, CustomerRank;</code></pre>
+Now each region has customers ranked 1, 2, 3, 4...</li>
+<li><strong>Use CTE to filter for top 3 per region:</strong>
+<pre><code>WITH RankedCustomers AS (
+    SELECT Region,
+           CustomerName,
+           SUM(Sales) AS TotalSales,
+           ROW_NUMBER() OVER (PARTITION BY Region ORDER BY SUM(Sales) DESC) AS Rank
+    FROM Orders
+    GROUP BY Region, CustomerName
+)
+SELECT Region, CustomerName, TotalSales, Rank
+FROM RankedCustomers
+WHERE Rank <= 3
+ORDER BY Region, Rank;</code></pre></li>
+<li><strong>Enhance with additional metrics:</strong>
+<pre><code>WITH RankedCustomers AS (
+    SELECT Region,
+           CustomerName,
+           SUM(Sales) AS TotalSales,
+           COUNT(*) AS OrderCount,
+           AVG(Sales) AS AvgOrderValue,
+           ROW_NUMBER() OVER (PARTITION BY Region ORDER BY SUM(Sales) DESC) AS Rank
+    FROM Orders
+    GROUP BY Region, CustomerName
+)
+SELECT Region, CustomerName, TotalSales, OrderCount, AvgOrderValue, Rank
+FROM RankedCustomers
+WHERE Rank <= 3
+ORDER BY Region, Rank;</code></pre>
+This adds more context about why customers are top performers</li>
+<li><strong>Try with RANK() instead of ROW_NUMBER():</strong>
+<pre><code>WITH RankedCustomers AS (
+    SELECT Region,
+           CustomerName,
+           SUM(Sales) AS TotalSales,
+           RANK() OVER (PARTITION BY Region ORDER BY SUM(Sales) DESC) AS Rank
+    FROM Orders
+    GROUP BY Region, CustomerName
+)
+SELECT *
+FROM RankedCustomers
+WHERE Rank <= 3
+ORDER BY Region, Rank;</code></pre>
+RANK() will show ties (e.g., if two customers have same sales, both get rank 2, next is rank 4)</li>
+</ol>
+
+<p><strong>💡 Tips:</strong></p>
+<ul>
+<li><strong>CTE (Common Table Expression):</strong> WITH clause creates a temporary named result set - makes complex queries more readable</li>
+<li><strong>When to use CTEs:</strong> When you need to filter or reference window function results</li>
+<li><strong>ROW_NUMBER vs RANK vs DENSE_RANK:</strong>
+  - ROW_NUMBER: 1, 2, 3, 4 (always unique)
+  - RANK: 1, 2, 2, 4 (skips after tie)
+  - DENSE_RANK: 1, 2, 2, 3 (no skip after tie)</li>
+<li><strong>Multiple PARTITION BY columns:</strong> You can partition by multiple columns: <code>PARTITION BY Region, Category</code></li>
+<li><strong>Multiple ORDER BY columns:</strong> Break ties with: <code>ORDER BY SUM(Sales) DESC, CustomerName ASC</code></li>
+<li><strong>Real-world use case:</strong> Regional sales reports, MVP identification, performance dashboards</li>
+</ul>
+
+<p><strong>✅ Expected Result:</strong> Top 3 customers in each region with their ranks (e.g., East: 1. John ($50K), 2. Sarah ($48K), 3. Mike ($45K); West: 1. Lisa ($55K), 2. Tom ($52K), 3. Amy ($49K))</p>
+
+<p><strong>🔄 Connection to Previous Learning:</strong> This combines GROUP BY from Day 8, subqueries from Day 10, and introduces window functions - powerful SQL!</p>
+</div>
+<h3 id="independent-practice-hour-3---60-min-12">Independent Practice (60 min):</h3>
+<div class="practice-note">
+<p><strong>💡 Hints for Independent Practice:</strong></p>
+<ul>
+<li><strong>Start simple:</strong> Begin with basic variations before attempting complex modifications</li>
+<li><strong>Break it down:</strong> Divide complex problems into smaller, manageable steps</li>
+<li><strong>Test incrementally:</strong> Verify each step works before moving to the next</li>
+<li><strong>Use documentation:</strong> Refer to official docs or tutorials when needed</li>
+<li><strong>Experiment:</strong> Try different approaches to find what works best</li>
+</ul>
+</div>
+<p><strong>Challenge 1: Customer Recency Analysis</strong>
+- Find customers who haven't ordered in 90+ days
+- Calculate average days between orders per customer
+- Identify "at risk" customers (no order in 6 months)
+- Compare current month sales vs same month last year</p>
+<p><strong>Challenge 2: Product Performance Ranking</strong>
+- Rank products by sales within each category
+- Find the #1 product in each subcategory
+- Identify products in bottom 10% by sales
+- Number orders sequentially for each customer</p>
+<h3 id="daily-assignment-hour-4---60-min-12">Daily Assignment (60 min):</h3>
+<p><strong>Assignment: Sales Performance Dashboard Query</strong></p>
+<p>Create a comprehensive SQL report with:</p>
+<ul>
+<li>Date-Based Metrics:</li>
+</ul>
+<p>- Sales by year, quarter, month</p>
+<p>- Year-over-year growth calculation</p>
+<p>- Orders placed in last 30/60/90 days</p>
+<ul>
+<li>Ranking Analysis:</li>
+</ul>
+<p>- Top 5 products by sales (overall)</p>
+<p>- Top 3 customers per region (use ROW_NUMBER)</p>
+<p>- Rank categories by profitability</p>
+<ul>
+<li>Customer Segmentation:</li>
+</ul>
+<p>- Customers by recency (0-30, 31-60, 61-90, 91+ days)</p>
+<p>- Use DATEDIFF to calculate days since last order</p>
+<p>- Count customers in each recency bucket</p>
+<p><strong>Requirements:</strong>
+- Use at least 3 different date functions
+- Use ROW_NUMBER with PARTITION BY
+- Use RANK or DENSE_RANK for one analysis
+- Include comments explaining each query
+- Format dates in output (MM/DD/YYYY)</p>
+<h3 id="expected-outcomes-12">Expected Outcomes:</h3>
+<ul>
+<li>Master SQL date manipulation and calculations</li>
+<li>Understand window functions and OVER clause</li>
+<li>Use ROW_NUMBER for pagination and top N queries</li>
+<li>Apply RANK/DENSE_RANK for competitive ranking</li>
+<li>Combine date functions with window functions</li>
+</ul>
 <hr/>
+<h2 id="quick-quiz-day-12">📝 Day 12 Quick Quiz - Test Your Knowledge!</h2>
+<div class="quiz-container" data-day="12">
+<div class="quiz-question" data-correct="1" data-question="1">
+<p class="question-text"><strong>Q1.</strong> What does ROW_NUMBER() do in SQL?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day12_q1" type="radio" value="0"/>
+<span class="option-text">Counts total rows</span>
+</label>
+<label class="quiz-option">
+<input name="day12_q1" type="radio" value="1"/>
+<span class="option-text">Assigns unique sequential number to each row</span>
+</label>
+<label class="quiz-option">
+<input name="day12_q1" type="radio" value="2"/>
+<span class="option-text">Sums row values</span>
+</label>
+<label class="quiz-option">
+<input name="day12_q1" type="radio" value="3"/>
+<span class="option-text">Deletes rows</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">ROW_NUMBER() assigns a unique sequential integer to rows within a partition.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="2">
+<p class="question-text"><strong>Q2.</strong> What's the difference between ROW_NUMBER() and RANK()?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day12_q2" type="radio" value="0"/>
+<span class="option-text">No difference</span>
+</label>
+<label class="quiz-option">
+<input name="day12_q2" type="radio" value="1"/>
+<span class="option-text">RANK() gives same rank to ties, ROW_NUMBER() doesn't</span>
+</label>
+<label class="quiz-option">
+<input name="day12_q2" type="radio" value="2"/>
+<span class="option-text">ROW_NUMBER() is faster</span>
+</label>
+<label class="quiz-option">
+<input name="day12_q2" type="radio" value="3"/>
+<span class="option-text">RANK() only works with numbers</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">RANK() assigns the same rank to equal values; ROW_NUMBER() always assigns unique numbers.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="3">
+<p class="question-text"><strong>Q3.</strong> What does PARTITION BY do in window functions?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day12_q3" type="radio" value="0"/>
+<span class="option-text">Deletes data</span>
+</label>
+<label class="quiz-option">
+<input name="day12_q3" type="radio" value="1"/>
+<span class="option-text">Divides result set into groups for the function</span>
+</label>
+<label class="quiz-option">
+<input name="day12_q3" type="radio" value="2"/>
+<span class="option-text">Joins tables</span>
+</label>
+<label class="quiz-option">
+<input name="day12_q3" type="radio" value="3"/>
+<span class="option-text">Sorts results</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">PARTITION BY divides rows into groups, and the window function applies to each group separately.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="0" data-question="4">
+<p class="question-text"><strong>Q4.</strong> Which SQL function extracts the year from a date?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day12_q4" type="radio" value="0"/>
+<span class="option-text">YEAR(date)</span>
+</label>
+<label class="quiz-option">
+<input name="day12_q4" type="radio" value="1"/>
+<span class="option-text">GETYEAR(date)</span>
+</label>
+<label class="quiz-option">
+<input name="day12_q4" type="radio" value="2"/>
+<span class="option-text">date.YEAR</span>
+</label>
+<label class="quiz-option">
+<input name="day12_q4" type="radio" value="3"/>
+<span class="option-text">EXTRACT_YEAR(date)</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">YEAR() function extracts the year portion from a date value.</p>
+</div>
+</div>
+<div class="quiz-question" data-correct="1" data-question="5">
+<p class="question-text"><strong>Q5.</strong> What does DENSE_RANK() do differently than RANK()?</p>
+<div class="quiz-options">
+<label class="quiz-option">
+<input name="day12_q5" type="radio" value="0"/>
+<span class="option-text">Nothing different</span>
+</label>
+<label class="quiz-option">
+<input name="day12_q5" type="radio" value="1"/>
+<span class="option-text">DENSE_RANK() has no gaps in ranking sequence</span>
+</label>
+<label class="quiz-option">
+<input name="day12_q5" type="radio" value="2"/>
+<span class="option-text">DENSE_RANK() is slower</span>
+</label>
+<label class="quiz-option">
+<input name="day12_q5" type="radio" value="3"/>
+<span class="option-text">DENSE_RANK() only works with dates</span>
+</label>
+</div>
+<div class="quiz-feedback" style="display:none;">
+<p class="feedback-text"></p>
+<p class="explanation">DENSE_RANK() doesn't skip numbers after ties, while RANK() does (1,2,2,4 vs 1,2,2,3).</p>
+</div>
+</div>
+</div>
   </div>
 </div>
 <div class="feedback-bar">
@@ -1334,24 +1870,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // 3. Highlight active page in TOC and scroll to it
+  // 3. Highlight active page in TOC and scroll to it (improved)
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const tocLinks = document.querySelectorAll('nav#TOC a');
+  const tocLinksArray = Array.from(tocLinks);
 
-  tocLinks.forEach(link => {
+  tocLinks.forEach((link, index) => {
     const linkHref = link.getAttribute('href');
     if (linkHref === currentPage || linkHref === `../${currentPage}`) {
       link.classList.add('active');
 
-      // Auto-scroll TOC to show active item
+      // Smart TOC scrolling - center items unless near the end
       setTimeout(() => {
-        const nav = document.querySelector('nav#TOC');
-        const linkTop = link.offsetTop;
-        const navHeight = nav.clientHeight;
-        const linkHeight = link.clientHeight;
+        const totalLinks = tocLinksArray.length;
+        const isNearEnd = index > totalLinks * 0.8; // Last 20% of links
 
-        // Scroll so the active link is roughly in the middle
-        nav.scrollTop = linkTop - (navHeight / 2) + (linkHeight / 2);
+        // Use scrollIntoView for smooth, smart scrolling
+        link.scrollIntoView({
+          behavior: 'smooth',
+          block: isNearEnd ? 'nearest' : 'center',
+          inline: 'nearest'
+        });
       }, 100);
     }
   });
