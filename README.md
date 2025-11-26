@@ -4,6 +4,10 @@
 
 A comprehensive, interactive training program designed to take you from beginner to advanced in both Excel and SQL over 30 days.
 
+## 🚀 Getting Started
+
+**To start the course:** Simply open `SQL-and-Excel-Course.html` in your web browser!
+
 ## 🎯 Features
 
 - **30 Complete Days** of structured learning covering Excel and SQL
@@ -36,12 +40,15 @@ A comprehensive, interactive training program designed to take you from beginner
 
 ```
 sql_and_excel/
-├── index.html                          # Main landing page
-├── pages/
+├── SQL-and-Excel-Course.html          # 👈 START HERE - Main course page
+├── README.md                           # This file
+├── pages/                              # All course content
 │   ├── week1.html - week6.html        # Week overview pages
 │   └── day1.html - day30.html         # Individual day lesson pages
-├── Complete_30Day_Training_Full.html  # Source content
-└── restructure_modern.py              # Page generation script
+└── scripts/                            # Development tools (for maintainers)
+    ├── Complete_30Day_Training_Full.html  # Source content
+    ├── restructure_modern.py              # Page generation script
+    └── (20 other Python utility scripts)
 ```
 
 ## 🔄 Keeping Video Links Fresh
@@ -174,8 +181,8 @@ Topics: SQL with Excel, ETL basics, best practices, optimization
 - **Font Size**: Adjust text size with A- and A+ buttons (4 levels)
 
 ### For Developers:
-- Edit `Complete_30Day_Training_Full.html` for content changes
-- Run `restructure_modern.py` to regenerate all pages
+- Edit `scripts/Complete_30Day_Training_Full.html` for content changes
+- Run `scripts/restructure_modern.py` to regenerate all pages
 - Custom styling in the script's CSS section
 
 ## 📧 Feedback
