@@ -947,19 +947,18 @@
     }
   </style>
 
-<!-- SQL Editor Dependencies -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css" rel="stylesheet">
+<!-- SQL.js and CodeMirror -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/sql/sql.min.js"></script>
 
 <style>
-/* ==================== SPLIT SCREEN LAYOUT ==================== */
+/* Split screen layout */
 .main-container {
   display: flex;
   height: calc(100vh - 80px);
-  transition: all 0.3s ease;
 }
 
 .content-panel {
@@ -972,19 +971,201 @@
   flex: 0 0 50%;
 }
 
-.sql-editor-panel {
+.sql-panel {
   flex: 0 0 0;
   overflow: hidden;
   border-left: 2px solid var(--accent-orange);
-  transition: all 0.3s ease;
   background: var(--bg-secondary);
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
-.sql-editor-panel.open {
+.sql-panel.open {
   flex: 0 0 50%;
 }
 
-/* Try Now Buttons */
+/* SQL Editor Header */
+.sql-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-primary);
+}
+
+.sql-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.close-sql {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.8125rem;
+  transition: all 0.2s ease;
+}
+
+.close-sql:hover {
+  background: var(--accent-orange);
+  color: white;
+  border-color: var(--accent-orange);
+}
+
+/* SQL Editor Body */
+.sql-body {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+/* Database Actions */
+.db-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--bg-primary);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+.db-actions label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--accent-orange);
+  color: white;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.db-actions label:hover {
+  background: var(--accent-brown);
+  transform: translateY(-1px);
+}
+
+.db-actions input[type="file"] {
+  display: none;
+}
+
+.sample-db-btn {
+  padding: 0.75rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.sample-db-btn:hover {
+  border-color: var(--accent-orange);
+  color: var(--accent-orange);
+}
+
+/* SQL Editor Area */
+.sql-editor-wrapper {
+  margin-bottom: 1rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.CodeMirror {
+  height: 250px !important;
+  font-size: 14px;
+}
+
+.run-sql-btn {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, var(--accent-orange), var(--accent-brown));
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.run-sql-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(217, 119, 87, 0.3);
+}
+
+.run-sql-btn::before {
+  content: '▶';
+}
+
+/* SQL Results */
+.sql-results {
+  margin-top: 1.5rem;
+}
+
+.sql-results table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.sql-results th {
+  background: var(--bg-primary);
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--border-subtle);
+}
+
+.sql-results td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.sql-results tr:last-child td {
+  border-bottom: none;
+}
+
+.sql-error {
+  padding: 1rem;
+  background: rgba(244, 67, 54, 0.1);
+  border-left: 3px solid #f44336;
+  border-radius: var(--radius-sm);
+  color: #f44336;
+  margin-top: 1rem;
+}
+
+.sql-success {
+  padding: 1rem;
+  background: rgba(76, 175, 80, 0.1);
+  border-left: 3px solid #4caf50;
+  border-radius: var(--radius-sm);
+  color: #4caf50;
+  margin-top: 1rem;
+}
+
+/* Try Now button */
 .try-sql-btn {
   position: absolute;
   top: 0.75rem;
@@ -999,9 +1180,6 @@
   font-weight: 600;
   transition: all 0.2s ease;
   z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
   box-shadow: 0 2px 8px rgba(255, 149, 0, 0.3);
 }
 
@@ -1011,104 +1189,63 @@
 }
 
 .try-sql-btn::before {
-  content: '⚡';
-  font-size: 1rem;
+  content: '⚡ ';
 }
 
-/* SQL Editor Close Button */
-.close-sql-editor {
+/* AI Assistant Buttons (from original) */
+.ai-assistant-buttons {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: var(--bg-primary);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-subtle);
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+pre:hover .ai-assistant-buttons {
+  opacity: 1;
+}
+
+.ai-quick-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
   font-size: 0.8125rem;
   font-weight: 500;
-  z-index: 1000;
+  text-decoration: none;
   transition: all 0.2s ease;
-}
-
-.close-sql-editor:hover {
-  background: var(--accent-orange);
+  border: 1px solid;
+  min-width: 36px;
+  min-height: 36px;
+  background: #000000;
   color: white;
-  border-color: var(--accent-orange);
+  border-color: #333333;
 }
 
-/* Syllabus Position Tracker */
-.syllabus-position {
-  position: fixed;
-  bottom: 6rem;
-  right: 2rem;
-  background: var(--bg-secondary);
-  border: 2px solid var(--accent-orange);
-  border-radius: var(--radius-lg);
-  padding: 1rem 1.25rem;
-  box-shadow: var(--shadow-lg);
-  z-index: 998;
-  min-width: 250px;
+.ai-quick-btn:hover {
+  background: #333333;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  text-decoration: none;
 }
 
-.syllabus-header {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 0.75rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.ai-quick-btn svg,
+.ai-quick-btn img {
+  filter: brightness(0) invert(1);
 }
 
-.current-location {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--accent-orange);
-  margin-bottom: 0.5rem;
-}
-
-.section-progress {
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-
-.progress-bar-container {
-  width: 100%;
-  height: 6px;
-  background: var(--bg-primary);
-  border-radius: 3px;
-  overflow: hidden;
-  margin: 0.75rem 0 0.5rem 0;
-}
-
-.progress-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent-orange), var(--accent-brown));
-  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* SQL Code Block Enhancements */
-pre {
-  position: relative;
-  margin: 1.5rem 0;
-}
-
-pre.sql-code {
-  background: #1e1e1e;
-  border: 1px solid var(--accent-orange);
-  box-shadow: 0 4px 12px rgba(217, 119, 87, 0.15);
-}
-
-/* Mobile Responsive */
+/* Responsive */
 @media (max-width: 1024px) {
   .content-panel.split {
     flex: 0 0 100%;
   }
 
-  .sql-editor-panel.open {
+  .sql-panel.open {
     position: fixed;
     top: 80px;
     left: 0;
@@ -1116,13 +1253,6 @@ pre.sql-code {
     bottom: 0;
     flex: none;
     z-index: 9999;
-  }
-
-  .syllabus-position {
-    bottom: 1rem;
-    right: 1rem;
-    left: 1rem;
-    min-width: 0;
   }
 }
 </style>
@@ -1134,19 +1264,17 @@ pre.sql-code {
   <div class="loading-text">Loading Week 1...</div>
 </div>
 
-<!-- Reading Progress Bar -->
 <div class="reading-progress-bar" id="reading-progress-bar">
   <div class="reading-progress-fill" id="reading-progress-fill"></div>
 </div>
 
-<!-- Command Palette -->
 <div class="command-palette" id="command-palette">
   <div class="command-palette-content">
     <div class="command-search">
-      <input type="text" id="command-search-input" placeholder="Search Week 1 content..." autocomplete="off" />
+      <input type="text" id="command-search-input" placeholder="Search..." autocomplete="off" />
     </div>
     <div class="command-results" id="command-results">
-      <div class="no-results">Start typing to search...</div>
+      <div class="no-results">Start typing...</div>
     </div>
   </div>
 </div>
@@ -1180,23 +1308,21 @@ pre.sql-code {
     </div>
   </div>
 </header>
-<div class="main-container" id="main-container">
+<div class="main-container">
   <div class="content-panel" id="content-panel">
     <div class="page">
-      <nav id="TOC" role="navigation">
-        <ul>
-          <li><a href="#overview" data-section="overview" class="toc-link">📚 Training Overview</a></li>
-          <li><a href="#week1" data-section="week1" class="toc-link">Week 1: Foundations</a>
-            <ul>
-              <li><a href="#day1" data-section="day1" class="toc-link">Day 1</a></li>
-              <li><a href="#day2" data-section="day2" class="toc-link">Day 2</a></li>
-              <li><a href="#day3" data-section="day3" class="toc-link">Day 3</a></li>
-              <li><a href="#day4" data-section="day4" class="toc-link">Day 4</a></li>
-              <li><a href="#day5" data-section="day5" class="toc-link">Day 5</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
+      <nav id="TOC" role="navigation"><ul>
+        <li><a href="#overview" data-section="overview" class="toc-link">📚 Training Overview</a></li>
+        <li><a href="#week1" data-section="week1" class="toc-link">Week 1: Foundations</a>
+          <ul>
+            <li><a href="#day1" data-section="day1" class="toc-link">Day 1</a></li>
+            <li><a href="#day2" data-section="day2" class="toc-link">Day 2</a></li>
+            <li><a href="#day3" data-section="day3" class="toc-link">Day 3</a></li>
+            <li><a href="#day4" data-section="day4" class="toc-link">Day 4</a></li>
+            <li><a href="#day5" data-section="day5" class="toc-link">Day 5</a></li>
+          </ul>
+        </li>
+      </ul></nav>
       <div class="content" id="main-content">
         <section id="section-overview" class="content-section" data-section-id="overview" style="display: none;">
 <h2 id="complete-training-with-video-resources-ai-learning-prompts">Complete
@@ -3402,115 +3528,180 @@ separately by instructor)</li>
       </div>
     </div>
   </div>
-  <div class="sql-editor-panel" id="sql-editor-panel">
-    <button class="close-sql-editor" id="close-sql-editor">✕ Close Editor</button>
-    <div id="sql-editor-content" style="padding: 3rem 2rem; height: 100%; overflow-y: auto;">
-      <h2 style="margin-bottom: 1rem;">SQL Practice Editor</h2>
-      <p style="color: var(--text-secondary); margin-bottom: 2rem;">Write and execute SQL queries in real-time.</p>
-      <div style="margin-bottom: 1rem;">
-        <textarea id="sql-input" style="width: 100%; height: 200px; font-family: monospace; padding: 1rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); background: var(--bg-primary); color: var(--text-primary);"></textarea>
+
+  <div class="sql-panel" id="sql-panel">
+    <div class="sql-header">
+      <div class="sql-title">⚡ SQL Practice Editor</div>
+      <button class="close-sql" id="close-sql">✕ Close</button>
+    </div>
+    <div class="sql-body">
+      <div class="db-actions">
+        <label for="db-file-input">
+          📁 Load Database File
+          <input type="file" id="db-file-input" accept=".db,.sqlite,.sqlite3" />
+        </label>
+        <button class="sample-db-btn" id="load-sample-db">📊 Load Sample DB</button>
       </div>
-      <button onclick="runSQL()" style="padding: 0.75rem 1.5rem; background: var(--accent-orange); color: white; border: none; border-radius: var(--radius-sm); cursor: pointer; font-weight: 600; font-size: 0.9375rem;">▶ Run Query</button>
-      <div id="sql-output" style="margin-top: 2rem;"></div>
+
+      <div class="sql-editor-wrapper">
+        <textarea id="sql-editor"></textarea>
+      </div>
+
+      <button class="run-sql-btn" id="run-sql-btn">Run Query</button>
+
+      <div class="sql-results" id="sql-results"></div>
     </div>
   </div>
 </div>
 
-<div class="syllabus-position" id="syllabus-position">
-  <div class="syllabus-header">
-    📍 Current Position
-  </div>
-  <div class="current-location" id="current-location">
-    Training Overview
-  </div>
-  <div class="progress-bar-container">
-    <div class="progress-bar-fill" id="syllabus-progress-fill" style="width: 14%"></div>
-  </div>
-  <div class="section-progress" id="section-progress">
-    Week 1 of 6 • Day 0 of 30
-  </div>
-</div>
-
 <div class="feedback-bar">
-  <p>Have feedback? <a href="mailto:gcpath@live.com">Email us</a></p>
+  <p>Have feedback? <a href="mailto:gcpath@live.com" class="feedback-link">Email us</a></p>
 </div>
 
-<button class="back-to-top" id="back-to-top" aria-label="Back to top"></button>
+<button class="back-to-top" id="back-to-top"></button>
 
 <script>
-// Initialize SQL.js
+// SQL.js database
+let SQL = null;
 let db = null;
+let editor = null;
 
+// Initialize SQL.js
 async function initSQL() {
-  const SQL = await initSqlJs({
+  SQL = await initSqlJs({
     locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
   });
-  db = new SQL.Database();
-
-  // Create sample table
-  db.run(`
-    CREATE TABLE employees (
-      id INTEGER PRIMARY KEY,
-      name TEXT,
-      department TEXT,
-      salary INTEGER
-    );
-
-    INSERT INTO employees VALUES (1, 'John Doe', 'Engineering', 75000);
-    INSERT INTO employees VALUES (2, 'Jane Smith', 'Marketing', 65000);
-    INSERT INTO employees VALUES (3, 'Bob Johnson', 'Sales', 60000);
-  `);
-
-  console.log('✓ SQL.js initialized with sample data');
+  console.log('✓ SQL.js initialized');
 }
 
-function runSQL() {
-  const input = document.getElementById('sql-input');
-  const output = document.getElementById('sql-output');
+// Initialize CodeMirror
+function initEditor() {
+  editor = CodeMirror.fromTextArea(document.getElementById('sql-editor'), {
+    mode: 'text/x-sql',
+    theme: 'dracula',
+    lineNumbers: true,
+    autofocus: false,
+    indentUnit: 2,
+    tabSize: 2
+  });
+}
 
-  if (!db) {
-    output.innerHTML = '<p style="color: #f44336;">SQL database not initialized yet...</p>';
-    initSQL();
+// Load sample database
+function loadSampleDB() {
+  if (!SQL) {
+    alert('SQL.js is still loading...');
     return;
   }
 
-  try {
-    const results = db.exec(input.value);
+  db = new SQL.Database();
 
-    if (results.length === 0) {
-      output.innerHTML = '<p style="color: #4caf50;">✓ Query executed successfully (no results)</p>';
+  db.run(`
+    CREATE TABLE employees (
+      id INTEGER PRIMARY KEY,
+      name TEXT NOT NULL,
+      department TEXT,
+      salary INTEGER,
+      hire_date DATE
+    );
+
+    INSERT INTO employees VALUES
+      (1, 'John Doe', 'Engineering', 75000, '2020-01-15'),
+      (2, 'Jane Smith', 'Marketing', 65000, '2019-03-22'),
+      (3, 'Bob Johnson', 'Sales', 60000, '2021-06-10'),
+      (4, 'Alice Williams', 'Engineering', 80000, '2018-11-05'),
+      (5, 'Charlie Brown', 'HR', 55000, '2022-02-28');
+
+    CREATE TABLE orders (
+      order_id INTEGER PRIMARY KEY,
+      customer_name TEXT,
+      product TEXT,
+      quantity INTEGER,
+      order_date DATE
+    );
+
+    INSERT INTO orders VALUES
+      (1, 'Acme Corp', 'Widget A', 100, '2024-01-15'),
+      (2, 'TechStart Inc', 'Gadget B', 50, '2024-01-16'),
+      (3, 'Acme Corp', 'Widget C', 75, '2024-01-17'),
+      (4, 'Global Ltd', 'Tool D', 200, '2024-01-18'),
+      (5, 'TechStart Inc', 'Widget A', 150, '2024-01-19');
+  `);
+
+  showSuccess('Sample database loaded! Tables: employees, orders');
+  console.log('✓ Sample database loaded');
+}
+
+// Load database from file
+function loadDBFromFile(file) {
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const uInt8Array = new Uint8Array(e.target.result);
+      db = new SQL.Database(uInt8Array);
+      showSuccess(`Database "${file.name}" loaded successfully!`);
+      console.log('✓ Database loaded from file');
+    } catch (err) {
+      showError(`Failed to load database: ${err.message}`);
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+// Run SQL query
+function runQuery() {
+  if (!db) {
+    showError('No database loaded! Please load a database first.');
+    return;
+  }
+
+  const sql = editor.getValue().trim();
+  if (!sql) {
+    showError('Please enter a SQL query.');
+    return;
+  }
+
+  const resultsDiv = document.getElementById('sql-results');
+
+  try {
+    const results = db.exec(sql);
+
+    if (!results || results.length === 0) {
+      resultsDiv.innerHTML = '<div class="sql-success">✓ Query executed successfully (no results returned)</div>';
       return;
     }
 
-    let html = '<div style="overflow-x: auto;">';
+    let html = '';
     results.forEach(result => {
-      html += '<table style="width: 100%; border-collapse: collapse; margin-top: 1rem; background: var(--bg-secondary); border: 1px solid var(--border-subtle);">';
-      html += '<thead><tr>';
+      html += '<table><thead><tr>';
       result.columns.forEach(col => {
-        html += `<th style="padding: 0.75rem; text-align: left; background: var(--bg-primary); border-bottom: 2px solid var(--border-subtle); font-weight: 600;">${col}</th>`;
+        html += `<th>${col}</th>`;
       });
       html += '</tr></thead><tbody>';
 
       result.values.forEach(row => {
         html += '<tr>';
         row.forEach(cell => {
-          html += `<td style="padding: 0.75rem; border-bottom: 1px solid var(--border-subtle);">${cell}</td>`;
+          html += `<td>${cell !== null ? cell : 'NULL'}</td>`;
         });
         html += '</tr>';
       });
 
       html += '</tbody></table>';
     });
-    html += '</div>';
 
-    output.innerHTML = html;
+    resultsDiv.innerHTML = html;
   } catch (err) {
-    output.innerHTML = `<p style="color: #f44336; padding: 1rem; background: rgba(244, 67, 54, 0.1); border-left: 3px solid #f44336; border-radius: 4px;">❌ Error: ${err.message}</p>`;
+    showError(`Error: ${err.message}`);
   }
 }
 
-// Initialize SQL on load
-initSQL();
+function showError(msg) {
+  document.getElementById('sql-results').innerHTML = `<div class="sql-error">❌ ${msg}</div>`;
+}
+
+function showSuccess(msg) {
+  document.getElementById('sql-results').innerHTML = `<div class="sql-success">✓ ${msg}</div>`;
+}
 
 // Training App
 class TrainingApp {
@@ -3526,8 +3717,8 @@ class TrainingApp {
     this.setupSearch();
     this.setupKeyboardNav();
     this.setupSQLEditor();
-    this.setupSyllabusTracker();
     this.setupThemeControls();
+    this.setupAIButtons();
 
     setTimeout(() => {
       document.getElementById('app-loading').classList.add('hidden');
@@ -3549,19 +3740,16 @@ class TrainingApp {
     const targetSection = this.sections.find(s => s.dataset.sectionId === sectionId);
     if (!targetSection) return;
 
-    // Hide all
     this.sections.forEach(s => {
       s.classList.remove('active');
       s.style.display = 'none';
     });
 
-    // Show target
     targetSection.style.display = 'block';
     setTimeout(() => {
       targetSection.classList.add('active');
       this.currentSection = targetSection;
       this.updateTOC(sectionId);
-      this.updateSyllabusPosition(sectionId);
       if (updateHash) history.pushState(null, '', `#${sectionId}`);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 50);
@@ -3571,28 +3759,6 @@ class TrainingApp {
     this.tocLinks.forEach(link => {
       link.classList.toggle('active', link.dataset.section === sectionId);
     });
-  }
-
-  updateSyllabusPosition(sectionId) {
-    const locationEl = document.getElementById('current-location');
-    const progressEl = document.getElementById('section-progress');
-    const fillEl = document.getElementById('syllabus-progress-fill');
-
-    if (sectionId === 'overview') {
-      locationEl.textContent = 'Training Overview';
-      progressEl.textContent = 'Welcome • Start of Week 1';
-      fillEl.style.width = '0%';
-    } else if (sectionId === 'week1') {
-      locationEl.textContent = 'Week 1: Foundations';
-      progressEl.textContent = 'Week 1 of 6 • Day 1-5';
-      fillEl.style.width = '2%';
-    } else if (sectionId.startsWith('day')) {
-      const dayNum = parseInt(sectionId.replace('day', ''));
-      locationEl.textContent = `Day ${dayNum}`;
-      progressEl.textContent = `Week 1 of 6 • Day ${dayNum} of 30`;
-      const percent = ((dayNum / 30) * 100).toFixed(0);
-      fillEl.style.width = `${percent}%`;
-    }
   }
 
   setupSearch() {
@@ -3617,7 +3783,7 @@ class TrainingApp {
     const order = ['overview', 'week1', 'day1', 'day2', 'day3', 'day4', 'day5'];
 
     document.addEventListener('keydown', (e) => {
-      if (e.target.tagName === 'INPUT') return;
+      if (e.target.tagName === 'INPUT' || e.target.closest('.CodeMirror')) return;
 
       const currentId = this.currentSection?.dataset.sectionId;
       const currentIndex = order.indexOf(currentId);
@@ -3633,16 +3799,21 @@ class TrainingApp {
   }
 
   setupSQLEditor() {
-    const panel = document.getElementById('sql-editor-panel');
+    const panel = document.getElementById('sql-panel');
     const contentPanel = document.getElementById('content-panel');
-    const closeBtn = document.getElementById('close-sql-editor');
 
-    // Add "Try Now" buttons to SQL code blocks
+    // Close button
+    document.getElementById('close-sql').onclick = () => {
+      panel.classList.remove('open');
+      contentPanel.classList.remove('split');
+    };
+
+    // Add Try Now buttons to SQL code blocks only
     document.querySelectorAll('pre code').forEach(code => {
       const text = code.textContent.toLowerCase();
-      if (text.includes('select') || text.includes('from') || text.includes('where')) {
+      // Only add to SQL code blocks (containing SELECT, FROM, WHERE, INSERT, UPDATE, DELETE, CREATE)
+      if (text.match(/\b(select|from|where|insert|update|delete|create|table|join)\b/)) {
         const pre = code.parentElement;
-        pre.classList.add('sql-code');
 
         const tryBtn = document.createElement('button');
         tryBtn.className = 'try-sql-btn';
@@ -3650,21 +3821,79 @@ class TrainingApp {
         tryBtn.onclick = () => {
           panel.classList.add('open');
           contentPanel.classList.add('split');
-          document.getElementById('sql-input').value = code.textContent.trim();
+          if (editor) {
+            editor.setValue(code.textContent.trim());
+          }
         };
 
+        pre.style.position = 'relative';
         pre.appendChild(tryBtn);
       }
     });
 
-    closeBtn.onclick = () => {
-      panel.classList.remove('open');
-      contentPanel.classList.remove('split');
+    // Load sample DB button
+    document.getElementById('load-sample-db').onclick = loadSampleDB;
+
+    // File input
+    document.getElementById('db-file-input').onchange = (e) => {
+      const file = e.target.files[0];
+      if (file) loadDBFromFile(file);
     };
+
+    // Run button
+    document.getElementById('run-sql-btn').onclick = runQuery;
   }
 
-  setupSyllabusTracker() {
-    // Already handled in updateSyllabusPosition
+  setupAIButtons() {
+    // Add AI assistant buttons to AI learning prompt code blocks
+    const aiPromptHeadings = document.querySelectorAll('h3[id*="ai-learning-prompts"]');
+
+    aiPromptHeadings.forEach(heading => {
+      let currentElement = heading.nextElementSibling;
+      const codeBlocks = [];
+
+      while (currentElement) {
+        if (currentElement.tagName === 'H2' || currentElement.tagName === 'H3') break;
+        if (currentElement.tagName === 'PRE') codeBlocks.push(currentElement);
+        currentElement = currentElement.nextElementSibling;
+      }
+
+      codeBlocks.forEach(codeBlock => {
+        const code = codeBlock.querySelector('code') || codeBlock;
+        const promptText = code.textContent.trim();
+
+        const aiButtonsContainer = document.createElement('div');
+        aiButtonsContainer.className = 'ai-assistant-buttons';
+
+        const chatgptBtn = document.createElement('a');
+        chatgptBtn.href = 'https://chat.openai.com/?q=' + encodeURIComponent(promptText);
+        chatgptBtn.target = '_blank';
+        chatgptBtn.className = 'ai-quick-btn chatgpt-btn';
+        chatgptBtn.title = 'Open in ChatGPT';
+        chatgptBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"/></svg>';
+
+        const claudeBtn = document.createElement('a');
+        claudeBtn.href = 'https://claude.ai/new?q=' + encodeURIComponent(promptText);
+        claudeBtn.target = '_blank';
+        claudeBtn.className = 'ai-quick-btn claude-btn';
+        claudeBtn.title = 'Open in Claude';
+        claudeBtn.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Claude_AI_symbol.svg/1024px-Claude_AI_symbol.svg.png" width="14" height="14" style="display: block;" alt="Claude">';
+
+        const googleBtn = document.createElement('a');
+        googleBtn.href = 'https://www.google.com/search?q=' + encodeURIComponent(promptText);
+        googleBtn.target = '_blank';
+        googleBtn.className = 'ai-quick-btn google-btn';
+        googleBtn.title = 'Search in Google';
+        googleBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>';
+
+        aiButtonsContainer.appendChild(chatgptBtn);
+        aiButtonsContainer.appendChild(claudeBtn);
+        aiButtonsContainer.appendChild(googleBtn);
+
+        codeBlock.style.position = 'relative';
+        codeBlock.appendChild(aiButtonsContainer);
+      });
+    });
   }
 
   setupThemeControls() {
@@ -3690,7 +3919,6 @@ class TrainingApp {
       localStorage.setItem('training-font', e.target.value);
     });
 
-    // Font size
     const decreaseBtn = document.getElementById('decrease-font');
     const increaseBtn = document.getElementById('increase-font');
     const fontSizes = ['small', 'medium', 'large', 'x-large'];
@@ -3717,15 +3945,19 @@ class TrainingApp {
 }
 
 // Initialize
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  await initSQL();
+  initEditor();
   new TrainingApp();
 
-  // Back to top
   document.getElementById('back-to-top')?.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  console.log('%c✅ Week 1 Loaded with SQL Editor!', 'color: #FF9500; font-size: 16px; font-weight: bold;');
+  console.log('%c✅ Week 1 Loaded!', 'color: #FF9500; font-size: 16px; font-weight: bold;');
+  console.log('%cTry Now buttons: Only on SQL code blocks');
+  console.log('%cAI Buttons: On AI learning prompts');
+  console.log('%cSQL Editor: Load DB and run queries');
 });
 </script>
 </body>
