@@ -6,10 +6,15 @@ A comprehensive, interactive training program designed to take you from beginner
 
 ## 🚀 Getting Started
 
-**To start the course:** Simply open `SQL-and-Excel-Course.html` in your web browser!
+**To start the course:** Simply open `index.html` in your web browser!
+
+**NEW: Single-Page Application!** All 37 pages (6 weeks + 30 days + overview) are now consolidated into one seamless HTML file for instant navigation.
 
 ## 🎯 Features
 
+- **Single-Page Application**: All content in one file - no page reloads!
+- **⚡ Instant Navigation**: Hash-based routing with smooth fade-in animations
+- **📊 Progress Tracker**: Track which pages you've visited with localStorage persistence
 - **30 Complete Days** of structured learning covering Excel and SQL
 - **Interactive Content** with video tutorials, practice exercises, and assignments
 - **Modern Design** inspired by Anthropic's aesthetic
@@ -18,6 +23,7 @@ A comprehensive, interactive training program designed to take you from beginner
 - **Responsive Layout** with persistent TOC sidebar
 - **External Links** all formatted as clickable buttons with icons
 - **Practice Guidance** with detailed notes and hints for every day
+- **Deep Linking**: Bookmark specific days with URLs like `index.html#day5`
 
 ## 📚 Content Structure
 
@@ -31,25 +37,31 @@ A comprehensive, interactive training program designed to take you from beginner
 
 ## 🛠️ Technical Details
 
-- **37 HTML Pages**: 1 index + 6 week pages + 30 day pages
+- **Single HTML File**: All 37 sections (overview + 6 weeks + 30 days) in one ~210KB file
+- **Hash-Based Navigation**: URL routing using #overview, #week1-6, #day1-30
+- **Smooth Animations**: Fade-in transitions between sections (0.4s ease-in-out)
+- **Progress Tracking**: LocalStorage-based tracker shows completion percentage
 - **Consistent Styling**: All external links formatted as buttons with icons
 - **Fresh Content**: All video links updated for 2024-2025
 - **Accessibility**: Font size controls, dyslexia-friendly options
+- **No Dependencies**: Pure HTML/CSS/JavaScript - works offline!
 
 ## 📁 File Structure
 
 ```
 sql_and_excel/
-├── SQL-and-Excel-Course.html          # 👈 START HERE - Main course page
+├── index.html                          # 👈 START HERE - Single-page app with all content
+├── SQL-and-Excel-Course.html           # Legacy multi-page entry point (kept for reference)
 ├── README.md                           # This file
-├── pages/                              # All course content
+├── pages/                              # Legacy individual pages (kept for reference)
 │   ├── week1.html - week6.html        # Week overview pages
 │   └── day1.html - day30.html         # Individual day lesson pages
 └── scripts/                            # Development tools (for maintainers)
-    ├── Complete_30Day_Training_Full.html  # Source content
-    ├── restructure_modern.py              # Page generation script
+    ├── restructure_modern.py           # Page generation script
     └── (20 other Python utility scripts)
 ```
+
+**Note:** The new `index.html` is a self-contained single-page application. The `pages/` directory and `SQL-and-Excel-Course.html` are kept for backward compatibility and reference.
 
 ## 🔄 Keeping Video Links Fresh
 
@@ -179,11 +191,14 @@ Topics: SQL with Excel, ETL basics, best practices, optimization
 - **Theme Toggle**: Switch between light and dark modes
 - **Font Selector**: Choose from 5 fonts (Candara, Arial, Courier New, Georgia, OpenDyslexic)
 - **Font Size**: Adjust text size with A- and A+ buttons (4 levels)
+- **Progress Tracker**: Automatically tracks visited pages, with reset option
+- **Deep Linking**: Share specific sections with `index.html#day15` style URLs
 
 ### For Developers:
-- Edit `scripts/Complete_30Day_Training_Full.html` for content changes
-- Run `scripts/restructure_modern.py` to regenerate all pages
-- Custom styling in the script's CSS section
+- Edit individual page HTML files in `pages/` directory
+- Run the builder script to regenerate the single-page `index.html`
+- All settings are stored in localStorage for persistence
+- Custom styling through CSS variables
 
 ## 📧 Feedback
 
