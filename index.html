@@ -298,7 +298,7 @@
       display: flex;
       gap: 2rem;
       padding: 2rem;
-      min-height: calc(100vh - 80px);
+      min-height: calc(100vh - 60px);
     }
 
     /* Modern Sidebar */
@@ -368,7 +368,7 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
       padding: 1.5rem;
       align-self: flex-start;
       position: sticky;
-      top: 100px;
+      top: 80px;
       max-height: calc(100vh - 120px);
       overflow-y: auto;
       box-shadow: var(--shadow-sm);
@@ -900,13 +900,19 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
     /* Back to top - Fixed button */
     
 .content-panel.split ~ .back-to-top {
-  right: calc(50% + 2rem);
+  display: none;
+}
+
+.content-panel .back-to-top {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
 }
 
     .back-to-top {
-      position: fixed;
+      position: absolute;
       bottom: 2rem;
-      right: calc(2rem);
+      right: 2rem;
       width: 3rem;
       height: 3rem;
       background: var(--accent-orange);
@@ -1026,8 +1032,8 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
       cursor: col-resize;
       transition: background 0.2s;
       position: fixed;
-      top: 80px;
-      height: calc(100vh - 80px);
+      top: 60px;
+      height: calc(100vh - 60px);
       right: 50%;
       z-index: 101;
       opacity: 0;
@@ -1063,7 +1069,7 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
 
     .main-container {
   display: flex;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 60px);
 }
 
 .content-panel {
@@ -1085,15 +1091,16 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
   transition: all 0.3s ease;
   position: fixed;
   right: 0;
-  top: 80px;
-  height: calc(100vh - 80px);
-  display: flex;
+  top: 60px;
+  height: calc(100vh - 60px);
+  display: none;
   flex-direction: column;
   z-index: 100;
 }
 
 .sql-panel.open {
   width: 50%;
+  display: flex;
 }
 
 /* SQL Editor Header */
@@ -1112,7 +1119,7 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
   color: var(--text-primary);
 }
 
-.close-sql {
+.collapse-sql {
   background: var(--bg-secondary);
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
@@ -1123,7 +1130,7 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
   transition: all 0.2s ease;
 }
 
-.close-sql:hover {
+.collapse-sql:hover {
   background: var(--accent-orange);
   color: white;
   border-color: var(--accent-orange);
@@ -1428,7 +1435,7 @@ pre:hover .ai-assistant-buttons {
 
   .sql-panel.open {
     position: fixed;
-    top: 80px;
+    top: 60px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -1449,7 +1456,7 @@ pre:hover .ai-assistant-buttons {
   <div class="reading-progress-fill" id="reading-progress-fill"></div>
 </div>
 
-<div class="command-palette" id="command-palette">
+<div class="command-palette" id="command-palette" style="display:none;">
   <div class="command-palette-content">
     <div class="command-search">
       <input type="text" id="command-search-input" placeholder="Search..." autocomplete="off" />
@@ -1486,6 +1493,9 @@ pre:hover .ai-assistant-buttons {
         <span class="theme-icon">🌙</span>
         <span class="theme-text">Dark</span>
       </button>
+      <a href="mailto:gcpath@live.com" class="feedback-link-header" title="Send Feedback">
+        📧 Feedback
+      </a>
     </div>
   </div>
 </header>
@@ -2078,7 +2088,7 @@ min):</h3>
 <p><strong>Step-by-Step Instructions:</strong></p>
 <ol>
 <li>In the SQL query editor, type exactly: <code>SELECT * FROM Orders;</code></li>
-<li>Click the "Execute" button (▶️) or press <kbd>F5</kbd></li>
+<li>Click the "Run Query" button (▶️) or press <kbd>F5</kbd></li>
 <li>You should see ALL your data displayed</li>
 <li>Now try: <code>SELECT * FROM Orders LIMIT 20;</code> to see only 20 rows</li>
 </ol>
@@ -2107,7 +2117,7 @@ min):</h3>
 FROM Orders
 LIMIT 20;</code></pre>
 </li>
-<li>Click Execute (▶️)</li>
+<li>Click Run Query (▶️)</li>
 <li>Notice how you only see the 4 columns you requested!</li>
 </ol>
 <p><strong>Now try selecting different columns:</strong></p>
@@ -2928,7 +2938,7 @@ min):</h3>
 WHERE Region = 'East'
 LIMIT 20;</code></pre>
 </li>
-<li>Click Execute (▶️)</li>
+<li>Click Run Query (▶️)</li>
 <li>You should see only East region orders</li>
 </ol>
 <p><strong>⚠️ Important SQL Rules:</strong></p>
@@ -3715,7 +3725,7 @@ separately by instructor)</li>
   <div class="sql-panel" id="sql-panel">
     <div class="sql-header">
       <div class="sql-title">⚡ SQL Practice Editor</div>
-      <button class="close-sql" id="close-sql">✕ Close</button>
+      <button class="collapse-sql" id="collapse-sql">◀ Collapse</button>
     </div>
     <div class="sql-body">
       <div class="db-actions" style="display:none;">
@@ -3737,11 +3747,11 @@ separately by instructor)</li>
   </div>
 </div>
 
-<div class="feedback-bar">
+<div class="feedback-bar" style="display:none;">
   <p>Have feedback? <a href="mailto:gcpath@live.com" class="feedback-link">Email us</a></p>
 </div>
 
-<button class="back-to-top" id="back-to-top"></button>
+
 
 <script>
 // SQL.js database
@@ -4139,7 +4149,7 @@ class TrainingApp {
     const contentPanel = document.getElementById('content-panel');
 
     // Close button
-    document.getElementById('close-sql').onclick = () => {
+    document.getElementById('collapse-sql').onclick = () => {
       panel.classList.remove('open');
       contentPanel.classList.remove('split');
 
