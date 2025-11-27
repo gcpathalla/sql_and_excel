@@ -3796,13 +3796,21 @@ class TrainingApp {
       s.style.display = 'none';
     });
 
+    // Scroll to top IMMEDIATELY
+    window.scrollTo({ top: 0, behavior: 'auto' });
+
+    // Also scroll content panel to top if it exists
+    const contentPanel = document.getElementById('content-panel');
+    if (contentPanel) {
+      contentPanel.scrollTop = 0;
+    }
+
     targetSection.style.display = 'block';
     setTimeout(() => {
       targetSection.classList.add('active');
       this.currentSection = targetSection;
       this.updateTOC(sectionId);
       if (updateHash) history.pushState(null, '', `#${sectionId}`);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 50);
   }
 
@@ -3861,18 +3869,29 @@ class TrainingApp {
 
     // Add Try Now buttons ONLY to SQL code blocks in Guided Practice sections
     document.querySelectorAll('h3[id*="guided-practice"]').forEach(heading => {
+      // Collect all elements between this h3 and the next h2/h3
+      const sectionElements = [];
       let currentElement = heading.nextElementSibling;
 
-      // Find all code blocks after this Guided Practice heading until next h2/h3
       while (currentElement) {
         if (currentElement.tagName === 'H2' || currentElement.tagName === 'H3') break;
+        sectionElements.push(currentElement);
+        currentElement = currentElement.nextElementSibling;
+      }
 
-        if (currentElement.tagName === 'PRE') {
-          const code = currentElement.querySelector('code');
+      // Find ALL PRE tags within these elements (including nested ones)
+      sectionElements.forEach(element => {
+        const preTags = element.querySelectorAll ? element.querySelectorAll('pre') : [];
+
+        preTags.forEach(pre => {
+          const code = pre.querySelector('code');
           if (code) {
             const text = code.textContent.toLowerCase();
             // Only add to SQL code blocks
             if (text.match(/\b(select|from|where|insert|update|delete|create|table|join)\b/)) {
+              // Check if button already exists
+              if (pre.querySelector('.try-sql-btn')) return;
+
               const tryBtn = document.createElement('button');
               tryBtn.className = 'try-sql-btn';
               tryBtn.textContent = '⚡ Try Now';
@@ -3882,15 +3901,16 @@ class TrainingApp {
                 if (editor) {
                   editor.setValue(code.textContent.trim());
                 }
+                // Scroll SQL panel to top
+                panel.scrollTop = 0;
               };
 
-              currentElement.style.position = 'relative';
-              currentElement.appendChild(tryBtn);
+              pre.style.position = 'relative';
+              pre.appendChild(tryBtn);
             }
           }
-        }
-        currentElement = currentElement.nextElementSibling;
-      }
+        });
+      });
     });
 
     // Load sample DB button
