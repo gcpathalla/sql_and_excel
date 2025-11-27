@@ -302,6 +302,63 @@
     }
 
     /* Modern Sidebar */
+
+/* Collapsed TOC */
+nav#TOC.collapsed {
+  width: 80px;
+  min-width: 80px;
+  padding: 1rem 0.5rem;
+}
+
+nav#TOC.collapsed .toc-header {
+  font-size: 0;
+}
+
+nav#TOC.collapsed .toc-header::before {
+  content: 'TOC';
+  font-size: 0.875rem;
+}
+
+nav#TOC.collapsed .toc-link {
+  font-size: 0;
+  padding: 0.5rem;
+  justify-content: center;
+}
+
+nav#TOC.collapsed .toc-link::before {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+nav#TOC.collapsed .toc-link[data-section="overview"]::before {
+  content: '📚';
+}
+
+nav#TOC.collapsed .toc-link[data-section="week1"]::before {
+  content: 'W1';
+}
+
+nav#TOC.collapsed .toc-link[data-section="day1"]::before {
+  content: 'D1';
+}
+
+nav#TOC.collapsed .toc-link[data-section="day2"]::before {
+  content: 'D2';
+}
+
+nav#TOC.collapsed .toc-link[data-section="day3"]::before {
+  content: 'D3';
+}
+
+nav#TOC.collapsed .toc-link[data-section="day4"]::before {
+  content: 'D4';
+}
+
+nav#TOC.collapsed .toc-link[data-section="day5"]::before {
+  content: 'D5';
+}
+
+
     nav#TOC {
       width: 320px;
       min-width: 320px;
@@ -841,10 +898,15 @@
     }
 
     /* Back to top - Fixed button */
+    
+.content-panel.split ~ .back-to-top {
+  right: calc(50% + 2rem);
+}
+
     .back-to-top {
       position: fixed;
       bottom: 2rem;
-      right: 2rem;
+      right: calc(2rem);
       width: 3rem;
       height: 3rem;
       background: var(--accent-orange);
@@ -963,8 +1025,18 @@
       background: var(--border-subtle);
       cursor: col-resize;
       transition: background 0.2s;
-      flex-shrink: 0;
-      position: relative;
+      position: fixed;
+      top: 80px;
+      height: calc(100vh - 80px);
+      right: 50%;
+      z-index: 101;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .resize-handle.active {
+      opacity: 1;
+      pointer-events: all;
     }
 
     .resize-handle:hover {
@@ -998,10 +1070,11 @@
   flex: 1;
   overflow-y: auto;
   transition: all 0.3s ease;
+  position: relative;
 }
 
 .content-panel.split {
-  flex: 0 0 50%;
+  margin-right: 50%;
 }
 
 .sql-panel {
@@ -1010,13 +1083,17 @@
   border-left: 2px solid var(--accent-orange);
   background: var(--bg-secondary);
   transition: all 0.3s ease;
-  position: relative;
+  position: fixed;
+  right: 0;
+  top: 80px;
+  height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
+  z-index: 100;
 }
 
 .sql-panel.open {
-  flex: 0 0 50%;
+  width: 50%;
 }
 
 /* SQL Editor Header */
@@ -1056,7 +1133,10 @@
 .sql-body {
   flex: 1;
   padding: 1.5rem;
-  overflow-y: auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 /* Database Actions */
@@ -1148,9 +1228,60 @@
 }
 
 /* SQL Results */
+
+/* SQL Results with frozen headers */
 .sql-results {
-  margin-top: 1.5rem;
+  flex: 1;
+  overflow: auto;
+  margin-top: 1rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  position: relative;
 }
+
+.sql-results table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  position: relative;
+}
+
+.sql-results thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg-primary);
+}
+
+.sql-results th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-primary);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--accent-orange);
+  white-space: nowrap;
+}
+
+.sql-results td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.sql-results tr:hover {
+  background: var(--bg-primary);
+}
+
+.sql-editor-wrapper {
+  flex-shrink: 0;
+}
+
+
+
 
 .sql-results table {
   width: 100%;
@@ -3864,15 +3995,11 @@ function setupResizableDivider() {
   const contentPanel = document.getElementById('content-panel');
   const sqlPanel = document.getElementById('sql-panel');
   let isResizing = false;
-  let startX = 0;
-  let startContentWidth = 0;
 
   if (!resizeHandle) return;
 
   resizeHandle.addEventListener('mousedown', (e) => {
     isResizing = true;
-    startX = e.clientX;
-    startContentWidth = contentPanel.offsetWidth;
     document.body.style.cursor = 'col-resize';
     document.body.style.userSelect = 'none';
     e.preventDefault();
@@ -3881,15 +4008,16 @@ function setupResizableDivider() {
   document.addEventListener('mousemove', (e) => {
     if (!isResizing) return;
 
-    const delta = e.clientX - startX;
-    const containerWidth = contentPanel.parentElement.offsetWidth;
-    const newContentWidth = startContentWidth + delta;
-    const contentPercent = (newContentWidth / containerWidth) * 100;
+    const windowWidth = window.innerWidth;
+    const mouseX = e.clientX;
+    const sqlWidthPercent = ((windowWidth - mouseX) / windowWidth) * 100;
 
     // Constrain between 20% and 80%
-    if (contentPercent >= 20 && contentPercent <= 80) {
-      contentPanel.style.flex = `0 0 ${contentPercent}%`;
-      sqlPanel.style.flex = `0 0 ${100 - contentPercent}%`;
+    if (sqlWidthPercent >= 20 && sqlWidthPercent <= 80) {
+      const contentMarginPercent = sqlWidthPercent;
+      contentPanel.style.marginRight = `${contentMarginPercent}%`;
+      sqlPanel.style.width = `${sqlWidthPercent}%`;
+      resizeHandle.style.right = `${sqlWidthPercent}%`;
     }
   });
 
@@ -3946,7 +4074,7 @@ class TrainingApp {
     });
 
     // Scroll to top IMMEDIATELY
-    window.scrollTo({ top: 0, behavior: 'auto' });
+    // Scroll handled by content panel scrollTop
 
     // Also scroll content panel to top if it exists
     const contentPanel = document.getElementById('content-panel');
@@ -4014,6 +4142,14 @@ class TrainingApp {
     document.getElementById('close-sql').onclick = () => {
       panel.classList.remove('open');
       contentPanel.classList.remove('split');
+
+      // Expand TOC
+      const toc = document.getElementById('TOC');
+      if (toc) toc.classList.remove('collapsed');
+
+      // Deactivate resize handle
+      const resizeHandle = document.getElementById('resize-handle');
+      if (resizeHandle) resizeHandle.classList.remove('active');
     };
 
     // Add Try Now buttons ONLY to SQL code blocks in Guided Practice sections
@@ -4047,6 +4183,14 @@ class TrainingApp {
               tryBtn.onclick = () => {
                 panel.classList.add('open');
                 contentPanel.classList.add('split');
+
+                // Collapse TOC for more space
+                const toc = document.getElementById('TOC');
+                if (toc) toc.classList.add('collapsed');
+
+                // Activate resize handle
+                const resizeHandle = document.getElementById('resize-handle');
+                if (resizeHandle) resizeHandle.classList.add('active');
 
                 // Ensure editor is initialized and set query
                 if (editor && editor.setValue) {
