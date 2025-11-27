@@ -956,7 +956,40 @@
 
 <style>
 /* Split screen layout */
-.main-container {
+
+    /* Resizable divider */
+    .resize-handle {
+      width: 4px;
+      background: var(--border-subtle);
+      cursor: col-resize;
+      transition: background 0.2s;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .resize-handle:hover {
+      background: var(--accent-orange);
+    }
+
+    .resize-handle::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 40px;
+      background: var(--border-subtle);
+      border-radius: 4px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .resize-handle:hover::after {
+      opacity: 1;
+    }
+
+    .main-container {
   display: flex;
   height: calc(100vh - 80px);
 }
@@ -1278,7 +1311,7 @@ pre:hover .ai-assistant-buttons {
 
 <div class="app-loading" id="app-loading">
   <div class="loading-spinner"></div>
-  <div class="loading-text">Loading Week 1...</div>
+  <div class="loading-text" style="display:none;">Loading...</div>
 </div>
 
 <div class="reading-progress-bar" id="reading-progress-bar">
@@ -1291,7 +1324,7 @@ pre:hover .ai-assistant-buttons {
       <input type="text" id="command-search-input" placeholder="Search..." autocomplete="off" />
     </div>
     <div class="command-results" id="command-results">
-      <div class="no-results">Start typing...</div>
+      <div class="no-results" style="display:none;"></div>
     </div>
   </div>
 </div>
@@ -3546,13 +3579,15 @@ separately by instructor)</li>
     </div>
   </div>
 
+  <div class="resize-handle" id="resize-handle"></div>
+
   <div class="sql-panel" id="sql-panel">
     <div class="sql-header">
       <div class="sql-title">⚡ SQL Practice Editor</div>
       <button class="close-sql" id="close-sql">✕ Close</button>
     </div>
     <div class="sql-body">
-      <div class="db-actions">
+      <div class="db-actions" style="display:none;">
         <label for="db-file-input">
           📁 Load Database File
           <input type="file" id="db-file-input" accept=".db,.sqlite,.sqlite3" />
@@ -3631,12 +3666,12 @@ async function autoLoadDatabase() {
         Profit REAL
       );
 
-      -- Insert sample data for Superstore Orders
+      -- Insert 50+ sample rows for comprehensive SQL practice
       INSERT INTO Orders VALUES
         ('US-2020-001', '2020-01-03', '2020-01-07', 'Standard Class', 'CG-12520', 'Claire Gute', 'Consumer', 'United States', 'Henderson', 'Kentucky', '42420', 'South', 'FUR-BO-10001798', 'Furniture', 'Bookcases', 'Bush Somerset Collection Bookcase', 261.96, 2, 0.00, 41.91),
         ('US-2020-002', '2020-01-03', '2020-01-08', 'Second Class', 'DV-13045', 'Darrin Van Huff', 'Corporate', 'United States', 'Los Angeles', 'California', '90036', 'West', 'FUR-CH-10000454', 'Furniture', 'Chairs', 'Hon Deluxe Fabric Upholstered Stacking Chairs', 731.94, 3, 0.00, 219.58),
         ('US-2020-003', '2020-01-06', '2020-01-10', 'Second Class', 'SO-20335', 'Sean O''Donnell', 'Consumer', 'United States', 'Fort Lauderdale', 'Florida', '33311', 'South', 'OFF-ST-10000760', 'Office Supplies', 'Storage', 'Bretford CR4500 Series Slim Rectangular Table', 14.62, 2, 0.00, 6.87),
-        ('US-2020-004', '2020-01-07', '2020-01-11', 'Standard Class', 'BH-11710', 'Brosina Hoffman', 'Consumer', 'United States', 'Los Angeles', 'California', '90032', 'West', 'FUR-FU-10001487', 'Furniture', 'Furnishings', 'Eldon Fold ''N Roll Cart System', 22.37, 2, 0.20, 2.52),
+        ('US-2020-004', '2020-01-07', '2020-01-11', 'Standard Class', 'BH-11710', 'Brosina Hoffman', 'Consumer', 'United States', 'Los Angeles', 'California', '90032', 'West', 'FUR-FU-10001487', 'Furniture', 'Furnishings', 'Eldon Fold N Roll Cart System', 22.37, 2, 0.20, 2.52),
         ('US-2020-005', '2020-01-07', '2020-01-12', 'Standard Class', 'BH-11710', 'Brosina Hoffman', 'Consumer', 'United States', 'Los Angeles', 'California', '90032', 'West', 'OFF-AR-10002833', 'Office Supplies', 'Art', 'Newell 322', 12.96, 3, 0.20, 5.18),
         ('US-2020-006', '2020-01-08', '2020-01-11', 'First Class', 'CC-12370', 'Craig Carreira', 'Consumer', 'United States', 'New York City', 'New York', '10024', 'East', 'TEC-PH-10002275', 'Technology', 'Phones', 'Cisco SPA 501G IP Phone', 907.15, 5, 0.00, 90.72),
         ('US-2020-007', '2020-01-10', '2020-01-14', 'Standard Class', 'KL-16555', 'Katherine Lapteva', 'Consumer', 'United States', 'Chicago', 'Illinois', '60657', 'Central', 'OFF-BI-10003910', 'Office Supplies', 'Binders', 'GBC DocuBind TL300 Electric Binding System', 18.50, 3, 0.00, 5.55),
@@ -3647,10 +3682,45 @@ async function autoLoadDatabase() {
         ('US-2020-012', '2020-01-15', '2020-01-20', 'Standard Class', 'CS-12355', 'Carmen Shilts', 'Consumer', 'United States', 'San Diego', 'California', '92120', 'West', 'TEC-CO-10004722', 'Technology', 'Copiers', 'Canon PC1080F Personal Copier', 1823.82, 3, 0.00, 547.15),
         ('US-2020-013', '2020-01-16', '2020-01-20', 'First Class', 'GT-14710', 'Greg Tran', 'Corporate', 'United States', 'Richardson', 'Texas', '75080', 'Central', 'OFF-SU-10000491', 'Office Supplies', 'Supplies', 'Advantus Push Pins', 3.54, 2, 0.00, 1.77),
         ('US-2020-014', '2020-01-17', '2020-01-21', 'Standard Class', 'HH-15010', 'Henry Hannah', 'Consumer', 'United States', 'Aurora', 'Illinois', '60504', 'Central', 'OFF-EN-10001509', 'Office Supplies', 'Envelopes', 'Quality Park Envelopes', 15.76, 4, 0.00, 7.88),
-        ('US-2020-015', '2020-01-18', '2020-01-23', 'Second Class', 'PO-19195', 'Paul Olvera', 'Consumer', 'United States', 'Houston', 'Texas', '77095', 'Central', 'FUR-CH-10003950', 'Furniture', 'Chairs', 'Global Troy Executive Leather Low-Back Tilter', 1044.63, 3, 0.00, 313.39);
+        ('US-2020-015', '2020-01-18', '2020-01-23', 'Second Class', 'PO-19195', 'Paul Olvera', 'Consumer', 'United States', 'Houston', 'Texas', '77095', 'Central', 'FUR-CH-10003950', 'Furniture', 'Chairs', 'Global Troy Executive Leather Low-Back Tilter', 1044.63, 3, 0.00, 313.39),
+        ('US-2020-016', '2020-01-20', '2020-01-24', 'Same Day', 'AA-10480', 'Alex Avila', 'Home Office', 'United States', 'Dallas', 'Texas', '75201', 'Central', 'TEC-MA-10004293', 'Technology', 'Machines', 'Hewlett Packard LaserJet 3310', 499.99, 1, 0.00, 149.99),
+        ('US-2020-017', '2020-01-21', '2020-01-25', 'Standard Class', 'JM-15835', 'Jane Murray', 'Consumer', 'United States', 'Portland', 'Oregon', '97209', 'West', 'OFF-FA-10001970', 'Office Supplies', 'Fasteners', 'Advantus Plastic Paper Clips', 7.28, 4, 0.15, 2.19),
+        ('US-2020-018', '2020-01-22', '2020-01-27', 'Second Class', 'ML-17755', 'Mike Lee', 'Corporate', 'United States', 'Boston', 'Massachusetts', '02115', 'East', 'FUR-TA-10002958', 'Furniture', 'Tables', 'Global Boardroom Table', 2199.99, 1, 0.00, 659.99),
+        ('US-2020-019', '2020-01-23', '2020-01-28', 'Standard Class', 'ST-21520', 'Sarah Thompson', 'Consumer', 'United States', 'Phoenix', 'Arizona', '85001', 'West', 'TEC-AC-10001998', 'Technology', 'Accessories', 'Logitech Wireless Mouse', 29.99, 2, 0.10, 8.99),
+        ('US-2020-020', '2020-01-24', '2020-01-29', 'First Class', 'RJ-19405', 'Robert Johnson', 'Consumer', 'United States', 'Atlanta', 'Georgia', '30303', 'South', 'OFF-BI-10004182', 'Office Supplies', 'Binders', 'Wilson Jones Active Use Binders', 38.94, 6, 0.00, 11.68),
+        ('US-2020-021', '2020-01-25', '2020-01-30', 'Standard Class', 'EM-14035', 'Emma Martinez', 'Home Office', 'United States', 'Denver', 'Colorado', '80202', 'West', 'FUR-CH-10003479', 'Furniture', 'Chairs', 'Novimex Turbo Task Chair', 199.99, 2, 0.05, 39.99),
+        ('US-2020-022', '2020-01-26', '2020-01-31', 'Second Class', 'DG-13280', 'David Garcia', 'Corporate', 'United States', 'Detroit', 'Michigan', '48201', 'Central', 'TEC-PH-10004977', 'Technology', 'Phones', 'AT&T CL83451 Cordless Phone', 79.99, 3, 0.00, 23.99),
+        ('US-2020-023', '2020-01-27', '2020-02-01', 'Standard Class', 'LR-17560', 'Linda Rodriguez', 'Consumer', 'United States', 'Minneapolis', 'Minnesota', '55401', 'Central', 'OFF-PA-10001492', 'Office Supplies', 'Paper', 'Xerox 1882', 5.28, 2, 0.00, 2.11),
+        ('US-2020-024', '2020-01-28', '2020-02-02', 'First Class', 'WW-21490', 'William Wilson', 'Consumer', 'United States', 'San Francisco', 'California', '94102', 'West', 'TEC-CO-10003478', 'Technology', 'Copiers', 'Sharp AL-1530CS Digital Copier', 1299.99, 1, 0.10, 389.99),
+        ('US-2020-025', '2020-01-29', '2020-02-03', 'Standard Class', 'JD-16495', 'Jennifer Davis', 'Consumer', 'United States', 'Nashville', 'Tennessee', '37201', 'South', 'FUR-FU-10000010', 'Furniture', 'Furnishings', 'Tenex Traditional Chairmats', 45.98, 2, 0.00, 13.79),
+        ('US-2020-026', '2020-01-30', '2020-02-04', 'Second Class', 'MM-18340', 'Michael Moore', 'Corporate', 'United States', 'Columbus', 'Ohio', '43004', 'East', 'OFF-ST-10000107', 'Office Supplies', 'Storage', 'Fellowes Bankers Box Stor/Drawer', 12.96, 3, 0.20, 3.88),
+        ('US-2020-027', '2020-02-01', '2020-02-05', 'Standard Class', 'BT-11545', 'Barbara Taylor', 'Consumer', 'United States', 'Baltimore', 'Maryland', '21201', 'East', 'TEC-AC-10002167', 'Technology', 'Accessories', 'Belkin 6 Outlet Surge', 14.99, 4, 0.00, 4.49),
+        ('US-2020-028', '2020-02-02', '2020-02-07', 'First Class', 'JA-15985', 'James Anderson', 'Home Office', 'United States', 'Las Vegas', 'Nevada', '89101', 'West', 'FUR-BO-10004834', 'Furniture', 'Bookcases', 'Atlantic Metals Mobile 3-Shelf Bookcases', 69.99, 1, 0.00, 20.99),
+        ('US-2020-029', '2020-02-03', '2020-02-08', 'Standard Class', 'MT-21385', 'Maria Thomas', 'Consumer', 'United States', 'Charlotte', 'North Carolina', '28201', 'South', 'OFF-LA-10003223', 'Office Supplies', 'Labels', 'Avery 508', 2.99, 5, 0.15, 0.89),
+        ('US-2020-030', '2020-02-04', '2020-02-09', 'Second Class', 'RH-19660', 'Richard Hernandez', 'Corporate', 'United States', 'Indianapolis', 'Indiana', '46201', 'Central', 'TEC-PH-10001949', 'Technology', 'Phones', 'Panasonic KX-TGE433B Cordless Phone', 89.99, 2, 0.00, 26.99),
+        ('US-2020-031', '2020-02-05', '2020-02-10', 'Standard Class', 'PJ-20485', 'Patricia Jackson', 'Consumer', 'United States', 'San Antonio', 'Texas', '78201', 'Central', 'FUR-CH-10001146', 'Furniture', 'Chairs', 'HON 5400 Series Task Chairs', 245.99, 1, 0.10, 73.79),
+        ('US-2020-032', '2020-02-06', '2020-02-11', 'First Class', 'CW-12475', 'Charles White', 'Consumer', 'United States', 'Jacksonville', 'Florida', '32099', 'South', 'OFF-AP-10001492', 'Office Supplies', 'Appliances', 'Belkin 7 Outlet SurgeMaster', 19.99, 3, 0.00, 5.99),
+        ('US-2020-033', '2020-02-07', '2020-02-12', 'Standard Class', 'JL-16180', 'Jessica Lewis', 'Home Office', 'United States', 'Austin', 'Texas', '73301', 'Central', 'TEC-MA-10000822', 'Technology', 'Machines', 'Canon PC-940 Copier', 759.99, 1, 0.05, 227.99),
+        ('US-2020-034', '2020-02-08', '2020-02-13', 'Second Class', 'TM-21350', 'Thomas Martin', 'Corporate', 'United States', 'Memphis', 'Tennessee', '37501', 'South', 'OFF-BI-10002215', 'Office Supplies', 'Binders', 'Cardinal Slant-D Ring Binder', 16.48, 2, 0.20, 4.94),
+        ('US-2020-035', '2020-02-09', '2020-02-14', 'Standard Class', 'NH-18670', 'Nancy Harris', 'Consumer', 'United States', 'Milwaukee', 'Wisconsin', '53201', 'Central', 'FUR-TA-10001889', 'Furniture', 'Tables', 'Bretford Rectangular Conference Table', 899.99, 1, 0.00, 269.99),
+        ('US-2020-036', '2020-02-10', '2020-02-15', 'First Class', 'KC-16735', 'Kevin Clark', 'Consumer', 'United States', 'Albuquerque', 'New Mexico', '87101', 'West', 'TEC-AC-10004546', 'Technology', 'Accessories', 'Fellowes USB Hub', 24.99, 2, 0.00, 7.49),
+        ('US-2020-037', '2020-02-11', '2020-02-16', 'Standard Class', 'SR-20755', 'Sandra Robinson', 'Consumer', 'United States', 'Tucson', 'Arizona', '85701', 'West', 'OFF-PA-10003177', 'Office Supplies', 'Paper', 'Southworth 25% Cotton Linen Paper', 18.99, 3, 0.00, 5.69),
+        ('US-2020-038', '2020-02-12', '2020-02-17', 'Second Class', 'DW-13515', 'Daniel Walker', 'Corporate', 'United States', 'Fresno', 'California', '93650', 'West', 'FUR-FU-10000260', 'Furniture', 'Furnishings', 'Howard Miller 13-1/2 Diameter Brentwood Wall Clock', 39.99, 1, 0.15, 11.99),
+        ('US-2020-039', '2020-02-13', '2020-02-18', 'Standard Class', 'BH-11710', 'Brosina Hoffman', 'Consumer', 'United States', 'Sacramento', 'California', '94203', 'West', 'TEC-PH-10004093', 'Technology', 'Phones', 'Cisco SPA504G IP Phone', 179.99, 1, 0.00, 53.99),
+        ('US-2020-040', '2020-02-14', '2020-02-19', 'First Class', 'AL-11170', 'Amanda Lopez', 'Home Office', 'United States', 'Kansas City', 'Missouri', '64030', 'Central', 'OFF-ST-10002743', 'Office Supplies', 'Storage', 'Eldon Jumbo ProStacker Wire Desk Shelves', 27.99, 2, 0.10, 8.39),
+        ('US-2020-041', '2020-02-15', '2020-02-20', 'Standard Class', 'MG-17650', 'Mark Gonzalez', 'Consumer', 'United States', 'Mesa', 'Arizona', '85201', 'West', 'FUR-CH-10003061', 'Furniture', 'Chairs', 'Global Deluxe Stacking Chair', 159.99, 3, 0.00, 47.99),
+        ('US-2020-042', '2020-02-16', '2020-02-21', 'Second Class', 'LH-17140', 'Lisa Hill', 'Corporate', 'United States', 'Virginia Beach', 'Virginia', '23450', 'East', 'TEC-AC-10001777', 'Technology', 'Accessories', 'Maxell DVD-R Discs', 12.99, 4, 0.20, 3.89),
+        ('US-2020-043', '2020-02-17', '2020-02-22', 'Standard Class', 'PA-14770', 'Paul Allen', 'Consumer', 'United States', 'Atlanta', 'Georgia', '30303', 'South', 'OFF-EN-10003656', 'Office Supplies', 'Envelopes', 'Office Star 10x13 Security-Tint Envelopes', 9.99, 2, 0.00, 2.99),
+        ('US-2020-044', '2020-02-18', '2020-02-23', 'First Class', 'JY-15145', 'Jennifer Young', 'Consumer', 'United States', 'Oakland', 'California', '94601', 'West', 'FUR-BO-10000112', 'Furniture', 'Bookcases', 'Bush Westfield Collection Bookcases', 329.99, 1, 0.05, 98.99),
+        ('US-2020-045', '2020-02-19', '2020-02-24', 'Standard Class', 'SH-20680', 'Steven Hall', 'Home Office', 'United States', 'Raleigh', 'North Carolina', '27601', 'South', 'TEC-MA-10004675', 'Technology', 'Machines', 'Brother MFC-J470DW All-in-One', 149.99, 1, 0.00, 44.99),
+        ('US-2020-046', '2020-02-20', '2020-02-25', 'Second Class', 'KK-16405', 'Karen King', 'Corporate', 'United States', 'Omaha', 'Nebraska', '68007', 'Central', 'OFF-FA-10004650', 'Office Supplies', 'Fasteners', 'Boston Bulldog Clips', 4.99, 3, 0.15, 1.49),
+        ('US-2020-047', '2020-02-21', '2020-02-26', 'Standard Class', 'BW-11545', 'Brian Wright', 'Consumer', 'United States', 'Miami', 'Florida', '33101', 'South', 'FUR-TA-10004342', 'Furniture', 'Tables', 'Riverside Palais Royal Designers Oak Executive Desk', 1599.99, 1, 0.10, 479.99),
+        ('US-2020-048', '2020-02-22', '2020-02-27', 'First Class', 'AS-10225', 'Ashley Scott', 'Consumer', 'United States', 'Cleveland', 'Ohio', '44101', 'East', 'TEC-PH-10002033', 'Technology', 'Phones', 'VTech CS6114 Cordless Phone', 34.99, 2, 0.00, 10.49),
+        ('US-2020-049', '2020-02-23', '2020-02-28', 'Standard Class', 'EG-13900', 'Edward Green', 'Consumer', 'United States', 'Tulsa', 'Oklahoma', '74101', 'Central', 'OFF-SU-10001955', 'Office Supplies', 'Supplies', 'Newell 318', 2.99, 5, 0.20, 0.89),
+        ('US-2020-050', '2020-02-24', '2020-03-01', 'Second Class', 'DB-13045', 'Deborah Baker', 'Corporate', 'United States', 'Honolulu', 'Hawaii', '96801', 'West', 'FUR-FU-10003799', 'Furniture', 'Furnishings', 'Eldon Mobile Jumbo File Cart', 89.99, 1, 0.00, 26.99);
     `);
 
-    showSuccess('✓ Sample database ready! Table: Orders (15 sample rows)');
+    showSuccess('✓ Sample database ready! Table: Orders (50 sample rows)');
     console.log('✓ Sample Orders database created');
   } catch (err) {
     console.error('Failed to create database:', err);
@@ -3787,6 +3857,51 @@ function showSuccess(msg) {
   document.getElementById('sql-results').innerHTML = `<div class="sql-success">✓ ${msg}</div>`;
 }
 
+
+// Resizable divider functionality
+function setupResizableDivider() {
+  const resizeHandle = document.getElementById('resize-handle');
+  const contentPanel = document.getElementById('content-panel');
+  const sqlPanel = document.getElementById('sql-panel');
+  let isResizing = false;
+  let startX = 0;
+  let startContentWidth = 0;
+
+  if (!resizeHandle) return;
+
+  resizeHandle.addEventListener('mousedown', (e) => {
+    isResizing = true;
+    startX = e.clientX;
+    startContentWidth = contentPanel.offsetWidth;
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isResizing) return;
+
+    const delta = e.clientX - startX;
+    const containerWidth = contentPanel.parentElement.offsetWidth;
+    const newContentWidth = startContentWidth + delta;
+    const contentPercent = (newContentWidth / containerWidth) * 100;
+
+    // Constrain between 20% and 80%
+    if (contentPercent >= 20 && contentPercent <= 80) {
+      contentPanel.style.flex = `0 0 ${contentPercent}%`;
+      sqlPanel.style.flex = `0 0 ${100 - contentPercent}%`;
+    }
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (isResizing) {
+      isResizing = false;
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    }
+  });
+}
+
 // Training App
 class TrainingApp {
   constructor() {
@@ -3803,6 +3918,7 @@ class TrainingApp {
     this.setupSQLEditor();
     this.setupThemeControls();
     this.setupAIButtons();
+    setupResizableDivider();
 
     setTimeout(() => {
       document.getElementById('app-loading').classList.add('hidden');
@@ -3931,9 +4047,17 @@ class TrainingApp {
               tryBtn.onclick = () => {
                 panel.classList.add('open');
                 contentPanel.classList.add('split');
-                if (editor) {
-                  editor.setValue(code.textContent.trim());
+
+                // Ensure editor is initialized and set query
+                if (editor && editor.setValue) {
+                  const query = code.textContent.trim();
+                  editor.setValue(query);
+                  // Refresh editor to ensure it displays
+                  setTimeout(() => editor.refresh(), 50);
+                } else {
+                  console.error('CodeMirror editor not ready');
                 }
+
                 // Scroll SQL panel to top
                 panel.scrollTop = 0;
               };
