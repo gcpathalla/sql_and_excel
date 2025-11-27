@@ -114,7 +114,7 @@
     }
 
     body {
-      padding-top: 50px;
+      padding-top: 52px;
     }
 
     /* Header */
@@ -375,9 +375,8 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
       position: sticky;
       top: 70px;
       max-height: calc(100vh - 90px);
-      overflow-y: auto;
+      overflow-y: hidden;
       box-shadow: var(--shadow-sm);
-      scroll-behavior: smooth;
     }
 
     nav#TOC::-webkit-scrollbar {
@@ -970,6 +969,14 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
     }
 
     /* Section Cards */
+
+/* Content Section Background */
+.content-section {
+  background: var(--bg-secondary);
+  padding: 2rem;
+  border-radius: var(--radius-md);
+}
+
     .section-card {
       background: var(--bg-primary);
       border: 1px solid var(--border-subtle);
@@ -1037,7 +1044,7 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
       cursor: col-resize;
       transition: background 0.2s;
       position: fixed;
-      top: 50px;
+      top: 52px;
       height: calc(100vh - 50px);
       right: 50%;
       z-index: 101;
@@ -1096,7 +1103,7 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
   transition: all 0.3s ease;
   position: fixed;
   right: 0;
-  top: 50px;
+  top: 52px;
   height: calc(100vh - 50px);
   display: none;
   flex-direction: column;
@@ -1111,7 +1118,7 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
 /* SQL Editor Header */
 .sql-header {
   padding: 0.75rem 1.5rem;
-  border-bottom: 2px solid var(--accent-orange);
+  border-bottom: 1px solid var(--border-subtle);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1242,7 +1249,7 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
 
 /* SQL Results */
 
-/* SQL Results with frozen headers */
+/* SQL Results with frozen headers and row numbers */
 .sql-results {
   flex: 1;
   overflow: auto;
@@ -1250,6 +1257,13 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
   position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.sql-results-wrapper {
+  overflow: auto;
+  flex: 1;
 }
 
 .sql-results table {
@@ -1278,6 +1292,11 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
   white-space: nowrap;
 }
 
+.sql-results th:first-child {
+  width: 60px;
+  text-align: center;
+}
+
 .sql-results td {
   padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--border-subtle);
@@ -1285,8 +1304,20 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
   white-space: nowrap;
 }
 
-.sql-results tr:hover {
+.sql-results td:first-child {
+  text-align: center;
+  font-weight: 500;
+  color: var(--text-tertiary);
   background: var(--bg-primary);
+  border-right: 1px solid var(--border-subtle);
+}
+
+.sql-results tbody tr:hover {
+  background: var(--bg-primary);
+}
+
+.sql-results tbody tr:hover td:first-child {
+  background: var(--bg-secondary);
 }
 
 .sql-editor-wrapper {
@@ -1441,7 +1472,7 @@ pre:hover .ai-assistant-buttons {
 
   .sql-panel.open {
     position: fixed;
-    top: 50px;
+    top: 52px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -3972,13 +4003,15 @@ function runQuery() {
     let html = '';
     results.forEach(result => {
       html += '<table><thead><tr>';
+      html += '<th>#</th>'; // Row number column
       result.columns.forEach(col => {
         html += `<th>${col}</th>`;
       });
       html += '</tr></thead><tbody>';
 
-      result.values.forEach(row => {
+      result.values.forEach((row, index) => {
         html += '<tr>';
+        html += `<td>${index + 1}</td>`; // Row number (1-indexed)
         row.forEach(cell => {
           html += `<td>${cell !== null ? cell : 'NULL'}</td>`;
         });
