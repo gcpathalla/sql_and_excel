@@ -1166,7 +1166,29 @@
 }
 
 /* Try Now button */
-.try-sql-btn {
+
+    .copy-code-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 6px 12px;
+      background: var(--accent-orange);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      transition: all 0.2s;
+      z-index: 10;
+    }
+
+    .copy-code-btn:hover {
+      background: var(--accent-brown);
+      transform: translateY(-1px);
+    }
+
+    .try-sql-btn {
   position: absolute;
   top: 0.75rem;
   right: 4rem;
@@ -3572,6 +3594,35 @@ async function initSQL() {
     locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
   });
   console.log('✓ SQL.js initialized');
+
+  // Auto-load company.db from practice_writing_sql repo
+  await autoLoadDatabase();
+}
+
+// Auto-load company database
+async function autoLoadDatabase() {
+  try {
+    showSuccess('Loading company database...');
+    const response = await fetch('https://github.com/gcpathalla/practice_writing_sql/raw/refs/heads/main/databases/company.db');
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch database');
+    }
+
+    const arrayBuffer = await response.arrayBuffer();
+    const uInt8Array = new Uint8Array(arrayBuffer);
+    db = new SQL.Database(uInt8Array);
+
+    // Get table names
+    const tables = db.exec("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;");
+    const tableNames = tables[0] ? tables[0].values.map(row => row[0]).join(', ') : 'unknown';
+
+    showSuccess(`✓ Company database loaded! Tables: ${tableNames}`);
+    console.log('✓ Company database auto-loaded');
+  } catch (err) {
+    console.error('Failed to auto-load database:', err);
+    showError('Failed to auto-load database. You can manually load one using the buttons above.');
+  }
 }
 
 // Initialize CodeMirror
@@ -3808,26 +3859,37 @@ class TrainingApp {
       contentPanel.classList.remove('split');
     };
 
-    // Add Try Now buttons to SQL code blocks only
-    document.querySelectorAll('pre code').forEach(code => {
-      const text = code.textContent.toLowerCase();
-      // Only add to SQL code blocks (containing SELECT, FROM, WHERE, INSERT, UPDATE, DELETE, CREATE)
-      if (text.match(/\b(select|from|where|insert|update|delete|create|table|join)\b/)) {
-        const pre = code.parentElement;
+    // Add Try Now buttons ONLY to SQL code blocks in Guided Practice sections
+    document.querySelectorAll('h3[id*="guided-practice"]').forEach(heading => {
+      let currentElement = heading.nextElementSibling;
 
-        const tryBtn = document.createElement('button');
-        tryBtn.className = 'try-sql-btn';
-        tryBtn.textContent = 'Try Now';
-        tryBtn.onclick = () => {
-          panel.classList.add('open');
-          contentPanel.classList.add('split');
-          if (editor) {
-            editor.setValue(code.textContent.trim());
+      // Find all code blocks after this Guided Practice heading until next h2/h3
+      while (currentElement) {
+        if (currentElement.tagName === 'H2' || currentElement.tagName === 'H3') break;
+
+        if (currentElement.tagName === 'PRE') {
+          const code = currentElement.querySelector('code');
+          if (code) {
+            const text = code.textContent.toLowerCase();
+            // Only add to SQL code blocks
+            if (text.match(/\b(select|from|where|insert|update|delete|create|table|join)\b/)) {
+              const tryBtn = document.createElement('button');
+              tryBtn.className = 'try-sql-btn';
+              tryBtn.textContent = '⚡ Try Now';
+              tryBtn.onclick = () => {
+                panel.classList.add('open');
+                contentPanel.classList.add('split');
+                if (editor) {
+                  editor.setValue(code.textContent.trim());
+                }
+              };
+
+              currentElement.style.position = 'relative';
+              currentElement.appendChild(tryBtn);
+            }
           }
-        };
-
-        pre.style.position = 'relative';
-        pre.appendChild(tryBtn);
+        }
+        currentElement = currentElement.nextElementSibling;
       }
     });
 
@@ -3845,7 +3907,7 @@ class TrainingApp {
   }
 
   setupAIButtons() {
-    // Add AI assistant buttons to AI learning prompt code blocks
+    // Add Copy button and AI assistant buttons to AI learning prompt code blocks
     const aiPromptHeadings = document.querySelectorAll('h3[id*="ai-learning-prompts"]');
 
     aiPromptHeadings.forEach(heading => {
@@ -3861,6 +3923,19 @@ class TrainingApp {
       codeBlocks.forEach(codeBlock => {
         const code = codeBlock.querySelector('code') || codeBlock;
         const promptText = code.textContent.trim();
+
+        // Add Copy button
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'copy-code-btn';
+        copyBtn.textContent = '📋 Copy';
+        copyBtn.onclick = () => {
+          navigator.clipboard.writeText(promptText).then(() => {
+            copyBtn.textContent = '✓ Copied!';
+            setTimeout(() => {
+              copyBtn.textContent = '📋 Copy';
+            }, 2000);
+          });
+        };
 
         const aiButtonsContainer = document.createElement('div');
         aiButtonsContainer.className = 'ai-assistant-buttons';
@@ -3891,6 +3966,7 @@ class TrainingApp {
         aiButtonsContainer.appendChild(googleBtn);
 
         codeBlock.style.position = 'relative';
+        codeBlock.appendChild(copyBtn);
         codeBlock.appendChild(aiButtonsContainer);
       });
     });
