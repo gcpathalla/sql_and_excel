@@ -1190,28 +1190,23 @@
 
     .try-sql-btn {
   position: absolute;
-  top: 0.75rem;
-  right: 4rem;
-  background: linear-gradient(135deg, #FF9500, #FF6B00);
+  top: 8px;
+  right: 8px;
+  background: var(--accent-orange);
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  transition: all 0.2s ease;
+  font-size: 11px;
+  font-weight: 500;
+  transition: all 0.15s ease;
   z-index: 10;
-  box-shadow: 0 2px 8px rgba(255, 149, 0, 0.3);
 }
 
 .try-sql-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 149, 0, 0.5);
-}
-
-.try-sql-btn::before {
-  content: '⚡ ';
+  background: var(--accent-brown);
+  transform: translateY(-1px);
 }
 
 /* AI Assistant Buttons (from original) */
@@ -3599,29 +3594,67 @@ async function initSQL() {
   await autoLoadDatabase();
 }
 
-// Auto-load company database
+// Auto-load sample database with Orders table
 async function autoLoadDatabase() {
   try {
-    showSuccess('Loading company database...');
-    const response = await fetch('https://github.com/gcpathalla/practice_writing_sql/raw/refs/heads/main/databases/company.db');
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch database');
+    if (!SQL) {
+      console.log('SQL.js not ready yet');
+      return;
     }
 
-    const arrayBuffer = await response.arrayBuffer();
-    const uInt8Array = new Uint8Array(arrayBuffer);
-    db = new SQL.Database(uInt8Array);
+    showSuccess('Creating sample database...');
 
-    // Get table names
-    const tables = db.exec("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;");
-    const tableNames = tables[0] ? tables[0].values.map(row => row[0]).join(', ') : 'unknown';
+    db = new SQL.Database();
 
-    showSuccess(`✓ Company database loaded! Tables: ${tableNames}`);
-    console.log('✓ Company database auto-loaded');
+    // Create Orders table matching Superstore dataset structure
+    db.run(`
+      CREATE TABLE Orders (
+        OrderID TEXT PRIMARY KEY,
+        OrderDate DATE,
+        ShipDate DATE,
+        ShipMode TEXT,
+        CustomerID TEXT,
+        CustomerName TEXT,
+        Segment TEXT,
+        Country TEXT,
+        City TEXT,
+        State TEXT,
+        PostalCode TEXT,
+        Region TEXT,
+        ProductID TEXT,
+        Category TEXT,
+        SubCategory TEXT,
+        ProductName TEXT,
+        Sales REAL,
+        Quantity INTEGER,
+        Discount REAL,
+        Profit REAL
+      );
+
+      -- Insert sample data for Superstore Orders
+      INSERT INTO Orders VALUES
+        ('US-2020-001', '2020-01-03', '2020-01-07', 'Standard Class', 'CG-12520', 'Claire Gute', 'Consumer', 'United States', 'Henderson', 'Kentucky', '42420', 'South', 'FUR-BO-10001798', 'Furniture', 'Bookcases', 'Bush Somerset Collection Bookcase', 261.96, 2, 0.00, 41.91),
+        ('US-2020-002', '2020-01-03', '2020-01-08', 'Second Class', 'DV-13045', 'Darrin Van Huff', 'Corporate', 'United States', 'Los Angeles', 'California', '90036', 'West', 'FUR-CH-10000454', 'Furniture', 'Chairs', 'Hon Deluxe Fabric Upholstered Stacking Chairs', 731.94, 3, 0.00, 219.58),
+        ('US-2020-003', '2020-01-06', '2020-01-10', 'Second Class', 'SO-20335', 'Sean O''Donnell', 'Consumer', 'United States', 'Fort Lauderdale', 'Florida', '33311', 'South', 'OFF-ST-10000760', 'Office Supplies', 'Storage', 'Bretford CR4500 Series Slim Rectangular Table', 14.62, 2, 0.00, 6.87),
+        ('US-2020-004', '2020-01-07', '2020-01-11', 'Standard Class', 'BH-11710', 'Brosina Hoffman', 'Consumer', 'United States', 'Los Angeles', 'California', '90032', 'West', 'FUR-FU-10001487', 'Furniture', 'Furnishings', 'Eldon Fold ''N Roll Cart System', 22.37, 2, 0.20, 2.52),
+        ('US-2020-005', '2020-01-07', '2020-01-12', 'Standard Class', 'BH-11710', 'Brosina Hoffman', 'Consumer', 'United States', 'Los Angeles', 'California', '90032', 'West', 'OFF-AR-10002833', 'Office Supplies', 'Art', 'Newell 322', 12.96, 3, 0.20, 5.18),
+        ('US-2020-006', '2020-01-08', '2020-01-11', 'First Class', 'CC-12370', 'Craig Carreira', 'Consumer', 'United States', 'New York City', 'New York', '10024', 'East', 'TEC-PH-10002275', 'Technology', 'Phones', 'Cisco SPA 501G IP Phone', 907.15, 5, 0.00, 90.72),
+        ('US-2020-007', '2020-01-10', '2020-01-14', 'Standard Class', 'KL-16555', 'Katherine Lapteva', 'Consumer', 'United States', 'Chicago', 'Illinois', '60657', 'Central', 'OFF-BI-10003910', 'Office Supplies', 'Binders', 'GBC DocuBind TL300 Electric Binding System', 18.50, 3, 0.00, 5.55),
+        ('US-2020-008', '2020-01-11', '2020-01-16', 'Second Class', 'FW-14035', 'Fred Wasserman', 'Consumer', 'United States', 'Troy', 'New York', '12180', 'East', 'OFF-AP-10002311', 'Office Supplies', 'Appliances', 'Acco 7-Outlet Masterpiece Power Center', 114.90, 5, 0.10, 34.47),
+        ('US-2020-009', '2020-01-12', '2020-01-15', 'First Class', 'NB-18850', 'Nora Brogan', 'Corporate', 'United States', 'Seattle', 'Washington', '98103', 'West', 'TEC-AC-10003027', 'Technology', 'Accessories', 'Verbatim 25 GB 6x Blu-ray Recordable Disc', 65.99, 3, 0.00, 26.40),
+        ('US-2020-010', '2020-01-13', '2020-01-17', 'Standard Class', 'TB-21175', 'Tom Boeckenhauer', 'Consumer', 'United States', 'Miami', 'Florida', '33180', 'South', 'FUR-TA-10001539', 'Furniture', 'Tables', 'Chromcraft Rectangular Conference Tables', 3083.43, 7, 0.00, 1083.20),
+        ('US-2020-011', '2020-01-14', '2020-01-19', 'Second Class', 'DB-13060', 'Don Briggs', 'Consumer', 'United States', 'Philadelphia', 'Pennsylvania', '19140', 'East', 'OFF-PA-10002365', 'Office Supplies', 'Paper', 'Xerox 1967', 15.55, 3, 0.20, 5.44),
+        ('US-2020-012', '2020-01-15', '2020-01-20', 'Standard Class', 'CS-12355', 'Carmen Shilts', 'Consumer', 'United States', 'San Diego', 'California', '92120', 'West', 'TEC-CO-10004722', 'Technology', 'Copiers', 'Canon PC1080F Personal Copier', 1823.82, 3, 0.00, 547.15),
+        ('US-2020-013', '2020-01-16', '2020-01-20', 'First Class', 'GT-14710', 'Greg Tran', 'Corporate', 'United States', 'Richardson', 'Texas', '75080', 'Central', 'OFF-SU-10000491', 'Office Supplies', 'Supplies', 'Advantus Push Pins', 3.54, 2, 0.00, 1.77),
+        ('US-2020-014', '2020-01-17', '2020-01-21', 'Standard Class', 'HH-15010', 'Henry Hannah', 'Consumer', 'United States', 'Aurora', 'Illinois', '60504', 'Central', 'OFF-EN-10001509', 'Office Supplies', 'Envelopes', 'Quality Park Envelopes', 15.76, 4, 0.00, 7.88),
+        ('US-2020-015', '2020-01-18', '2020-01-23', 'Second Class', 'PO-19195', 'Paul Olvera', 'Consumer', 'United States', 'Houston', 'Texas', '77095', 'Central', 'FUR-CH-10003950', 'Furniture', 'Chairs', 'Global Troy Executive Leather Low-Back Tilter', 1044.63, 3, 0.00, 313.39);
+    `);
+
+    showSuccess('✓ Sample database ready! Table: Orders (15 sample rows)');
+    console.log('✓ Sample Orders database created');
   } catch (err) {
-    console.error('Failed to auto-load database:', err);
-    showError('Failed to auto-load database. You can manually load one using the buttons above.');
+    console.error('Failed to create database:', err);
+    showError('Failed to create database: ' + err.message);
   }
 }
 
@@ -3894,7 +3927,7 @@ class TrainingApp {
 
               const tryBtn = document.createElement('button');
               tryBtn.className = 'try-sql-btn';
-              tryBtn.textContent = '⚡ Try Now';
+              tryBtn.textContent = 'Try Now';
               tryBtn.onclick = () => {
                 panel.classList.add('open');
                 contentPanel.classList.add('split');
@@ -4047,6 +4080,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   new TrainingApp();
 
   document.getElementById('back-to-top')?.addEventListener('click', () => {
+    const contentPanel = document.getElementById('content-panel');
+    if (contentPanel) {
+      contentPanel.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
