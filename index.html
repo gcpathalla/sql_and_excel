@@ -102,43 +102,48 @@
     }
 
     html, body {
-      height: 100%;
+      height: 100vh;
       background: var(--bg-primary);
       color: var(--text-primary);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      padding-top: 50px;
     }
 
     /* Header */
     #title-block-header {
-      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-      border-bottom: 3px solid var(--accent-orange);
-      position: sticky;
+      background: var(--bg-secondary);
+      border-bottom: 2px solid var(--accent-orange);
+      position: fixed;
       top: 0;
+      left: 0;
+      right: 0;
       z-index: 1000;
-      backdrop-filter: blur(10px);
-      box-shadow: var(--shadow-lg);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     .header-row {
       max-width: 1600px;
       margin: 0 auto;
-      padding: 1.25rem 2rem;
+      padding: 0.5rem 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 2rem;
+      gap: 1rem;
     }
 
     .title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-brown) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -0.02em;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
       margin: 0;
       white-space: nowrap;
     }
@@ -297,8 +302,9 @@
       margin: 0 auto;
       display: flex;
       gap: 2rem;
-      padding: 2rem;
-      min-height: calc(100vh - 60px);
+      padding: 1rem 2rem;
+      height: calc(100vh - 50px);
+      overflow: hidden;
     }
 
     /* Modern Sidebar */
@@ -368,8 +374,8 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
       padding: 1.5rem;
       align-self: flex-start;
       position: sticky;
-      top: 80px;
-      max-height: calc(100vh - 120px);
+      top: 70px;
+      max-height: calc(100vh - 90px);
       overflow-y: auto;
       box-shadow: var(--shadow-sm);
       scroll-behavior: smooth;
@@ -1032,8 +1038,8 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
       cursor: col-resize;
       transition: background 0.2s;
       position: fixed;
-      top: 60px;
-      height: calc(100vh - 60px);
+      top: 50px;
+      height: calc(100vh - 50px);
       right: 50%;
       z-index: 101;
       opacity: 0;
@@ -1069,7 +1075,7 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
 
     .main-container {
   display: flex;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 50px);
 }
 
 .content-panel {
@@ -1091,8 +1097,8 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
   transition: all 0.3s ease;
   position: fixed;
   right: 0;
-  top: 60px;
-  height: calc(100vh - 60px);
+  top: 50px;
+  height: calc(100vh - 50px);
   display: none;
   flex-direction: column;
   z-index: 100;
@@ -1105,35 +1111,36 @@ nav#TOC.collapsed .toc-link[data-section="day5"]::before {
 
 /* SQL Editor Header */
 .sql-header {
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--border-subtle);
+  padding: 0.75rem 1.5rem;
+  border-bottom: 2px solid var(--accent-orange);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--bg-primary);
+  background: var(--bg-secondary);
+  flex-shrink: 0;
 }
 
 .sql-title {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.125rem;
+  font-weight: 700;
   color: var(--text-primary);
 }
 
 .collapse-sql {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
+  background: var(--accent-orange);
+  border: none;
+  color: white;
   padding: 0.5rem 1rem;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
+  font-weight: 600;
   transition: all 0.2s ease;
 }
 
 .collapse-sql:hover {
-  background: var(--accent-orange);
-  color: white;
-  border-color: var(--accent-orange);
+  background: var(--accent-brown);
+  transform: translateX(-2px);
 }
 
 /* SQL Editor Body */
@@ -1435,7 +1442,7 @@ pre:hover .ai-assistant-buttons {
 
   .sql-panel.open {
     position: fixed;
-    top: 60px;
+    top: 50px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -1493,9 +1500,7 @@ pre:hover .ai-assistant-buttons {
         <span class="theme-icon">🌙</span>
         <span class="theme-text">Dark</span>
       </button>
-      <a href="mailto:gcpath@live.com" class="feedback-link-header" title="Send Feedback">
-        📧 Feedback
-      </a>
+
     </div>
   </div>
 </header>
@@ -4365,10 +4370,57 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
+
+// Quiz functionality
+function setupQuizzes() {
+  document.querySelectorAll('.quiz-question').forEach(question => {
+    const correctAnswer = question.dataset.correct;
+    const radioInputs = question.querySelectorAll('input[type="radio"]');
+    const feedback = question.querySelector('.quiz-feedback');
+    const feedbackText = question.querySelector('.feedback-text');
+
+    radioInputs.forEach(input => {
+      input.addEventListener('change', () => {
+        const selectedValue = input.value;
+
+        // Show feedback
+        feedback.style.display = 'block';
+
+        if (selectedValue === correctAnswer) {
+          question.classList.remove('incorrect');
+          question.classList.add('correct');
+          feedbackText.innerHTML = '✅ <strong>Correct!</strong>';
+          feedbackText.style.color = '#16a34a';
+        } else {
+          question.classList.remove('correct');
+          question.classList.add('incorrect');
+          feedbackText.innerHTML = '❌ <strong>Incorrect.</strong> The correct answer is highlighted below.';
+          feedbackText.style.color = '#dc2626';
+
+          // Highlight correct option
+          radioInputs.forEach(radio => {
+            const label = radio.closest('.quiz-option');
+            if (radio.value === correctAnswer) {
+              label.style.background = '#dcfce7';
+              label.style.borderColor = '#16a34a';
+            } else {
+              label.style.background = '';
+              label.style.borderColor = '';
+            }
+          });
+        }
+      });
+    });
+  });
+}
+
+  setupQuizzes();
+
   console.log('%c✅ Week 1 Loaded!', 'color: #FF9500; font-size: 16px; font-weight: bold;');
   console.log('%cTry Now buttons: Only on SQL code blocks');
   console.log('%cAI Buttons: On AI learning prompts');
   console.log('%cSQL Editor: Load DB and run queries');
+  console.log('%cQuizzes: Interactive with instant feedback');
 });
 </script>
 </body>
